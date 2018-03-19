@@ -63,7 +63,7 @@ void EventSelection_2017sample_and_trigger(){
     TTree *NewTreeSB = new TTree("treeSB","treeSB");
      
     //string FILEprov = "/eos/user/t/tayu/2017sample_and_trigger/Event/"+fileName[Nfiles];
-	string FILEprov = "root://eosuser.cern.ch:1094//eos/user/a/aspiezia/TPrime/2017/v02/"+fileName[Nfiles];
+    string FILEprov = "root://eosuser.cern.ch:1094//eos/user/a/aspiezia/TPrime/2017/v02/"+fileName[Nfiles];
     const char *FILE = FILEprov.c_str();
     TFile *file = TFile::Open(FILE);
     Tree = (TTree*)file->Get(openTree);
@@ -283,9 +283,9 @@ void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & S
   for (UInt_t j = 0; j < patElectron_pt_->size(); ++j){
     //if(!(patElectron_pt_->at(j)>20))               continue;
     if(!(fabs(patElectron_eta_->at(j))<2.4))	     continue;
-	if(!(patElectron_pt_->at(j)>40))                 continue;
+    if(!(patElectron_pt_->at(j)>40))                 continue;
     if(!(fabs(patElectron_SCeta_->at(j))<2.5))	     continue;
-    if(!(patElectron_inCrack_->at(j)==0))	         continue;
+    if(!(patElectron_inCrack_->at(j)==0))	     continue;
     if(!(patElectron_isPassTight_->at(j)==1))	     continue;
     if(!(patElectron_passConversionVeto_->at(j)==1)) continue;
     //TLorentzVector electron; electron.SetPtEtaPhiE(patElectron_pt_->at(j),patElectron_eta_->at(j),patElectron_phi_->at(j),patElectron_energy_->at(j)*patElectron_energyCorr_->at(j));
