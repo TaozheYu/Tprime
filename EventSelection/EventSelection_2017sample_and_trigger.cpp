@@ -21,7 +21,7 @@ void EventSelection_2017sample_and_trigger(){
   using namespace std;
   char openTree[500];   sprintf(openTree, "BOOM"); 
   vector<string> fileName;
-  /*fileName.push_back("Tprime_0700.root");
+  fileName.push_back("Tprime_0700.root");
   fileName.push_back("Tprime_0800.root");
   fileName.push_back("Tprime_0900.root");
   fileName.push_back("Tprime_1000.root");
@@ -39,9 +39,9 @@ void EventSelection_2017sample_and_trigger(){
   fileName.push_back("DYJetsToLL_HT600to800.root");
   fileName.push_back("DYJetsToLL_HT800to1200.root");
   fileName.push_back("DYJetsToLL_HT1200to2500.root");
-  fileName.push_back("DYJetsToLL_HT2500toInf.root");*/
+  fileName.push_back("DYJetsToLL_HT2500toInf.root");
   fileName.push_back("ST_tW_antitop.root");
-  /*fileName.push_back("ST_tW_top.root");
+  fileName.push_back("ST_tW_top.root");
   fileName.push_back("TTTo2L2Nu.root");
   fileName.push_back("TTToSemiLeptonic.root");
   fileName.push_back("ttZ.root");
@@ -49,7 +49,7 @@ void EventSelection_2017sample_and_trigger(){
   fileName.push_back("tZq.root");
   fileName.push_back("ZZTo4L.root");
   fileName.push_back("ZZTo2L2Q.root");
-  fileName.push_back("ZZTo2L2Nu.root");*/
+  fileName.push_back("ZZTo2L2Nu.root");
   fileName.push_back("WWTo2L2Nu.root");
   fileName.push_back("WWToLNuQQ.root");
   fileName.push_back("WZTo1L1Nu2Q.root");
@@ -68,7 +68,7 @@ void EventSelection_2017sample_and_trigger(){
     TFile *file = TFile::Open(FILE);
     Tree = (TTree*)file->Get(openTree);
     bool data = true;
-    if(fileName[Nfiles].find("Single") == string::npos) data = false;
+    if((fileName[Nfiles].find("Double") == string::npos)||(fileName[Nfiles].find("Single") == string::npos)) data = false;
     branch(data, NewTree,NewTreeSB,fileName[Nfiles]);
     Int_t nentries = (Int_t)Tree->GetEntries();
     for(int selection=0; selection<3; selection++){
@@ -82,12 +82,12 @@ void EventSelection_2017sample_and_trigger(){
 	initializeVar();
 	if( electrons) {if(!(HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW_==1))    continue;}
 	if(!electrons) {if(!(HLT_Mu50_==1)) continue;}
-	if(!(Flag_goodVertices_==1))    continue;
+	//if(!(Flag_goodVertices_==1))    continue;
 	//if(!(Flag_CSCTightHalo2015Filter_==1))    continue;
-	if(!(Flag_HBHENoiseFilter_==1))    continue;
-	if(!(Flag_HBHENoiseIsoFilter_==1))    continue;
-	if(!(Flag_EcalDeadCellTriggerPrimitiveFilter_==1))    continue;
-	if(!data) {if(!(Flag_eeBadScFilter_==1))    continue;}
+	//if(!(Flag_HBHENoiseFilter_==1))    continue;
+	//if(!(Flag_HBHENoiseIsoFilter_==1))    continue;
+	//if(!(Flag_EcalDeadCellTriggerPrimitiveFilter_==1))    continue;
+	//if(!data) {if(!(Flag_eeBadScFilter_==1))    continue;}
 	if(!data) GenClassifier();
 	
 	//Leptonic Z selection
@@ -119,10 +119,10 @@ void EventSelection_2017sample_and_trigger(){
 	if(!electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonMuons,     ZBoson, Muon1,     Muon2,     SelectedMuons,    SelectedMuonsIndex,    0.6,100.,120);
 	if( electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonElectronsM,ZBosonM,Electron1M,Electron2M,SelectedElectrons,SelectedElectronsIndex,1.4,100.,120);
 	if(!electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonMuonsM,    ZBosonM,Muon1M,    Muon2M,    SelectedMuons,    SelectedMuonsIndex,    1.4,100.,120);*/
-	if( electrons && selection==0) SelectZBoson(electrons,SelectedZBosonElectrons, ZBoson, Electron1, Electron2, SelectedElectrons,SelectedElectronsIndex,999,0,55);
-	if(!electrons && selection==0) SelectZBoson(electrons,SelectedZBosonMuons,     ZBoson, Muon1,     Muon2,     SelectedMuons,    SelectedMuonsIndex,    999,0,55);
-	if( electrons && selection==0) SelectZBoson(electrons,SelectedZBosonElectronsM,ZBosonM,Electron1M,Electron2M,SelectedElectrons,SelectedElectronsIndex,999,0,55);
-	if(!electrons && selection==0) SelectZBoson(electrons,SelectedZBosonMuonsM,    ZBosonM,Muon1M,    Muon2M,    SelectedMuons,    SelectedMuonsIndex,    999,0,55);
+	if( electrons && selection==0) SelectZBoson(electrons,SelectedZBosonElectrons, ZBoson, Electron1, Electron2, SelectedElectrons,SelectedElectronsIndex,1.5,0,55);
+	if(!electrons && selection==0) SelectZBoson(electrons,SelectedZBosonMuons,     ZBoson, Muon1,     Muon2,     SelectedMuons,    SelectedMuonsIndex,    1.5,0,55);
+	if( electrons && selection==0) SelectZBoson(electrons,SelectedZBosonElectronsM,ZBosonM,Electron1M,Electron2M,SelectedElectrons,SelectedElectronsIndex,1.5,0,55);
+	if(!electrons && selection==0) SelectZBoson(electrons,SelectedZBosonMuonsM,    ZBosonM,Muon1M,    Muon2M,    SelectedMuons,    SelectedMuonsIndex,    1.5,0,55);
 	if( electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonElectrons, ZBoson, Electron1, Electron2, SelectedElectrons,SelectedElectronsIndex,0.6,0,55);
 	if(!electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonMuons,     ZBoson, Muon1,     Muon2,     SelectedMuons,    SelectedMuonsIndex,    0.6,0,55);
 	if( electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonElectronsM,ZBosonM,Electron1M,Electron2M,SelectedElectrons,SelectedElectronsIndex,1.4,0,55);
@@ -282,9 +282,8 @@ void EventSelection_2017sample_and_trigger(){
 void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, bool data){
   for (UInt_t j = 0; j < patElectron_pt_->size(); ++j){
     //if(!(patElectron_pt_->at(j)>20))               continue;
-    //if(!(fabs(patElectron_eta_->at(j))<2.4))	     continue;
+    if(!(fabs(patElectron_eta_->at(j))<2.4))	     continue;
 	if(!(patElectron_pt_->at(j)>40))                 continue;
-	if(!(fabs(patElectron_eta_->at(j))<1.5))	     continue;
     if(!(fabs(patElectron_SCeta_->at(j))<2.5))	     continue;
     if(!(patElectron_inCrack_->at(j)==0))	         continue;
     if(!(patElectron_isPassTight_->at(j)==1))	     continue;
@@ -299,8 +298,7 @@ void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & S
 void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedMuonsIndex){
   for (UInt_t j = 0; j < Muon_pt_->size(); ++j){
     if(!(Muon_pt_->at(j)>20))                     continue;
-    //if(!(fabs(Muon_eta_->at(j))<2.4))             continue;
-	if(!(fabs(Muon_eta_->at(j))<1.5))             continue;
+    if(!(fabs(Muon_eta_->at(j))<2.4))             continue;
     if(!(Muon_tight_->at(j)==1))                  continue;
     if(!(Muon_relIsoDeltaBetaR04_->at(j)<0.15))   continue;
     TLorentzVector muon; muon.SetPtEtaPhiE(Muon_pt_->at(j),Muon_eta_->at(j),Muon_phi_->at(j),Muon_energy_->at(j));
@@ -377,9 +375,9 @@ void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float
       if(!(Jet_neutralEmEnergyFraction_->at(j)<0.90))                       continue;
       if(!((Jet_numberOfConstituents_->at(j) -Jet_chargedMultiplicity_->at(j)) >10)) continue;
     }
-    if(jetType==11){if(!(Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags_->at(j)>0.5426)) continue;}
-    if(jetType==12){if(!(Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags_->at(j)>0.8484)) continue;}
-    if(jetType==13){if(!(Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags_->at(j)>0.9535)) continue;}
+    if(jetType==11){if(!(Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags_->at(j)>0.5803)) continue;}
+    if(jetType==12){if(!(Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags_->at(j)>0.8838)) continue;}
+    if(jetType==13){if(!(Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags_->at(j)>0.9693)) continue;}
     bool deltaRLepJet=true;
     for(int k=0; k<SelectedElectrons.size(); k++){
       if(DeltaR(Jet_eta_->at(j),SelectedElectrons[k].Eta(),Jet_phi_->at(j),SelectedElectrons[k].Phi())<0.4) deltaRLepJet=false;
