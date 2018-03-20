@@ -9,7 +9,7 @@ void EventSelection_2017sample_and_trigger(){
   gStyle->SetTitleY(0.96);
   gStyle->SetPaintTextFormat(".2f");
 
-  bool electrons    = true;
+  bool electrons    = false;
   bool preselection = true;
   bool sideband     = true;
   bool signal       = false;
