@@ -9,7 +9,7 @@ void EventSelection_2017sample_and_trigger(){
   gStyle->SetTitleY(0.96);
   gStyle->SetPaintTextFormat(".2f");
 
-  bool electrons    = false;
+  bool electrons    = true;
   bool preselection = true;
   bool sideband     = true;
   bool signal       = false;
@@ -21,6 +21,16 @@ void EventSelection_2017sample_and_trigger(){
   using namespace std;
   char openTree[500];   sprintf(openTree, "BOOM"); 
   vector<string> fileName;
+  fileName.push_back("DoubleEGRunB.root");
+  fileName.push_back("DoubleEGRunC.root");
+  fileName.push_back("DoubleEGRunD.root");
+  fileName.push_back("DoubleEGRunE.root");
+  fileName.push_back("DoubleEGRunF.root");
+  fileName.push_back("SingleMuonRunB.root");
+  fileName.push_back("SingleMuonRunC.root");
+  fileName.push_back("SingleMuonRunD.root");
+  fileName.push_back("SingleMuonRunE.root");
+  fileName.push_back("SingleMuonRunF.root");
   fileName.push_back("Tprime_0700.root");
   fileName.push_back("Tprime_0800.root");
   fileName.push_back("Tprime_0900.root");
@@ -57,18 +67,20 @@ void EventSelection_2017sample_and_trigger(){
   fileName.push_back("WZTo3LNu.root");
 
   for(int Nfiles=0; Nfiles<fileName.size(); Nfiles++){
-    const char *NewFileName = fileName[Nfiles].c_str();
+    string NewFileprov = "/eos/user/t/tayu/2017sample_and_trigger/electron/"+fileName[Nfiles];
+    //const char *NewFileName = fileName[Nfiles].c_str();
+	const char *NewFileName = NewFileprov.c_str();
     TFile f(NewFileName,"new");
     TTree *NewTree = new TTree("tree","tree");
     TTree *NewTreeSB = new TTree("treeSB","treeSB");
      
     //string FILEprov = "/eos/user/t/tayu/2017sample_and_trigger/Event/"+fileName[Nfiles];
-    string FILEprov = "root://eosuser.cern.ch:1094//eos/user/a/aspiezia/TPrime/2017/v02/"+fileName[Nfiles];
+	string FILEprov = "root://eosuser.cern.ch:1094//eos/user/a/aspiezia/TPrime/2017/v02/"+fileName[Nfiles];
     const char *FILE = FILEprov.c_str();
     TFile *file = TFile::Open(FILE);
     Tree = (TTree*)file->Get(openTree);
     bool data = true;
-    if((fileName[Nfiles].find("Double") == string::npos)||(fileName[Nfiles].find("Single") == string::npos)) data = false;
+    if(!(fileName[Nfiles].find("Double") != string::npos||fileName[Nfiles].find("Single") != string::npos)) data = false;
     branch(data, NewTree,NewTreeSB,fileName[Nfiles]);
     Int_t nentries = (Int_t)Tree->GetEntries();
     for(int selection=0; selection<3; selection++){
@@ -283,9 +295,9 @@ void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & S
   for (UInt_t j = 0; j < patElectron_pt_->size(); ++j){
     //if(!(patElectron_pt_->at(j)>20))               continue;
     if(!(fabs(patElectron_eta_->at(j))<2.4))	     continue;
-    if(!(patElectron_pt_->at(j)>40))                 continue;
+	if(!(patElectron_pt_->at(j)>40))                 continue;
     if(!(fabs(patElectron_SCeta_->at(j))<2.5))	     continue;
-    if(!(patElectron_inCrack_->at(j)==0))	     continue;
+    if(!(patElectron_inCrack_->at(j)==0))	         continue;
     if(!(patElectron_isPassTight_->at(j)==1))	     continue;
     if(!(patElectron_passConversionVeto_->at(j)==1)) continue;
     //TLorentzVector electron; electron.SetPtEtaPhiE(patElectron_pt_->at(j),patElectron_eta_->at(j),patElectron_phi_->at(j),patElectron_energy_->at(j)*patElectron_energyCorr_->at(j));
@@ -981,6 +993,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   Tree->SetBranchAddress("Jet_chargedHadronEnergyFraction", &Jet_chargedHadronEnergyFraction_, &b_Jet_chargedHadronEnergyFraction);
   Tree->SetBranchAddress("Jet_chargedMultiplicity", &Jet_chargedMultiplicity_, &b_Jet_chargedMultiplicity);
   if(!data) Tree->SetBranchAddress("Jet_hadronFlavour", &Jet_hadronFlavour_, &b_Jet_hadronFlavour);
+  //if(!(fileName.find("Single") != string::npos)) Tree->SetBranchAddress("Jet_hadronFlavour", &Jet_hadronFlavour_, &b_Jet_hadronFlavour);
   Tree->SetBranchAddress("BoostedJet_pt",   &BoostedJet_pt_,   &b_BoostedJet_pt);
   Tree->SetBranchAddress("BoostedJet_Uncorr_pt",   &BoostedJet_Uncorr_pt_,   &b_BoostedJet_Uncorr_pt);
   Tree->SetBranchAddress("BoostedJet_softdrop_mass",   &BoostedJet_softdrop_mass_,   &b_BoostedJet_softdrop_mass);
@@ -1049,11 +1062,11 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   Tree->SetBranchAddress("EVENT_run",&EVENT_run_,&b_EVENT_run);
   Tree->SetBranchAddress("EVENT_lumiBlock",&EVENT_lumiBlock_,&b_EVENT_lumiBlock);
   Tree->SetBranchAddress("EVENT_genHT",&EVENT_genHT_,&b_EVENT_genHT);
-  if(fileName.find("Single")==string::npos) Tree->SetBranchAddress("Gen_pt",&Gen_pt_,&b_Gen_pt);
-  if(fileName.find("Single")==string::npos) Tree->SetBranchAddress("Gen_eta",&Gen_eta_,&b_Gen_eta);
-  if(fileName.find("Single")==string::npos) Tree->SetBranchAddress("Gen_phi",&Gen_phi_,&b_Gen_phi);
-  if(fileName.find("Single")==string::npos) Tree->SetBranchAddress("Gen_pdg_id",&Gen_pdg_id_,&b_Gen_pdg_id);
-  if(fileName.find("Single")==string::npos) Tree->SetBranchAddress("Gen_motherpdg_id",&Gen_motherpdg_id_,&b_Gen_motherpdg_id);
+  if(!(fileName.find("Single")!=string::npos||fileName.find("Double")!=string::npos)) Tree->SetBranchAddress("Gen_pt",&Gen_pt_,&b_Gen_pt);
+  if(!(fileName.find("Single")!=string::npos||fileName.find("Double")!=string::npos)) Tree->SetBranchAddress("Gen_eta",&Gen_eta_,&b_Gen_eta);
+  if(!(fileName.find("Single")!=string::npos||fileName.find("Double")!=string::npos)) Tree->SetBranchAddress("Gen_phi",&Gen_phi_,&b_Gen_phi);
+  if(!(fileName.find("Single")!=string::npos||fileName.find("Double")!=string::npos)) Tree->SetBranchAddress("Gen_pdg_id",&Gen_pdg_id_,&b_Gen_pdg_id);
+  if(!(fileName.find("Single")!=string::npos||fileName.find("Double")!=string::npos)) Tree->SetBranchAddress("Gen_motherpdg_id",&Gen_motherpdg_id_,&b_Gen_motherpdg_id);
   if(fileName.find("ttZ")!=string::npos)    Tree->SetBranchAddress("EVENT_genWeight",&genWeight_,&b_genWeight);
   if(fileName.find("ttW")!=string::npos)    Tree->SetBranchAddress("EVENT_genWeight",&genWeight_,&b_genWeight);
   if(fileName.find("tZq")!=string::npos)    Tree->SetBranchAddress("EVENT_genWeight",&genWeight_,&b_genWeight);
@@ -2238,6 +2251,7 @@ void branchGetEntry(bool data, Long64_t tentry=0, string fileName){
   b_Jet_chargedHadronEnergyFraction->GetEntry(tentry);
   b_Jet_chargedMultiplicity->GetEntry(tentry);
   if(!data) b_Jet_hadronFlavour->GetEntry(tentry);
+  //if(!(fileName.find("Single") != string::npos)) b_Jet_hadronFlavour->GetEntry(tentry);
   b_BoostedJet_pt->GetEntry(tentry);
   b_BoostedJet_Uncorr_pt->GetEntry(tentry);
   b_BoostedJet_softdrop_mass->GetEntry(tentry);
@@ -2310,11 +2324,11 @@ void branchGetEntry(bool data, Long64_t tentry=0, string fileName){
   if(fileName.find("ttW")!=string::npos) b_genWeight->GetEntry(tentry);
   if(fileName.find("tZq")!=string::npos) b_genWeight->GetEntry(tentry);
   if(fileName.find("DY")!=string::npos)  b_genWeight->GetEntry(tentry);
-  if(fileName.find("Single")==string::npos) b_Gen_pt->GetEntry(tentry);
-  if(fileName.find("Single")==string::npos) b_Gen_eta->GetEntry(tentry);
-  if(fileName.find("Single")==string::npos) b_Gen_phi->GetEntry(tentry);
-  if(fileName.find("Single")==string::npos) b_Gen_pdg_id->GetEntry(tentry);
-  if(fileName.find("Single")==string::npos) b_Gen_motherpdg_id->GetEntry(tentry);
+  if(!(fileName.find("Single")!=string::npos||fileName.find("Double")!=string::npos)) b_Gen_pt->GetEntry(tentry);
+  if(!(fileName.find("Single")!=string::npos||fileName.find("Double")!=string::npos)) b_Gen_eta->GetEntry(tentry);
+  if(!(fileName.find("Single")!=string::npos||fileName.find("Double")!=string::npos)) b_Gen_phi->GetEntry(tentry);
+  if(!(fileName.find("Single")!=string::npos||fileName.find("Double")!=string::npos)) b_Gen_pdg_id->GetEntry(tentry);
+  if(!(fileName.find("Single")!=string::npos||fileName.find("Double")!=string::npos)) b_Gen_motherpdg_id->GetEntry(tentry);
   b_genWeights->GetEntry(tentry);
 }
 
