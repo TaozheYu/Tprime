@@ -11,7 +11,7 @@ void EventSelection_2017sample_and_trigger(){
 
   bool electrons    = false;
   bool preselection = true;
-  bool sideband     = true;
+  bool sideband     = false;
   bool signal       = false;
 
   //SYSTEMATICS: 0 is standard, 1 is UP, 2 is down
@@ -67,7 +67,9 @@ void EventSelection_2017sample_and_trigger(){
   fileName.push_back("WZTo3LNu.root");
 
   for(int Nfiles=0; Nfiles<fileName.size(); Nfiles++){
-    string NewFileprov = "/eos/user/t/tayu/2017sample_and_trigger/electron/"+fileName[Nfiles];
+  string NewFileprov;
+  if(electrons)  NewFileprov = "/eos/user/t/tayu/2017sample_and_trigger/electron/"+fileName[Nfiles];
+  if(!electrons) NewFileprov = "/eos/user/t/tayu/2017sample_and_trigger/muon/"+fileName[Nfiles];
     //const char *NewFileName = fileName[Nfiles].c_str();
 	const char *NewFileName = NewFileprov.c_str();
     TFile f(NewFileName,"new");
@@ -92,15 +94,15 @@ void EventSelection_2017sample_and_trigger(){
 	Long64_t tentry = Tree->LoadTree(i);
 	branchGetEntry(data, tentry,fileName[Nfiles]);
 	initializeVar();
-	if( electrons) {if(!(HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW_==1))    continue;}
-	if(!electrons) {if(!(HLT_Mu50_==1)) continue;}
+	if( electrons) {if(!(HLT_DoubleEle33_CaloIdL_MW_==1))    continue;}
+	if(!electrons) {if(!(HLT_Mu50_==1 || HLT_TkMu50_==1)) continue;}
 	//if(!(Flag_goodVertices_==1))    continue;
 	//if(!(Flag_CSCTightHalo2015Filter_==1))    continue;
 	//if(!(Flag_HBHENoiseFilter_==1))    continue;
 	//if(!(Flag_HBHENoiseIsoFilter_==1))    continue;
 	//if(!(Flag_EcalDeadCellTriggerPrimitiveFilter_==1))    continue;
 	//if(!data) {if(!(Flag_eeBadScFilter_==1))    continue;}
-	if(!data) GenClassifier();
+	if(!data) GenClassifier(GenZPt);
 	
 	//Leptonic Z selection
 	vector<TLorentzVector> SelectedElectrons; vector<int> SelectedElectronsIndex;
@@ -131,13 +133,13 @@ void EventSelection_2017sample_and_trigger(){
 	if(!electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonMuons,     ZBoson, Muon1,     Muon2,     SelectedMuons,    SelectedMuonsIndex,    0.6,100.,120);
 	if( electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonElectronsM,ZBosonM,Electron1M,Electron2M,SelectedElectrons,SelectedElectronsIndex,1.4,100.,120);
 	if(!electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonMuonsM,    ZBosonM,Muon1M,    Muon2M,    SelectedMuons,    SelectedMuonsIndex,    1.4,100.,120);*/
-	if( electrons && selection==0) SelectZBoson(electrons,SelectedZBosonElectrons, ZBoson, Electron1, Electron2, SelectedElectrons,SelectedElectronsIndex,1.5,0,55);
+	if( electrons && selection==0) SelectZBoson(electrons,SelectedZBosonElectrons, ZBoson, Electron1, Electron2, SelectedElectrons,SelectedElectronsIndex,1.5,0,40);
 	if(!electrons && selection==0) SelectZBoson(electrons,SelectedZBosonMuons,     ZBoson, Muon1,     Muon2,     SelectedMuons,    SelectedMuonsIndex,    1.5,0,55);
-	if( electrons && selection==0) SelectZBoson(electrons,SelectedZBosonElectronsM,ZBosonM,Electron1M,Electron2M,SelectedElectrons,SelectedElectronsIndex,1.5,0,55);
+	if( electrons && selection==0) SelectZBoson(electrons,SelectedZBosonElectronsM,ZBosonM,Electron1M,Electron2M,SelectedElectrons,SelectedElectronsIndex,1.5,0,40);
 	if(!electrons && selection==0) SelectZBoson(electrons,SelectedZBosonMuonsM,    ZBosonM,Muon1M,    Muon2M,    SelectedMuons,    SelectedMuonsIndex,    1.5,0,55);
-	if( electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonElectrons, ZBoson, Electron1, Electron2, SelectedElectrons,SelectedElectronsIndex,0.6,0,55);
+	if( electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonElectrons, ZBoson, Electron1, Electron2, SelectedElectrons,SelectedElectronsIndex,0.6,0,40);
 	if(!electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonMuons,     ZBoson, Muon1,     Muon2,     SelectedMuons,    SelectedMuonsIndex,    0.6,0,55);
-	if( electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonElectronsM,ZBosonM,Electron1M,Electron2M,SelectedElectrons,SelectedElectronsIndex,1.4,0,55);
+	if( electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonElectronsM,ZBosonM,Electron1M,Electron2M,SelectedElectrons,SelectedElectronsIndex,1.4,0,40);
 	if(!electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonMuonsM,    ZBosonM,Muon1M,    Muon2M,    SelectedMuons,    SelectedMuonsIndex,    1.4,0,55);
 	if(SelectedZBosonElectrons) deltaREle1Ele2 = DeltaR(Electron1.Eta(),Electron2.Eta(),Electron1.Phi(),Electron2.Phi());
 	if(SelectedZBosonMuons)     deltaRMuo1Muo2 = DeltaR(    Muon1.Eta(),    Muon2.Eta(),    Muon1.Phi(),    Muon2.Phi());
@@ -191,7 +193,7 @@ void EventSelection_2017sample_and_trigger(){
 	if(FullyMerged)     TopQuark = TopQuarkMerged;
 	if(PartiallyMerged) TopQuark = TopQuarkPartial;
 	if(ResolvedEvent)   TopQuark = TopQuarkResolved;
-	if(!(ResolvedEvent || PartiallyMerged || FullyMerged)) continue;// || BprimeEvent)) continue;
+	if(!(ResolvedEvent || PartiallyMerged || FullyMerged)) continue;
 	NumSelLeps = SelectedElectrons.size()+SelectedMuons.size();
 	NumSelJets        = SelectedJets.size();
 	NumSelForwardJets = SelectedForwardJets.size();
@@ -206,6 +208,7 @@ void EventSelection_2017sample_and_trigger(){
 	EVENT_lumiBlock   = EVENT_lumiBlock_;
 	EVENT_genHT       = EVENT_genHT_;
 	HT                = HTcalculator(SelectedElectrons,SelectedMuons, SysJes, SysJer);
+    if(!(HT>200)) continue;
 
 	//categorization
 	if(selection==0){ //PRESELECTION
@@ -272,8 +275,8 @@ void EventSelection_2017sample_and_trigger(){
 	  TopSF(TopQuarkMerged, FullyMerged, w_topJet, w_topJetUp, w_topJetDown);
 	  WSF(Jet1Partial, PartiallyMerged, w_WJet, w_WJetUp, w_WJetDown, CA8Index, SysJes, SysJer);
 	  ForwardJetSF(SelectedForwardJets, w_for, w_forUp, w_forDown);
-	  //newPUWeight(PUWeight, PUWeightUP, PUWeightDOWN);
-	  GenWeight(fileName[Nfiles]);
+	  newPUWeight(PUWeight, PUWeightUP, PUWeightDOWN);
+	  GenWeight(fileName[Nfiles],GenZPt);
 	  if(TriggeringElePt>0) ElectronTriggerSF(TriggeringElePt, TriggeringEleEta);
 	  if(TriggeringMuoPt>0) MuonTriggerSF(TriggeringMuoPt, TriggeringMuoEta);
 	  fillgenWeights();
@@ -293,9 +296,9 @@ void EventSelection_2017sample_and_trigger(){
 
 void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, bool data){
   for (UInt_t j = 0; j < patElectron_pt_->size(); ++j){
-    //if(!(patElectron_pt_->at(j)>20))               continue;
+    //if(!(patElectron_pt_->at(j)>20))                 continue;
     if(!(fabs(patElectron_eta_->at(j))<2.4))	     continue;
-	if(!(patElectron_pt_->at(j)>40))                 continue;
+	if(!(patElectron_pt_->at(j)>40))               continue;
     if(!(fabs(patElectron_SCeta_->at(j))<2.5))	     continue;
     if(!(patElectron_inCrack_->at(j)==0))	         continue;
     if(!(patElectron_isPassTight_->at(j)==1))	     continue;
@@ -324,7 +327,7 @@ void SelectZBoson(bool electrons,bool &SelectedZBoson,TLorentzVector &ZBoson,TLo
   for (int i=0; i<SelectedLeptons.size(); i++){
     for (int j=i+1; j<SelectedLeptons.size(); j++){
       if(!((SelectedLeptons[i]+SelectedLeptons[j]).Pt()>Zpt))                                                                       continue;
-      if(!(SelectedLeptons[i].Pt()>leadLepPt || SelectedLeptons[j].Pt()>leadLepPt))                                                 continue;
+	  if(!(SelectedLeptons[i].Pt()>leadLepPt || SelectedLeptons[j].Pt()>leadLepPt))                                                 continue;
       if(!((SelectedLeptons[i]+SelectedLeptons[j]).M()>70 && (SelectedLeptons[i]+SelectedLeptons[j]).M()<110))                      continue;
       if(!(DeltaR(SelectedLeptons[i].Eta(),SelectedLeptons[j].Eta(),SelectedLeptons[i].Phi(),SelectedLeptons[j].Phi())<dRLep1Lep2)) continue;
       if(!electrons)    {if(!(Muon_charge_->at(SelectedLeptonsIndex[i])*Muon_charge_->at(SelectedLeptonsIndex[j])<0))               continue;}
@@ -364,27 +367,29 @@ void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float
     if(SysJer==0){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSF_->at(j)    ;}
     if(SysJer==1){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSFup_->at(j)  ;}
     if(SysJer==2){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSFdown_->at(j);}
-    if(!(jetpt>20))                                                         continue;
+    if(!(jetpt>30))                                                         continue;
     if(!(fabs(Jet_eta_->at(j))<5.0))                                        continue;
     if(jetType==2) {if(!(fabs(Jet_eta_->at(j))>=2.4))                       continue;if(!(jetpt>30))                                                         continue;}
     else {if(!(fabs(Jet_eta_->at(j))<2.4))		                    continue;}
     if(fabs(Jet_eta_->at(j))<2.4){
-      if(!(Jet_neutralHadEnergyFraction_->at(j)<0.99))                      continue;
-      if(!(Jet_neutralEmEnergyFraction_->at(j)<0.99))                       continue;
+      if(!(Jet_neutralHadEnergyFraction_->at(j)<0.90))                      continue;
+      if(!(Jet_neutralEmEnergyFraction_->at(j)<0.90))                       continue;
       if(!(Jet_numberOfConstituents_->at(j)>1))                             continue;
       if(!(Jet_chargedHadronEnergyFraction_->at(j)>0.0))                    continue;
       if(!(Jet_chargedMultiplicity_->at(j)>0.0))                            continue;
-      if(!(Jet_chargedEmEnergyFraction_->at(j)<0.99))                       continue;
+      //if(!(Jet_chargedEmEnergyFraction_->at(j)<0.99))                       continue;
     } else if(fabs(Jet_eta_->at(j))>2.4 && fabs(Jet_eta_->at(j))<2.7){
-      if(!(Jet_neutralHadEnergyFraction_->at(j)<0.99))                      continue;
-      if(!(Jet_neutralEmEnergyFraction_->at(j)<0.99))                       continue;
+      if(!(Jet_neutralHadEnergyFraction_->at(j)<0.90))                      continue;
+      if(!(Jet_neutralEmEnergyFraction_->at(j)<0.90))                       continue;
       if(!(Jet_numberOfConstituents_->at(j)>1))                             continue;
     } else if(fabs(Jet_eta_->at(j))>2.7 && fabs(Jet_eta_->at(j))<3.0){
-      if(!(Jet_neutralEmEnergyFraction_->at(j)>0.01))                       continue;
-      if(!(Jet_neutralHadEnergyFraction_->at(j)<0.98))                      continue;
+      if(!(Jet_neutralEmEnergyFraction_->at(j)>0.02))                       continue;
+	  if(!(Jet_neutralEmEnergyFraction_->at(j)<0.99))                       continue;
+      //if(!(Jet_neutralHadEnergyFraction_->at(j)<0.98))                      continue;
       if(!((Jet_numberOfConstituents_->at(j) -Jet_chargedMultiplicity_->at(j)) >2)) continue;
     } else if(fabs(Jet_eta_->at(j))>3.0){
       if(!(Jet_neutralEmEnergyFraction_->at(j)<0.90))                       continue;
+	  if(!(Jet_neutralHadEnergyFraction_->at(j)>0.02))                      continue;
       if(!((Jet_numberOfConstituents_->at(j) -Jet_chargedMultiplicity_->at(j)) >10)) continue;
     }
     if(jetType==11){if(!(Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags_->at(j)>0.5803)) continue;}
@@ -422,12 +427,12 @@ void SelectCA8Jets(int CA8jetType,vector<TLorentzVector> & SelectedCA8Jets,vecto
     float SF = jetpt/BoostedJet_pt_->at(j);
     if(!(jetpt>180))                                          continue;
     if(!(fabs(BoostedJet_eta_->at(j))<2.4))		              continue;
-    if(!(BoostedJet_neutralHadEnergyFraction_->at(j)<0.99))   continue;
+    if(!(BoostedJet_neutralHadEnergyFraction_->at(j)<0.90))   continue;
     //if(!(BoostedJet_neutralEmEnergyFraction_->at(j)<0.99))  continue;
     if(!(BoostedJet_numberOfConstituents_->at(j)>1))          continue;
     if(!(BoostedJet_chargedHadronEnergyFraction_->at(j)>0.0)) continue;
     if(!(BoostedJet_chargedMultiplicity_->at(j)>0.0))         continue;
-    if(!(BoostedJet_chargedEmEnergyFraction_->at(j)<0.99))    continue;
+    //if(!(BoostedJet_chargedEmEnergyFraction_->at(j)<0.99))    continue;
     if(CA8jetType==0){
       if(!(SF*BoostedJet_pruned_mass_->at(j)>65 && SF*BoostedJet_pruned_mass_->at(j)<105)) continue;
       if(!(BoostedJet_tau2_->at(j)/BoostedJet_tau1_->at(j)<0.60))                          continue;
@@ -462,7 +467,7 @@ void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> Selected
 	if(!((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).Pt()>TopPtMin))                                                                       continue;
 	//if(!(fabs((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).M()-173.1)<TopMassInitial))                                                    continue;
 	if(TopMassCut){if(!((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).M()>100 && (SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).M()<300)) continue;}
-	if(btag){if(!(SelectedJetsCSV[i]>0.8484 || SelectedJetsCSV[j]>0.8484 || SelectedJetsCSV[k]>0.8484))                                             continue;}
+	if(btag){if(!(SelectedJetsCSV[i]>0.8836 || SelectedJetsCSV[j]>0.8836 || SelectedJetsCSV[k]>0.8836))                                             continue;}
 	if(SelectedJetsCSV[i]>SelectedJetsCSV[j] && SelectedJetsCSV[i]>SelectedJetsCSV[k]){
 	  Jet1.SetPtEtaPhiE(SelectedJets[i].Pt(),SelectedJets[i].Eta(),SelectedJets[i].Phi(),SelectedJets[i].E());
 	  Jet2.SetPtEtaPhiE(SelectedJets[j].Pt(),SelectedJets[j].Eta(),SelectedJets[j].Phi(),SelectedJets[j].E());
@@ -496,7 +501,7 @@ void PartiallyMergedSelection(bool &PartiallyMerged,vector<TLorentzVector> Selec
       if(!((SelectedWJets[i]+SelectedJets[k]).Pt()>TopPtMin))                                                        continue;
       //if(!(fabs((SelectedWJets[i]+SelectedJets[k]).M()-173.1)<TopMassInitial))                                     continue;
       if(!(DeltaR(SelectedWJets[i].Eta(),SelectedJets[k].Eta(),SelectedWJets[i].Phi(),SelectedJets[k].Phi())>0.8))   continue;
-      if(btag){if(!(SelectedJetsCSV[k]>0.8484))                                                                       continue;}
+      if(btag){if(!(SelectedJetsCSV[k]>0.8836))                                                                       continue;}
       if(TopMassCut){if(!((SelectedWJets[i]+SelectedJets[k]).M()>100 && (SelectedWJets[i]+SelectedJets[k]).M()<300)) continue;}
       Jet1.SetPtEtaPhiE(SelectedWJets[i].Pt(),SelectedWJets[i].Eta(),SelectedWJets[i].Phi(),SelectedWJets[i].E());
       Jet2.SetPtEtaPhiE(SelectedJets[k].Pt(),SelectedJets[k].Eta(),SelectedJets[k].Phi(),SelectedJets[k].E());
@@ -592,7 +597,7 @@ void BTagSF(int selection, float JetPt, float JetEta, int flav, float &SF, float
   //cout<<JetPt<<" "<<JetEta<<" "<<flav<<" ("<<btagentry_flav<<") "<<jet_scalefactor<<" "<<jet_scalefactor_up<<" "<<jet_scalefactor_do<<endl;
 }
 
-void get_weight_btag(int selection, float &w_Btag, float &w_BtagUp, float &w_BtagDown, float &w_BtagLoose, float &w_BtagLooseUp, float &w_BtagLooseDown, string fileName){
+void get_weight_btag(int selection, float &w_Btag, float &w_BtagUp, float &w_BtagDown, float &w_Btag1Up, float &w_Btag1Down, float &w_Btag2Up, float &w_Btag2Down, float &w_BtagLoose, float &w_BtagLooseUp, float &w_BtagLooseDown, string fileName){
   string FILEprov = "SF_2017/BtagEfficiency/"+fileName;
   const char *FILE = FILEprov.c_str();
   TFile *fileBTagEfficiency = TFile::Open(FILE);
@@ -607,13 +612,13 @@ void get_weight_btag(int selection, float &w_Btag, float &w_BtagUp, float &w_Bta
   for (UInt_t j = 0; j < Jet_pt_->size(); ++j){
     if(!((Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)*Jet_JerSF_->at(j))>20)) continue;
     if(!(fabs(Jet_eta_->at(j))<2.4))                                      continue;
-    float JetPt  = (Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)*Jet_JerSF_->at(j)); 
-    if(!(Jet_neutralHadEnergyFraction_->at(j)<0.99))                      continue;
-    if(!(Jet_neutralEmEnergyFraction_->at(j)<0.99))                       continue;
+    if(!(Jet_neutralHadEnergyFraction_->at(j)<0.90))                      continue;
+    if(!(Jet_neutralEmEnergyFraction_->at(j)<0.90))                       continue;
     if(!(Jet_numberOfConstituents_->at(j)>1))                             continue;
     if(!(Jet_chargedHadronEnergyFraction_->at(j)>0.0))                    continue;
     if(!(Jet_chargedMultiplicity_->at(j)>0.0))                            continue;
-    if(!(Jet_chargedEmEnergyFraction_->at(j)<0.99))                       continue;
+    //if(!(Jet_chargedEmEnergyFraction_->at(j)<0.99))                       continue;
+    float JetPt  = (Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)*Jet_JerSF_->at(j)); 
     float JetEta = fabs(Jet_eta_->at(j)); 
     int flav = Jet_hadronFlavour_->at(j);
     float MinBJetPt = 20.;
@@ -628,7 +633,8 @@ void get_weight_btag(int selection, float &w_Btag, float &w_BtagUp, float &w_Bta
     if(flav==0 && JetPt>MaxLJetPt){
       JetPt = MaxLJetPt; 
     }  
-    TH2F *NUM; TH2F *DEN;
+    TH2F *NUM = (TH2F*)fileBTagEfficiency->Get("histM_b_passing_"); 
+    TH2F *DEN = (TH2F*)fileBTagEfficiency->Get("histM_b_total_");
     if(selection==0 || selection==1){
       if(flav == 5) {
 	NUM = (TH2F*)fileBTagEfficiency->Get("histM_b_passing_");
@@ -669,7 +675,7 @@ void get_weight_btag(int selection, float &w_Btag, float &w_BtagUp, float &w_Bta
     float SF    = 1.0;
     float SFerr = 0.0;
     BTagSF(selection, JetPt, JetEta, flav, SF, SFerr);
-    if(Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags_->at(j)>0.8484){
+    if(Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags_->at(j)>0.8838){
       mcTagMedium *= eff;
       dataTagMedium *= eff*SF;
       if(flav==5 || flav ==4)  err1Medium += SFerr/SF; //correlated for b/c
@@ -680,7 +686,7 @@ void get_weight_btag(int selection, float &w_Btag, float &w_BtagUp, float &w_Bta
       if(flav==5 || flav ==4 ) err2Medium += (-eff*SFerr)/(1-eff*SF); //correlated for b/c
       else err4Medium +=  (-eff*SFerr)/(1-eff*SF);                    //correlated for light
     }
-    if(Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags_->at(j)>0.5426){
+    if(Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags_->at(j)>0.5803){
       mcTagLoose *= eff;
       dataTagLoose *= eff*SF;
       if(flav==5 || flav ==4)  err1Loose += SFerr/SF;
@@ -706,6 +712,10 @@ void get_weight_btag(int selection, float &w_Btag, float &w_BtagUp, float &w_Bta
   w_Btag     = wtbtagMedium; 
   w_BtagUp   = wtbtagMedium+sqrt(wtbtagErrBCMedium*wtbtagErrBCMedium+wtbtagErrUDSGMedium*wtbtagErrUDSGMedium);
   w_BtagDown = wtbtagMedium-sqrt(wtbtagErrBCMedium*wtbtagErrBCMedium+wtbtagErrUDSGMedium*wtbtagErrUDSGMedium);
+  w_Btag1Up   = wtbtagMedium+sqrt(wtbtagErrBCMedium*wtbtagErrBCMedium);
+  w_Btag1Down = wtbtagMedium-sqrt(wtbtagErrBCMedium*wtbtagErrBCMedium);
+  w_Btag2Up   = wtbtagMedium+sqrt(wtbtagErrUDSGMedium*wtbtagErrUDSGMedium);
+  w_Btag2Down = wtbtagMedium-sqrt(wtbtagErrUDSGMedium*wtbtagErrUDSGMedium);
   w_BtagLoose     = wtbtagLoose; 
   w_BtagLooseUp   = wtbtagLoose+sqrt(wtbtagErrBCLoose*wtbtagErrBCLoose+wtbtagErrUDSGLoose*wtbtagErrUDSGLoose);
   w_BtagLooseDown = wtbtagLoose-sqrt(wtbtagErrBCLoose*wtbtagErrBCLoose+wtbtagErrUDSGLoose*wtbtagErrUDSGLoose);
@@ -713,9 +723,31 @@ void get_weight_btag(int selection, float &w_Btag, float &w_BtagUp, float &w_Bta
     w_Btag     = wtbtagLoose; 
     w_BtagUp   = wtbtagLoose+sqrt(wtbtagErrBCLoose*wtbtagErrBCLoose+wtbtagErrUDSGLoose*wtbtagErrUDSGLoose);
     w_BtagDown = wtbtagLoose-sqrt(wtbtagErrBCLoose*wtbtagErrBCLoose+wtbtagErrUDSGLoose*wtbtagErrUDSGLoose);
+    w_Btag1Up   = wtbtagLoose+sqrt(wtbtagErrBCLoose*wtbtagErrBCLoose);
+    w_Btag1Down = wtbtagLoose-sqrt(wtbtagErrBCLoose*wtbtagErrBCLoose);
+    w_Btag2Up   = wtbtagLoose+sqrt(wtbtagErrUDSGLoose*wtbtagErrUDSGLoose);
+    w_Btag2Down = wtbtagLoose-sqrt(wtbtagErrUDSGLoose*wtbtagErrUDSGLoose);
   }
   //cout<<"BTAG WEIGHT  "<<wtbtagErrBC<<" "<<wtbtagErrUDSG<<" "<<w_Btag<<" "<<w_BtagUp<<" "<<endl;
   delete fileBTagEfficiency;
+}
+
+void ForwardJetSF(vector<TLorentzVector> SelectedForwardJets, float &w_for_, float &w_forUp_, float &w_forDown_){
+  if(SelectedForwardJets.size()>0){
+    float eta = eta = SelectedForwardJets[0].Eta(); float pt = SelectedForwardJets[0].Pt();
+    int X1=-99; int Y1=-99;
+    for(int i=1; i<histoForwardJet->GetXaxis()->GetNbins()+2; i++){
+      if(eta<histoForwardJet->GetXaxis()->GetBinLowEdge(i)){ X1=i-1; break; }
+    }
+    for(int i=1; i<histoForwardJet->GetYaxis()->GetNbins()+2; i++){
+      if(pt <histoForwardJet->GetYaxis()->GetBinLowEdge(i)){ Y1=i-1; break; }
+    }
+    if(pt>=histoForwardJet->GetYaxis()->GetBinLowEdge(histoForwardJet->GetYaxis()->GetNbins()+1)) {Y1=(histoForwardJet->GetYaxis()->GetNbins()+1)-1;}
+    float SF = histoForwardJet->GetBinContent(X1,Y1);
+    w_for_     = SF;
+    w_forUp_   = 1.0;//SF + histoForwardJet->GetBinError(X1,Y1);
+    w_forDown_ = 1.0;//SF - histoForwardJet->GetBinError(X1,Y1);
+  }
 }
 
 void ForwardJetSF(vector<TLorentzVector> SelectedForwardJets, float &w_for_, float &w_forUp_, float &w_forDown_){
@@ -1050,7 +1082,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
 	Tree->SetBranchAddress("Flag_EcalDeadCellTriggerPrimitiveFilter",&Flag_EcalDeadCellTriggerPrimitiveFilter_,&b_Flag_EcalDeadCellTriggerPrimitiveFilter);
 	Tree->SetBranchAddress("Flag_eeBadScFilter",&Flag_eeBadScFilter_,&b_Flag_eeBadScFilter);
   Tree->SetBranchAddress("HLT_Ele115_CaloIdVT_GsfTrkIdT",&HLT_Ele115_CaloIdVT_GsfTrkIdT_,&b_HLT_Ele115_CaloIdVT_GsfTrkIdT);
-  Tree->SetBranchAddress("HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW",&HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW_,&b_HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW);
+  Tree->SetBranchAddress("HLT_DoubleEle33_CaloIdL_MW",&HLT_DoubleEle33_CaloIdL_MW_,&b_HLT_DoubleEle33_CaloIdL_MW);
   Tree->SetBranchAddress("HLT_IsoMu24",&HLT_IsoMu24_,&b_HLT_IsoMu24);
   Tree->SetBranchAddress("HLT_IsoTkMu24",&HLT_IsoTkMu24_,&b_HLT_IsoTkMu24);
   Tree->SetBranchAddress("HLT_Mu50",&HLT_Mu50_,&b_HLT_Mu50);
@@ -1222,6 +1254,10 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   NewTree->Branch("w_Btag",            &w_Btag,            "w_Btag/F"            );
   NewTree->Branch("w_BtagUp",          &w_BtagUp,          "w_BtagUp/F"          );
   NewTree->Branch("w_BtagDown",        &w_BtagDown,        "w_BtagDown/F"        );
+  NewTree->Branch("w_Btag1Up",         &w_Btag1Up,         "w_Btag1Up/F"         );
+  NewTree->Branch("w_Btag1Down",       &w_Btag1Down,       "w_Btag1Down/F"       );
+  NewTree->Branch("w_Btag2Up",         &w_Btag2Up,         "w_Btag2Up/F"         );
+  NewTree->Branch("w_Btag2Down",       &w_Btag2Down,       "w_Btag2Down/F"       );
   NewTree->Branch("w_BtagLoose",       &w_BtagLoose,       "w_BtagLoose/F"       );
   NewTree->Branch("w_BtagLooseUp",     &w_BtagLooseUp,     "w_BtagLooseUp/F"     );
   NewTree->Branch("w_BtagLooseDown",   &w_BtagLooseDown,   "w_BtagLooseDown/F"   );
@@ -1601,9 +1637,13 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   NewTreeSB->Branch("WSubjet",           &WSubjet,           "WSubjet/F"           );
   NewTreeSB->Branch("TopSoftMass",       &TopSoftMass,       "TopSoftMass/F"       );
   NewTreeSB->Branch("TopSubjet",         &TopSubjet,         "TopSubjet/F"         );
-  NewTreeSB->Branch("w_Btag",            &w_Btag,            "w_Btag/F"            );
+  NewTreeSB->Branch("w_Btag",            &w_Btag,            "w_Btag/F"             );
   NewTreeSB->Branch("w_BtagUp",          &w_BtagUp,          "w_BtagUp/F"          );
   NewTreeSB->Branch("w_BtagDown",        &w_BtagDown,        "w_BtagDown/F"        );
+  NewTreeSB->Branch("w_Btag1Up",         &w_Btag1Up,         "w_Btag1Up/F"         );
+  NewTreeSB->Branch("w_Btag1Down",       &w_Btag1Down,       "w_Btag1Down/F"       );
+  NewTreeSB->Branch("w_Btag2Up",         &w_Btag2Up,         "w_Btag2Up/F"         );
+  NewTreeSB->Branch("w_Btag2Down",       &w_Btag2Down,       "w_Btag2Down/F"       );
   NewTreeSB->Branch("w_BtagLoose",       &w_BtagLoose,       "w_BtagLoose/F"       );
   NewTreeSB->Branch("w_BtagLooseUp",     &w_BtagLooseUp,     "w_BtagLooseUp/F"     );
   NewTreeSB->Branch("w_BtagLooseDown",   &w_BtagLooseDown,   "w_BtagLooseDown/F"   );
@@ -2002,10 +2042,15 @@ void initializeVar(){
   w_Btag=1;
   w_BtagUp=1;
   w_BtagDown=1;
+  w_Btag1Up=1;
+  w_Btag1Down=1;
+  w_Btag2Up=1;
+  w_Btag2Down=1;
   w_BtagLoose=1;
   w_BtagLooseUp=1;
   w_BtagLooseDown=1;
   genWeight=1;
+  GenZPt=-99.;
   dQuark=0;
   uQuark=0;
   sQuark=0;
@@ -2302,7 +2347,7 @@ void branchGetEntry(bool data, Long64_t tentry=0, string fileName){
   b_Muon_relIsoDeltaBetaR04->GetEntry(tentry);
   b_Muon_isMatchedToTrigger->GetEntry(tentry);
   b_HLT_Ele115_CaloIdVT_GsfTrkIdT->GetEntry(tentry);
-  b_HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW->GetEntry(tentry);
+  b_HLT_DoubleEle33_CaloIdL_MW->GetEntry(tentry);
   b_HLT_IsoMu24->GetEntry(tentry);
   b_HLT_IsoTkMu24->GetEntry(tentry);
   b_HLT_Mu50->GetEntry(tentry);
@@ -2557,7 +2602,7 @@ void fillgenWeights(){
   genWeights212     = (*genWeights_)[212];
 }
 
-void GenClassifier(){
+/*void GenClassifier(){
   bool foundZMuons = false; bool foundZElectrons = false;
   for (UInt_t j = 0; j < Gen_pt_->size(); ++j) {
     //cout<<j<<" "<<Gen_pdg_id_->at(j)<<" "<<Gen_motherpdg_id_->at(j)<<" "<<Gen_pt_->at(j)<<endl;
@@ -2569,6 +2614,19 @@ void GenClassifier(){
     if(abs(Gen_pdg_id_->at(j))==6 && (abs(Gen_motherpdg_id_->at(j))==2212 || abs(Gen_motherpdg_id_->at(j))==21)) tQuark = tQuark + 1;
     if(abs(Gen_motherpdg_id_->at(j))==23&&abs(Gen_pdg_id_->at(j))==13) foundZMuons=true;
     if(abs(Gen_motherpdg_id_->at(j))==23&&abs(Gen_pdg_id_->at(j))==11) foundZElectrons=true;
+  }
+}*/
+
+void GenClassifier(float &pt){
+  for (UInt_t j = 0; j < Gen_pt_->size(); ++j) {
+    //cout<<j<<" "<<Gen_pdg_id_->at(j)<<" "<<Gen_motherpdg_id_->at(j)<<" "<<Gen_pt_->at(j)<<endl;
+    if(abs(Gen_pdg_id_->at(j))==1 && (abs(Gen_motherpdg_id_->at(j))==2212 || abs(Gen_motherpdg_id_->at(j))==21)) dQuark = dQuark + 1;
+    if(abs(Gen_pdg_id_->at(j))==2 && (abs(Gen_motherpdg_id_->at(j))==2212 || abs(Gen_motherpdg_id_->at(j))==21)) uQuark = uQuark + 1;
+    if(abs(Gen_pdg_id_->at(j))==3 && (abs(Gen_motherpdg_id_->at(j))==2212 || abs(Gen_motherpdg_id_->at(j))==21)) sQuark = sQuark + 1;
+    if(abs(Gen_pdg_id_->at(j))==4 && (abs(Gen_motherpdg_id_->at(j))==2212 || abs(Gen_motherpdg_id_->at(j))==21)) cQuark = cQuark + 1;
+    if(abs(Gen_pdg_id_->at(j))==5 && (abs(Gen_motherpdg_id_->at(j))==2212 || abs(Gen_motherpdg_id_->at(j))==21)) bQuark = bQuark + 1;
+    if(abs(Gen_pdg_id_->at(j))==6 && (abs(Gen_motherpdg_id_->at(j))==2212 || abs(Gen_motherpdg_id_->at(j))==21)) tQuark = tQuark + 1;
+    if(abs(Gen_pdg_id_->at(j))==23) pt = Gen_pt_->at(j);
   }
 }
 
@@ -2603,12 +2661,21 @@ void GenWBoson(bool &matched, TLorentzVector Wjet){
   //if((dr10<0.8 && dr16<0.8) || (dr11<0.8 && dr17<0.8) || (dr12<0.8 && dr18<0.8)) matched=true; //Z -> cc/bb/tt
 }
 
-void GenWeight(string fileName){
+/*void GenWeight(string fileName){
   if(fileName.find("ttZ")!=string::npos)      genWeight=(genWeight_)/abs(genWeight_);
   else if(fileName.find("ttW")!=string::npos) genWeight=(genWeight_)/abs(genWeight_);
   else if(fileName.find("tZq")!=string::npos) genWeight=(genWeight_)/abs(genWeight_);
   else if(fileName.find("DY")!=string::npos)  genWeight=(genWeight_)/abs(genWeight_);
   else genWeight=1;
+}*/
+
+void GenWeight(string fileName, float pt){
+  if(fileName.find("ZZTo4L")!=string::npos || fileName.find("ZZTo2L2Q")!=string::npos || fileName.find("WZTo1L1Nu2Q")!=string::npos || fileName.find("WZTo2L2Q")!=string::npos || fileName.find("ttZ")!=string::npos || fileName.find("WZTo3LNu")!=string::npos || fileName.find("tZq")!=string::npos || fileName.find("ttW")!=string::npos)  genWeight=(genWeight_)/abs(genWeight_);
+  else  genWeight=1;
+  if(fileName.find("DY")!=string::npos) {
+    if(pt>0) genWeight = functZPt->Eval(pt);
+    else genWeight = 1;
+  }
 }
 
 /*void newPUWeight(float &puweight,float &puweightUP,float &puweightDOWN){
@@ -2652,6 +2719,51 @@ void GenWeight(string fileName){
   if(resultNEWUp[NPU]<9999) puweightUP   = resultNEWUp[NPU];
   if(resultNEWDo[NPU]<9999) puweightDOWN = resultNEWDo[NPU];
 }*/
+
+void newPUWeight(float &puweight,float &puweightUP,float &puweightDOWN){
+  double *npuProbs = 0;
+  double *npuProbsNEW = 0;
+  unsigned int nPUMax = 99;
+  double npu_Moriond18Scenario[99] =  {3.39597497605e-05,6.63688402133e-06,1.39533611284e-05,3.64963078209e-05,6.00872171664e-05,9.33932578027e-05,0.000120591524486,0.000128694546198,0.000361697233219,0.000361796847553,0.000702474896113,0.00133766053707,0.00237817050805,0.00389825605651,0.00594546732588,0.00856825906255,0.0116627396044,0.0148793350787,0.0179897368379,0.0208723871946,0.0232564170641,0.0249826433945,0.0262245860346,0.0272704617569,0.0283301107549,0.0294006137386,0.0303026836965,0.0309692426278,0.0308818046328,0.0310566806228,0.0309692426278,0.0310566806228,0.0310566806228,0.0310566806228,0.0307696426944,0.0300103336052,0.0288355370103,0.0273233309106,0.0264343533951,0.0255453758796,0.0235877272306,0.0215627588047,0.0195825559393,0.0177296309658,0.0160560731931,0.0146022004183,0.0134080690078,0.0129586991411,0.0125093292745,0.0124360740539,0.0123547104433,0.0123953922486,0.0124360740539,0.0124360740539,0.0123547104433,0.0124360740539,0.0123387597772,0.0122414455005,0.011705203844,0.0108187105305,0.00963985508986,0.00827210065136,0.00683770076341,0.00545237697118,0.00420456901556,0.00367513566191,0.00314570230825,0.0022917978982,0.00163221454973,0.00114065309494,0.000784838366118,0.000533204105387,0.000358474034915,0.000238881117601,0.0001984254989,0.000157969880198,0.00010375646169,6.77366175538e-05,4.39850477645e-05,2.84298066026e-05,1.83041729561e-05,1.17473542058e-05,7.51982735129e-06,6.16160108867e-06,4.80337482605e-06,3.06235473369e-06,1.94863396999e-06,1.23726800704e-06,7.83538083774e-07,4.94602064224e-07,3.10989480331e-07,1.94628487765e-07,1.57888581037e-07,1.2114867431e-07,7.49518929908e-08,4.6060444984e-08,2.81008884326e-08,1.70121486128e-08,1.02159894812e-08};
+  double npu_Moriond18ScenarioNEW[99] =  {0.0164731,0.000829522,0.000939881,0.000589732,0.000665918,0.00111637,0.00125813,0.000933965,0.00145441,0.00184519,0.00159332,0.00242139,0.00314767,0.00548591,0.00684822,0.010836,0.0130551,0.0144512,0.0182305,0.0212894,0.0216204,0.0229435,0.0243586,0.0243769,0.0249553,0.0269723,0.0255303,0.0269896,0.0277803,0.0279493,0.0271844,0.0273721,0.0293261,0.0282731,0.0287164,0.0283037,0.0265103,0.0255473,0.0240064,0.0233137,0.0232938,0.0224567,0.0196284,0.0156212,0.0137627,0.0136596,0.0128352,0.0120469,0.0128242,0.0121217,0.0136477,0.0136083,0.0134189,0.0129351,0.0141632,0.0136156,0.0141845,0.0124658,0.0128498,0.0125589,0.0102669,0.0092894,0.00807026,0.00702602,0.0047661,0.00401915,0.00351898,0.00288564,0.00166122,0.0015046,0.000773104,0.000499557,0.000796673,0.0006105,0.000630528,0.000145819,0.000191135,0.000340493,0.000193567,0.000678164,0.000393724,0.000442431,0.000641926,0.000615461,0.000139089,0.000793345,0.000240982,0.00049623,0.00010741,0.000147015,0.0002128,1.14866e-05,1.75821e-05,9.66776e-05,3.37481e-05,0.000457706,2.37272e-07,4.74544e-07,9.06185e-05};
+  npuProbs = npu_Moriond18Scenario;
+  npuProbsNEW = npu_Moriond18ScenarioNEW;
+  std::vector<double> result(nPUMax,0.);
+  std::vector<double> resultNEW(nPUMax,0.);
+  std::vector<double> resultNEWUp(nPUMax,0.);
+  std::vector<double> resultNEWDo(nPUMax,0.);
+  double s = 0.;
+  double sNEW   = 0.;
+  double sNEWUp = 0.;
+  double sNEWDo = 0.;
+  for(unsigned int npu = 0; npu < nPUMax; ++npu) {
+    const double npu_estimated = histoOldPU->GetBinContent(histoOldPU->GetXaxis()->FindBin(npu));
+    result[npu] = npu_estimated / npuProbs[npu];
+    s += npu_estimated;
+    const double npu_estimatedNEW   = histoNewPU  ->GetBinContent(histoNewPU  ->GetXaxis()->FindBin(npu));
+    const double npu_estimatedNEWUp = histoNewPUUp->GetBinContent(histoNewPUUp->GetXaxis()->FindBin(npu));
+    const double npu_estimatedNEWDo = histoNewPUDo->GetBinContent(histoNewPUDo->GetXaxis()->FindBin(npu));
+    resultNEW[npu]   = npu_estimatedNEW   / npuProbsNEW[npu];
+    resultNEWUp[npu] = npu_estimatedNEWUp / npuProbsNEW[npu];
+    resultNEWDo[npu] = npu_estimatedNEWDo / npuProbsNEW[npu];
+    sNEW   += npu_estimatedNEW;
+    sNEWUp += npu_estimatedNEWUp;
+    sNEWDo += npu_estimatedNEWDo;
+  }
+  unsigned int NPU = -1;              
+  for(unsigned int npu = 0; npu < nPUMax; ++npu) {
+    result[npu] /= s;
+    resultNEW[npu]   /= sNEW;
+    resultNEWUp[npu] /= sNEWUp;
+    resultNEWDo[npu] /= sNEWDo;
+    if(result[npu]==PUWeight_) NPU = npu;
+  }
+  //cout<<NPU<<" "<<PUWeight_<<" "<<resultNEW[NPU]<<" "<<resultNEWUp[NPU]<<endl;
+  if(resultNEW[NPU]<9999)   puweight     = resultNEW[NPU];
+  if(resultNEWUp[NPU]<9999) puweightUP   = resultNEWUp[NPU];
+  if(resultNEWDo[NPU]<9999) puweightDOWN = resultNEWDo[NPU];
+  getTrueNumInteractions=NPU;
+}
 
 void FillBranches(bool ResolvedEvent,bool PartiallyMerged,bool FullyMerged,TLorentzVector TopQuark,bool BprimeEvent,float BQuarkCSV,TLorentzVector BQuarkBprime,bool SelectedZBosonElectrons,bool SelectedZBosonMuons,TLorentzVector ZBoson,TLorentzVector Tprime,TLorentzVector Bprime,TLorentzVector TopQuarkResolved,TLorentzVector Jet1Resolved,TLorentzVector Jet2Resolved,TLorentzVector Jet3Resolved,TLorentzVector TprimeResolved,TLorentzVector TopQuarkPartial,TLorentzVector Jet1Partial,TLorentzVector Jet2Partial,TLorentzVector TprimePartial,float WMass_,float WSubjet_,TLorentzVector TopQuarkMerged,TLorentzVector TprimeMerged,float TopSoftMass_,float TopSubjet_,TLorentzVector Electron1,TLorentzVector Electron2,TLorentzVector Muon1,TLorentzVector Muon2,vector<TLorentzVector> SelectedForwardJets,vector<TLorentzVector> SelectedBJets){
   int NumSelBJets = SelectedBJets.size();
