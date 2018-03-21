@@ -271,7 +271,7 @@ void EventSelection_2017sample_and_trigger(){
 	  //ElectronSF(SelectedZBosonElectrons,Electron2.Pt(),Electron2.Eta(),w_Electron2,w_Electron2Up,w_Electron2Down);
 	  ElectronSF(SelectedZBosonElectrons,Electron1.Pt(),Electron1SC.Eta(),w_Electron1,w_Electron1Up,w_Electron1Down);
 	  ElectronSF(SelectedZBosonElectrons,Electron2.Pt(),Electron2SC.Eta(),w_Electron2,w_Electron2Up,w_Electron2Down);
-	  get_weight_btag(selection,w_Btag, w_BtagUp, w_BtagDown,w_BtagLoose, w_BtagLooseUp, w_BtagLooseDown, fileName[Nfiles]);
+	  get_weight_btag(selection,w_Btag, w_BtagUp, w_BtagDown,w_Btag1Up, w_Btag1Down,w_Btag2Up, w_Btag2Down,w_BtagLoose, w_BtagLooseUp, w_BtagLooseDown, fileName[Nfiles]);
 	  TopSF(TopQuarkMerged, FullyMerged, w_topJet, w_topJetUp, w_topJetDown);
 	  WSF(Jet1Partial, PartiallyMerged, w_WJet, w_WJetUp, w_WJetDown, CA8Index, SysJes, SysJer);
 	  ForwardJetSF(SelectedForwardJets, w_for, w_forUp, w_forDown);
@@ -732,23 +732,6 @@ void get_weight_btag(int selection, float &w_Btag, float &w_BtagUp, float &w_Bta
   delete fileBTagEfficiency;
 }
 
-void ForwardJetSF(vector<TLorentzVector> SelectedForwardJets, float &w_for_, float &w_forUp_, float &w_forDown_){
-  if(SelectedForwardJets.size()>0){
-    float eta = eta = SelectedForwardJets[0].Eta(); float pt = SelectedForwardJets[0].Pt();
-    int X1=-99; int Y1=-99;
-    for(int i=1; i<histoForwardJet->GetXaxis()->GetNbins()+2; i++){
-      if(eta<histoForwardJet->GetXaxis()->GetBinLowEdge(i)){ X1=i-1; break; }
-    }
-    for(int i=1; i<histoForwardJet->GetYaxis()->GetNbins()+2; i++){
-      if(pt <histoForwardJet->GetYaxis()->GetBinLowEdge(i)){ Y1=i-1; break; }
-    }
-    if(pt>=histoForwardJet->GetYaxis()->GetBinLowEdge(histoForwardJet->GetYaxis()->GetNbins()+1)) {Y1=(histoForwardJet->GetYaxis()->GetNbins()+1)-1;}
-    float SF = histoForwardJet->GetBinContent(X1,Y1);
-    w_for_     = SF;
-    w_forUp_   = 1.0;//SF + histoForwardJet->GetBinError(X1,Y1);
-    w_forDown_ = 1.0;//SF - histoForwardJet->GetBinError(X1,Y1);
-  }
-}
 
 void ForwardJetSF(vector<TLorentzVector> SelectedForwardJets, float &w_for_, float &w_forUp_, float &w_forDown_){
   if(SelectedForwardJets.size()>0){
@@ -1086,6 +1069,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   Tree->SetBranchAddress("HLT_IsoMu24",&HLT_IsoMu24_,&b_HLT_IsoMu24);
   Tree->SetBranchAddress("HLT_IsoTkMu24",&HLT_IsoTkMu24_,&b_HLT_IsoTkMu24);
   Tree->SetBranchAddress("HLT_Mu50",&HLT_Mu50_,&b_HLT_Mu50);
+  Tree->SetBranchAddress("HLT_TkMu50",&HLT_TkMu50_,&b_HLT_TkMu50);
   Tree->SetBranchAddress("nBestVtx",&nBestVtx_,&b_nBestVtx);
   Tree->SetBranchAddress("PUWeight",&PUWeight_,&b_PUWeight);
   //Tree->SetBranchAddress("PUWeightUP",&PUWeightUP_,&b_PUWeightUP);
@@ -1220,6 +1204,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   NewTree->Branch("PUWeight",          &PUWeight,          "PUWeight/F"          );
   NewTree->Branch("PUWeightUP",        &PUWeightUP,        "PUWeightUP/F"        );
   NewTree->Branch("PUWeightDOWN",      &PUWeightDOWN,      "PUWeightDOWN/F"      );
+  NewTree->Branch("getTrueNumInteractions",&getTrueNumInteractions,"getTrueNumInteractions/I");
   NewTree->Branch("w_for",             &w_for,             "w_for/F"             );
   NewTree->Branch("w_forUp",           &w_forUp,           "w_forUp/F"           );
   NewTree->Branch("w_forDown",         &w_forDown,         "w_forDown/F"         );
@@ -1606,6 +1591,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   NewTreeSB->Branch("PUWeight",          &PUWeight,          "PUWeight/F"          );
   NewTreeSB->Branch("PUWeightUP",        &PUWeightUP,        "PUWeightUP/F"        );
   NewTreeSB->Branch("PUWeightDOWN",      &PUWeightDOWN,      "PUWeightDOWN/F"      );
+  NewTreeSB->Branch("getTrueNumInteractions",&getTrueNumInteractions,"getTrueNumInteractions/I");
   NewTreeSB->Branch("w_for",             &w_for,             "w_for/F"             );
   NewTreeSB->Branch("w_forUp",           &w_forUp,           "w_forUp/F"           );
   NewTreeSB->Branch("w_forDown",         &w_forDown,         "w_forDown/F"         );
@@ -2008,6 +1994,7 @@ void initializeVar(){
   EVENT_run=-99;
   EVENT_lumiBlock=-99;
   EVENT_genHT=-99;
+  getTrueNumInteractions=-99;
   w_for = 1;
   w_forUp = 1;
   w_forDown = 1;
@@ -2351,6 +2338,7 @@ void branchGetEntry(bool data, Long64_t tentry=0, string fileName){
   b_HLT_IsoMu24->GetEntry(tentry);
   b_HLT_IsoTkMu24->GetEntry(tentry);
   b_HLT_Mu50->GetEntry(tentry);
+  b_HLT_TkMu50->GetEntry(tentry);
 	b_Flag_goodVertices->GetEntry(tentry);
 	b_Flag_CSCTightHalo2015Filter->GetEntry(tentry);
 	b_Flag_HBHENoiseFilter->GetEntry(tentry);
