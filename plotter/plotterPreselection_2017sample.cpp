@@ -15,39 +15,39 @@ void plotterPreselection_sample2017(){
   bool SYST = false;
 
   vector<TString> name;                vector<int> bin;      vector<float> Min;      vector<float> Max;     vector<TString> axis;
-  //name.push_back("Electron1Pt");       bin.push_back(40);    Min.push_back(0);       Max.push_back(800);    axis.push_back("Lead Electron pt[GeV]");
-  //name.push_back("Electron2Pt");       bin.push_back(40);    Min.push_back(0);       Max.push_back(400);    axis.push_back("Sublead Electrom pt[GeV]");
-  //name.push_back("deltaREle1Ele2");    bin.push_back(40);    Min.push_back(0);       Max.push_back(4);      axis.push_back("#Delta (ele1,ele2)");
+  name.push_back("Electron1Pt");       bin.push_back(40);    Min.push_back(0);       Max.push_back(800);    axis.push_back("Lead Electron pt[GeV]");
+  name.push_back("Electron2Pt");       bin.push_back(40);    Min.push_back(0);       Max.push_back(400);    axis.push_back("Sublead Electrom pt[GeV]");
+  name.push_back("deltaREle1Ele2");    bin.push_back(40);    Min.push_back(0);       Max.push_back(4);      axis.push_back("#Delta (ele1,ele2)");
 
-  name.push_back("Muon1Pt");           bin.push_back(40);    Min.push_back(0);       Max.push_back(800);    axis.push_back("Lead Muon pt[GeV]");
-  name.push_back("Muon2Pt");           bin.push_back(40);    Min.push_back(0);       Max.push_back(400);    axis.push_back("SubLead Muon pt[GeV]");
-  name.push_back("deltaRMuo1Muo2");    bin.push_back(40);    Min.push_back(0);       Max.push_back(4);      axis.push_back("#Delta (muo1,muo2)");
+  //name.push_back("Muon1Pt");           bin.push_back(40);    Min.push_back(0);       Max.push_back(800);    axis.push_back("Lead Muon pt[GeV]");
+  //name.push_back("Muon2Pt");           bin.push_back(40);    Min.push_back(0);       Max.push_back(400);    axis.push_back("SubLead Muon pt[GeV]");
+  //name.push_back("deltaRMuo1Muo2");    bin.push_back(40);    Min.push_back(0);       Max.push_back(4);      axis.push_back("#Delta (muo1,muo2)");
 
-  /*name.push_back("ZPt");               bin.push_back(40);    Min.push_back(0);       Max.push_back(1000);   axis.push_back("Z pt[GeV])");
+  name.push_back("ZPt");               bin.push_back(40);    Min.push_back(0);       Max.push_back(1000);   axis.push_back("Z pt[GeV])");
   name.push_back("ZMass");             bin.push_back(20);    Min.push_back(70);      Max.push_back(110);    axis.push_back("Z Mass[GeV]");
   name.push_back("ZEta");              bin.push_back(40);    Min.push_back(-4.5);    Max.push_back(4.5);    axis.push_back("Z #eta");
-  name.push_back("ZPhi");              bin.push_back(40);    Min.push_back(-4.5);    Max.push_back(4.5);    axis.push_back("Z #Phi");*/
+  name.push_back("ZPhi");              bin.push_back(40);    Min.push_back(-4.5);    Max.push_back(4.5);    axis.push_back("Z #Phi");
 
   //name.push_back("NumSelBJetsL");      bin.push_back(5);     Min.push_back(-0.5);    Max.push_back(5.5);    axis.push_back("Number of loose b-jets");
   //name.push_back("NumSelBJetsM");      bin.push_back(5);     Min.push_back(-0.5);    Max.push_back(5.5);    axis.push_back("Number of medium b-jets");
   //name.push_back("NumSelForwardJets"); bin.push_back(5);     Min.push_back(-0.5);    Max.push_back(5.5);    axis.push_back("Number of forward jets");
 
-  //name.push_back("Jet1ResolvedPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("jet1(resolved) pt [GeV]");
-  //name.push_back("Jet2ResolvedPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("jet2(resolved) pt [GeV]");
-  //name.push_back("Jet3ResolvedPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("jet3(resolved) pt [GeV]");
+  name.push_back("Jet1ResolvedPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("jet1(resolved) pt [GeV]");
+  name.push_back("Jet2ResolvedPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("jet2(resolved) pt [GeV]");
+  name.push_back("Jet3ResolvedPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("jet3(resolved) pt [GeV]");
 
-  //name.push_back("Jet1ResolvedEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet1(resolved) #eta");
-  //name.push_back("Jet2ResolvedEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet2(resolved) #eta");
-  //name.push_back("Jet3ResolvedEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet3(resolved) #eta");
+  name.push_back("Jet1ResolvedEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet1(resolved) #eta");
+  name.push_back("Jet2ResolvedEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet2(resolved) #eta");
+  name.push_back("Jet3ResolvedEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet3(resolved) #eta");
   
-  //name.push_back("Jet1PartialPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(500);    axis.push_back("W-jet(partial) pt[GeV]");
-  //name.push_back("Jet2PartialPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(500);    axis.push_back("jet(partial) pt[GeV]");
+  name.push_back("Jet1PartialPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(500);    axis.push_back("W-jet(partial) pt[GeV]");
+  name.push_back("Jet2PartialPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(500);    axis.push_back("jet(partial) pt[GeV]");
 
-  //name.push_back("Jet1PartialEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("W-jet(resolved) #eta");
-  //name.push_back("Jet2PartialEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet(resolved) #eta");
+  name.push_back("Jet1PartialEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("W-jet(resolved) #eta");
+  name.push_back("Jet2PartialEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet(resolved) #eta");
 
-  //name.push_back("Jet1MergedPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("top-jet(partial) pt[GeV]");
-  //name.push_back("Jet1MergedEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("top-jet(resolved) #eta");
+  name.push_back("Jet1MergedPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("top-jet(partial) pt[GeV]");
+  name.push_back("Jet1MergedEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("top-jet(resolved) #eta");
 
   //name.push_back("TprimeResolvedMass"); bin.push_back(40);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("Tprime(resolved) Mass[GeV]");
   //name.push_back("TprimePartialMass"); bin.push_back(40);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("Tprime(partial) Mass[GeV]");
@@ -62,7 +62,7 @@ void plotterPreselection_sample2017(){
   //name.push_back("TprimeMergedEta"); bin.push_back(40);     Min.push_back(-3);    Max.push_back(3);    axis.push_back("Tprime(merged) #eta");
 
 
-  /*name.push_back("TopMassResolved"); bin.push_back(40);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("Top(resolved) Mass[GeV]");
+  name.push_back("TopMassResolved"); bin.push_back(40);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("Top(resolved) Mass[GeV]");
   name.push_back("TopMassPartial"); bin.push_back(40);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("Top(partial) Mass[GeV]");
   name.push_back("TopMassMerged"); bin.push_back(40);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("Top(merged) Mass[GeV]");
 
@@ -72,7 +72,7 @@ void plotterPreselection_sample2017(){
 
   name.push_back("TopEtaResolved"); bin.push_back(40);     Min.push_back(-3);    Max.push_back(3);    axis.push_back("Top(resolved) #eta");
   name.push_back("TopEtaPartial"); bin.push_back(40);     Min.push_back(-3);    Max.push_back(3);    axis.push_back("Top(partial) #eta");
-  name.push_back("TopEtaMerged"); bin.push_back(40);     Min.push_back(-3);    Max.push_back(3);    axis.push_back("Top(merged) #eta");*/
+  name.push_back("TopEtaMerged"); bin.push_back(40);     Min.push_back(-3);    Max.push_back(3);    axis.push_back("Top(merged) #eta");
 
   //name.push_back("WMass"); bin.push_back(50);     Min.push_back(65);    Max.push_back(105);    axis.push_back("W Pruned Mass[GeV]");
   //name.push_back("WSubjet"); bin.push_back(50);     Min.push_back(0);    Max.push_back(1);    axis.push_back("W #tau_{21}");
@@ -83,13 +83,15 @@ void plotterPreselection_sample2017(){
  //name.push_back("Jet1ForwardPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(500);    axis.push_back("jet 1 forward pt[GeV]");
  //name.push_back("Jet1ForwardEta"); bin.push_back(50);     Min.push_back(-5);    Max.push_back(5);    axis.push_back("jet 1 forward #eta");
 
+ name.push_back("HT"); bin.push_back(29);     Min.push_back(100);    Max.push_back(3000);    axis.push_back("HT pt[GeV]");
+
   for(int i=0; i<name.size(); i++){
     const char *plot = name[i];
     char CUT[1000]; char CUTmuo1[1000]; char CUTmuo2[1000]; char CUTele1[1000]; char CUTele2[1000]; char CUTtri1[1000]; char CUTtri2[1000]; char CUTtri3[1000]; char CUTtri4[1000]; char CUTpup1[1000]; char CUTpup2[1000]; char CUTbta1[1000]; char CUTbta2[1000]; char CUTtop1[1000]; char CUTtop2[1000]; char CUTfor1[1000]; char CUTfor2[1000]; char CUTwje1[1000]; char CUTwje2[1000];
 	//sprintf(CUT,    "PUWeight    *w_Btag    *w_for    *w_topJet    *w_WJet    *w_TrigMuon    *w_TrigElec    *w_Muon1    *w_Muon2    *w_Electron1    *w_Electron2    *genWeight*((Electron2Pt>40)&&(category1==1||category3==1||category5==1)&&(category0==0&&category2==0&&category4==0))");//only for electron
     //sprintf(CUT,    "PUWeight    *w_Btag    *w_for    *w_topJet    *w_WJet    *w_TrigMuon    *w_TrigElec    *w_Muon1    *w_Muon2    *w_Electron1    *w_Electron2    *genWeight*((Jet2PartialPt>80)&&(category0==1||category2==1||category4==1)&&(category1==0&&category3==0&&category5==0))");//only for muon
-	//sprintf(CUT,    "PUWeight    *w_Btag    *w_for    *w_topJet    *w_WJet    *w_TrigMuon    *w_TrigElec    *w_Muon1    *w_Muon2    *w_Electron1    *w_Electron2    *genWeight*((category1==1||category3==1||category5==1)&&(category0==0&&category2==0&&category4==0))");//only for electron
-    sprintf(CUT,    "PUWeight    *w_Btag    *w_for    *w_topJet    *w_WJet    *w_TrigMuon    *w_TrigElec    *w_Muon1    *w_Muon2    *w_Electron1    *w_Electron2    *genWeight*((Muon1Pt>55)&&(ZPt>0)&&(deltaRMuo1Muo2<1.5)&&(HT>200)&&(category0==1||category2==1||category4==1)&&(category1==0&&category3==0&&category5==0))");//only for muon
+	sprintf(CUT,    "PUWeight    *w_Btag    *w_for    *w_topJet    *w_WJet    *w_TrigMuon    *w_TrigElec    *w_Muon1    *w_Muon2    *w_Electron1    *w_Electron2    *genWeight*((deltaREle1Ele2<1.5)&&(category1==1||category3==1||category5==1)&&(category0==0&&category2==0&&category4==0))");//only for electron
+    //sprintf(CUT,    "PUWeight    *w_Btag    *w_for    *w_topJet    *w_WJet    *w_TrigMuon    *w_TrigElec    *w_Muon1    *w_Muon2    *w_Electron1    *w_Electron2    *genWeight*((deltaRMuo1Muo2<1.5)&&(category0==1||category2==1||category4==1)&&(category1==0&&category3==0&&category5==0))");//only for muon  (Muon1Pt>55)&&(ZPt>0)&&(deltaRMuo1Muo2<1.5)&&
 
 
 	/*sprintf(CUTpup1,"PUWeightUP  *w_Btag    *w_for    *w_topJet    *w_WJet    *w_TrigMuon    *w_TrigElec    *w_Muon1    *w_Muon2    *w_Electron1    *w_Electron2    *genWeight*(category0==1||category1==1||category2==1||category3==1||category4==1||category5==1)");
@@ -461,8 +463,8 @@ void plotterPreselection_sample2017(){
     float relExtraDY = 1.2;
     // ratio of "CMS" and extra text size
     float extraOverCmsTextSize  = 0.76;
-	//TString lumi_13TeV = "20.0 fb^{-1}";//for electron
-    TString lumi_13TeV = "38.8 fb^{-1}";//for muon
+	TString lumi_13TeV = "40.8 fb^{-1}";//for electron
+    //TString lumi_13TeV = "38.8 fb^{-1}";//for muon
     TString lumi_8TeV  = "19.7 fb^{-1}";
     TString lumi_7TeV  = "5.1 fb^{-1}";
     TString lumiText;
