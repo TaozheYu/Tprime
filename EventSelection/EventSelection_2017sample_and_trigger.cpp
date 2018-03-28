@@ -11,7 +11,7 @@ void EventSelection_2017sample_and_trigger(){
 
   bool electrons    = false;
   bool preselection = true;
-  bool sideband     = false;
+  bool sideband     = true;
   bool signal       = false;
 
   //SYSTEMATICS: 0 is standard, 1 is UP, 2 is down
@@ -68,15 +68,14 @@ void EventSelection_2017sample_and_trigger(){
 
   for(int Nfiles=0; Nfiles<fileName.size(); Nfiles++){
   string NewFileprov;
-  if(electrons)  NewFileprov = "/eos/user/t/tayu/2017sample_and_trigger/electron/"+fileName[Nfiles];
-  if(!electrons) NewFileprov = "/eos/user/t/tayu/2017sample_and_trigger/muon/"+fileName[Nfiles];
+  if(electrons)  NewFileprov = "/eos/user/t/tayu/2017sample_and_trigger_SBandSR/electron/"+fileName[Nfiles];
+  if(!electrons) NewFileprov = "/eos/user/t/tayu/2017sample_and_trigger_SBandSR/muon/"+fileName[Nfiles];
     //const char *NewFileName = fileName[Nfiles].c_str();
 	const char *NewFileName = NewFileprov.c_str();
     TFile f(NewFileName,"new");
     TTree *NewTree = new TTree("tree","tree");
     TTree *NewTreeSB = new TTree("treeSB","treeSB");
      
-    //string FILEprov = "/eos/user/t/tayu/2017sample_and_trigger/Event/"+fileName[Nfiles];
 	string FILEprov = "root://eosuser.cern.ch:1094//eos/user/a/aspiezia/TPrime/2017/v02/"+fileName[Nfiles];
     const char *FILE = FILEprov.c_str();
     TFile *file = TFile::Open(FILE);
@@ -125,18 +124,10 @@ void EventSelection_2017sample_and_trigger(){
 	bool SelectedZBosonMuonsM = false;
 	if( electrons) SelectElectrons(SelectedElectrons, SelectedElectronsIndex, data);
 	if(!electrons) SelectMuons(SelectedMuons, SelectedMuonsIndex);
-	/*if( electrons && selection==0) SelectZBoson(electrons,SelectedZBosonElectrons, ZBoson, Electron1, Electron2, SelectedElectrons,SelectedElectronsIndex,999,100.,120);
-	if(!electrons && selection==0) SelectZBoson(electrons,SelectedZBosonMuons,     ZBoson, Muon1,     Muon2,     SelectedMuons,    SelectedMuonsIndex,    999,100.,120);
-	if( electrons && selection==0) SelectZBoson(electrons,SelectedZBosonElectronsM,ZBosonM,Electron1M,Electron2M,SelectedElectrons,SelectedElectronsIndex,999,100.,120);
-	if(!electrons && selection==0) SelectZBoson(electrons,SelectedZBosonMuonsM,    ZBosonM,Muon1M,    Muon2M,    SelectedMuons,    SelectedMuonsIndex,    999,100.,120);
-	if( electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonElectrons, ZBoson, Electron1, Electron2, SelectedElectrons,SelectedElectronsIndex,0.6,100.,120);
-	if(!electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonMuons,     ZBoson, Muon1,     Muon2,     SelectedMuons,    SelectedMuonsIndex,    0.6,100.,120);
-	if( electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonElectronsM,ZBosonM,Electron1M,Electron2M,SelectedElectrons,SelectedElectronsIndex,1.4,100.,120);
-	if(!electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonMuonsM,    ZBosonM,Muon1M,    Muon2M,    SelectedMuons,    SelectedMuonsIndex,    1.4,100.,120);*/
-	if( electrons && selection==0) SelectZBoson(electrons,SelectedZBosonElectrons, ZBoson, Electron1, Electron2, SelectedElectrons,SelectedElectronsIndex,1.5,0,40);
-	if(!electrons && selection==0) SelectZBoson(electrons,SelectedZBosonMuons,     ZBoson, Muon1,     Muon2,     SelectedMuons,    SelectedMuonsIndex,    1.5,0,55);
-	if( electrons && selection==0) SelectZBoson(electrons,SelectedZBosonElectronsM,ZBosonM,Electron1M,Electron2M,SelectedElectrons,SelectedElectronsIndex,1.5,0,40);
-	if(!electrons && selection==0) SelectZBoson(electrons,SelectedZBosonMuonsM,    ZBosonM,Muon1M,    Muon2M,    SelectedMuons,    SelectedMuonsIndex,    1.5,0,55);
+	if( electrons && selection==0) SelectZBoson(electrons,SelectedZBosonElectrons, ZBoson, Electron1, Electron2, SelectedElectrons,SelectedElectronsIndex,999,0,40);
+	if(!electrons && selection==0) SelectZBoson(electrons,SelectedZBosonMuons,     ZBoson, Muon1,     Muon2,     SelectedMuons,    SelectedMuonsIndex,    999,0,55);
+	if( electrons && selection==0) SelectZBoson(electrons,SelectedZBosonElectronsM,ZBosonM,Electron1M,Electron2M,SelectedElectrons,SelectedElectronsIndex,999,0,40);
+	if(!electrons && selection==0) SelectZBoson(electrons,SelectedZBosonMuonsM,    ZBosonM,Muon1M,    Muon2M,    SelectedMuons,    SelectedMuonsIndex,    999,0,55);
 	if( electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonElectrons, ZBoson, Electron1, Electron2, SelectedElectrons,SelectedElectronsIndex,0.6,0,40);
 	if(!electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonMuons,     ZBoson, Muon1,     Muon2,     SelectedMuons,    SelectedMuonsIndex,    0.6,0,55);
 	if( electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonElectronsM,ZBosonM,Electron1M,Electron2M,SelectedElectrons,SelectedElectronsIndex,1.4,0,40);
@@ -168,12 +159,10 @@ void EventSelection_2017sample_and_trigger(){
 	TLorentzVector TopQuarkResolved; TopQuarkResolved.SetPtEtaPhiE(0, 0, 0, 0);
 	TLorentzVector TopQuarkPartial;  TopQuarkPartial.SetPtEtaPhiE(0, 0, 0, 0);
 	TLorentzVector TopQuarkMerged;   TopQuarkMerged.SetPtEtaPhiE(0, 0, 0, 0);
-	TLorentzVector BQuarkBprime;     BQuarkBprime.SetPtEtaPhiE(0, 0, 0, 0);      float BQuarkCSV=-99;
 	bool ResolvedEvent   = false;
 	bool PartiallyMerged = false;
 	bool FullyMerged     = false;
 	bool TprimeEvent     = false;
-	bool BprimeEvent     = false;
 	float WMass_, WSubjet_, TopSoftMass_, TopSubjet_;
 	if(selection==0) ResolvedRegionSelection(ResolvedEvent, SelectedJets, SelectedJetsCSV, TopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, false, false);
 	if(selection==1) ResolvedRegionSelection(ResolvedEvent, SelectedJets, SelectedJetsCSV, TopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, false, true );
@@ -184,9 +173,6 @@ void EventSelection_2017sample_and_trigger(){
 	if(selection==0) FullyMergedSelection(FullyMerged, SelectedTopJets, TopQuarkMerged, CA8Indices, TopSoftMass_, TopSubjet_, data);
 	if(selection==1) FullyMergedSelection(FullyMerged, SelectedTopJets, TopQuarkMerged, CA8Indices, TopSoftMass_, TopSubjet_, data);
 	if(selection==2) FullyMergedSelection(FullyMerged, SelectedTopJets, TopQuarkMerged, CA8Indices, TopSoftMass_, TopSubjet_, data);
-	if(selection==0) BprimeSelection(BprimeEvent, SelectedBJetsM, SelectedBJetsMCSV, BQuarkBprime, BQuarkCSV);
-	if(selection==1) BprimeSelection(BprimeEvent, SelectedBJetsM, SelectedBJetsMCSV, BQuarkBprime, BQuarkCSV);
-	if(selection==2) BprimeSelection(BprimeEvent, SelectedJets,   SelectedJetsCSV,   BQuarkBprime, BQuarkCSV);
 	if(FullyMerged)     {PartiallyMerged=false; ResolvedEvent=false;  }
 	if(PartiallyMerged) {ResolvedEvent=false;   FullyMerged=false;    }
 	if(ResolvedEvent)   {FullyMerged=false;     PartiallyMerged=false;}
@@ -207,7 +193,7 @@ void EventSelection_2017sample_and_trigger(){
 	EVENT_event       = EVENT_event_;
 	EVENT_lumiBlock   = EVENT_lumiBlock_;
 	EVENT_genHT       = EVENT_genHT_;
-	HT                = HTcalculator(SelectedElectrons,SelectedMuons, SysJes, SysJer);
+	HT                = HTcalculator(SelectedJets);
     if(!(HT>200)) continue;
 
 	//categorization
@@ -256,10 +242,9 @@ void EventSelection_2017sample_and_trigger(){
 	TLorentzVector TprimePartial; TprimePartial.SetPtEtaPhiE((ZBoson+TopQuarkPartial).Pt(),(ZBoson+TopQuarkPartial).Eta(),(ZBoson+TopQuarkPartial).Phi(),(ZBoson+TopQuarkPartial).E());
 	TLorentzVector TprimeResolved;TprimeResolved.SetPtEtaPhiE((ZBoson+TopQuarkResolved).Pt(),(ZBoson+TopQuarkResolved).Eta(),(ZBoson+TopQuarkResolved).Phi(),
 								   (ZBoson+TopQuarkResolved).E());
-	TLorentzVector Bprime;        Bprime.SetPtEtaPhiE((ZBoson+BQuarkBprime).Pt(),(ZBoson+BQuarkBprime).Eta(),(ZBoson+BQuarkBprime).Phi(),(ZBoson+BQuarkBprime).E());
 
 	//TREE
-	FillBranches(ResolvedEvent,PartiallyMerged,FullyMerged,TopQuark,BprimeEvent,BQuarkCSV,BQuarkBprime,SelectedZBosonElectrons,SelectedZBosonMuons,ZBoson,Tprime,Bprime,
+	FillBranches(ResolvedEvent,PartiallyMerged,FullyMerged,TopQuark,SelectedZBosonElectrons,SelectedZBosonMuons,ZBoson,Tprime,
 		     TopQuarkResolved,Jet1Resolved,Jet2Resolved,Jet3Resolved,TprimeResolved,TopQuarkPartial,Jet1Partial,Jet2Partial,TprimePartial,WMass_,WSubjet_,TopQuarkMerged,
 		     TprimeMerged,TopSoftMass_,TopSubjet_,Electron1,Electron2,Muon1,Muon2,SelectedForwardJets,SelectedBJetsM);
 
@@ -279,7 +264,6 @@ void EventSelection_2017sample_and_trigger(){
 	  GenWeight(fileName[Nfiles],GenZPt);
 	  if(TriggeringElePt>0) ElectronTriggerSF(TriggeringElePt, TriggeringEleEta);
 	  if(TriggeringMuoPt>0) MuonTriggerSF(TriggeringMuoPt, TriggeringMuoEta);
-	  fillgenWeights();
 	}
 	
 	if(selection==0 || selection==1) HistoFill(PUWeight,NewTree);
@@ -289,7 +273,6 @@ void EventSelection_2017sample_and_trigger(){
     f.cd();
     writeFile(NewTree,NewTreeSB);
     f.Close();
-    resetHistos();
     cout<<"File "<<fileName[Nfiles]<<" ready!"<<endl;
   }
 }
@@ -337,7 +320,7 @@ void SelectZBoson(bool electrons,bool &SelectedZBoson,TLorentzVector &ZBoson,TLo
 	  if(patElectron_isMatchedToTrigger_->at(SelectedLeptonsIndex[j])) {TriggeringElePt = SelectedLeptons[j].Pt();TriggeringEleEta = SelectedLeptons[j].Eta();}
 	  if(patElectron_isMatchedToTrigger_->at(SelectedLeptonsIndex[i])) {TriggeringElePt = SelectedLeptons[i].Pt();TriggeringEleEta = SelectedLeptons[i].Eta();}
 	  Electron1SC.SetPtEtaPhiE(0,patElectron_SCeta_->at(SelectedLeptonsIndex[i]),0,0);
-	  Electron1SC.SetPtEtaPhiE(0,patElectron_SCeta_->at(SelectedLeptonsIndex[j]),0,0);
+	  Electron2SC.SetPtEtaPhiE(0,patElectron_SCeta_->at(SelectedLeptonsIndex[j]),0,0);
 	} else {
 	  if(Muon_isMatchedToTrigger_->at(SelectedLeptonsIndex[j])) {TriggeringMuoPt = SelectedLeptons[j].Pt();TriggeringMuoEta = SelectedLeptons[j].Eta();}
 	  if(Muon_isMatchedToTrigger_->at(SelectedLeptonsIndex[i])) {TriggeringMuoPt = SelectedLeptons[i].Pt();TriggeringMuoEta = SelectedLeptons[i].Eta();}
@@ -367,7 +350,7 @@ void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float
     if(SysJer==0){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSF_->at(j)    ;}
     if(SysJer==1){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSFup_->at(j)  ;}
     if(SysJer==2){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSFdown_->at(j);}
-    if(!(jetpt>30))                                                         continue;
+    if(!(jetpt>20))                                                         continue;
     if(!(fabs(Jet_eta_->at(j))<5.0))                                        continue;
     if(jetType==2) {if(!(fabs(Jet_eta_->at(j))>=2.4))                       continue;if(!(jetpt>30))                                                         continue;}
     else {if(!(fabs(Jet_eta_->at(j))<2.4))		                    continue;}
@@ -467,7 +450,7 @@ void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> Selected
 	if(!((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).Pt()>TopPtMin))                                                                       continue;
 	//if(!(fabs((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).M()-173.1)<TopMassInitial))                                                    continue;
 	if(TopMassCut){if(!((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).M()>100 && (SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).M()<300)) continue;}
-	if(btag){if(!(SelectedJetsCSV[i]>0.8836 || SelectedJetsCSV[j]>0.8836 || SelectedJetsCSV[k]>0.8836))                                             continue;}
+	if(btag){if(!(SelectedJetsCSV[i]>0.8838 || SelectedJetsCSV[j]>0.8838 || SelectedJetsCSV[k]>0.8838))                                             continue;}
 	if(SelectedJetsCSV[i]>SelectedJetsCSV[j] && SelectedJetsCSV[i]>SelectedJetsCSV[k]){
 	  Jet1.SetPtEtaPhiE(SelectedJets[i].Pt(),SelectedJets[i].Eta(),SelectedJets[i].Phi(),SelectedJets[i].E());
 	  Jet2.SetPtEtaPhiE(SelectedJets[j].Pt(),SelectedJets[j].Eta(),SelectedJets[j].Phi(),SelectedJets[j].E());
@@ -501,7 +484,7 @@ void PartiallyMergedSelection(bool &PartiallyMerged,vector<TLorentzVector> Selec
       if(!((SelectedWJets[i]+SelectedJets[k]).Pt()>TopPtMin))                                                        continue;
       //if(!(fabs((SelectedWJets[i]+SelectedJets[k]).M()-173.1)<TopMassInitial))                                     continue;
       if(!(DeltaR(SelectedWJets[i].Eta(),SelectedJets[k].Eta(),SelectedWJets[i].Phi(),SelectedJets[k].Phi())>0.8))   continue;
-      if(btag){if(!(SelectedJetsCSV[k]>0.8836))                                                                       continue;}
+      if(btag){if(!(SelectedJetsCSV[k]>0.8838))                                                                       continue;}
       if(TopMassCut){if(!((SelectedWJets[i]+SelectedJets[k]).M()>100 && (SelectedWJets[i]+SelectedJets[k]).M()<300)) continue;}
       Jet1.SetPtEtaPhiE(SelectedWJets[i].Pt(),SelectedWJets[i].Eta(),SelectedWJets[i].Phi(),SelectedWJets[i].E());
       Jet2.SetPtEtaPhiE(SelectedJets[k].Pt(),SelectedJets[k].Eta(),SelectedJets[k].Phi(),SelectedJets[k].E());
@@ -527,17 +510,6 @@ void FullyMergedSelection(bool & FullyMerged, vector<TLorentzVector> SelectedTop
     float SF = (BoostedJet_Uncorr_pt_->at(CA8Indices[i])/BoostedJet_pt_->at(CA8Indices[i]))*BoostedJet_JesSF_->at(CA8Indices[i])    *BoostedJet_JerSF_->at(CA8Indices[i]);
     TopSoftMass_  = SF*BoostedJet_softdrop_mass_->at(CA8Indices[i]);
     TopSubjet_    = BoostedJet_tau3_->at(CA8Indices[i])/BoostedJet_tau2_->at(CA8Indices[i]);
-  }
-}
-
-void BprimeSelection(bool & Bprime, vector<TLorentzVector> SelectedJets, vector<float> SelectedBJetsCSV, TLorentzVector &Jet, float &BQuarkCSV){
-  float JetPtMin=20;
-  for(int i=0; i<SelectedJets.size(); i++){
-    if(!(SelectedJets[i].Pt()>JetPtMin)) continue;
-    Jet.SetPtEtaPhiE(SelectedJets[i].Pt(),SelectedJets[i].Eta(),SelectedJets[i].Phi(),SelectedJets[i].E());
-    BQuarkCSV = SelectedBJetsCSV[i];
-    Bprime=true;
-    JetPtMin=SelectedJets[i].Pt();
   }
 }
 
@@ -783,47 +755,6 @@ void WSF(TLorentzVector WJet, bool PartiallyMerged, float &w_WJet_, float &w_WJe
   }
 }
 
-/*void MuonSF(bool SelectedZBosonMuons, float pt, float eta, float &w_Muon_, float &w_MuonUp_, float &w_MuonDown_){
-  if(!SelectedZBosonMuons) return;
-  bool doubleUncert = false;
-  int X1=-99; int X2=-99; int X3=-99; int Y1=-99; int Y2=-99;
-  for(int i=1; i<histoMuonSF1id->GetXaxis()->GetNbins()+2; i++){
-    if(fabs(eta)<histoMuonSF1id->GetXaxis()->GetBinLowEdge(i)){ X1=i-1; break; }
-  }
-  for(int i=1; i<histoMuonSF1id->GetYaxis()->GetNbins()+2; i++){
-    if(pt       <histoMuonSF1id->GetYaxis()->GetBinLowEdge(i)){ Y1=i-1; break; } 
-  }
-  if(pt>=histoMuonSF1id->GetYaxis()->GetBinLowEdge(histoMuonSF1id->GetYaxis()->GetNbins()+1)) {Y1=(histoMuonSF1id->GetYaxis()->GetNbins()+1)-1; doubleUncert = true;}
-  for(int i=1; i<histoMuonSF1iso->GetXaxis()->GetNbins()+2; i++){
-    if(fabs(eta)<histoMuonSF1iso->GetXaxis()->GetBinLowEdge(i)){ X2=i-1; break; }
-  }
-  for(int i=1; i<histoMuonSF1iso->GetYaxis()->GetNbins()+2; i++){
-    if(pt       <histoMuonSF1iso->GetYaxis()->GetBinLowEdge(i)){ Y2=i-1; break; }
-  }
-  double * track1    = histoMuonTrack1->GetY();
-  double * track2    = histoMuonTrack2->GetY();
-  double * track1Err = histoMuonTrack1->GetEYhigh();
-  double * track2Err = histoMuonTrack2->GetEYhigh();
-  for(int i=1; i<13; i++){
-    if(fabs(eta)<i*0.2){ X3=i-1; break; }
-  }
-  if(pt>=histoMuonSF1iso->GetYaxis()->GetBinLowEdge(histoMuonSF1iso->GetYaxis()->GetNbins()+1)) Y2=(histoMuonSF1iso->GetYaxis()->GetNbins()+1)-1;
-  float lepIDSF  = (20.1*histoMuonSF1id ->GetBinContent(X1,Y1) + 16.3*histoMuonSF2id ->GetBinContent(X1,Y1))/(20.1+16.3);
-  float lepIsoSF = (20.1*histoMuonSF1iso->GetBinContent(X2,Y2) + 16.3*histoMuonSF2iso->GetBinContent(X2,Y2))/(20.1+16.3);
-  float lepTrack = (20.1*track1[X3]                            + 16.3*track2[X3]                           )/(20.1+16.3);;
-  float lepIDSF_err  = sqrt(pow(20.1*histoMuonSF1id ->GetBinError(X1,Y1),2) + pow(16.3*histoMuonSF2id ->GetBinError(X1,Y1),2))/(20.1+16.3);
-  float lepIsoSF_err = sqrt(pow(20.1*histoMuonSF1iso->GetBinError(X2,Y2),2) + pow(16.3*histoMuonSF2iso->GetBinError(X2,Y2),2))/(20.1+16.3);
-  float lepTrack_err = sqrt(pow(20.1*track1Err[X3]                      ,2) + pow(16.3*track1Err[X3]                      ,2))/(20.1+16.3);
-  if(doubleUncert){
-    lepIDSF_err  = sqrt(pow(lepIDSF_err,2)  + pow(0.005*lepIDSF,2) );
-    lepIsoSF_err = sqrt(pow(lepIsoSF_err,2) + pow(0.005*lepIsoSF,2));
-  }
-  w_Muon_    = lepIDSF*lepIsoSF*lepTrack;
-  w_MuonUp_  = lepIDSF*lepIsoSF*lepTrack + sqrt(pow(lepIsoSF*lepTrack*lepIDSF_err,2)+pow(lepIDSF*lepTrack*lepIsoSF_err,2)+pow(lepIDSF*lepIsoSF*lepTrack_err,2)+pow(0.01*lepIDSF,2)+pow(0.005*lepIsoSF,2));
-  w_MuonDown_= lepIDSF*lepIsoSF*lepTrack - sqrt(pow(lepIsoSF*lepTrack*lepIDSF_err,2)+pow(lepIDSF*lepTrack*lepIsoSF_err,2)+pow(lepIDSF*lepIsoSF*lepTrack_err,2)+pow(0.01*lepIDSF,2)+pow(0.005*lepIsoSF,2));
-  //cout<<pt<<" "<<eta<<" "<<lepIDSF<<" "<<histoMuonSF1id->GetBinError(X1,Y1)<<" "<<lepIsoSF<<" "<<histoMuonSF1iso->GetBinError(X2,Y2)<<" "<<w_Muon_<<" "<<w_MuonUp_<<" "<<w_MuonDown_<<endl;
-
-}*/
 
 void MuonSF(bool SelectedZBosonMuons, float pt, float eta, float &w_Muon_, float &w_MuonUp_, float &w_MuonDown_){ 
 	if(fabs(eta)<0.9){//ID*ISO 
@@ -870,7 +801,7 @@ void ElectronSF(bool SelectedZBosonElectrons, float pt, float eta, float &w_Elec
   for(int i=1; i<histoElectron1->GetYaxis()->GetNbins()+2; i++){
     if(pt <histoElectron1->GetYaxis()->GetBinLowEdge(i)){ Y1=i-1; break; }
   }
-  if(pt<=25) {Y1=1;}
+  if(pt<=20) {Y1=1;}
   if(pt>=histoElectron1->GetYaxis()->GetBinLowEdge(histoElectron1->GetYaxis()->GetNbins()+1)) {Y1=(histoElectron1->GetYaxis()->GetNbins()+1)-1;}
   for(int i=1; i<histoElectron2->GetXaxis()->GetNbins()+2; i++){
     if(eta<histoElectron2->GetXaxis()->GetBinLowEdge(i)){ X2=i-1; break; }
@@ -890,26 +821,6 @@ void ElectronSF(bool SelectedZBosonElectrons, float pt, float eta, float &w_Elec
 void MuonTriggerSF(float pt, float eta){
   bool doubleUncert = false;
   int X1=-99; int X2=-99; int Y1=-99; int Y2=-99;
-  /*for(int i=1; i<histoMuonTrig1->GetXaxis()->GetNbins()+2; i++){
-    if(fabs(eta)<histoMuonTrig1->GetXaxis()->GetBinLowEdge(i)){ X1=i-1; break; }
-  }
-  for(int i=1; i<histoMuonTrig1->GetYaxis()->GetNbins()+2; i++){
-    if(pt <histoMuonTrig1->GetYaxis()->GetBinLowEdge(i)){ Y1=i-1; break; } 
-  }
-  if(pt>=histoMuonTrig1->GetYaxis()->GetBinLowEdge(histoMuonTrig1->GetYaxis()->GetNbins()+1)) {Y1=(histoMuonTrig1->GetYaxis()->GetNbins()+1)-1; doubleUncert = true;}
-  for(int i=1; i<histoMuonTrig2->GetXaxis()->GetNbins()+2; i++){
-    if(fabs(eta)<histoMuonTrig2->GetXaxis()->GetBinLowEdge(i)){ X2=i-1; break; }
-  }
-  for(int i=1; i<histoMuonTrig2->GetYaxis()->GetNbins()+2; i++){
-    if(pt <histoMuonTrig2->GetYaxis()->GetBinLowEdge(i)){ Y2=i-1; break; }
-  }
-  if(pt>=histoMuonTrig2->GetYaxis()->GetBinLowEdge(histoMuonTrig2->GetYaxis()->GetNbins()+1)) Y2=(histoMuonTrig2->GetYaxis()->GetNbins()+1)-1;
-  float lepTrig      = (19.736*histoMuonTrig1->GetBinContent(X1,Y1) + 16.164*histoMuonTrig2->GetBinContent(X2,Y2))/(17.424+2.802+16.578);
-  float lepTrig_err  = sqrt(pow(19.736*histoMuonTrig1->GetBinError(X1,Y1),2) + pow(16.164*histoMuonTrig2->GetBinError(X2,Y2),2))/(19.736+16.164);
-  w_TrigMuon    = lepTrig;
-  w_TrigMuonUp  = lepTrig + lepTrig_err;
-  w_TrigMuonDown= lepTrig - lepTrig_err;*/
-  //cout<<pt<<" "<<eta<<" "<<histoMuonTrig1->GetBinContent(X1,Y1)<<" "<<histoMuonTrig2->GetBinContent(X1,Y1)<<" "<<w_TrigMuon<<" "<<w_TrigMuonUp<<" "<<w_TrigMuonDown<<endl;
   for(int i=1; i<histoMuonTrig->GetXaxis()->GetNbins()+2; i++){
     if(fabs(eta)<histoMuonTrig->GetXaxis()->GetBinLowEdge(i)){ X1=i-1; break; }
   }
@@ -952,38 +863,10 @@ float DeltaPhi(float phi1, float phi2){
   return deltaPhi;
 }
 
-float HTcalculator(vector<TLorentzVector> SelectedElectrons, vector<TLorentzVector> SelectedMuons, int SysJes, int SysJer){
+float HTcalculator(vector<TLorentzVector> SelectedJets){
   float HTprov=0;
-  for (UInt_t j = 0; j < Jet_pt_->size(); ++j){
-    if(SysJes==0){if(!((Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSF_->at(j))    >20)) continue;}
-    if(SysJes==1){if(!((Jet_Uncorr_pt_->at(j)*Jet_JesSFup_->at(j)  *Jet_JerSF_->at(j))    >20)) continue;}
-    if(SysJes==2){if(!((Jet_Uncorr_pt_->at(j)*Jet_JesSFdown_->at(j)*Jet_JerSF_->at(j))    >20)) continue;}
-    if(SysJer==0){if(!((Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSF_->at(j))    >20)) continue;}
-    if(SysJer==1){if(!((Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSFup_->at(j))  >20)) continue;}
-    if(SysJer==2){if(!((Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSFdown_->at(j))>20)) continue;}
-    if(!(Jet_neutralHadEnergyFraction_->at(j)<0.99))                      continue;
-    if(!(Jet_chargedEmEnergyFraction_->at(j)<0.99))                       continue;
-    if(!(Jet_neutralEmEnergyFraction_->at(j)<0.99))                       continue;
-    if(!(Jet_chargedHadronEnergyFraction_->at(j)>0.0))                    continue;
-    if(!(Jet_numberOfConstituents_->at(j)>1))	                        continue;
-    if(!(Jet_chargedMultiplicity_->at(j)>0.0))                            continue;
-    bool deltaRLepJet=true;
-    for(int k=0; k<SelectedElectrons.size(); k++){
-      if(DeltaR(Jet_eta_->at(j),SelectedElectrons[k].Eta(),Jet_phi_->at(j),SelectedElectrons[k].Phi())<0.4) deltaRLepJet=false;
-    }
-    for(int k=0; k<SelectedMuons.size(); k++){
-      if(DeltaR(Jet_eta_->at(j),SelectedMuons[k].Eta(),Jet_phi_->at(j),SelectedMuons[k].Phi())<0.4) deltaRLepJet=false;
-    }
-    if(deltaRLepJet){
-      float SF = 1;
-      if(SysJes==0) SF = (Jet_Uncorr_pt_->at(j)/Jet_pt_->at(j))*Jet_JesSF_->at(j)    *Jet_JerSF_->at(j);
-      if(SysJes==1) SF = (Jet_Uncorr_pt_->at(j)/Jet_pt_->at(j))*Jet_JesSFup_->at(j)  *Jet_JerSF_->at(j);
-      if(SysJes==2) SF = (Jet_Uncorr_pt_->at(j)/Jet_pt_->at(j))*Jet_JesSFdown_->at(j)*Jet_JerSF_->at(j);
-      if(SysJer==0) SF = (Jet_Uncorr_pt_->at(j)/Jet_pt_->at(j))*Jet_JesSF_->at(j)*Jet_JerSF_->at(j);
-      if(SysJer==1) SF = (Jet_Uncorr_pt_->at(j)/Jet_pt_->at(j))*Jet_JesSF_->at(j)*Jet_JerSFup_->at(j);
-      if(SysJer==2) SF = (Jet_Uncorr_pt_->at(j)/Jet_pt_->at(j))*Jet_JesSF_->at(j)*Jet_JerSFdown_->at(j);
-      HTprov=HTprov+SF*Jet_pt_->at(j);
-    }
+  for (UInt_t j = 0; j < SelectedJets.size(); ++j){
+    HTprov=HTprov+SelectedJets[j].Pt();
   }
   return HTprov;
 }
@@ -1008,7 +891,6 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   Tree->SetBranchAddress("Jet_chargedHadronEnergyFraction", &Jet_chargedHadronEnergyFraction_, &b_Jet_chargedHadronEnergyFraction);
   Tree->SetBranchAddress("Jet_chargedMultiplicity", &Jet_chargedMultiplicity_, &b_Jet_chargedMultiplicity);
   if(!data) Tree->SetBranchAddress("Jet_hadronFlavour", &Jet_hadronFlavour_, &b_Jet_hadronFlavour);
-  //if(!(fileName.find("Single") != string::npos)) Tree->SetBranchAddress("Jet_hadronFlavour", &Jet_hadronFlavour_, &b_Jet_hadronFlavour);
   Tree->SetBranchAddress("BoostedJet_pt",   &BoostedJet_pt_,   &b_BoostedJet_pt);
   Tree->SetBranchAddress("BoostedJet_Uncorr_pt",   &BoostedJet_Uncorr_pt_,   &b_BoostedJet_Uncorr_pt);
   Tree->SetBranchAddress("BoostedJet_softdrop_mass",   &BoostedJet_softdrop_mass_,   &b_BoostedJet_softdrop_mass);
@@ -1058,12 +940,12 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   //Tree->SetBranchAddress("Muon_loose",&Muon_loose_,&b_Muon_loose);
   Tree->SetBranchAddress("Muon_relIsoDeltaBetaR04",&Muon_relIsoDeltaBetaR04_,&b_Muon_relIsoDeltaBetaR04);
   Tree->SetBranchAddress("Muon_isMatchedToTrigger",&Muon_isMatchedToTrigger_,&b_Muon_isMatchedToTrigger);
-	Tree->SetBranchAddress("Flag_goodVertices",&Flag_goodVertices_,&b_Flag_goodVertices);
-	Tree->SetBranchAddress("Flag_CSCTightHalo2015Filter",&Flag_CSCTightHalo2015Filter_,&b_Flag_CSCTightHalo2015Filter);
-	Tree->SetBranchAddress("Flag_HBHENoiseFilter",&Flag_HBHENoiseFilter_,&b_Flag_HBHENoiseFilter);
-	Tree->SetBranchAddress("Flag_HBHENoiseIsoFilter",&Flag_HBHENoiseIsoFilter_,&b_Flag_HBHENoiseIsoFilter);
-	Tree->SetBranchAddress("Flag_EcalDeadCellTriggerPrimitiveFilter",&Flag_EcalDeadCellTriggerPrimitiveFilter_,&b_Flag_EcalDeadCellTriggerPrimitiveFilter);
-	Tree->SetBranchAddress("Flag_eeBadScFilter",&Flag_eeBadScFilter_,&b_Flag_eeBadScFilter);
+  Tree->SetBranchAddress("Flag_goodVertices",&Flag_goodVertices_,&b_Flag_goodVertices);
+  Tree->SetBranchAddress("Flag_CSCTightHalo2015Filter",&Flag_CSCTightHalo2015Filter_,&b_Flag_CSCTightHalo2015Filter);
+  Tree->SetBranchAddress("Flag_HBHENoiseFilter",&Flag_HBHENoiseFilter_,&b_Flag_HBHENoiseFilter);
+  Tree->SetBranchAddress("Flag_HBHENoiseIsoFilter",&Flag_HBHENoiseIsoFilter_,&b_Flag_HBHENoiseIsoFilter);
+  Tree->SetBranchAddress("Flag_EcalDeadCellTriggerPrimitiveFilter",&Flag_EcalDeadCellTriggerPrimitiveFilter_,&b_Flag_EcalDeadCellTriggerPrimitiveFilter);
+  Tree->SetBranchAddress("Flag_eeBadScFilter",&Flag_eeBadScFilter_,&b_Flag_eeBadScFilter);
   Tree->SetBranchAddress("HLT_Ele115_CaloIdVT_GsfTrkIdT",&HLT_Ele115_CaloIdVT_GsfTrkIdT_,&b_HLT_Ele115_CaloIdVT_GsfTrkIdT);
   Tree->SetBranchAddress("HLT_DoubleEle33_CaloIdL_MW",&HLT_DoubleEle33_CaloIdL_MW_,&b_HLT_DoubleEle33_CaloIdL_MW);
   Tree->SetBranchAddress("HLT_IsoMu24",&HLT_IsoMu24_,&b_HLT_IsoMu24);
@@ -1083,11 +965,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   if(!(fileName.find("Single")!=string::npos||fileName.find("Double")!=string::npos)) Tree->SetBranchAddress("Gen_phi",&Gen_phi_,&b_Gen_phi);
   if(!(fileName.find("Single")!=string::npos||fileName.find("Double")!=string::npos)) Tree->SetBranchAddress("Gen_pdg_id",&Gen_pdg_id_,&b_Gen_pdg_id);
   if(!(fileName.find("Single")!=string::npos||fileName.find("Double")!=string::npos)) Tree->SetBranchAddress("Gen_motherpdg_id",&Gen_motherpdg_id_,&b_Gen_motherpdg_id);
-  if(fileName.find("ttZ")!=string::npos)    Tree->SetBranchAddress("EVENT_genWeight",&genWeight_,&b_genWeight);
-  if(fileName.find("ttW")!=string::npos)    Tree->SetBranchAddress("EVENT_genWeight",&genWeight_,&b_genWeight);
-  if(fileName.find("tZq")!=string::npos)    Tree->SetBranchAddress("EVENT_genWeight",&genWeight_,&b_genWeight);
-  if(fileName.find("DY")!=string::npos)     Tree->SetBranchAddress("EVENT_genWeight",&genWeight_,&b_genWeight);
-  Tree->SetBranchAddress("EVENT_genWeights",&genWeights_,&b_genWeights);
+  Tree->SetBranchAddress("EVENT_genWeight",&genWeight_,&b_genWeight);
 
   NewTree->Branch("category0",         &category0,         "category0/I"         );
   NewTree->Branch("category1",         &category1,         "category1/I"         );
@@ -1125,10 +1003,6 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   NewTree->Branch("ZPt",               &ZPt,               "ZPt/F"               );
   NewTree->Branch("ZEta",              &ZEta,              "ZEta/F"              );
   NewTree->Branch("ZPhi",              &ZPhi,              "ZPhi/F"              );
-  NewTree->Branch("BprimeMass",        &BprimeMass,        "BprimeMass/F"        );
-  NewTree->Branch("BprimePt",          &BprimePt,          "BprimePt/F"          );
-  NewTree->Branch("BprimeEta",         &BprimeEta,         "BprimeEta/F"         );
-  NewTree->Branch("BprimePhi",         &BprimePhi,         "BprimePhi/F"         );
   NewTree->Branch("TprimeMass",        &TprimeMass,        "TprimeMass/F"        );
   NewTree->Branch("TprimePt",          &TprimePt,          "TprimePt/F"          );
   NewTree->Branch("TprimeEta",         &TprimeEta,         "TprimeEta/F"         );
@@ -1253,7 +1127,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   NewTree->Branch("deltaPhiZTopMerged",   &deltaPhiZTopMerged,   "deltaPhiZTopMerged/F"  );
   NewTree->Branch("deltaRZTopMerged",     &deltaRZTopMerged,     "deltaRZTopMerged/F"    );
   NewTree->Branch("deltaRbTop",           &deltaRbTop,           "deltaRbTop/F"          );
-  NewTree->Branch("genWeight",            &genWeight,            "genWeight/I"           );
+  NewTree->Branch("genWeight",            &genWeight,            "genWeight/F"           );
   NewTree->Branch("dQuark",&dQuark,"dQuark/I");
   NewTree->Branch("uQuark",&uQuark,"uQuark/I");
   NewTree->Branch("sQuark",&sQuark,"sQuark/I");
@@ -1264,219 +1138,6 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   NewTree->Branch("EVENT_run",&EVENT_run,"EVENT_run/I");
   NewTree->Branch("EVENT_lumiBlock",&EVENT_lumiBlock,"EVENT_lumiBlock/I");
   NewTree->Branch("EVENT_genHT",&EVENT_genHT,"EVENT_genHT/F");
-  NewTree->Branch("genWeights0",          &genWeights0,          "genWeights0/F"         );
-  NewTree->Branch("genWeights1",          &genWeights1,          "genWeights1/F"         );
-  NewTree->Branch("genWeights2",          &genWeights2,          "genWeights2/F"         );
-  NewTree->Branch("genWeights3",          &genWeights3,          "genWeights3/F"         );
-  NewTree->Branch("genWeights4",          &genWeights4,          "genWeights4/F"         );
-  NewTree->Branch("genWeights5",          &genWeights5,          "genWeights5/F"         );
-  NewTree->Branch("genWeights6",          &genWeights6,          "genWeights6/F"         );
-  NewTree->Branch("genWeights7",          &genWeights7,          "genWeights7/F"         );
-  NewTree->Branch("genWeights8",          &genWeights8,          "genWeights8/F"         );
-  NewTree->Branch("genWeights9",          &genWeights9,          "genWeights9/F"         );
-  NewTree->Branch("genWeights10",         &genWeights10,         "genWeights10/F"        );
-  NewTree->Branch("genWeights11",         &genWeights11,         "genWeights11/F"        );
-  NewTree->Branch("genWeights12",         &genWeights12,         "genWeights12/F"        );
-  NewTree->Branch("genWeights13",         &genWeights13,         "genWeights13/F"        );
-  NewTree->Branch("genWeights14",         &genWeights14,         "genWeights14/F"        );
-  NewTree->Branch("genWeights15",         &genWeights15,         "genWeights15/F"        );
-  NewTree->Branch("genWeights16",         &genWeights16,         "genWeights16/F"        );
-  NewTree->Branch("genWeights17",         &genWeights17,         "genWeights17/F"        );
-  NewTree->Branch("genWeights18",         &genWeights18,         "genWeights18/F"        );
-  NewTree->Branch("genWeights19",         &genWeights19,         "genWeights19/F"        );
-  NewTree->Branch("genWeights20",         &genWeights20,         "genWeights20/F"        );
-  NewTree->Branch("genWeights21",         &genWeights21,         "genWeights21/F"        );
-  NewTree->Branch("genWeights22",         &genWeights22,         "genWeights22/F"        );
-  NewTree->Branch("genWeights23",         &genWeights23,         "genWeights23/F"        );
-  NewTree->Branch("genWeights24",         &genWeights24,         "genWeights24/F"        );
-  NewTree->Branch("genWeights25",         &genWeights25,         "genWeights25/F"        );
-  NewTree->Branch("genWeights26",         &genWeights26,         "genWeights26/F"        );
-  NewTree->Branch("genWeights27",         &genWeights27,         "genWeights27/F"        );
-  NewTree->Branch("genWeights28",         &genWeights28,         "genWeights28/F"        );
-  NewTree->Branch("genWeights29",         &genWeights29,         "genWeights29/F"        );
-  NewTree->Branch("genWeights30",         &genWeights30,         "genWeights30/F"        );
-  NewTree->Branch("genWeights31",         &genWeights31,         "genWeights31/F"        );
-  NewTree->Branch("genWeights32",         &genWeights32,         "genWeights32/F"        );
-  NewTree->Branch("genWeights33",         &genWeights33,         "genWeights33/F"        );
-  NewTree->Branch("genWeights34",         &genWeights34,         "genWeights34/F"        );
-  NewTree->Branch("genWeights35",         &genWeights35,         "genWeights35/F"        );
-  NewTree->Branch("genWeights36",         &genWeights36,         "genWeights36/F"        );
-  NewTree->Branch("genWeights37",         &genWeights37,         "genWeights37/F"        );
-  NewTree->Branch("genWeights38",         &genWeights38,         "genWeights38/F"        );
-  NewTree->Branch("genWeights39",         &genWeights39,         "genWeights39/F"        );
-  NewTree->Branch("genWeights40",         &genWeights40,         "genWeights40/F"        );
-  NewTree->Branch("genWeights41",         &genWeights41,         "genWeights41/F"        );
-  NewTree->Branch("genWeights42",         &genWeights42,         "genWeights42/F"        );
-  NewTree->Branch("genWeights43",         &genWeights43,         "genWeights43/F"        );
-  NewTree->Branch("genWeights44",         &genWeights44,         "genWeights44/F"        );
-  NewTree->Branch("genWeights45",         &genWeights45,         "genWeights45/F"        );
-  NewTree->Branch("genWeights46",         &genWeights46,         "genWeights46/F"        );
-  NewTree->Branch("genWeights47",         &genWeights47,         "genWeights47/F"        );
-  NewTree->Branch("genWeights48",         &genWeights48,         "genWeights48/F"        );
-  NewTree->Branch("genWeights49",         &genWeights49,         "genWeights49/F"        );
-  NewTree->Branch("genWeights50",         &genWeights50,         "genWeights50/F"        );
-  NewTree->Branch("genWeights51",         &genWeights51,         "genWeights51/F"        );
-  NewTree->Branch("genWeights52",         &genWeights52,         "genWeights52/F"        );
-  NewTree->Branch("genWeights53",         &genWeights53,         "genWeights53/F"        );
-  NewTree->Branch("genWeights54",         &genWeights54,         "genWeights54/F"        );
-  NewTree->Branch("genWeights55",         &genWeights55,         "genWeights55/F"        );
-  NewTree->Branch("genWeights56",         &genWeights56,         "genWeights56/F"        );
-  NewTree->Branch("genWeights57",         &genWeights57,         "genWeights57/F"        );
-  NewTree->Branch("genWeights58",         &genWeights58,         "genWeights58/F"        );
-  NewTree->Branch("genWeights59",         &genWeights59,         "genWeights59/F"        );
-  NewTree->Branch("genWeights60",         &genWeights60,         "genWeights60/F"        );
-  NewTree->Branch("genWeights61",         &genWeights61,         "genWeights61/F"        );
-  NewTree->Branch("genWeights62",         &genWeights62,         "genWeights62/F"        );
-  NewTree->Branch("genWeights63",         &genWeights63,         "genWeights63/F"        );
-  NewTree->Branch("genWeights64",         &genWeights64,         "genWeights64/F"        );
-  NewTree->Branch("genWeights65",         &genWeights65,         "genWeights65/F"        );
-  NewTree->Branch("genWeights66",         &genWeights66,         "genWeights66/F"        );
-  NewTree->Branch("genWeights67",         &genWeights67,         "genWeights67/F"        );
-  NewTree->Branch("genWeights68",         &genWeights68,         "genWeights68/F"        );
-  NewTree->Branch("genWeights69",         &genWeights69,         "genWeights69/F"        );
-  NewTree->Branch("genWeights70",         &genWeights70,         "genWeights70/F"        );
-  NewTree->Branch("genWeights71",         &genWeights71,         "genWeights71/F"        );
-  NewTree->Branch("genWeights72",         &genWeights72,         "genWeights72/F"        );
-  NewTree->Branch("genWeights73",         &genWeights73,         "genWeights73/F"        );
-  NewTree->Branch("genWeights74",         &genWeights74,         "genWeights74/F"        );
-  NewTree->Branch("genWeights75",         &genWeights75,         "genWeights75/F"        );
-  NewTree->Branch("genWeights76",         &genWeights76,         "genWeights76/F"        );
-  NewTree->Branch("genWeights77",         &genWeights77,         "genWeights77/F"        );
-  NewTree->Branch("genWeights78",         &genWeights78,         "genWeights78/F"        );
-  NewTree->Branch("genWeights79",         &genWeights79,         "genWeights79/F"        );
-  NewTree->Branch("genWeights80",         &genWeights80,         "genWeights80/F"        );
-  NewTree->Branch("genWeights81",         &genWeights81,         "genWeights81/F"        );
-  NewTree->Branch("genWeights82",         &genWeights82,         "genWeights82/F"        );
-  NewTree->Branch("genWeights83",         &genWeights83,         "genWeights83/F"        );
-  NewTree->Branch("genWeights84",         &genWeights84,         "genWeights84/F"        );
-  NewTree->Branch("genWeights85",         &genWeights85,         "genWeights85/F"        );
-  NewTree->Branch("genWeights86",         &genWeights86,         "genWeights86/F"        );
-  NewTree->Branch("genWeights87",         &genWeights87,         "genWeights87/F"        );
-  NewTree->Branch("genWeights88",         &genWeights88,         "genWeights88/F"        );
-  NewTree->Branch("genWeights89",         &genWeights89,         "genWeights89/F"        );
-  NewTree->Branch("genWeights90",         &genWeights90,         "genWeights90/F"        );
-  NewTree->Branch("genWeights91",         &genWeights91,         "genWeights91/F"        );
-  NewTree->Branch("genWeights92",         &genWeights92,         "genWeights92/F"        );
-  NewTree->Branch("genWeights93",         &genWeights93,         "genWeights93/F"        );
-  NewTree->Branch("genWeights94",         &genWeights94,         "genWeights94/F"        );
-  NewTree->Branch("genWeights95",         &genWeights95,         "genWeights95/F"        );
-  NewTree->Branch("genWeights96",         &genWeights96,         "genWeights96/F"        );
-  NewTree->Branch("genWeights97",         &genWeights97,         "genWeights97/F"        );
-  NewTree->Branch("genWeights98",         &genWeights98,         "genWeights98/F"        );
-  NewTree->Branch("genWeights99",         &genWeights99,         "genWeights99/F"        );
-  NewTree->Branch("genWeights100",        &genWeights100,        "genWeights100/F"       );
-  NewTree->Branch("genWeights101",        &genWeights101,        "genWeights101/F"       );
-  NewTree->Branch("genWeights102",        &genWeights102,        "genWeights102/F"       );
-  NewTree->Branch("genWeights103",        &genWeights103,        "genWeights103/F"       );
-  NewTree->Branch("genWeights104",        &genWeights104,        "genWeights104/F"       );
-  NewTree->Branch("genWeights105",        &genWeights105,        "genWeights105/F"       );
-  NewTree->Branch("genWeights106",        &genWeights106,        "genWeights106/F"       );
-  NewTree->Branch("genWeights107",        &genWeights107,        "genWeights107/F"       );
-  NewTree->Branch("genWeights108",        &genWeights108,        "genWeights108/F"       );
-  NewTree->Branch("genWeights109",        &genWeights109,        "genWeights109/F"       );
-  NewTree->Branch("genWeights110",        &genWeights110,        "genWeights110/F"       );
-  NewTree->Branch("genWeights111",        &genWeights111,        "genWeights111/F"       );
-  NewTree->Branch("genWeights112",        &genWeights112,        "genWeights112/F"       );
-  NewTree->Branch("genWeights113",        &genWeights113,        "genWeights113/F"       );
-  NewTree->Branch("genWeights114",        &genWeights114,        "genWeights114/F"       );
-  NewTree->Branch("genWeights115",        &genWeights115,        "genWeights115/F"       );
-  NewTree->Branch("genWeights116",        &genWeights116,        "genWeights116/F"       );
-  NewTree->Branch("genWeights117",        &genWeights117,        "genWeights117/F"       );
-  NewTree->Branch("genWeights118",        &genWeights118,        "genWeights118/F"       );
-  NewTree->Branch("genWeights119",        &genWeights119,        "genWeights119/F"       );
-  NewTree->Branch("genWeights120",        &genWeights120,        "genWeights120/F"       );
-  NewTree->Branch("genWeights121",        &genWeights121,        "genWeights121/F"       );
-  NewTree->Branch("genWeights122",        &genWeights122,        "genWeights122/F"       );
-  NewTree->Branch("genWeights123",        &genWeights123,        "genWeights123/F"       );
-  NewTree->Branch("genWeights124",        &genWeights124,        "genWeights124/F"       );
-  NewTree->Branch("genWeights125",        &genWeights125,        "genWeights125/F"       );
-  NewTree->Branch("genWeights126",        &genWeights126,        "genWeights126/F"       );
-  NewTree->Branch("genWeights127",        &genWeights127,        "genWeights127/F"       );
-  NewTree->Branch("genWeights128",        &genWeights128,        "genWeights128/F"       );
-  NewTree->Branch("genWeights129",        &genWeights129,        "genWeights129/F"       );
-  NewTree->Branch("genWeights130",        &genWeights130,        "genWeights130/F"       );
-  NewTree->Branch("genWeights131",        &genWeights131,        "genWeights131/F"       );
-  NewTree->Branch("genWeights132",        &genWeights132,        "genWeights132/F"       );
-  NewTree->Branch("genWeights133",        &genWeights133,        "genWeights133/F"       );
-  NewTree->Branch("genWeights134",        &genWeights134,        "genWeights134/F"       );
-  NewTree->Branch("genWeights135",        &genWeights135,        "genWeights135/F"       );
-  NewTree->Branch("genWeights136",        &genWeights136,        "genWeights136/F"       );
-  NewTree->Branch("genWeights137",        &genWeights137,        "genWeights137/F"       );
-  NewTree->Branch("genWeights138",        &genWeights138,        "genWeights138/F"       );
-  NewTree->Branch("genWeights139",        &genWeights139,        "genWeights139/F"       );
-  NewTree->Branch("genWeights140",        &genWeights140,        "genWeights140/F"       );
-  NewTree->Branch("genWeights141",        &genWeights141,        "genWeights141/F"       );
-  NewTree->Branch("genWeights142",        &genWeights142,        "genWeights142/F"       );
-  NewTree->Branch("genWeights143",        &genWeights143,        "genWeights143/F"       );
-  NewTree->Branch("genWeights144",        &genWeights144,        "genWeights144/F"       );
-  NewTree->Branch("genWeights145",        &genWeights145,        "genWeights145/F"       );
-  NewTree->Branch("genWeights146",        &genWeights146,        "genWeights146/F"       );
-  NewTree->Branch("genWeights147",        &genWeights147,        "genWeights147/F"       );
-  NewTree->Branch("genWeights148",        &genWeights148,        "genWeights148/F"       );
-  NewTree->Branch("genWeights149",        &genWeights149,        "genWeights149/F"       );
-  NewTree->Branch("genWeights150",        &genWeights150,        "genWeights150/F"       );
-  NewTree->Branch("genWeights151",        &genWeights151,        "genWeights151/F"       );
-  NewTree->Branch("genWeights152",        &genWeights152,        "genWeights152/F"       );
-  NewTree->Branch("genWeights153",        &genWeights153,        "genWeights153/F"       );
-  NewTree->Branch("genWeights154",        &genWeights154,        "genWeights154/F"       );
-  NewTree->Branch("genWeights155",        &genWeights155,        "genWeights155/F"       );
-  NewTree->Branch("genWeights156",        &genWeights156,        "genWeights156/F"       );
-  NewTree->Branch("genWeights157",        &genWeights157,        "genWeights157/F"       );
-  NewTree->Branch("genWeights158",        &genWeights158,        "genWeights158/F"       );
-  NewTree->Branch("genWeights159",        &genWeights159,        "genWeights159/F"       );
-  NewTree->Branch("genWeights160",        &genWeights160,        "genWeights160/F"       );
-  NewTree->Branch("genWeights161",        &genWeights161,        "genWeights161/F"       );
-  NewTree->Branch("genWeights162",        &genWeights162,        "genWeights162/F"       );
-  NewTree->Branch("genWeights163",        &genWeights163,        "genWeights163/F"       );
-  NewTree->Branch("genWeights164",        &genWeights164,        "genWeights164/F"       );
-  NewTree->Branch("genWeights165",        &genWeights165,        "genWeights165/F"       );
-  NewTree->Branch("genWeights166",        &genWeights166,        "genWeights166/F"       );
-  NewTree->Branch("genWeights167",        &genWeights167,        "genWeights167/F"       );
-  NewTree->Branch("genWeights168",        &genWeights168,        "genWeights168/F"       );
-  NewTree->Branch("genWeights169",        &genWeights169,        "genWeights169/F"       );
-  NewTree->Branch("genWeights170",        &genWeights170,        "genWeights170/F"       );
-  NewTree->Branch("genWeights171",        &genWeights171,        "genWeights171/F"       );
-  NewTree->Branch("genWeights172",        &genWeights172,        "genWeights172/F"       );
-  NewTree->Branch("genWeights173",        &genWeights173,        "genWeights173/F"       );
-  NewTree->Branch("genWeights174",        &genWeights174,        "genWeights174/F"       );
-  NewTree->Branch("genWeights175",        &genWeights175,        "genWeights175/F"       );
-  NewTree->Branch("genWeights176",        &genWeights176,        "genWeights176/F"       );
-  NewTree->Branch("genWeights177",        &genWeights177,        "genWeights177/F"       );
-  NewTree->Branch("genWeights178",        &genWeights178,        "genWeights178/F"       );
-  NewTree->Branch("genWeights179",        &genWeights179,        "genWeights179/F"       );
-  NewTree->Branch("genWeights180",        &genWeights180,        "genWeights180/F"       );
-  NewTree->Branch("genWeights181",        &genWeights181,        "genWeights181/F"       );
-  NewTree->Branch("genWeights182",        &genWeights182,        "genWeights182/F"       );
-  NewTree->Branch("genWeights183",        &genWeights183,        "genWeights183/F"       );
-  NewTree->Branch("genWeights184",        &genWeights184,        "genWeights184/F"       );
-  NewTree->Branch("genWeights185",        &genWeights185,        "genWeights185/F"       );
-  NewTree->Branch("genWeights186",        &genWeights186,        "genWeights186/F"       );
-  NewTree->Branch("genWeights187",        &genWeights187,        "genWeights187/F"       );
-  NewTree->Branch("genWeights188",        &genWeights188,        "genWeights188/F"       );
-  NewTree->Branch("genWeights189",        &genWeights189,        "genWeights189/F"       );
-  NewTree->Branch("genWeights190",        &genWeights190,        "genWeights190/F"       );
-  NewTree->Branch("genWeights191",        &genWeights191,        "genWeights191/F"       );
-  NewTree->Branch("genWeights192",        &genWeights192,        "genWeights192/F"       );
-  NewTree->Branch("genWeights193",        &genWeights193,        "genWeights193/F"       );
-  NewTree->Branch("genWeights194",        &genWeights194,        "genWeights194/F"       );
-  NewTree->Branch("genWeights195",        &genWeights195,        "genWeights195/F"       );
-  NewTree->Branch("genWeights196",        &genWeights196,        "genWeights196/F"       );
-  NewTree->Branch("genWeights197",        &genWeights197,        "genWeights197/F"       );
-  NewTree->Branch("genWeights198",        &genWeights198,        "genWeights198/F"       );
-  NewTree->Branch("genWeights199",        &genWeights199,        "genWeights199/F"       );
-  NewTree->Branch("genWeights200",        &genWeights200,        "genWeights200/F"       );
-  NewTree->Branch("genWeights201",        &genWeights201,        "genWeights201/F"       );
-  NewTree->Branch("genWeights202",        &genWeights202,        "genWeights202/F"       );
-  NewTree->Branch("genWeights203",        &genWeights203,        "genWeights203/F"       );
-  NewTree->Branch("genWeights204",        &genWeights204,        "genWeights204/F"       );
-  NewTree->Branch("genWeights205",        &genWeights205,        "genWeights205/F"       );
-  NewTree->Branch("genWeights206",        &genWeights206,        "genWeights206/F"       );
-  NewTree->Branch("genWeights207",        &genWeights207,        "genWeights207/F"       );
-  NewTree->Branch("genWeights208",        &genWeights208,        "genWeights208/F"       );
-  NewTree->Branch("genWeights209",        &genWeights209,        "genWeights209/F"       );
-  NewTree->Branch("genWeights210",        &genWeights210,        "genWeights210/F"       );
-  NewTree->Branch("genWeights211",        &genWeights211,        "genWeights211/F"       );
-  NewTree->Branch("genWeights212",        &genWeights212,        "genWeights212/F"       );
 
   NewTreeSB->Branch("category0",         &category0,         "category0/I"         );
   NewTreeSB->Branch("category1",         &category1,         "category1/I"         );
@@ -1514,10 +1175,6 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   NewTreeSB->Branch("ZPt",               &ZPt,               "ZPt/F"               );
   NewTreeSB->Branch("ZEta",              &ZEta,              "ZEta/F"              );
   NewTreeSB->Branch("ZPhi",              &ZPhi,              "ZPhi/F"              );
-  NewTreeSB->Branch("BprimeMass",        &BprimeMass,        "BprimeMass/F"        );
-  NewTreeSB->Branch("BprimePt",          &BprimePt,          "BprimePt/F"          );
-  NewTreeSB->Branch("BprimeEta",         &BprimeEta,         "BprimeEta/F"         );
-  NewTreeSB->Branch("BprimePhi",         &BprimePhi,         "BprimePhi/F"         );
   NewTreeSB->Branch("TprimeMass",        &TprimeMass,        "TprimeMass/F"        );
   NewTreeSB->Branch("TprimePt",          &TprimePt,          "TprimePt/F"          );
   NewTreeSB->Branch("TprimeEta",         &TprimeEta,         "TprimeEta/F"         );
@@ -1640,7 +1297,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   NewTreeSB->Branch("deltaPhiZTopMerged",   &deltaPhiZTopMerged,   "deltaPhiZTopMerged/F"  );
   NewTreeSB->Branch("deltaRZTopMerged",     &deltaRZTopMerged,     "deltaRZTopMerged/F"    );
   NewTreeSB->Branch("deltaRbTop",           &deltaRbTop,           "deltaRbTop/F"          );
-  NewTreeSB->Branch("genWeight",            &genWeight,            "genWeight/I"           );
+  NewTreeSB->Branch("genWeight",            &genWeight,            "genWeight/F"           );
   NewTreeSB->Branch("dQuark",&dQuark,"dQuark/I");
   NewTreeSB->Branch("uQuark",&uQuark,"uQuark/I");
   NewTreeSB->Branch("sQuark",&sQuark,"sQuark/I");
@@ -1651,223 +1308,11 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   NewTreeSB->Branch("EVENT_run",&EVENT_run,"EVENT_run/I");
   NewTreeSB->Branch("EVENT_lumiBlock",&EVENT_lumiBlock,"EVENT_lumiBlock/I");
   NewTreeSB->Branch("EVENT_genHT",&EVENT_genHT,"EVENT_genHT/F");
-  NewTreeSB->Branch("genWeights0",          &genWeights0,          "genWeights0/F"         );
-  NewTreeSB->Branch("genWeights1",          &genWeights1,          "genWeights1/F"         );
-  NewTreeSB->Branch("genWeights2",          &genWeights2,          "genWeights2/F"         );
-  NewTreeSB->Branch("genWeights3",          &genWeights3,          "genWeights3/F"         );
-  NewTreeSB->Branch("genWeights4",          &genWeights4,          "genWeights4/F"         );
-  NewTreeSB->Branch("genWeights5",          &genWeights5,          "genWeights5/F"         );
-  NewTreeSB->Branch("genWeights6",          &genWeights6,          "genWeights6/F"         );
-  NewTreeSB->Branch("genWeights7",          &genWeights7,          "genWeights7/F"         );
-  NewTreeSB->Branch("genWeights8",          &genWeights8,          "genWeights8/F"         );
-  NewTreeSB->Branch("genWeights9",          &genWeights9,          "genWeights9/F"         );
-  NewTreeSB->Branch("genWeights10",         &genWeights10,         "genWeights10/F"        );
-  NewTreeSB->Branch("genWeights11",         &genWeights11,         "genWeights11/F"        );
-  NewTreeSB->Branch("genWeights12",         &genWeights12,         "genWeights12/F"        );
-  NewTreeSB->Branch("genWeights13",         &genWeights13,         "genWeights13/F"        );
-  NewTreeSB->Branch("genWeights14",         &genWeights14,         "genWeights14/F"        );
-  NewTreeSB->Branch("genWeights15",         &genWeights15,         "genWeights15/F"        );
-  NewTreeSB->Branch("genWeights16",         &genWeights16,         "genWeights16/F"        );
-  NewTreeSB->Branch("genWeights17",         &genWeights17,         "genWeights17/F"        );
-  NewTreeSB->Branch("genWeights18",         &genWeights18,         "genWeights18/F"        );
-  NewTreeSB->Branch("genWeights19",         &genWeights19,         "genWeights19/F"        );
-  NewTreeSB->Branch("genWeights20",         &genWeights20,         "genWeights20/F"        );
-  NewTreeSB->Branch("genWeights21",         &genWeights21,         "genWeights21/F"        );
-  NewTreeSB->Branch("genWeights22",         &genWeights22,         "genWeights22/F"        );
-  NewTreeSB->Branch("genWeights23",         &genWeights23,         "genWeights23/F"        );
-  NewTreeSB->Branch("genWeights24",         &genWeights24,         "genWeights24/F"        );
-  NewTreeSB->Branch("genWeights25",         &genWeights25,         "genWeights25/F"        );
-  NewTreeSB->Branch("genWeights26",         &genWeights26,         "genWeights26/F"        );
-  NewTreeSB->Branch("genWeights27",         &genWeights27,         "genWeights27/F"        );
-  NewTreeSB->Branch("genWeights28",         &genWeights28,         "genWeights28/F"        );
-  NewTreeSB->Branch("genWeights29",         &genWeights29,         "genWeights29/F"        );
-  NewTreeSB->Branch("genWeights30",         &genWeights30,         "genWeights30/F"        );
-  NewTreeSB->Branch("genWeights31",         &genWeights31,         "genWeights31/F"        );
-  NewTreeSB->Branch("genWeights32",         &genWeights32,         "genWeights32/F"        );
-  NewTreeSB->Branch("genWeights33",         &genWeights33,         "genWeights33/F"        );
-  NewTreeSB->Branch("genWeights34",         &genWeights34,         "genWeights34/F"        );
-  NewTreeSB->Branch("genWeights35",         &genWeights35,         "genWeights35/F"        );
-  NewTreeSB->Branch("genWeights36",         &genWeights36,         "genWeights36/F"        );
-  NewTreeSB->Branch("genWeights37",         &genWeights37,         "genWeights37/F"        );
-  NewTreeSB->Branch("genWeights38",         &genWeights38,         "genWeights38/F"        );
-  NewTreeSB->Branch("genWeights39",         &genWeights39,         "genWeights39/F"        );
-  NewTreeSB->Branch("genWeights40",         &genWeights40,         "genWeights40/F"        );
-  NewTreeSB->Branch("genWeights41",         &genWeights41,         "genWeights41/F"        );
-  NewTreeSB->Branch("genWeights42",         &genWeights42,         "genWeights42/F"        );
-  NewTreeSB->Branch("genWeights43",         &genWeights43,         "genWeights43/F"        );
-  NewTreeSB->Branch("genWeights44",         &genWeights44,         "genWeights44/F"        );
-  NewTreeSB->Branch("genWeights45",         &genWeights45,         "genWeights45/F"        );
-  NewTreeSB->Branch("genWeights46",         &genWeights46,         "genWeights46/F"        );
-  NewTreeSB->Branch("genWeights47",         &genWeights47,         "genWeights47/F"        );
-  NewTreeSB->Branch("genWeights48",         &genWeights48,         "genWeights48/F"        );
-  NewTreeSB->Branch("genWeights49",         &genWeights49,         "genWeights49/F"        );
-  NewTreeSB->Branch("genWeights50",         &genWeights50,         "genWeights50/F"        );
-  NewTreeSB->Branch("genWeights51",         &genWeights51,         "genWeights51/F"        );
-  NewTreeSB->Branch("genWeights52",         &genWeights52,         "genWeights52/F"        );
-  NewTreeSB->Branch("genWeights53",         &genWeights53,         "genWeights53/F"        );
-  NewTreeSB->Branch("genWeights54",         &genWeights54,         "genWeights54/F"        );
-  NewTreeSB->Branch("genWeights55",         &genWeights55,         "genWeights55/F"        );
-  NewTreeSB->Branch("genWeights56",         &genWeights56,         "genWeights56/F"        );
-  NewTreeSB->Branch("genWeights57",         &genWeights57,         "genWeights57/F"        );
-  NewTreeSB->Branch("genWeights58",         &genWeights58,         "genWeights58/F"        );
-  NewTreeSB->Branch("genWeights59",         &genWeights59,         "genWeights59/F"        );
-  NewTreeSB->Branch("genWeights60",         &genWeights60,         "genWeights60/F"        );
-  NewTreeSB->Branch("genWeights61",         &genWeights61,         "genWeights61/F"        );
-  NewTreeSB->Branch("genWeights62",         &genWeights62,         "genWeights62/F"        );
-  NewTreeSB->Branch("genWeights63",         &genWeights63,         "genWeights63/F"        );
-  NewTreeSB->Branch("genWeights64",         &genWeights64,         "genWeights64/F"        );
-  NewTreeSB->Branch("genWeights65",         &genWeights65,         "genWeights65/F"        );
-  NewTreeSB->Branch("genWeights66",         &genWeights66,         "genWeights66/F"        );
-  NewTreeSB->Branch("genWeights67",         &genWeights67,         "genWeights67/F"        );
-  NewTreeSB->Branch("genWeights68",         &genWeights68,         "genWeights68/F"        );
-  NewTreeSB->Branch("genWeights69",         &genWeights69,         "genWeights69/F"        );
-  NewTreeSB->Branch("genWeights70",         &genWeights70,         "genWeights70/F"        );
-  NewTreeSB->Branch("genWeights71",         &genWeights71,         "genWeights71/F"        );
-  NewTreeSB->Branch("genWeights72",         &genWeights72,         "genWeights72/F"        );
-  NewTreeSB->Branch("genWeights73",         &genWeights73,         "genWeights73/F"        );
-  NewTreeSB->Branch("genWeights74",         &genWeights74,         "genWeights74/F"        );
-  NewTreeSB->Branch("genWeights75",         &genWeights75,         "genWeights75/F"        );
-  NewTreeSB->Branch("genWeights76",         &genWeights76,         "genWeights76/F"        );
-  NewTreeSB->Branch("genWeights77",         &genWeights77,         "genWeights77/F"        );
-  NewTreeSB->Branch("genWeights78",         &genWeights78,         "genWeights78/F"        );
-  NewTreeSB->Branch("genWeights79",         &genWeights79,         "genWeights79/F"        );
-  NewTreeSB->Branch("genWeights80",         &genWeights80,         "genWeights80/F"        );
-  NewTreeSB->Branch("genWeights81",         &genWeights81,         "genWeights81/F"        );
-  NewTreeSB->Branch("genWeights82",         &genWeights82,         "genWeights82/F"        );
-  NewTreeSB->Branch("genWeights83",         &genWeights83,         "genWeights83/F"        );
-  NewTreeSB->Branch("genWeights84",         &genWeights84,         "genWeights84/F"        );
-  NewTreeSB->Branch("genWeights85",         &genWeights85,         "genWeights85/F"        );
-  NewTreeSB->Branch("genWeights86",         &genWeights86,         "genWeights86/F"        );
-  NewTreeSB->Branch("genWeights87",         &genWeights87,         "genWeights87/F"        );
-  NewTreeSB->Branch("genWeights88",         &genWeights88,         "genWeights88/F"        );
-  NewTreeSB->Branch("genWeights89",         &genWeights89,         "genWeights89/F"        );
-  NewTreeSB->Branch("genWeights90",         &genWeights90,         "genWeights90/F"        );
-  NewTreeSB->Branch("genWeights91",         &genWeights91,         "genWeights91/F"        );
-  NewTreeSB->Branch("genWeights92",         &genWeights92,         "genWeights92/F"        );
-  NewTreeSB->Branch("genWeights93",         &genWeights93,         "genWeights93/F"        );
-  NewTreeSB->Branch("genWeights94",         &genWeights94,         "genWeights94/F"        );
-  NewTreeSB->Branch("genWeights95",         &genWeights95,         "genWeights95/F"        );
-  NewTreeSB->Branch("genWeights96",         &genWeights96,         "genWeights96/F"        );
-  NewTreeSB->Branch("genWeights97",         &genWeights97,         "genWeights97/F"        );
-  NewTreeSB->Branch("genWeights98",         &genWeights98,         "genWeights98/F"        );
-  NewTreeSB->Branch("genWeights99",         &genWeights99,         "genWeights99/F"        );
-  NewTreeSB->Branch("genWeights100",        &genWeights100,        "genWeights100/F"       );
-  NewTreeSB->Branch("genWeights101",        &genWeights101,        "genWeights101/F"       );
-  NewTreeSB->Branch("genWeights102",        &genWeights102,        "genWeights102/F"       );
-  NewTreeSB->Branch("genWeights103",        &genWeights103,        "genWeights103/F"       );
-  NewTreeSB->Branch("genWeights104",        &genWeights104,        "genWeights104/F"       );
-  NewTreeSB->Branch("genWeights105",        &genWeights105,        "genWeights105/F"       );
-  NewTreeSB->Branch("genWeights106",        &genWeights106,        "genWeights106/F"       );
-  NewTreeSB->Branch("genWeights107",        &genWeights107,        "genWeights107/F"       );
-  NewTreeSB->Branch("genWeights108",        &genWeights108,        "genWeights108/F"       );
-  NewTreeSB->Branch("genWeights109",        &genWeights109,        "genWeights109/F"       );
-  NewTreeSB->Branch("genWeights110",        &genWeights110,        "genWeights110/F"       );
-  NewTreeSB->Branch("genWeights111",        &genWeights111,        "genWeights111/F"       );
-  NewTreeSB->Branch("genWeights112",        &genWeights112,        "genWeights112/F"       );
-  NewTreeSB->Branch("genWeights113",        &genWeights113,        "genWeights113/F"       );
-  NewTreeSB->Branch("genWeights114",        &genWeights114,        "genWeights114/F"       );
-  NewTreeSB->Branch("genWeights115",        &genWeights115,        "genWeights115/F"       );
-  NewTreeSB->Branch("genWeights116",        &genWeights116,        "genWeights116/F"       );
-  NewTreeSB->Branch("genWeights117",        &genWeights117,        "genWeights117/F"       );
-  NewTreeSB->Branch("genWeights118",        &genWeights118,        "genWeights118/F"       );
-  NewTreeSB->Branch("genWeights119",        &genWeights119,        "genWeights119/F"       );
-  NewTreeSB->Branch("genWeights120",        &genWeights120,        "genWeights120/F"       );
-  NewTreeSB->Branch("genWeights121",        &genWeights121,        "genWeights121/F"       );
-  NewTreeSB->Branch("genWeights122",        &genWeights122,        "genWeights122/F"       );
-  NewTreeSB->Branch("genWeights123",        &genWeights123,        "genWeights123/F"       );
-  NewTreeSB->Branch("genWeights124",        &genWeights124,        "genWeights124/F"       );
-  NewTreeSB->Branch("genWeights125",        &genWeights125,        "genWeights125/F"       );
-  NewTreeSB->Branch("genWeights126",        &genWeights126,        "genWeights126/F"       );
-  NewTreeSB->Branch("genWeights127",        &genWeights127,        "genWeights127/F"       );
-  NewTreeSB->Branch("genWeights128",        &genWeights128,        "genWeights128/F"       );
-  NewTreeSB->Branch("genWeights129",        &genWeights129,        "genWeights129/F"       );
-  NewTreeSB->Branch("genWeights130",        &genWeights130,        "genWeights130/F"       );
-  NewTreeSB->Branch("genWeights131",        &genWeights131,        "genWeights131/F"       );
-  NewTreeSB->Branch("genWeights132",        &genWeights132,        "genWeights132/F"       );
-  NewTreeSB->Branch("genWeights133",        &genWeights133,        "genWeights133/F"       );
-  NewTreeSB->Branch("genWeights134",        &genWeights134,        "genWeights134/F"       );
-  NewTreeSB->Branch("genWeights135",        &genWeights135,        "genWeights135/F"       );
-  NewTreeSB->Branch("genWeights136",        &genWeights136,        "genWeights136/F"       );
-  NewTreeSB->Branch("genWeights137",        &genWeights137,        "genWeights137/F"       );
-  NewTreeSB->Branch("genWeights138",        &genWeights138,        "genWeights138/F"       );
-  NewTreeSB->Branch("genWeights139",        &genWeights139,        "genWeights139/F"       );
-  NewTreeSB->Branch("genWeights140",        &genWeights140,        "genWeights140/F"       );
-  NewTreeSB->Branch("genWeights141",        &genWeights141,        "genWeights141/F"       );
-  NewTreeSB->Branch("genWeights142",        &genWeights142,        "genWeights142/F"       );
-  NewTreeSB->Branch("genWeights143",        &genWeights143,        "genWeights143/F"       );
-  NewTreeSB->Branch("genWeights144",        &genWeights144,        "genWeights144/F"       );
-  NewTreeSB->Branch("genWeights145",        &genWeights145,        "genWeights145/F"       );
-  NewTreeSB->Branch("genWeights146",        &genWeights146,        "genWeights146/F"       );
-  NewTreeSB->Branch("genWeights147",        &genWeights147,        "genWeights147/F"       );
-  NewTreeSB->Branch("genWeights148",        &genWeights148,        "genWeights148/F"       );
-  NewTreeSB->Branch("genWeights149",        &genWeights149,        "genWeights149/F"       );
-  NewTreeSB->Branch("genWeights150",        &genWeights150,        "genWeights150/F"       );
-  NewTreeSB->Branch("genWeights151",        &genWeights151,        "genWeights151/F"       );
-  NewTreeSB->Branch("genWeights152",        &genWeights152,        "genWeights152/F"       );
-  NewTreeSB->Branch("genWeights153",        &genWeights153,        "genWeights153/F"       );
-  NewTreeSB->Branch("genWeights154",        &genWeights154,        "genWeights154/F"       );
-  NewTreeSB->Branch("genWeights155",        &genWeights155,        "genWeights155/F"       );
-  NewTreeSB->Branch("genWeights156",        &genWeights156,        "genWeights156/F"       );
-  NewTreeSB->Branch("genWeights157",        &genWeights157,        "genWeights157/F"       );
-  NewTreeSB->Branch("genWeights158",        &genWeights158,        "genWeights158/F"       );
-  NewTreeSB->Branch("genWeights159",        &genWeights159,        "genWeights159/F"       );
-  NewTreeSB->Branch("genWeights160",        &genWeights160,        "genWeights160/F"       );
-  NewTreeSB->Branch("genWeights161",        &genWeights161,        "genWeights161/F"       );
-  NewTreeSB->Branch("genWeights162",        &genWeights162,        "genWeights162/F"       );
-  NewTreeSB->Branch("genWeights163",        &genWeights163,        "genWeights163/F"       );
-  NewTreeSB->Branch("genWeights164",        &genWeights164,        "genWeights164/F"       );
-  NewTreeSB->Branch("genWeights165",        &genWeights165,        "genWeights165/F"       );
-  NewTreeSB->Branch("genWeights166",        &genWeights166,        "genWeights166/F"       );
-  NewTreeSB->Branch("genWeights167",        &genWeights167,        "genWeights167/F"       );
-  NewTreeSB->Branch("genWeights168",        &genWeights168,        "genWeights168/F"       );
-  NewTreeSB->Branch("genWeights169",        &genWeights169,        "genWeights169/F"       );
-  NewTreeSB->Branch("genWeights170",        &genWeights170,        "genWeights170/F"       );
-  NewTreeSB->Branch("genWeights171",        &genWeights171,        "genWeights171/F"       );
-  NewTreeSB->Branch("genWeights172",        &genWeights172,        "genWeights172/F"       );
-  NewTreeSB->Branch("genWeights173",        &genWeights173,        "genWeights173/F"       );
-  NewTreeSB->Branch("genWeights174",        &genWeights174,        "genWeights174/F"       );
-  NewTreeSB->Branch("genWeights175",        &genWeights175,        "genWeights175/F"       );
-  NewTreeSB->Branch("genWeights176",        &genWeights176,        "genWeights176/F"       );
-  NewTreeSB->Branch("genWeights177",        &genWeights177,        "genWeights177/F"       );
-  NewTreeSB->Branch("genWeights178",        &genWeights178,        "genWeights178/F"       );
-  NewTreeSB->Branch("genWeights179",        &genWeights179,        "genWeights179/F"       );
-  NewTreeSB->Branch("genWeights180",        &genWeights180,        "genWeights180/F"       );
-  NewTreeSB->Branch("genWeights181",        &genWeights181,        "genWeights181/F"       );
-  NewTreeSB->Branch("genWeights182",        &genWeights182,        "genWeights182/F"       );
-  NewTreeSB->Branch("genWeights183",        &genWeights183,        "genWeights183/F"       );
-  NewTreeSB->Branch("genWeights184",        &genWeights184,        "genWeights184/F"       );
-  NewTreeSB->Branch("genWeights185",        &genWeights185,        "genWeights185/F"       );
-  NewTreeSB->Branch("genWeights186",        &genWeights186,        "genWeights186/F"       );
-  NewTreeSB->Branch("genWeights187",        &genWeights187,        "genWeights187/F"       );
-  NewTreeSB->Branch("genWeights188",        &genWeights188,        "genWeights188/F"       );
-  NewTreeSB->Branch("genWeights189",        &genWeights189,        "genWeights189/F"       );
-  NewTreeSB->Branch("genWeights190",        &genWeights190,        "genWeights190/F"       );
-  NewTreeSB->Branch("genWeights191",        &genWeights191,        "genWeights191/F"       );
-  NewTreeSB->Branch("genWeights192",        &genWeights192,        "genWeights192/F"       );
-  NewTreeSB->Branch("genWeights193",        &genWeights193,        "genWeights193/F"       );
-  NewTreeSB->Branch("genWeights194",        &genWeights194,        "genWeights194/F"       );
-  NewTreeSB->Branch("genWeights195",        &genWeights195,        "genWeights195/F"       );
-  NewTreeSB->Branch("genWeights196",        &genWeights196,        "genWeights196/F"       );
-  NewTreeSB->Branch("genWeights197",        &genWeights197,        "genWeights197/F"       );
-  NewTreeSB->Branch("genWeights198",        &genWeights198,        "genWeights198/F"       );
-  NewTreeSB->Branch("genWeights199",        &genWeights199,        "genWeights199/F"       );
-  NewTreeSB->Branch("genWeights200",        &genWeights200,        "genWeights200/F"       );
-  NewTreeSB->Branch("genWeights201",        &genWeights201,        "genWeights201/F"       );
-  NewTreeSB->Branch("genWeights202",        &genWeights202,        "genWeights202/F"       );
-  NewTreeSB->Branch("genWeights203",        &genWeights203,        "genWeights203/F"       );
-  NewTreeSB->Branch("genWeights204",        &genWeights204,        "genWeights204/F"       );
-  NewTreeSB->Branch("genWeights205",        &genWeights205,        "genWeights205/F"       );
-  NewTreeSB->Branch("genWeights206",        &genWeights206,        "genWeights206/F"       );
-  NewTreeSB->Branch("genWeights207",        &genWeights207,        "genWeights207/F"       );
-  NewTreeSB->Branch("genWeights208",        &genWeights208,        "genWeights208/F"       );
-  NewTreeSB->Branch("genWeights209",        &genWeights209,        "genWeights209/F"       );
-  NewTreeSB->Branch("genWeights210",        &genWeights210,        "genWeights210/F"       );
-  NewTreeSB->Branch("genWeights211",        &genWeights211,        "genWeights211/F"       );
-  NewTreeSB->Branch("genWeights212",        &genWeights212,        "genWeights212/F"       );
+
 }
 
-void resetHistos(){
-}
+//void resetHistos(){
+//}
 
 void initializeVar(){
   category0=0;
@@ -1906,10 +1351,6 @@ void initializeVar(){
   ZPt=-99;
   ZEta=-99;
   ZPhi=-99;
-  BprimeMass=-99;
-  BprimePt=-99;
-  BprimeEta=-99;
-  BprimePhi=-99;
   TprimeMass=-99;
   TprimePt=-99;
   TprimeEta=-99;
@@ -2036,7 +1477,7 @@ void initializeVar(){
   w_BtagLoose=1;
   w_BtagLooseUp=1;
   w_BtagLooseDown=1;
-  genWeight=1;
+  genWeight=1.;
   GenZPt=-99.;
   dQuark=0;
   uQuark=0;
@@ -2048,219 +1489,6 @@ void initializeVar(){
   TriggeringMuoPt  = -1.;
   TriggeringEleEta = -1.;
   TriggeringMuoEta = -1.;
-  genWeights0=1;
-  genWeights1=1;
-  genWeights2=1;
-  genWeights3=1;
-  genWeights4=1;
-  genWeights5=1;
-  genWeights6=1;
-  genWeights7=1;
-  genWeights8=1;
-  genWeights9=1;
-  genWeights10=1;
-  genWeights11=1;
-  genWeights12=1;
-  genWeights13=1;
-  genWeights14=1;
-  genWeights15=1;
-  genWeights16=1;
-  genWeights17=1;
-  genWeights18=1;
-  genWeights19=1;
-  genWeights20=1;
-  genWeights21=1;
-  genWeights22=1;
-  genWeights23=1;
-  genWeights24=1;
-  genWeights25=1;
-  genWeights26=1;
-  genWeights27=1;
-  genWeights28=1;
-  genWeights29=1;
-  genWeights30=1;
-  genWeights31=1;
-  genWeights32=1;
-  genWeights33=1;
-  genWeights34=1;
-  genWeights35=1;
-  genWeights36=1;
-  genWeights37=1;
-  genWeights38=1;
-  genWeights39=1;
-  genWeights40=1;
-  genWeights41=1;
-  genWeights42=1;
-  genWeights43=1;
-  genWeights44=1;
-  genWeights45=1;
-  genWeights46=1;
-  genWeights47=1;
-  genWeights48=1;
-  genWeights49=1;
-  genWeights50=1;
-  genWeights51=1;
-  genWeights52=1;
-  genWeights53=1;
-  genWeights54=1;
-  genWeights55=1;
-  genWeights56=1;
-  genWeights57=1;
-  genWeights58=1;
-  genWeights59=1;
-  genWeights60=1;
-  genWeights61=1;
-  genWeights62=1;
-  genWeights63=1;
-  genWeights64=1;
-  genWeights65=1;
-  genWeights66=1;
-  genWeights67=1;
-  genWeights68=1;
-  genWeights69=1;
-  genWeights70=1;
-  genWeights71=1;
-  genWeights72=1;
-  genWeights73=1;
-  genWeights74=1;
-  genWeights75=1;
-  genWeights76=1;
-  genWeights77=1;
-  genWeights78=1;
-  genWeights79=1;
-  genWeights80=1;
-  genWeights81=1;
-  genWeights82=1;
-  genWeights83=1;
-  genWeights84=1;
-  genWeights85=1;
-  genWeights86=1;
-  genWeights87=1;
-  genWeights88=1;
-  genWeights89=1;
-  genWeights90=1;
-  genWeights91=1;
-  genWeights92=1;
-  genWeights93=1;
-  genWeights94=1;
-  genWeights95=1;
-  genWeights96=1;
-  genWeights97=1;
-  genWeights98=1;
-  genWeights99=1;
-  genWeights100=1;
-  genWeights101=1;
-  genWeights102=1;
-  genWeights103=1;
-  genWeights104=1;
-  genWeights105=1;
-  genWeights106=1;
-  genWeights107=1;
-  genWeights108=1;
-  genWeights109=1;
-  genWeights110=1;
-  genWeights111=1;
-  genWeights112=1;
-  genWeights113=1;
-  genWeights114=1;
-  genWeights115=1;
-  genWeights116=1;
-  genWeights117=1;
-  genWeights118=1;
-  genWeights119=1;
-  genWeights120=1;
-  genWeights121=1;
-  genWeights122=1;
-  genWeights123=1;
-  genWeights124=1;
-  genWeights125=1;
-  genWeights126=1;
-  genWeights127=1;
-  genWeights128=1;
-  genWeights129=1;
-  genWeights130=1;
-  genWeights131=1;
-  genWeights132=1;
-  genWeights133=1;
-  genWeights134=1;
-  genWeights135=1;
-  genWeights136=1;
-  genWeights137=1;
-  genWeights138=1;
-  genWeights139=1;
-  genWeights140=1;
-  genWeights141=1;
-  genWeights142=1;
-  genWeights143=1;
-  genWeights144=1;
-  genWeights145=1;
-  genWeights146=1;
-  genWeights147=1;
-  genWeights148=1;
-  genWeights149=1;
-  genWeights150=1;
-  genWeights151=1;
-  genWeights152=1;
-  genWeights153=1;
-  genWeights154=1;
-  genWeights155=1;
-  genWeights156=1;
-  genWeights157=1;
-  genWeights158=1;
-  genWeights159=1;
-  genWeights160=1;
-  genWeights161=1;
-  genWeights162=1;
-  genWeights163=1;
-  genWeights164=1;
-  genWeights165=1;
-  genWeights166=1;
-  genWeights167=1;
-  genWeights168=1;
-  genWeights169=1;
-  genWeights170=1;
-  genWeights171=1;
-  genWeights172=1;
-  genWeights173=1;
-  genWeights174=1;
-  genWeights175=1;
-  genWeights176=1;
-  genWeights177=1;
-  genWeights178=1;
-  genWeights179=1;
-  genWeights180=1;
-  genWeights181=1;
-  genWeights182=1;
-  genWeights183=1;
-  genWeights184=1;
-  genWeights185=1;
-  genWeights186=1;
-  genWeights187=1;
-  genWeights188=1;
-  genWeights189=1;
-  genWeights190=1;
-  genWeights191=1;
-  genWeights192=1;
-  genWeights193=1;
-  genWeights194=1;
-  genWeights195=1;
-  genWeights196=1;
-  genWeights197=1;
-  genWeights198=1;
-  genWeights199=1;
-  genWeights200=1;
-  genWeights201=1;
-  genWeights202=1;
-  genWeights203=1;
-  genWeights204=1;
-  genWeights205=1;
-  genWeights206=1;
-  genWeights207=1;
-  genWeights208=1;
-  genWeights209=1;
-  genWeights210=1;
-  genWeights211=1;
-  genWeights212=1;
 }
 
 void branchGetEntry(bool data, Long64_t tentry=0, string fileName){
@@ -2283,7 +1511,6 @@ void branchGetEntry(bool data, Long64_t tentry=0, string fileName){
   b_Jet_chargedHadronEnergyFraction->GetEntry(tentry);
   b_Jet_chargedMultiplicity->GetEntry(tentry);
   if(!data) b_Jet_hadronFlavour->GetEntry(tentry);
-  //if(!(fileName.find("Single") != string::npos)) b_Jet_hadronFlavour->GetEntry(tentry);
   b_BoostedJet_pt->GetEntry(tentry);
   b_BoostedJet_Uncorr_pt->GetEntry(tentry);
   b_BoostedJet_softdrop_mass->GetEntry(tentry);
@@ -2339,12 +1566,12 @@ void branchGetEntry(bool data, Long64_t tentry=0, string fileName){
   b_HLT_IsoTkMu24->GetEntry(tentry);
   b_HLT_Mu50->GetEntry(tentry);
   b_HLT_TkMu50->GetEntry(tentry);
-	b_Flag_goodVertices->GetEntry(tentry);
-	b_Flag_CSCTightHalo2015Filter->GetEntry(tentry);
-	b_Flag_HBHENoiseFilter->GetEntry(tentry);
-	b_Flag_HBHENoiseIsoFilter->GetEntry(tentry);
-	b_Flag_EcalDeadCellTriggerPrimitiveFilter->GetEntry(tentry);
-	b_Flag_eeBadScFilter->GetEntry(tentry);
+  b_Flag_goodVertices->GetEntry(tentry);
+  b_Flag_CSCTightHalo2015Filter->GetEntry(tentry);
+  b_Flag_HBHENoiseFilter->GetEntry(tentry);
+  b_Flag_HBHENoiseIsoFilter->GetEntry(tentry);
+  b_Flag_EcalDeadCellTriggerPrimitiveFilter->GetEntry(tentry);
+  b_Flag_eeBadScFilter->GetEntry(tentry);
   b_nBestVtx->GetEntry(tentry);
   b_PUWeight->GetEntry(tentry);
   //b_PUWeightUP->GetEntry(tentry);
@@ -2353,16 +1580,12 @@ void branchGetEntry(bool data, Long64_t tentry=0, string fileName){
   b_EVENT_event->GetEntry(tentry);
   b_EVENT_lumiBlock->GetEntry(tentry);
   b_EVENT_genHT->GetEntry(tentry);
-  if(fileName.find("ttZ")!=string::npos) b_genWeight->GetEntry(tentry);
-  if(fileName.find("ttW")!=string::npos) b_genWeight->GetEntry(tentry);
-  if(fileName.find("tZq")!=string::npos) b_genWeight->GetEntry(tentry);
-  if(fileName.find("DY")!=string::npos)  b_genWeight->GetEntry(tentry);
+  b_genWeight->GetEntry(tentry);
   if(!(fileName.find("Single")!=string::npos||fileName.find("Double")!=string::npos)) b_Gen_pt->GetEntry(tentry);
   if(!(fileName.find("Single")!=string::npos||fileName.find("Double")!=string::npos)) b_Gen_eta->GetEntry(tentry);
   if(!(fileName.find("Single")!=string::npos||fileName.find("Double")!=string::npos)) b_Gen_phi->GetEntry(tentry);
   if(!(fileName.find("Single")!=string::npos||fileName.find("Double")!=string::npos)) b_Gen_pdg_id->GetEntry(tentry);
   if(!(fileName.find("Single")!=string::npos||fileName.find("Double")!=string::npos)) b_Gen_motherpdg_id->GetEntry(tentry);
-  b_genWeights->GetEntry(tentry);
 }
 
 void HistoFill(float puweight,TTree *NewTree){
@@ -2373,237 +1596,6 @@ void writeFile(TTree *NewTree,TTree *NewTreeSB){
   NewTree->Write();
   NewTreeSB->Write();
 }
-
-void fillgenWeights(){
-  genWeights0       = (*genWeights_)[0];
-  genWeights1       = (*genWeights_)[1];
-  genWeights2       = (*genWeights_)[2];
-  genWeights3       = (*genWeights_)[3];
-  genWeights4       = (*genWeights_)[4];
-  genWeights5       = (*genWeights_)[5];
-  genWeights6       = (*genWeights_)[6];
-  genWeights7       = (*genWeights_)[7];
-  genWeights8       = (*genWeights_)[8];
-  genWeights9       = (*genWeights_)[9];
-  genWeights10      = (*genWeights_)[10];
-  genWeights11      = (*genWeights_)[11];
-  genWeights12      = (*genWeights_)[12];
-  genWeights13      = (*genWeights_)[13];
-  genWeights14      = (*genWeights_)[14];
-  genWeights15      = (*genWeights_)[15];
-  genWeights16      = (*genWeights_)[16];
-  genWeights17      = (*genWeights_)[17];
-  genWeights18      = (*genWeights_)[18];
-  genWeights19      = (*genWeights_)[19];
-  genWeights20      = (*genWeights_)[20];
-  genWeights21      = (*genWeights_)[21];
-  genWeights22      = (*genWeights_)[22];
-  genWeights23      = (*genWeights_)[23];
-  genWeights24      = (*genWeights_)[24];
-  genWeights25      = (*genWeights_)[25];
-  genWeights26      = (*genWeights_)[26];
-  genWeights27      = (*genWeights_)[27];
-  genWeights28      = (*genWeights_)[28];
-  genWeights29      = (*genWeights_)[29];
-  genWeights30      = (*genWeights_)[30];
-  genWeights31      = (*genWeights_)[31];
-  genWeights32      = (*genWeights_)[32];
-  genWeights33      = (*genWeights_)[33];
-  genWeights34      = (*genWeights_)[34];
-  genWeights35      = (*genWeights_)[35];
-  genWeights36      = (*genWeights_)[36];
-  genWeights37      = (*genWeights_)[37];
-  genWeights38      = (*genWeights_)[38];
-  genWeights39      = (*genWeights_)[39];
-  genWeights40      = (*genWeights_)[40];
-  genWeights41      = (*genWeights_)[41];
-  genWeights42      = (*genWeights_)[42];
-  genWeights43      = (*genWeights_)[43];
-  genWeights44      = (*genWeights_)[44];
-  genWeights45      = (*genWeights_)[45];
-  genWeights46      = (*genWeights_)[46];
-  genWeights47      = (*genWeights_)[47];
-  genWeights48      = (*genWeights_)[48];
-  genWeights49      = (*genWeights_)[49];
-  genWeights50      = (*genWeights_)[50];
-  genWeights51      = (*genWeights_)[51];
-  genWeights52      = (*genWeights_)[52];
-  genWeights53      = (*genWeights_)[53];
-  genWeights54      = (*genWeights_)[54];
-  genWeights55      = (*genWeights_)[55];
-  genWeights56      = (*genWeights_)[56];
-  genWeights57      = (*genWeights_)[57];
-  genWeights58      = (*genWeights_)[58];
-  genWeights59      = (*genWeights_)[59];
-  genWeights60      = (*genWeights_)[60];
-  genWeights61      = (*genWeights_)[61];
-  genWeights62      = (*genWeights_)[62];
-  genWeights63      = (*genWeights_)[63];
-  genWeights64      = (*genWeights_)[64];
-  genWeights65      = (*genWeights_)[65];
-  genWeights66      = (*genWeights_)[66];
-  genWeights67      = (*genWeights_)[67];
-  genWeights68      = (*genWeights_)[68];
-  genWeights69      = (*genWeights_)[69];
-  genWeights70      = (*genWeights_)[70];
-  genWeights71      = (*genWeights_)[71];
-  genWeights72      = (*genWeights_)[72];
-  genWeights73      = (*genWeights_)[73];
-  genWeights74      = (*genWeights_)[74];
-  genWeights75      = (*genWeights_)[75];
-  genWeights76      = (*genWeights_)[76];
-  genWeights77      = (*genWeights_)[77];
-  genWeights78      = (*genWeights_)[78];
-  genWeights79      = (*genWeights_)[79];
-  genWeights80      = (*genWeights_)[80];
-  genWeights81      = (*genWeights_)[81];
-  genWeights82      = (*genWeights_)[82];
-  genWeights83      = (*genWeights_)[83];
-  genWeights84      = (*genWeights_)[84];
-  genWeights85      = (*genWeights_)[85];
-  genWeights86      = (*genWeights_)[86];
-  genWeights87      = (*genWeights_)[87];
-  genWeights88      = (*genWeights_)[88];
-  genWeights89      = (*genWeights_)[89];
-  genWeights90      = (*genWeights_)[90];
-  genWeights91      = (*genWeights_)[91];
-  genWeights92      = (*genWeights_)[92];
-  genWeights93      = (*genWeights_)[93];
-  genWeights94      = (*genWeights_)[94];
-  genWeights95      = (*genWeights_)[95];
-  genWeights96      = (*genWeights_)[96];
-  genWeights97      = (*genWeights_)[97];
-  genWeights98      = (*genWeights_)[98];
-  genWeights99      = (*genWeights_)[99];
-  genWeights100     = (*genWeights_)[100];
-  genWeights101     = (*genWeights_)[101];
-  genWeights102     = (*genWeights_)[102];
-  genWeights103     = (*genWeights_)[103];
-  genWeights104     = (*genWeights_)[104];
-  genWeights105     = (*genWeights_)[105];
-  genWeights106     = (*genWeights_)[106];
-  genWeights107     = (*genWeights_)[107];
-  genWeights108     = (*genWeights_)[108];
-  genWeights109     = (*genWeights_)[109];
-  genWeights110     = (*genWeights_)[110];
-  genWeights111     = (*genWeights_)[111];
-  genWeights112     = (*genWeights_)[112];
-  genWeights113     = (*genWeights_)[113];
-  genWeights114     = (*genWeights_)[114];
-  genWeights115     = (*genWeights_)[115];
-  genWeights116     = (*genWeights_)[116];
-  genWeights117     = (*genWeights_)[117];
-  genWeights118     = (*genWeights_)[118];
-  genWeights119     = (*genWeights_)[119];
-  genWeights120     = (*genWeights_)[120];
-  genWeights121     = (*genWeights_)[121];
-  genWeights122     = (*genWeights_)[122];
-  genWeights123     = (*genWeights_)[123];
-  genWeights124     = (*genWeights_)[124];
-  genWeights125     = (*genWeights_)[125];
-  genWeights126     = (*genWeights_)[126];
-  genWeights127     = (*genWeights_)[127];
-  genWeights128     = (*genWeights_)[128];
-  genWeights129     = (*genWeights_)[129];
-  genWeights130     = (*genWeights_)[130];
-  genWeights131     = (*genWeights_)[131];
-  genWeights132     = (*genWeights_)[132];
-  genWeights133     = (*genWeights_)[133];
-  genWeights134     = (*genWeights_)[134];
-  genWeights135     = (*genWeights_)[135];
-  genWeights136     = (*genWeights_)[136];
-  genWeights137     = (*genWeights_)[137];
-  genWeights138     = (*genWeights_)[138];
-  genWeights139     = (*genWeights_)[139];
-  genWeights140     = (*genWeights_)[140];
-  genWeights141     = (*genWeights_)[141];
-  genWeights142     = (*genWeights_)[142];
-  genWeights143     = (*genWeights_)[143];
-  genWeights144     = (*genWeights_)[144];
-  genWeights145     = (*genWeights_)[145];
-  genWeights146     = (*genWeights_)[146];
-  genWeights147     = (*genWeights_)[147];
-  genWeights148     = (*genWeights_)[148];
-  genWeights149     = (*genWeights_)[149];
-  genWeights150     = (*genWeights_)[150];
-  genWeights151     = (*genWeights_)[151];
-  genWeights152     = (*genWeights_)[152];
-  genWeights153     = (*genWeights_)[153];
-  genWeights154     = (*genWeights_)[154];
-  genWeights155     = (*genWeights_)[155];
-  genWeights156     = (*genWeights_)[156];
-  genWeights157     = (*genWeights_)[157];
-  genWeights158     = (*genWeights_)[158];
-  genWeights159     = (*genWeights_)[159];
-  genWeights160     = (*genWeights_)[160];
-  genWeights161     = (*genWeights_)[161];
-  genWeights162     = (*genWeights_)[162];
-  genWeights163     = (*genWeights_)[163];
-  genWeights164     = (*genWeights_)[164];
-  genWeights165     = (*genWeights_)[165];
-  genWeights166     = (*genWeights_)[166];
-  genWeights167     = (*genWeights_)[167];
-  genWeights168     = (*genWeights_)[168];
-  genWeights169     = (*genWeights_)[169];
-  genWeights170     = (*genWeights_)[170];
-  genWeights171     = (*genWeights_)[171];
-  genWeights172     = (*genWeights_)[172];
-  genWeights173     = (*genWeights_)[173];
-  genWeights174     = (*genWeights_)[174];
-  genWeights175     = (*genWeights_)[175];
-  genWeights176     = (*genWeights_)[176];
-  genWeights177     = (*genWeights_)[177];
-  genWeights178     = (*genWeights_)[178];
-  genWeights179     = (*genWeights_)[179];
-  genWeights180     = (*genWeights_)[180];
-  genWeights181     = (*genWeights_)[181];
-  genWeights182     = (*genWeights_)[182];
-  genWeights183     = (*genWeights_)[183];
-  genWeights184     = (*genWeights_)[184];
-  genWeights185     = (*genWeights_)[185];
-  genWeights186     = (*genWeights_)[186];
-  genWeights187     = (*genWeights_)[187];
-  genWeights188     = (*genWeights_)[188];
-  genWeights189     = (*genWeights_)[189];
-  genWeights190     = (*genWeights_)[190];
-  genWeights191     = (*genWeights_)[191];
-  genWeights192     = (*genWeights_)[192];
-  genWeights193     = (*genWeights_)[193];
-  genWeights194     = (*genWeights_)[194];
-  genWeights195     = (*genWeights_)[195];
-  genWeights196     = (*genWeights_)[196];
-  genWeights197     = (*genWeights_)[197];
-  genWeights198     = (*genWeights_)[198];
-  genWeights199     = (*genWeights_)[199];
-  genWeights200     = (*genWeights_)[200];
-  genWeights201     = (*genWeights_)[201];
-  genWeights202     = (*genWeights_)[202];
-  genWeights203     = (*genWeights_)[203];
-  genWeights204     = (*genWeights_)[204];
-  genWeights205     = (*genWeights_)[205];
-  genWeights206     = (*genWeights_)[206];
-  genWeights207     = (*genWeights_)[207];
-  genWeights208     = (*genWeights_)[208];
-  genWeights209     = (*genWeights_)[209];
-  genWeights210     = (*genWeights_)[210];
-  genWeights211     = (*genWeights_)[211];
-  genWeights212     = (*genWeights_)[212];
-}
-
-/*void GenClassifier(){
-  bool foundZMuons = false; bool foundZElectrons = false;
-  for (UInt_t j = 0; j < Gen_pt_->size(); ++j) {
-    //cout<<j<<" "<<Gen_pdg_id_->at(j)<<" "<<Gen_motherpdg_id_->at(j)<<" "<<Gen_pt_->at(j)<<endl;
-    if(abs(Gen_pdg_id_->at(j))==1 && (abs(Gen_motherpdg_id_->at(j))==2212 || abs(Gen_motherpdg_id_->at(j))==21)) dQuark = dQuark + 1;
-    if(abs(Gen_pdg_id_->at(j))==2 && (abs(Gen_motherpdg_id_->at(j))==2212 || abs(Gen_motherpdg_id_->at(j))==21)) uQuark = uQuark + 1;
-    if(abs(Gen_pdg_id_->at(j))==3 && (abs(Gen_motherpdg_id_->at(j))==2212 || abs(Gen_motherpdg_id_->at(j))==21)) sQuark = sQuark + 1;
-    if(abs(Gen_pdg_id_->at(j))==4 && (abs(Gen_motherpdg_id_->at(j))==2212 || abs(Gen_motherpdg_id_->at(j))==21)) cQuark = cQuark + 1;
-    if(abs(Gen_pdg_id_->at(j))==5 && (abs(Gen_motherpdg_id_->at(j))==2212 || abs(Gen_motherpdg_id_->at(j))==21)) bQuark = bQuark + 1;
-    if(abs(Gen_pdg_id_->at(j))==6 && (abs(Gen_motherpdg_id_->at(j))==2212 || abs(Gen_motherpdg_id_->at(j))==21)) tQuark = tQuark + 1;
-    if(abs(Gen_motherpdg_id_->at(j))==23&&abs(Gen_pdg_id_->at(j))==13) foundZMuons=true;
-    if(abs(Gen_motherpdg_id_->at(j))==23&&abs(Gen_pdg_id_->at(j))==11) foundZElectrons=true;
-  }
-}*/
 
 void GenClassifier(float &pt){
   for (UInt_t j = 0; j < Gen_pt_->size(); ++j) {
@@ -2649,14 +1641,6 @@ void GenWBoson(bool &matched, TLorentzVector Wjet){
   //if((dr10<0.8 && dr16<0.8) || (dr11<0.8 && dr17<0.8) || (dr12<0.8 && dr18<0.8)) matched=true; //Z -> cc/bb/tt
 }
 
-/*void GenWeight(string fileName){
-  if(fileName.find("ttZ")!=string::npos)      genWeight=(genWeight_)/abs(genWeight_);
-  else if(fileName.find("ttW")!=string::npos) genWeight=(genWeight_)/abs(genWeight_);
-  else if(fileName.find("tZq")!=string::npos) genWeight=(genWeight_)/abs(genWeight_);
-  else if(fileName.find("DY")!=string::npos)  genWeight=(genWeight_)/abs(genWeight_);
-  else genWeight=1;
-}*/
-
 void GenWeight(string fileName, float pt){
   if(fileName.find("ZZTo4L")!=string::npos || fileName.find("ZZTo2L2Q")!=string::npos || fileName.find("WZTo1L1Nu2Q")!=string::npos || fileName.find("WZTo2L2Q")!=string::npos || fileName.find("ttZ")!=string::npos || fileName.find("WZTo3LNu")!=string::npos || fileName.find("tZq")!=string::npos || fileName.find("ttW")!=string::npos)  genWeight=(genWeight_)/abs(genWeight_);
   else  genWeight=1;
@@ -2665,48 +1649,6 @@ void GenWeight(string fileName, float pt){
     else genWeight = 1;
   }
 }
-
-/*void newPUWeight(float &puweight,float &puweightUP,float &puweightDOWN){
-  double *npuProbs = 0;
-  double *npuProbsNEW = 0;
-  unsigned int nPUMax = 75;
-  double npu_mix_2016_25ns_SpringMC_PUScenarioV1[75] =  {1.78653e-05 ,2.56602e-05 ,5.27857e-05 ,8.88954e-05 ,0.000109362 ,0.000140973 ,0.000240998 ,0.00071209 ,0.00130121 ,0.00245255 ,0.00502589 ,0.00919534 ,0.0146697 ,0.0204126 ,0.0267586 ,0.0337697 ,0.0401478 ,0.0450159 ,0.0490577 ,0.0524855 ,0.0548159 ,0.0559937 ,0.0554468 ,0.0537687 ,0.0512055 ,0.0476713 ,0.0435312 ,0.0393107 ,0.0349812 ,0.0307413 ,0.0272425 ,0.0237115 ,0.0208329 ,0.0182459 ,0.0160712 ,0.0142498 ,0.012804 ,0.011571 ,0.010547 ,0.00959489 ,0.00891718 ,0.00829292 ,0.0076195 ,0.0069806 ,0.0062025 ,0.00546581 ,0.00484127 ,0.00407168 ,0.00337681 ,0.00269893 ,0.00212473 ,0.00160208 ,0.00117884 ,0.000859662 ,0.000569085 ,0.000365431 ,0.000243565 ,0.00015688 ,9.88128e-05 ,6.53783e-05 ,3.73924e-05 ,2.61382e-05 ,2.0307e-05 ,1.73032e-05 ,1.435e-05 ,1.36486e-05 ,1.35555e-05 ,1.37491e-05 ,1.34255e-05 ,1.33987e-05 ,1.34061e-05 ,1.34211e-05 ,1.34177e-05 ,1.32959e-05 ,1.33287e-05};
-  npuProbs = npu_mix_2016_25ns_SpringMC_PUScenarioV1;
-  std::vector<double> result(nPUMax,0.);
-  std::vector<double> resultNEW(nPUMax,0.);
-  std::vector<double> resultNEWUp(nPUMax,0.);
-  std::vector<double> resultNEWDo(nPUMax,0.);
-  double s = 0.;
-  double sNEW   = 0.;
-  double sNEWUp = 0.;
-  double sNEWDo = 0.;
-  for(unsigned int npu = 0; npu < nPUMax; ++npu) {
-    const double npu_estimated = histoOldPU->GetBinContent(histoOldPU->GetXaxis()->FindBin(npu));
-    result[npu] = npu_estimated / npuProbs[npu];
-    s += npu_estimated;
-    const double npu_estimatedNEW   = histoNewPU  ->GetBinContent(histoNewPU  ->GetXaxis()->FindBin(npu));
-    const double npu_estimatedNEWUp = histoNewPUUp->GetBinContent(histoNewPUUp->GetXaxis()->FindBin(npu));
-    const double npu_estimatedNEWDo = histoNewPUDo->GetBinContent(histoNewPUDo->GetXaxis()->FindBin(npu));
-    resultNEW[npu]   = npu_estimatedNEW   / npuProbs[npu];
-    resultNEWUp[npu] = npu_estimatedNEWUp / npuProbs[npu];
-    resultNEWDo[npu] = npu_estimatedNEWDo / npuProbs[npu];
-    sNEW   += npu_estimatedNEW;
-    sNEWUp += npu_estimatedNEWUp;
-    sNEWDo += npu_estimatedNEWDo;
-  }
-  unsigned int NPU = -1;              
-  for(unsigned int npu = 0; npu < nPUMax; ++npu) {
-    result[npu] /= s;
-    resultNEW[npu]   /= sNEW;
-    resultNEWUp[npu] /= sNEWUp;
-    resultNEWDo[npu] /= sNEWDo;
-    if(result[npu]==PUWeight_) NPU = npu;
-  }
-  //cout<<NPU<<" "<<PUWeight_<<" "<<resultNEW[NPU]<<" "<<resultNEWUp[NPU]<<endl;
-  if(resultNEW[NPU]<9999)   puweight     = resultNEW[NPU];
-  if(resultNEWUp[NPU]<9999) puweightUP   = resultNEWUp[NPU];
-  if(resultNEWDo[NPU]<9999) puweightDOWN = resultNEWDo[NPU];
-}*/
 
 void newPUWeight(float &puweight,float &puweightUP,float &puweightDOWN){
   double *npuProbs = 0;
@@ -2753,20 +1695,13 @@ void newPUWeight(float &puweight,float &puweightUP,float &puweightDOWN){
   getTrueNumInteractions=NPU;
 }
 
-void FillBranches(bool ResolvedEvent,bool PartiallyMerged,bool FullyMerged,TLorentzVector TopQuark,bool BprimeEvent,float BQuarkCSV,TLorentzVector BQuarkBprime,bool SelectedZBosonElectrons,bool SelectedZBosonMuons,TLorentzVector ZBoson,TLorentzVector Tprime,TLorentzVector Bprime,TLorentzVector TopQuarkResolved,TLorentzVector Jet1Resolved,TLorentzVector Jet2Resolved,TLorentzVector Jet3Resolved,TLorentzVector TprimeResolved,TLorentzVector TopQuarkPartial,TLorentzVector Jet1Partial,TLorentzVector Jet2Partial,TLorentzVector TprimePartial,float WMass_,float WSubjet_,TLorentzVector TopQuarkMerged,TLorentzVector TprimeMerged,float TopSoftMass_,float TopSubjet_,TLorentzVector Electron1,TLorentzVector Electron2,TLorentzVector Muon1,TLorentzVector Muon2,vector<TLorentzVector> SelectedForwardJets,vector<TLorentzVector> SelectedBJets){
+void FillBranches(bool ResolvedEvent,bool PartiallyMerged,bool FullyMerged,TLorentzVector TopQuark,bool SelectedZBosonElectrons,bool SelectedZBosonMuons,TLorentzVector ZBoson,TLorentzVector Tprime,TLorentzVector TopQuarkResolved,TLorentzVector Jet1Resolved,TLorentzVector Jet2Resolved,TLorentzVector Jet3Resolved,TLorentzVector TprimeResolved,TLorentzVector TopQuarkPartial,TLorentzVector Jet1Partial,TLorentzVector Jet2Partial,TLorentzVector TprimePartial,float WMass_,float WSubjet_,TLorentzVector TopQuarkMerged,TLorentzVector TprimeMerged,float TopSoftMass_,float TopSubjet_,TLorentzVector Electron1,TLorentzVector Electron2,TLorentzVector Muon1,TLorentzVector Muon2,vector<TLorentzVector> SelectedForwardJets,vector<TLorentzVector> SelectedBJets){
   int NumSelBJets = SelectedBJets.size();
   if(ResolvedEvent || PartiallyMerged || FullyMerged){
     TopMass=TopQuark.M();
     TopPt  =TopQuark.Pt();
     TopEta =TopQuark.Eta();
     TopPhi =TopQuark.Phi();
-  }
-  if(BprimeEvent){
-    BCSV =BQuarkCSV;
-    BMass=BQuarkBprime.M();
-    BPt  =BQuarkBprime.Pt();
-    BEta =BQuarkBprime.Eta();
-    BPhi =BQuarkBprime.Phi();
   }
   if(SelectedZBosonElectrons || SelectedZBosonMuons){
     ZMass=ZBoson.M();
@@ -2781,14 +1716,6 @@ void FillBranches(bool ResolvedEvent,bool PartiallyMerged,bool FullyMerged,TLore
     TprimePhi    = Tprime.Phi();
     deltaPhiZTop = DeltaPhi(TopQuark.Phi(),ZBoson.Phi());
     deltaRZTop   = DeltaR(TopQuark.Eta(),ZBoson.Eta(),TopQuark.Phi(),ZBoson.Phi());
-  }
-  if((SelectedZBosonElectrons || SelectedZBosonMuons) && (BprimeEvent)){
-    BprimeMass = Bprime.M();
-    BprimePt   = Bprime.Pt();
-    BprimeEta  = Bprime.Eta();
-    BprimePhi  = Bprime.Phi();
-    deltaPhiZB = DeltaPhi(BQuarkBprime.Phi(),ZBoson.Phi());
-    deltaRZB   = DeltaR(BQuarkBprime.Eta(),ZBoson.Eta(),BQuarkBprime.Phi(),ZBoson.Phi());
   }
   if(ResolvedEvent){
     TopMassResolved=TopQuarkResolved.M();
