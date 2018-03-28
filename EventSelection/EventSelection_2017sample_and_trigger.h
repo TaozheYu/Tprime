@@ -67,7 +67,6 @@ BTagCalibrationReader readerLComb_up(&calib, BTagEntry::OP_LOOSE,  "comb", "up")
 BTagCalibrationReader readerLComb_do(&calib, BTagEntry::OP_LOOSE,  "comb", "down");
 
 //Lepton SF
-
 TFile *fileForwardJet    = new TFile("SF_2017/ForwardJetSFFinal.root");
 TFile *fileMuonTrig      = new TFile("SF_2017/EfficienciesAndSF_RunBtoF_Nov17Nov2017.root");
 TFile *fileElectron1     = new TFile("SF_2017/egammaEffi.txt_EGM2D_runBCDEF_passingRECO.root");
