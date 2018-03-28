@@ -11,7 +11,6 @@ void optimization_2017sample_and_trigger(){
 
   TCanvas* c1 = new TCanvas("c1","c1",0,0,800,600);
   using namespace std;
-  bool electron = false;
 
   //CUT VALUES
   double dRMuo=99;            //0.625
@@ -20,14 +19,14 @@ void optimization_2017sample_and_trigger(){
   double TopMass2=9999.;
   double TopPt=0.;
   double ZPt=0.; 
-  int    BTag=-1;              //1
-  int    Forwardjets=-1;       //1
+  int    BTag=1;              //1
+  int    Forwardjets=1;       //1
   double MuoPt=-9999.;        //120
-  double ElePt=-9999;        //120
+  double ElePt=120;        //120
 
   vector<string> PLOT;                   vector<int> BIN;     vector<float> MIN;   vector<float> MAX;   vector<bool> UP;       vector<TString> AXIS;
 
-  PLOT.push_back("deltaRMuo1Muo2");      BIN.push_back(20);   MIN.push_back(0);    MAX.push_back(2.5);  UP.push_back(true);    AXIS.push_back("#Delta (muo1,muo2)");
+  //PLOT.push_back("deltaRMuo1Muo2");      BIN.push_back(20);   MIN.push_back(0);    MAX.push_back(2.5);  UP.push_back(true);    AXIS.push_back("#Delta (muo1,muo2)");
   PLOT.push_back("deltaREle1Ele2");      BIN.push_back(20);   MIN.push_back(0);    MAX.push_back(2.5);  UP.push_back(true);    AXIS.push_back("#Delta (ele1,ele2)");
   //PLOT.push_back("TopMassResolved");     BIN.push_back(20);   MIN.push_back(0);    MAX.push_back(800);  UP.push_back(false);   AXIS.push_back("top Mass[GeV]");
   //PLOT.push_back("TopPtResolved");       BIN.push_back(20);   MIN.push_back(0);    MAX.push_back(800);  UP.push_back(false);   AXIS.push_back("top pt[GeV]");
@@ -37,120 +36,52 @@ void optimization_2017sample_and_trigger(){
   //PLOT.push_back("Muon1Pt");             BIN.push_back(20);   MIN.push_back(0);    MAX.push_back(500);  UP.push_back(false);   AXIS.push_back("lead muon pt[GeV]");
   //PLOT.push_back("Electron1Pt");         BIN.push_back(20);   MIN.push_back(0);    MAX.push_back(500);  UP.push_back(false);   AXIS.push_back("lead electron pt[GeV]");
   
-  /*TFile *file01 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/data.root");//for muon  //DoubleEle33 and Mu50
-  TFile *file02 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/Tprime_0700.root");
-  TFile *file03 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/Tprime_0800.root");
-  TFile *file04 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/Tprime_0900.root");
-  TFile *file05 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/Tprime_1000.root");
-  TFile *file06 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/Tprime_1100.root");
-  TFile *file07 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/Tprime_1200.root");
-  TFile *file08 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/Tprime_1300.root");
-  TFile *file09 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/Tprime_1400.root");
-  TFile *file10 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/Tprime_1500.root");
-  TFile *file11 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/Tprime_1600.root");
-  TFile *file12 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/Tprime_1700.root");
-  TFile *file13 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/DYJetsToLL_HT100to200.root ");
-  TFile *file14 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/DYJetsToLL_HT200to400.root ");
-  TFile *file15 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/DYJetsToLL_HT400to600.root ");
-  TFile *file16 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/DYJetsToLL_HT600to800.root ");
-  TFile *file17 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/DYJetsToLL_HT800to1200.root ");
-  TFile *file18 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/DYJetsToLL_HT1200to2500.root ");
-  TFile *file19 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/DYJetsToLL_HT2500toInf.root ");
-  TFile *file20 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/ST_tW_antitop.root ");
-  TFile *file21 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/ST_tW_top.root ");
-  TFile *file22 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/TTTo2L2Nu.root  ");
-  TFile *file23 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/TTToSemiLeptonic.root");
-  TFile *file24 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/ttZ.root");
-  TFile *file25 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/ttW.root");
-  TFile *file26 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/tZq.root");
-  TFile *file27 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/ZZTo4L.root");
-  TFile *file28 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/ZZTo2L2Q.root");
-  TFile *file29 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/ZZTo2L2Nu.root");
-  TFile *file30 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/WWTo2L2Nu.root");
-  TFile *file31 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/WWToLNuQQ.root");
-  TFile *file32 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/WZTo1L1Nu2Q.root ");
-  TFile *file33 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/WZTo2L2Q.root");
-  TFile *file34 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/muon/WZTo3LNu.root");
-  TTree *Tree01 = (TTree*)file01->Get("tree");
-  TTree *Tree02 = (TTree*)file02->Get("tree");
-  TTree *Tree03 = (TTree*)file03->Get("tree");
-  TTree *Tree04 = (TTree*)file04->Get("tree");
-  TTree *Tree05 = (TTree*)file05->Get("tree");
-  TTree *Tree06 = (TTree*)file06->Get("tree");
-  TTree *Tree07 = (TTree*)file07->Get("tree");
-  TTree *Tree08 = (TTree*)file08->Get("tree");
-  TTree *Tree09 = (TTree*)file09->Get("tree");
-  TTree *Tree10 = (TTree*)file10->Get("tree");
-  TTree *Tree11 = (TTree*)file11->Get("tree");
-  TTree *Tree12 = (TTree*)file12->Get("tree");
-  TTree *Tree13 = (TTree*)file13->Get("tree");
-  TTree *Tree14 = (TTree*)file14->Get("tree");
-  TTree *Tree15 = (TTree*)file15->Get("tree");
-  TTree *Tree16 = (TTree*)file16->Get("tree");
-  TTree *Tree17 = (TTree*)file17->Get("tree");
-  TTree *Tree18 = (TTree*)file18->Get("tree");
-  TTree *Tree19 = (TTree*)file19->Get("tree");
-  TTree *Tree20 = (TTree*)file20->Get("tree");
-  TTree *Tree21 = (TTree*)file21->Get("tree");
-  TTree *Tree22 = (TTree*)file22->Get("tree");
-  TTree *Tree23 = (TTree*)file23->Get("tree");
-  TTree *Tree24 = (TTree*)file24->Get("tree");
-  TTree *Tree25 = (TTree*)file25->Get("tree");
-  TTree *Tree26 = (TTree*)file26->Get("tree");
-  TTree *Tree27 = (TTree*)file27->Get("tree");
-  TTree *Tree28 = (TTree*)file28->Get("tree");
-  TTree *Tree29 = (TTree*)file29->Get("tree");
-  TTree *Tree30 = (TTree*)file30->Get("tree");
-  TTree *Tree31 = (TTree*)file31->Get("tree");
-  TTree *Tree32 = (TTree*)file32->Get("tree");
-  TTree *Tree33 = (TTree*)file33->Get("tree");
-  TTree *Tree34 = (TTree*)file34->Get("tree");*/
+  //TFile *file01 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/data.root");//for muon  //DoubleEle33 and Mu50
+  TFile *file02 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/Tprime_0700.root");
+  TFile *file03 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/Tprime_0800.root");
+  TFile *file04 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/Tprime_0900.root");
+  TFile *file05 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/Tprime_1000.root");
+  TFile *file06 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/Tprime_1100.root");
+  TFile *file07 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/Tprime_1200.root");
+  TFile *file08 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/Tprime_1300.root");
+  TFile *file09 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/Tprime_1400.root");
+  TFile *file10 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/Tprime_1500.root");
+  TFile *file11 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/Tprime_1600.root");
+  TFile *file12 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/Tprime_1700.root");
+  TFile *file13 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/DYJetsToLL_HT100to200.root ");
+  TFile *file14 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/DYJetsToLL_HT200to400.root ");
+  TFile *file15 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/DYJetsToLL_HT400to600.root ");
+  TFile *file16 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/DYJetsToLL_HT600to800.root ");
+  TFile *file17 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/DYJetsToLL_HT800to1200.root ");
+  TFile *file18 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/DYJetsToLL_HT1200to2500.root ");
+  TFile *file19 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/DYJetsToLL_HT2500toInf.root ");
+  TFile *file20 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/ST_tW_antitop.root ");
+  TFile *file21 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/ST_tW_top.root ");
+  TFile *file22 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/TTTo2L2Nu.root  ");
+  TFile *file23 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/TTToSemiLeptonic.root");
+  TFile *file24 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/ttZ.root");
+  TFile *file25 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/ttW.root");
+  TFile *file26 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/tZq.root");
+  TFile *file27 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/ZZTo4L.root");
+  TFile *file28 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/ZZTo2L2Q.root");
+  TFile *file29 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/ZZTo2L2Nu.root");
+  TFile *file30 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/WWTo2L2Nu.root");
+  TFile *file31 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/WWToLNuQQ.root");
+  TFile *file32 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/WZTo1L1Nu2Q.root ");
+  TFile *file33 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/WZTo2L2Q.root");
+  TFile *file34 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/both/WZTo3LNu.root");
 
-  TFile *file01 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/data.root");
-  TFile *file02 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/Tprime_0700.root");
-  TFile *file03 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/Tprime_0800.root");
-  TFile *file04 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/Tprime_0900.root");
-  TFile *file05 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/Tprime_1000.root");
-  TFile *file06 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/Tprime_1100.root");
-  TFile *file07 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/Tprime_1200.root");
-  TFile *file08 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/Tprime_1300.root");
-  TFile *file09 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/Tprime_1400.root");
-  TFile *file10 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/Tprime_1500.root");
-  TFile *file11 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/Tprime_1600.root");
-  TFile *file12 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/Tprime_1700.root");
-  TFile *file13 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/DYJetsToLL_HT100to200.root ");
-  TFile *file14 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/DYJetsToLL_HT200to400.root ");
-  TFile *file15 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/DYJetsToLL_HT400to600.root ");
-  TFile *file16 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/DYJetsToLL_HT600to800.root ");
-  TFile *file17 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/DYJetsToLL_HT800to1200.root ");
-  TFile *file18 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/DYJetsToLL_HT1200to2500.root ");
-  TFile *file19 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/DYJetsToLL_HT2500toInf.root ");
-  TFile *file20 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/ST_tW_antitop.root ");
-  TFile *file21 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/ST_tW_top.root ");
-  TFile *file22 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/TTTo2L2Nu.root  ");
-  TFile *file23 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/TTToSemiLeptonic.root");
-  TFile *file24 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/ttZ.root");
-  TFile *file25 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/ttW.root");
-  TFile *file26 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/tZq.root");
-  TFile *file27 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/ZZTo4L.root");
-  TFile *file28 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/ZZTo2L2Q.root");
-  TFile *file29 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/ZZTo2L2Nu.root");
-  TFile *file30 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/WWTo2L2Nu.root");
-  TFile *file31 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/WWToLNuQQ.root");
-  TFile *file32 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/WZTo1L1Nu2Q.root ");
-  TFile *file33 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/WZTo2L2Q.root");
-  TFile *file34 = TFile::Open("/eos/user/t/tayu/2017sample_and_trigger/electron/WZTo3LNu.root");
-  TTree *Tree01 = (TTree*)file01->Get("tree");
+  /*TTree *Tree01 = (TTree*)file01->Get("tree");
   TTree *Tree02 = (TTree*)file02->Get("tree");
-  TTree *Tree03 = (TTree*)file03->Get("tree");
+  TTree *Tree03 = (TTree*)file03->Get("tree");*/
   TTree *Tree04 = (TTree*)file04->Get("tree");
   TTree *Tree05 = (TTree*)file05->Get("tree");
-  TTree *Tree06 = (TTree*)file06->Get("tree");
-  TTree *Tree07 = (TTree*)file07->Get("tree");
-  TTree *Tree08 = (TTree*)file08->Get("tree");
+  //TTree *Tree06 = (TTree*)file06->Get("tree");
+  //TTree *Tree07 = (TTree*)file07->Get("tree");
+  //TTree *Tree08 = (TTree*)file08->Get("tree");
   TTree *Tree09 = (TTree*)file09->Get("tree");
-  TTree *Tree10 = (TTree*)file10->Get("tree");
-  TTree *Tree11 = (TTree*)file11->Get("tree");
+  //TTree *Tree10 = (TTree*)file10->Get("tree");
+  //TTree *Tree11 = (TTree*)file11->Get("tree");
   TTree *Tree12 = (TTree*)file12->Get("tree");
   TTree *Tree13 = (TTree*)file13->Get("tree");
   TTree *Tree14 = (TTree*)file14->Get("tree");
@@ -181,13 +112,6 @@ void optimization_2017sample_and_trigger(){
   //for(int category=3; category<4; category++){
   //for(int category=4; category<5; category++){
   //for(int category=5; category<6; category++){
-   /* if(dRMuo==0.6){
-      if(category==2) dRMuo=0.6;
-      if(category==3) dREle=0.6;
-      if(category==4) dRMuo=1.4;
-      if(category==5) dREle=1.4;
-    }*/
-
     for(int p=0; p<PLOT.size(); p++){
       if((category==0 || category==2 || category==4) && (PLOT[p]=="deltaREle1Ele2" || PLOT[p]=="Electron1Pt")) continue;
       if((category==1 || category==3 || category==5) && (PLOT[p]=="deltaRMuo1Muo2" || PLOT[p]=="Muon1Pt")) continue;
@@ -213,7 +137,6 @@ void optimization_2017sample_and_trigger(){
 	char CUT [1000]; char CUTdy [1000];    
 	if(UP[p]) sprintf(CUT, "w_for*w_TrigMuon*w_TrigElec*w_Muon1*w_Muon2*w_Electron1*w_Electron2*genWeight*(%s<%f  && category%i==1 && deltaRMuo1Muo2<%f && deltaREle1Ele2<%f && TopMass>%f && TopMass<%f && TopPt>%f && ZPt>%f && NumSelBJetsM>=%i && NumSelForwardJets>=%i && Electron1Pt>%f && Muon1Pt>%f&&TprimeMass>500&&TprimeMass<2100&NumSelLeps==2)", plot, cutValue, category, dRMuo, dREle, TopMass1, TopMass2, TopPt, ZPt, BTag, Forwardjets, ElePt, MuoPt);
 	else      sprintf(CUT, "w_for*w_TrigMuon*w_TrigElec*w_Muon1*w_Muon2*w_Electron1*w_Electron2*genWeight*(%s>=%f && category%i==1 && deltaRMuo1Muo2<%f && deltaREle1Ele2<%f && TopMass>%f && TopMass<%f && TopPt>%f && ZPt>%f && NumSelBJetsM>=%i && NumSelForwardJets>=%i && Electron1Pt>%f && Muon1Pt>%f&&TprimeMass>500&&TprimeMass<2100&NumSelLeps==2)", plot, cutValue, category, dRMuo, dREle, TopMass1, TopMass2, TopPt, ZPt, BTag, Forwardjets, ElePt, MuoPt);
-    
 	char variable[50];
 	if(PLOT[p]=="deltaRMuo1Muo2")         sprintf(variable, "deltaRMuo1Muo2");
 	if(PLOT[p]=="deltaREle1Ele2")         sprintf(variable, "deltaREle1Ele2");
@@ -224,7 +147,8 @@ void optimization_2017sample_and_trigger(){
 	if(PLOT[p]=="NumSelForwardJets")      sprintf(variable, "NumSelForwardJets");
 	if(PLOT[p]=="Electron1Pt")            sprintf(variable, "Electron1Pt");
 	if(PLOT[p]=="Muon1Pt")                sprintf(variable, "Muon1Pt");
-      
+
+    char input01[50]; sprintf(input01, "%s>>h01(1,-9,999999)",variable); 
 	char input02[50]; sprintf(input02, "%s>>h02(1,-9,999999)",variable);
 	char input03[50]; sprintf(input03, "%s>>h03(1,-9,999999)",variable);
 	char input04[50]; sprintf(input04, "%s>>h04(1,-9,999999)",variable);
@@ -260,10 +184,13 @@ void optimization_2017sample_and_trigger(){
     char input34[50]; sprintf(input34, "%s>>h34(1,-9,999999)",variable);
  
 	TH1F *temp = new TH1F("", "", 1,-9,999999);
-	Tree02->Draw(input02,CUT);  TH1F* h02=(TH1F*)gDirectory->Get("h02"); TH1F *Tprime_0900 =(TH1F*)h02->Clone();
-	Tree03->Draw(input03,CUT);  TH1F* h03=(TH1F*)gDirectory->Get("h03"); TH1F *Tprime_1000 =(TH1F*)h03->Clone();
-	Tree04->Draw(input04,CUT);  TH1F* h04=(TH1F*)gDirectory->Get("h04"); TH1F *Tprime_1400 =(TH1F*)h04->Clone();
-	Tree05->Draw(input05,CUT);  TH1F* h05=(TH1F*)gDirectory->Get("h05"); TH1F *Tprime_1700 =(TH1F*)h05->Clone();
+	TH1F *ZZ2d = new TH1F("", "", 1,-9,999999);
+	TH1F *WW2d = new TH1F("", "", 1,-9,999999);
+	TH1F *WZ1d = new TH1F("", "", 1,-9,999999);
+	Tree04->Draw(input04,CUT);  TH1F* h04=(TH1F*)gDirectory->Get("h04"); TH1F *Tprime_0900 =(TH1F*)h04->Clone();
+	Tree05->Draw(input05,CUT);  TH1F* h05=(TH1F*)gDirectory->Get("h05"); TH1F *Tprime_1000 =(TH1F*)h05->Clone();
+	Tree09->Draw(input09,CUT);  TH1F* h09=(TH1F*)gDirectory->Get("h09"); TH1F *Tprime_1400 =(TH1F*)h09->Clone();
+	Tree12->Draw(input12,CUT);  TH1F* h12=(TH1F*)gDirectory->Get("h12"); TH1F *Tprime_1700 =(TH1F*)h12->Clone();
 	Tree13->Draw(input13,CUT);  TH1F* h13=(TH1F*)gDirectory->Get("h13"); TH1F *DY1         =(TH1F*)h13->Clone();
 	Tree14->Draw(input14,CUT);  TH1F* h14=(TH1F*)gDirectory->Get("h14"); TH1F *DY2         =(TH1F*)h14->Clone();
 	Tree15->Draw(input15,CUT);  TH1F* h15=(TH1F*)gDirectory->Get("h15"); TH1F *DY3         =(TH1F*)h15->Clone();
@@ -279,17 +206,16 @@ void optimization_2017sample_and_trigger(){
 	Tree25->Draw(input25,CUT);  TH1F* h25=(TH1F*)gDirectory->Get("h25"); TH1F *ttW         =(TH1F*)h25->Clone();
 	Tree26->Draw(input26,CUT);  TH1F* h26=(TH1F*)gDirectory->Get("h26"); TH1F *tZq         =(TH1F*)h26->Clone();
 	Tree27->Draw(input27,CUT);  TH1F* h27=(TH1F*)gDirectory->Get("h27"); TH1F *ZZ1d        =(TH1F*)h27->Clone();
-	Tree28->Draw(input28,CUT);  TH1F* h28=(TH1F*)gDirectory->Get("h28"); TH1F *ZZ2d        =(TH1F*)h28->Clone();
+	//Tree28->Draw(input28,CUT);  TH1F* h28=(TH1F*)gDirectory->Get("h28"); TH1F *ZZ2d        =(TH1F*)h28->Clone();
+	if(Tree28->Draw(input28,CUT)){ Tree28->Draw(input28,CUT); TH1F*h28=(TH1F*)gDirectory->Get("h28"); TH1F *ZZ2d =(TH1F*)h28->Clone();delete h28;} else {TH1F *ZZ2d =(TH1F*)temp->Clone();}
 	Tree29->Draw(input29,CUT);  TH1F* h29=(TH1F*)gDirectory->Get("h29"); TH1F *ZZ3d        =(TH1F*)h29->Clone();
 	Tree30->Draw(input30,CUT);  TH1F* h30=(TH1F*)gDirectory->Get("h30"); TH1F *WW1d        =(TH1F*)h30->Clone();
-	Tree31->Draw(input31,CUT);  TH1F* h31=(TH1F*)gDirectory->Get("h31"); TH1F *WW2d        =(TH1F*)h31->Clone();
-	Tree32->Draw(input32,CUT);  TH1F* h32=(TH1F*)gDirectory->Get("h32"); TH1F *WZ1d        =(TH1F*)h32->Clone();
+	if(Tree31->Draw(input31,CUT)){ Tree31->Draw(input31,CUT); TH1F*h31=(TH1F*)gDirectory->Get("h31"); TH1F *WW2d =(TH1F*)h31->Clone();delete h31;} else {TH1F *WW2d =(TH1F*)temp->Clone();}
+	if(Tree32->Draw(input32,CUT)){ Tree32->Draw(input32,CUT); TH1F*h32=(TH1F*)gDirectory->Get("h32"); TH1F *WZ1d =(TH1F*)h32->Clone();delete h32;} else {TH1F *WZ1d =(TH1F*)temp->Clone();}         
 	Tree33->Draw(input33,CUT);  TH1F* h33=(TH1F*)gDirectory->Get("h33"); TH1F *WZ2d        =(TH1F*)h33->Clone();
-	Tree34->Draw(input34,CUT);  TH1F* h34=(TH1F*)gDirectory->Get("h34"); TH1F *WZ3d        =(TH1F*)h34->Clone();
-	delete h02; delete h03; delete h04; delete h05; delete h13; delete h14; delete h15; delete h16; delete h17;
-	delete h18; delete h19; delete h20; delete h21; delete h22; delete h23; delete h24; delete h25; delete h26; 
-	delete h27; delete h28; delete h29; delete h30; delete h31; delete h32; delete h33; delete h34;  
-
+	Tree34->Draw(input34,CUT);  TH1F* h34=(TH1F*)gDirectory->Get("h34"); TH1F *WZ3d        =(TH1F*)h34->Clone(); 
+	delete h04; delete h05; delete h09; delete h12; delete h13; delete h19; delete h20; delete h21; delete h22;
+	delete h23; delete h24; delete h25; delete h26; delete h27; delete h29; delete h30; delete h33; delete h34;
 	int SigSF = 1;
 	float LUMI  = 40800.0; // for doubleEG
     //float LUMI  = 38800.0; // for SingleMuon
@@ -356,6 +282,8 @@ void optimization_2017sample_and_trigger(){
 	WZ1d->Scale(w20);
 	WZ2d->Scale(w21);
 	WZ3d->Scale(w22);
+	
+	
         
 	DY1->Add(DY2);
 	DY1->Add(DY3);
@@ -367,17 +295,19 @@ void optimization_2017sample_and_trigger(){
 	DY1->Add(ST2);
 	DY1->Add(TTb1);
 	DY1->Add(TTb2);
-	DY1->Add(ZZ1d);
-	DY1->Add(ZZ2d);
-	DY1->Add(ZZ3d);
-	DY1->Add(WZ1d);
-	DY1->Add(WZ2d);
-	DY1->Add(WZ3d);
-	DY1->Add(WW1d);
-	DY1->Add(WW2d);
 	DY1->Add(ttZ);
 	DY1->Add(ttW);
 	DY1->Add(tZq);
+	DY1->Add(ZZ1d);
+	DY1->Add(ZZ2d);
+	DY1->Add(ZZ3d);
+	DY1->Add(WW1d);
+	DY1->Add(WW2d);
+	DY1->Add(WZ1d);
+	DY1->Add(WZ2d);
+	DY1->Add(WZ3d);
+	
+	
     
 	if(UP[p]){
 	  if(bestFoM<(Tprime_0900->Integral()/(sqrt(Tprime_0900->Integral()+DY1->Integral())))) {
@@ -416,9 +346,9 @@ void optimization_2017sample_and_trigger(){
 	if(UP[p]) cutValue = cutValue - (max-min)/bin;
 	else cutValue = cutValue + (max-min)/bin;
 	delete Tprime_0900; delete Tprime_1000; delete Tprime_1400; delete Tprime_1700; 
-	delete DY1; delete DY2; delete DY3; delete DY4; delete DY5; delete DY6; delete DY7; delete TTb1; delete TTb2; delete WW1d;  delete WW2d; delete WZ1d;
-	delete WZ2d; delete WZ3d; delete ZZ1d; delete ZZ2d; delete ZZ3d; 
-	delete ttZ; delete ttW; delete tZq;
+	delete DY1; delete DY2; delete DY3;  delete DY4;  delete DY5; delete DY6; delete DY7; 
+	delete ST1; delete ST2; delete TTb1; delete TTb2; delete ttZ; delete ttW; delete tZq; 
+	delete ZZ1d;delete ZZ2d;delete ZZ3d; delete WW1d; delete WW2d;delete WZ1d;delete WZ2d; delete WZ3d;
       }
   
       if(UP[p])  cout<<"Best cut for category "<<category<<" and variable '"<<axis<<"' is <"<<bestCut<<" (figure of merit is "<<bestFoM<<")"<<endl;
