@@ -265,7 +265,7 @@ void EventSelection_dineutrino(){
 
 
 void SelectMet(bool &SelectedMet){ 
-    if( Met_type1PF_pt_ > 200 || Met_type1PF_sumEt_ > 50 )  SelectedMet = true;
+    if( Met_type1PF_pt_ > 200 )  SelectedMet = true;
 }
 
 
