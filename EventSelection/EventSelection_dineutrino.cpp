@@ -130,32 +130,35 @@ void EventSelection_dineutrino(){
 	bool SelectedZBosonMuonsM = false;*/
 	SelectElectrons(SelectedElectrons, SelectedElectronsIndex, data);
 	SelectMuons(SelectedMuons, SelectedMuonsIndex);
-	SelectZBoson(true,false,SelectedZBosonElectrons, ZBoson, Electron1, Electron2, SelectedElectrons,SelectedElectronsIndex,999,0.,55);
+	if (SelectedElectrons.size()>0) continue;
+	if (SelectedMuons.size()>0)     continue;
+	/*SelectZBoson(true,false,SelectedZBosonElectrons, ZBoson, Electron1, Electron2, SelectedElectrons,SelectedElectronsIndex,999,0.,55);
 	SelectZBoson(false,true,SelectedZBosonMuons,     ZBoson, Muon1,     Muon2,     SelectedMuons,    SelectedMuonsIndex,    999,0.,55);
-	/*if( electrons && selection==0) SelectZBoson(electrons,SelectedZBosonElectronsM,ZBosonM,Electron1M,Electron2M,SelectedElectrons,SelectedElectronsIndex,999,0.,55);
+	if( electrons && selection==0) SelectZBoson(electrons,SelectedZBosonElectronsM,ZBosonM,Electron1M,Electron2M,SelectedElectrons,SelectedElectronsIndex,999,0.,55);
 	if( muons && selection==0)     SelectZBoson(electrons,SelectedZBosonMuonsM,    ZBosonM,Muon1M,    Muon2M,    SelectedMuons,    SelectedMuonsIndex,    999,0.,55);
 	if( electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonElectrons, ZBoson, Electron1, Electron2, SelectedElectrons,SelectedElectronsIndex,0.6,0.,55);
 	if(muons && selection!=0) SelectZBoson(electrons,SelectedZBosonMuons,     ZBoson, Muon1,     Muon2,     SelectedMuons,    SelectedMuonsIndex,    0.6,0.,55);
 	if( electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonElectronsM,ZBosonM,Electron1M,Electron2M,SelectedElectrons,SelectedElectronsIndex,0.8,0.,55);
 	if(muons && selection!=0) SelectZBoson(electrons,SelectedZBosonMuonsM,    ZBosonM,Muon1M,    Muon2M,    SelectedMuons,    SelectedMuonsIndex,    0.8,0.,55);*/
-	if(SelectedZBosonElectrons) deltaREle1Ele2 = DeltaR(Electron1.Eta(),Electron2.Eta(),Electron1.Phi(),Electron2.Phi());
+	/*if(SelectedZBosonElectrons) deltaREle1Ele2 = DeltaR(Electron1.Eta(),Electron2.Eta(),Electron1.Phi(),Electron2.Phi());
 	if(SelectedZBosonMuons)     deltaRMuo1Muo2 = DeltaR(    Muon1.Eta(),    Muon2.Eta(),    Muon1.Phi(),    Muon2.Phi());
-	/*if(SelectedZBosonElectronsM) deltaREle1Ele2M = DeltaR(Electron1M.Eta(),Electron2M.Eta(),Electron1M.Phi(),Electron2M.Phi());
+	if(SelectedZBosonElectronsM) deltaREle1Ele2M = DeltaR(Electron1M.Eta(),Electron2M.Eta(),Electron1M.Phi(),Electron2M.Phi());
 	if(SelectedZBosonMuonsM)     deltaRMuo1Muo2M = DeltaR(    Muon1M.Eta(),    Muon2M.Eta(),    Muon1M.Phi(),    Muon2M.Phi());*/
-	if(SelectedZBosonElectrons || SelectedZBosonMuons) continue;
+	//if(SelectedZBosonElectrons || SelectedZBosonMuons) continue;
 
 	//Hadronic Top selection
 	vector<float> SelectedJetsCSV; 
 	vector<float> SelectedBJetsMCSV, SelectedBJetsLCSV, SelectedBJetsTCSV,SelectedForwardJetsCSV; 
 	vector<int>   CA8Indices;
 	int CA8Index = -1;
-	vector<TLorentzVector> SelectedWJets;       SelectCA8Jets(0,SelectedWJets,  SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data);
-	vector<TLorentzVector> SelectedTopJets;     SelectCA8Jets(1,SelectedTopJets,SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data);
-	vector<TLorentzVector> SelectedJets;        SelectJets(0,SelectedJets       ,SelectedJetsCSV       ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data);
-	vector<TLorentzVector> SelectedBJetsL;      SelectJets(11,SelectedBJetsL    ,SelectedBJetsLCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data);
-	vector<TLorentzVector> SelectedBJetsM;      SelectJets(12,SelectedBJetsM    ,SelectedBJetsMCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data);
-	vector<TLorentzVector> SelectedBJetsT;      SelectJets(13,SelectedBJetsT    ,SelectedBJetsTCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data);
-	vector<TLorentzVector> SelectedForwardJets; SelectJets(2,SelectedForwardJets,SelectedForwardJetsCSV,SelectedElectrons,SelectedMuons, SysJes, SysJer, data);
+	bool deltaPhiJetMet=true;
+	vector<TLorentzVector> SelectedWJets;       SelectCA8Jets(0,SelectedWJets,  SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data, deltaPhiJetMet);   if(!deltaPhiJetMet)  continue;
+	vector<TLorentzVector> SelectedTopJets;     SelectCA8Jets(1,SelectedTopJets,SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data, deltaPhiJetMet);   if(!deltaPhiJetMet)  continue;
+	vector<TLorentzVector> SelectedJets;        SelectJets(0,SelectedJets       ,SelectedJetsCSV       ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  if(!deltaPhiJetMet)  continue;
+	vector<TLorentzVector> SelectedBJetsL;      SelectJets(11,SelectedBJetsL    ,SelectedBJetsLCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  if(!deltaPhiJetMet)  continue;
+	vector<TLorentzVector> SelectedBJetsM;      SelectJets(12,SelectedBJetsM    ,SelectedBJetsMCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  if(!deltaPhiJetMet)  continue;
+	vector<TLorentzVector> SelectedBJetsT;      SelectJets(13,SelectedBJetsT    ,SelectedBJetsTCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  if(!deltaPhiJetMet)  continue;
+	vector<TLorentzVector> SelectedForwardJets; SelectJets(2,SelectedForwardJets,SelectedForwardJetsCSV,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  if(!deltaPhiJetMet)  continue;
 	TLorentzVector Jet1Resolved;     Jet1Resolved.SetPtEtaPhiE(0, 0, 0, 0);
 	TLorentzVector Jet2Resolved;     Jet2Resolved.SetPtEtaPhiE(0, 0, 0, 0);
 	TLorentzVector Jet3Resolved;     Jet3Resolved.SetPtEtaPhiE(0, 0, 0, 0);
@@ -194,6 +197,8 @@ void EventSelection_dineutrino(){
 	NumSelBJetsT      = SelectedBJetsT.size();
 	NumSelWJets       = SelectedWJets.size();
 	NumSelTopJets     = SelectedTopJets.size();
+	Met_pt            = Met_type1PF_pt_;
+	Met_phi           = Met_type1PF_phi_;
 	NVertices         = nBestVtx_;
 	EVENT_run         = EVENT_run_;
 	EVENT_event       = EVENT_event_;
@@ -232,7 +237,7 @@ void EventSelection_dineutrino(){
 								  (ZBoson+TopQuarkResolved).E());
 
 	//TREE
-	FillBranches(ResolvedEvent,PartiallyMerged,FullyMerged,TopQuark,SelectedZBosonElectrons,SelectedZBosonMuons,ZBoson,Tprime,
+	FillBranches(ResolvedEvent,PartiallyMerged,FullyMerged,TopQuark,SelectedZBosonElectrons,SelectedZBosonMuons,SelectedMet,ZBoson,Tprime,
 		     TopQuarkResolved,Jet1Resolved,Jet2Resolved,Jet3Resolved,TprimeResolved,TopQuarkPartial,Jet1Partial,Jet2Partial,TprimePartial,WMass_,WSubjet_,TopQuarkMerged,
 		     TprimeMerged,TopSoftMass_,TopSubjet_,Electron1,Electron2,Muon1,Muon2,SelectedForwardJets,SelectedBJetsM);
 
@@ -265,7 +270,7 @@ void EventSelection_dineutrino(){
 
 
 void SelectMet(bool &SelectedMet){ 
-    if( Met_type1PF_pt_ > 200 )  SelectedMet = true;
+    if( Met_type1PF_pt_ > 200)  SelectedMet = true;
 }
 
 
@@ -275,7 +280,7 @@ void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & S
     if(!(fabs(patElectron_eta_->at(j))<2.4))	     continue;
     if(!(fabs(patElectron_SCeta_->at(j))<2.5))	     continue;
     if(!(patElectron_inCrack_->at(j)==0))	         continue;
-    if(!(patElectron_isPassTight_->at(j)==1))	     continue;
+    if(!(patElectron_isPassLoose_->at(j)==1))	     continue;
     if(!(patElectron_passConversionVeto_->at(j)==1)) continue;
     //TLorentzVector electron; electron.SetPtEtaPhiE(patElectron_pt_->at(j),patElectron_eta_->at(j),patElectron_phi_->at(j),patElectron_energy_->at(j)*patElectron_energyCorr_->at(j));
     TLorentzVector electron; electron.SetPtEtaPhiE(patElectron_pt_->at(j),patElectron_eta_->at(j),patElectron_phi_->at(j),patElectron_energy_->at(j));
@@ -288,7 +293,7 @@ void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedM
   for (UInt_t j = 0; j < Muon_pt_->size(); ++j){
     if(!(Muon_pt_->at(j)>20))                     continue;
     if(!(fabs(Muon_eta_->at(j))<2.4))             continue;
-    if(!(Muon_tight_->at(j)==1))                  continue;
+    if(!(Muon_loose_->at(j)==1))                  continue;
     if(!(Muon_relIsoDeltaBetaR04_->at(j)<0.15))   continue;
     TLorentzVector muon; muon.SetPtEtaPhiE(Muon_pt_->at(j),Muon_eta_->at(j),Muon_phi_->at(j),Muon_energy_->at(j));
     SelectedMuons.push_back(muon);
@@ -332,7 +337,7 @@ void SelectZBoson(bool electrons,bool muons,bool &SelectedZBoson,TLorentzVector 
   }
 }
 
-void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float> & SelectedJetsCSV, vector<TLorentzVector> SelectedElectrons, vector<TLorentzVector> SelectedMuons, int SysJes, int SysJer, bool data){
+void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float> & SelectedJetsCSV, vector<TLorentzVector> SelectedElectrons, vector<TLorentzVector> SelectedMuons, int SysJes, int SysJer, bool data, bool &deltaPhiJetMet){
   //jetType=0  -> usual jets
   //jetType=11 -> b-jets L
   //jetType=12 -> b-jets M
@@ -380,8 +385,8 @@ void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float
     for(unsigned int k=0; k<SelectedMuons.size(); k++){
       if(DeltaR(Jet_eta_->at(j),SelectedMuons[k].Eta(),Jet_phi_->at(j),SelectedMuons[k].Phi())<0.4) deltaRLepJet=false;
     }*/
-	bool deltaPhiJetMet=true;
     if(DeltaPhi(Jet_phi_->at(j),Met_type1PF_phi_)<0.6) deltaPhiJetMet=false;
+    if(!deltaPhiJetMet) break;
     if(deltaPhiJetMet){
       float SF = jetpt/Jet_pt_->at(j);
       TLorentzVector jet_prov; jet_prov.SetPtEtaPhiM(Jet_pt_->at(j),Jet_eta_->at(j),Jet_phi_->at(j),Jet_mass_->at(j));
@@ -393,7 +398,7 @@ void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float
 }
 
 void SelectCA8Jets(int CA8jetType,vector<TLorentzVector> & SelectedCA8Jets,vector<TLorentzVector> SelectedElectrons,vector<TLorentzVector> SelectedMuons, vector<int> & CA8Indices, 
-		   int SysJes, int SysJer, bool data){
+		   int SysJes, int SysJer, bool data, bool &deltaPhiJetMet){
   //CA8jetType=0 -> W-jets
   //CA8jetType=1 -> top-jets
   for (UInt_t j = 0; j < BoostedJet_pt_->size(); ++j){
@@ -428,8 +433,8 @@ void SelectCA8Jets(int CA8jetType,vector<TLorentzVector> & SelectedCA8Jets,vecto
     for(unsigned int k=0; k<SelectedMuons.size(); k++){
       if(DeltaR(BoostedJet_eta_->at(j),SelectedMuons[k].Eta(),BoostedJet_phi_->at(j),SelectedMuons[k].Phi())<0.8) deltaRLepJet=false;
     }*/
-    bool deltaPhiJetMet=true;
     if(DeltaPhi(Jet_phi_->at(j),Met_type1PF_phi_)<0.6) deltaPhiJetMet=false;
+    if(!deltaPhiJetMet) break;
     if(deltaPhiJetMet){
       TLorentzVector jet_prov; jet_prov.SetPtEtaPhiM(BoostedJet_pt_->at(j),BoostedJet_eta_->at(j),BoostedJet_phi_->at(j),BoostedJet_mass_->at(j));
       TLorentzVector jet; jet.SetPxPyPzE(SF*jet_prov.Px(),SF*jet_prov.Py(),SF*jet_prov.Pz(),SF*jet_prov.E());
@@ -752,7 +757,7 @@ void WSF(TLorentzVector WJet, bool PartiallyMerged, float &w_WJet_, float &w_WJe
   }
 }
 
-void MuonSF(bool SelectedZBosonMuons, float pt, float eta, float &w_Muon_, float &w_MuonUp_, float &w_MuonDown_){
+/*void MuonSF(bool SelectedZBosonMuons, float pt, float eta, float &w_Muon_, float &w_MuonUp_, float &w_MuonDown_){
   if(fabs(eta)<0.9){//ID*ISO
     if(pt>=20 && pt<25)  {w_Muon_=0.9911*0.9928; w_MuonUp_=(0.9911+0.0035)*(0.9928+0.0036); w_MuonDown_=(0.9911-0.0035)*(0.9928-0.0036);}
     if(pt>=25 && pt<30)  {w_Muon_=0.9874*0.9973; w_MuonUp_=(0.9874+0.0019)*(0.9973+0.0018); w_MuonDown_=(0.9874-0.0019)*(0.9973-0.0018);}
@@ -786,9 +791,9 @@ void MuonSF(bool SelectedZBosonMuons, float pt, float eta, float &w_Muon_, float
     if(pt>=60 && pt<120) {w_Muon_=0.9766*0.9983; w_MuonUp_=(0.9766+0.0086)*(0.9983+0.0014); w_MuonDown_=(0.9766-0.0086)*(0.9983-0.0014);}
     if(pt>=120)          {w_Muon_=0.9766*0.9983; w_MuonUp_=(0.9766+0.0086)*(0.9983+0.0014); w_MuonDown_=(0.9766-0.0086)*(0.9983-0.0014);}
   }
-}
+}*/
 
-void ElectronSF(bool SelectedZBosonElectrons, float pt, float eta, float &w_Electron_, float &w_ElectronUp_, float &w_ElectronDown_){
+/*void ElectronSF(bool SelectedZBosonElectrons, float pt, float eta, float &w_Electron_, float &w_ElectronUp_, float &w_ElectronDown_){
   if(!SelectedZBosonElectrons) return;
   int X1=-99; int Y1=-99; int X2=-99; int Y2=-99;
   for(int i=1; i<histoElectron1->GetXaxis()->GetNbins()+2; i++){
@@ -812,9 +817,9 @@ void ElectronSF(bool SelectedZBosonElectrons, float pt, float eta, float &w_Elec
   w_Electron_     = lepID;
   w_ElectronUp_   = lepID + sqrt(pow(histoElectron2->GetBinContent(X2,Y2)*lepID_err1,2)+pow(histoElectron1->GetBinContent(X1,Y1)*lepID_err2,2));
   w_ElectronDown_ = lepID - sqrt(pow(histoElectron2->GetBinContent(X2,Y2)*lepID_err1,2)+pow(histoElectron1->GetBinContent(X1,Y1)*lepID_err2,2));
-}
+}*/
 
-void MuonTriggerSF(float pt, float eta){
+/*void MuonTriggerSF(float pt, float eta){
   bool doubleUncert = false;
   int X1=-99; int X2=-99; int Y1=-99; int Y2=-99;
   for(int i=1; i<histoMuonTrig->GetXaxis()->GetNbins()+2; i++){
@@ -830,9 +835,9 @@ void MuonTriggerSF(float pt, float eta){
   w_TrigMuonUp  = lepTrig + lepTrig_err;
   w_TrigMuonDown= lepTrig - lepTrig_err;
   //cout<<pt<<" "<<eta<<" "<<histoMuonTrig1->GetBinContent(X1,Y1)<<" "<<histoMuonTrig2->GetBinContent(X1,Y1)<<" "<<w_TrigMuon<<" "<<w_TrigMuonUp<<" "<<w_TrigMuonDown<<endl;
-}
+}*/
 
-void ElectronTriggerSF(float pt, float eta){
+/*void ElectronTriggerSF(float pt, float eta){
   int X1=-99; int Y1=-99;
   for(int i=1; i<histoElectronTrig->GetXaxis()->GetNbins()+2; i++){
     if(pt<histoElectronTrig->GetXaxis()->GetBinLowEdge(i)){ X1=i-1; break; }
@@ -845,7 +850,7 @@ void ElectronTriggerSF(float pt, float eta){
   w_TrigElecUp  = 0.991+0.001;//histoElectronTrig->GetBinContent(X1,Y1) + histoElectronTrig->GetBinError(X1,Y1);
   w_TrigElecDown= 0.991-0.001;//histoElectronTrig->GetBinContent(X1,Y1) - histoElectronTrig->GetBinError(X1,Y1);
   //cout<<pt<<" "<<eta<<" "<<histoElectronTrig->GetBinContent(X1,Y1)<<" "<<histoElectronTrig->GetBinError(X1,Y1)<<" "<<w_TrigElec<<" "<<w_TrigElecUp<<" "<<w_TrigElecDown<<endl;
-}
+}*/
 
 float DeltaR(float eta1, float eta2, float phi1, float phi2){
   float deltaPhi = TMath::Abs(phi1-phi2);
@@ -934,6 +939,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   Tree->SetBranchAddress("Muon_energy",&Muon_energy_,&b_Muon_energy);
   Tree->SetBranchAddress("Muon_charge",&Muon_charge_,&b_Muon_charge);
   Tree->SetBranchAddress("Muon_tight",&Muon_tight_,&b_Muon_tight);
+  Tree->SetBranchAddress("Muon_loose",&Muon_loose_,&b_Muon_loose);
   Tree->SetBranchAddress("Met_type1PF_pt",          &Met_type1PF_pt_,          &b_Met_type1PF_pt);
   Tree->SetBranchAddress("Met_type1PF_phi",         &Met_type1PF_phi_,         &b_Met_type1PF_phi);
   Tree->SetBranchAddress("Met_type1PF_sumEt",         &Met_type1PF_sumEt_,         &b_Met_type1PF_sumEt);
@@ -979,11 +985,11 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   NewTree->Branch("category0",         &category0,         "category0/I"         );
   NewTree->Branch("category1",         &category1,         "category1/I"         );
   NewTree->Branch("category2",         &category2,         "category2/I"         );
-  NewTree->Branch("category3",         &category3,         "category3/I"         );
+  /*NewTree->Branch("category3",         &category3,         "category3/I"         );
   NewTree->Branch("category4",         &category4,         "category4/I"         );
   NewTree->Branch("category5",         &category5,         "category5/I"         );
   NewTree->Branch("category6",         &category6,         "category6/I"         );
-  NewTree->Branch("category7",         &category7,         "category7/I"         );
+  NewTree->Branch("category7",         &category7,         "category7/I"         );*/
   NewTree->Branch("TopMass",           &TopMass,           "TopMass/F"           );
   NewTree->Branch("TopMassMerged",     &TopMassMerged,     "TopMassMerged/F"     );
   NewTree->Branch("TopMassPartial",    &TopMassPartial,    "TopMassPartial/F"    );
@@ -1136,6 +1142,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   NewTree->Branch("deltaPhiZTopMerged",   &deltaPhiZTopMerged,   "deltaPhiZTopMerged/F"  );
   NewTree->Branch("deltaRZTopMerged",     &deltaRZTopMerged,     "deltaRZTopMerged/F"    );
   NewTree->Branch("deltaRbTop",           &deltaRbTop,           "deltaRbTop/F"          );
+  NewTree->Branch("deltaPhiMetTop",       &deltaPhiMetTop,       "deltaPhiMetTop/F"      );
   NewTree->Branch("genWeight",            &genWeight,            "genWeight/F"           );
   NewTree->Branch("dQuark",&dQuark,"dQuark/I");
   NewTree->Branch("uQuark",&uQuark,"uQuark/I");
@@ -1147,15 +1154,17 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   NewTree->Branch("EVENT_run",&EVENT_run,"EVENT_run/I");
   NewTree->Branch("EVENT_lumiBlock",&EVENT_lumiBlock,"EVENT_lumiBlock/I");
   NewTree->Branch("EVENT_genHT",&EVENT_genHT,"EVENT_genHT/F");
+  NewTree->Branch("Met_pt",&Met_pt,"Met_pt/F");
+  NewTree->Branch("Met_phi",&Met_phi,"Met_phi/F");
 
   NewTreeSB->Branch("category0",         &category0,         "category0/I"         );
   NewTreeSB->Branch("category1",         &category1,         "category1/I"         );
   NewTreeSB->Branch("category2",         &category2,         "category2/I"         );
-  NewTreeSB->Branch("category3",         &category3,         "category3/I"         );
+  /*NewTreeSB->Branch("category3",         &category3,         "category3/I"         );
   NewTreeSB->Branch("category4",         &category4,         "category4/I"         );
   NewTreeSB->Branch("category5",         &category5,         "category5/I"         );
   NewTreeSB->Branch("category6",         &category6,         "category6/I"         );
-  NewTreeSB->Branch("category7",         &category7,         "category7/I"         );
+  NewTreeSB->Branch("category7",         &category7,         "category7/I"         );*/
   NewTreeSB->Branch("TopMass",           &TopMass,           "TopMass/F"           );
   NewTreeSB->Branch("TopMassMerged",     &TopMassMerged,     "TopMassMerged/F"     );
   NewTreeSB->Branch("TopMassPartial",    &TopMassPartial,    "TopMassPartial/F"    );
@@ -1306,6 +1315,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   NewTreeSB->Branch("deltaPhiZTopMerged",   &deltaPhiZTopMerged,   "deltaPhiZTopMerged/F"  );
   NewTreeSB->Branch("deltaRZTopMerged",     &deltaRZTopMerged,     "deltaRZTopMerged/F"    );
   NewTreeSB->Branch("deltaRbTop",           &deltaRbTop,           "deltaRbTop/F"          );
+  NewTreeSB->Branch("deltaPhiMetTop",       &deltaPhiMetTop,       "deltaPhiMetTop/F"      );
   NewTreeSB->Branch("genWeight",            &genWeight,            "genWeight/F"           );
   NewTreeSB->Branch("dQuark",&dQuark,"dQuark/I");
   NewTreeSB->Branch("uQuark",&uQuark,"uQuark/I");
@@ -1317,6 +1327,8 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   NewTreeSB->Branch("EVENT_run",&EVENT_run,"EVENT_run/I");
   NewTreeSB->Branch("EVENT_lumiBlock",&EVENT_lumiBlock,"EVENT_lumiBlock/I");
   NewTreeSB->Branch("EVENT_genHT",&EVENT_genHT,"EVENT_genHT/F");
+  NewTreeSB->Branch("Met_pt",&Met_pt,"Met_pt/F");
+  NewTreeSB->Branch("Met_phi",&Met_phi,"Met_phi/F");
 }
 
 void initializeVar(){
@@ -1399,6 +1411,7 @@ void initializeVar(){
   deltaRbTop=-99;
   deltaREle1Ele2=-99;
   deltaRMuo1Muo2=-99;
+  deltaPhiMetTop=-99.;
   Massb1b2=-99;
   deltaRb1b2=-99;
   deltaRb1Lep1=-99;
@@ -1440,6 +1453,8 @@ void initializeVar(){
   EVENT_run=-99;
   EVENT_lumiBlock=-99;
   EVENT_genHT=-99;
+  Met_pt = -99.;
+  Met_phi = -99.;
   getTrueNumInteractions=-99;
   w_for = 1;
   w_forUp = 1;
@@ -1561,7 +1576,8 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){
   b_Muon_phi->GetEntry(tentry);
   b_Muon_energy->GetEntry(tentry);
   b_Muon_charge->GetEntry(tentry);
-  b_Muon_tight->GetEntry(tentry);       
+  b_Muon_tight->GetEntry(tentry);
+  b_Muon_loose->GetEntry(tentry);
   //b_Muon_loose->GetEntry(tentry);       
   b_Muon_relIsoDeltaBetaR04->GetEntry(tentry);
   b_Muon_isMatchedToTrigger->GetEntry(tentry);
@@ -1713,7 +1729,7 @@ void newPUWeight(float &puweight,float &puweightUP,float &puweightDOWN){
   getTrueNumInteractions=NPU;
 }
 
-void FillBranches(bool ResolvedEvent,bool PartiallyMerged,bool FullyMerged,TLorentzVector TopQuark,bool SelectedZBosonElectrons,bool SelectedZBosonMuons,TLorentzVector ZBoson,TLorentzVector Tprime,TLorentzVector TopQuarkResolved,TLorentzVector Jet1Resolved,TLorentzVector Jet2Resolved,TLorentzVector Jet3Resolved,TLorentzVector TprimeResolved,TLorentzVector TopQuarkPartial,TLorentzVector Jet1Partial,TLorentzVector Jet2Partial,TLorentzVector TprimePartial,float WMass_,float WSubjet_,TLorentzVector TopQuarkMerged,TLorentzVector TprimeMerged,float TopSoftMass_,float TopSubjet_,TLorentzVector Electron1,TLorentzVector Electron2,TLorentzVector Muon1,TLorentzVector Muon2,vector<TLorentzVector> SelectedForwardJets,vector<TLorentzVector> SelectedBJets){
+void FillBranches(bool ResolvedEvent,bool PartiallyMerged,bool FullyMerged,TLorentzVector TopQuark,bool SelectedZBosonElectrons,bool SelectedZBosonMuons,bool SelectedMet,TLorentzVector ZBoson,TLorentzVector Tprime,TLorentzVector TopQuarkResolved,TLorentzVector Jet1Resolved,TLorentzVector Jet2Resolved,TLorentzVector Jet3Resolved,TLorentzVector TprimeResolved,TLorentzVector TopQuarkPartial,TLorentzVector Jet1Partial,TLorentzVector Jet2Partial,TLorentzVector TprimePartial,float WMass_,float WSubjet_,TLorentzVector TopQuarkMerged,TLorentzVector TprimeMerged,float TopSoftMass_,float TopSubjet_,TLorentzVector Electron1,TLorentzVector Electron2,TLorentzVector Muon1,TLorentzVector Muon2,vector<TLorentzVector> SelectedForwardJets,vector<TLorentzVector> SelectedBJets){
   int NumSelBJets = SelectedBJets.size();
   if(ResolvedEvent || PartiallyMerged || FullyMerged){
     TopMass=TopQuark.M();
@@ -1842,5 +1858,8 @@ void FillBranches(bool ResolvedEvent,bool PartiallyMerged,bool FullyMerged,TLore
     deltaRb2Lep1 = DeltaR(SelectedBJets[1].Eta(),Electron1.Eta(),SelectedBJets[1].Phi(),Electron1.Phi());
     deltaRb2Lep2 = DeltaR(SelectedBJets[1].Eta(),Electron2.Eta(),SelectedBJets[1].Phi(),Electron2.Phi());
     Massb1b2     = (SelectedBJets[0]+SelectedBJets[1]).M();
+  }
+  if(SelectedMet){
+    deltaPhiMetTop = DeltaPhi(TopQuark.Phi(),Met_phi);
   }
 }
