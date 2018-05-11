@@ -16,9 +16,9 @@ void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & S
 void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedMuonsIndex);
 void SelectZBoson(bool electrons,bool muons ,bool &SelectedZBoson,TLorentzVector &ZBoson,TLorentzVector &Lep1,TLorentzVector &Lep2,vector<TLorentzVector> SelectedLeptons,vector<int> SelectedLeptonsIndex,float dRLep1Lep2,float Zpt,float leadLepPt);
 void SelectJets(int jetType,vector<TLorentzVector> & SelectedJets, vector<float> & SelectedJetsCSV, vector<TLorentzVector> SelectedElectrons, vector<TLorentzVector> SelectedMuons, 
-		int SysJes, int SysJer, bool data);
+		int SysJes, int SysJer, bool data, bool &deltaPhiJetMet);
 void SelectCA8Jets(int CA8jetType, vector<TLorentzVector> & SelectedWJets, vector<TLorentzVector> SelectedElectrons, vector<TLorentzVector> SelectedMuons, vector<int> & CA8Indices, 
-		int SysJes, int SysJer, bool data);
+		int SysJes, int SysJer, bool data, bool &deltaPhiJetMet);
 void ResolvedRegionSelection(bool &ResolvedEvent,vector<TLorentzVector> SelectedJets,vector<float> SelectedJetsCSV,TLorentzVector &TopQuark,
 			     TLorentzVector &Jet1,TLorentzVector &Jet2,TLorentzVector &Jet3,bool TopMassCut,bool btag);
 void PartiallyMergedSelection(bool &PartiallyMerged,vector<TLorentzVector> SelectedWJets,vector<TLorentzVector> SelectedJets,vector<float> SelectedJetsCSV,TLorentzVector &TopQuark,
@@ -45,7 +45,7 @@ void GenClassifier(float &pt);
 void GenWBoson(bool &matched, TLorentzVector Wjet);
 void GenWeight(string fileName, float pt);
 void newPUWeight(float &puweight,float &puweightUP,float &puweightDOWN);
-void FillBranches(bool ResolvedEvent,bool PartiallyMerged,bool FullyMerged,TLorentzVector TopQuark,bool SelectedZBosonElectrons,bool SelectedZBosonMuons,TLorentzVector ZBoson,TLorentzVector Tprime,TLorentzVector TopQuarkResolved,TLorentzVector Jet1Resolved,TLorentzVector Jet2Resolved,TLorentzVector Jet3Resolved,TLorentzVector TprimeResolved,TLorentzVector TopQuarkPartial,TLorentzVector Jet1Partial,TLorentzVector Jet2Partial,TLorentzVector TprimePartial,float WMass_,float WSubjet_,TLorentzVector TopQuarkMerged,TLorentzVector TprimeMerged,float TopSoftMass_,float TopSubjet_,TLorentzVector Electron1,TLorentzVector Electron2,TLorentzVector Muon1,TLorentzVector Muon2,vector<TLorentzVector> SelectedForwardJets,vector<TLorentzVector> SelectedBJets);
+void FillBranches(bool ResolvedEvent,bool PartiallyMerged,bool FullyMerged,TLorentzVector TopQuark,bool SelectedZBosonElectrons,bool SelectedZBosonMuons,bool SelectedMet,TLorentzVector ZBoson,TLorentzVector Tprime,TLorentzVector TopQuarkResolved,TLorentzVector Jet1Resolved,TLorentzVector Jet2Resolved,TLorentzVector Jet3Resolved,TLorentzVector TprimeResolved,TLorentzVector TopQuarkPartial,TLorentzVector Jet1Partial,TLorentzVector Jet2Partial,TLorentzVector TprimePartial,float WMass_,float WSubjet_,TLorentzVector TopQuarkMerged,TLorentzVector TprimeMerged,float TopSoftMass_,float TopSubjet_,TLorentzVector Electron1,TLorentzVector Electron2,TLorentzVector Muon1,TLorentzVector Muon2,vector<TLorentzVector> SelectedForwardJets,vector<TLorentzVector> SelectedBJets);
 
 //BTAG SF
 BTagCalibration calib("CSVv2", "SF_v3/CSVv2_94XSF_V1_B_F.csv");
@@ -336,6 +336,7 @@ float deltaRb1Lep1=-99;
 float deltaRb1Lep2=-99;
 float deltaRb2Lep1=-99;
 float deltaRb2Lep2=-99;
+float deltaPhiMetTop=-99.;
 int   NumSelLeps=-99;
 int   NumSelJets=-99;
 int   NumSelForwardJets=-99;
@@ -353,6 +354,8 @@ int EVENT_event=-99;
 int EVENT_run=-99;
 int EVENT_lumiBlock=-99;
 float EVENT_genHT=-99;
+float Met_pt = -99.;
+float Met_phi = -99.;
 int getTrueNumInteractions=-99;
 float w_for = 1;
 float w_forUp = 1;
