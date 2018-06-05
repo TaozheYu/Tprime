@@ -48,7 +48,7 @@ void newPUWeight(float &puweight,float &puweightUP,float &puweightDOWN);
 void FillBranches(bool ResolvedEvent,bool PartiallyMerged,bool FullyMerged,TLorentzVector TopQuark,bool SelectedZBosonElectrons,bool SelectedZBosonMuons,bool SelectedMet,TLorentzVector ZBoson,TLorentzVector Tprime,TLorentzVector TopQuarkResolved,TLorentzVector Jet1Resolved,TLorentzVector Jet2Resolved,TLorentzVector Jet3Resolved,TLorentzVector TprimeResolved,TLorentzVector TopQuarkPartial,TLorentzVector Jet1Partial,TLorentzVector Jet2Partial,TLorentzVector TprimePartial,float WMass_,float WSubjet_,TLorentzVector TopQuarkMerged,TLorentzVector TprimeMerged,float TopSoftMass_,float TopSubjet_,TLorentzVector Electron1,TLorentzVector Electron2,TLorentzVector Muon1,TLorentzVector Muon2,vector<TLorentzVector> SelectedForwardJets,vector<TLorentzVector> SelectedBJets);
 
 //BTAG SF
-BTagCalibration calib("CSVv2", "SF_v3/CSVv2_94XSF_V1_B_F.csv");
+BTagCalibration calib("CSVv2", "SF_dineutrino/CSVv2_94XSF_V1_B_F.csv");
 BTagCalibrationReader readerTIncl(&calib,      BTagEntry::OP_TIGHT, "incl",   "central");
 BTagCalibrationReader readerTIncl_up(&calib,   BTagEntry::OP_TIGHT, "incl",   "up");
 BTagCalibrationReader readerTIncl_do(&calib,   BTagEntry::OP_TIGHT, "incl",   "down");
@@ -69,16 +69,16 @@ BTagCalibrationReader readerLComb_up(&calib, BTagEntry::OP_LOOSE,  "comb", "up")
 BTagCalibrationReader readerLComb_do(&calib, BTagEntry::OP_LOOSE,  "comb", "down");
 
 //Lepton SF
-TFile *fileForwardJet    = new TFile("SF_v3/ForwardJetSFFinal.root");
-TFile *fileMuonTrig      = new TFile("SF_v3/EfficienciesAndSF_RunBtoF_Nov17Nov2017.root");
-TFile *fileElectron1     = new TFile("SF_v3/egammaEffi.txt_EGM2D_runBCDEF_passingRECO.root");
-TFile *fileElectron2     = new TFile("SF_v3/egammaEffi.txt_EGM2D_runBCDEF_passingTight94X.root");
-TFile *fileElectronTrig  = new TFile("SF_v3/ElectronTriggerSF.root");
-TFile *fileOldPU         = new TFile("SF_v3/PileUpReweighting2017.root");
-TFile *fileNewPU         = new TFile("SF_v3/PileUpReweighting2017.root");
-TFile *fileNewPUUp       = new TFile("SF_v3/PileUpReweighting2017Up.root");
-TFile *fileNewPUDo       = new TFile("SF_v3/PileUpReweighting2017Do.root");
-TFile *fileZPt           = new TFile("SF_v3/scalefactors_v4.root");
+TFile *fileForwardJet    = new TFile("SF_dineutrino/ForwardJetSFFinal.root");
+TFile *fileMuonTrig      = new TFile("SF_dineutrino/EfficienciesAndSF_RunBtoF_Nov17Nov2017.root");
+TFile *fileElectron1     = new TFile("SF_dineutrino/egammaEffi.txt_EGM2D_runBCDEF_passingRECO.root");
+TFile *fileElectron2     = new TFile("SF_dineutrino/egammaEffi.txt_EGM2D_runBCDEF_passingTight94X.root");
+TFile *fileElectronTrig  = new TFile("SF_dineutrino/ElectronTriggerSF.root");
+TFile *fileOldPU         = new TFile("SF_dineutrino/PileUpReweighting2017.root");
+TFile *fileNewPU         = new TFile("SF_dineutrino/PileUpReweighting2017_v1.root");
+TFile *fileNewPUUp       = new TFile("SF_dineutrino/PileUpReweighting2017Up.root");
+TFile *fileNewPUDo       = new TFile("SF_dineutrino/PileUpReweighting2017Do.root");
+TFile *fileZPt           = new TFile("SF_dineutrino/scalefactors_v4.root");
 TH2F  *histoForwardJet   = (TH2F*)fileForwardJet->Get("histo");
 TH2F  *histoMuonTrig     = (TH2F*)fileMuonTrig->Get("Mu50_PtEtaBins/abseta_pt_ratio");
 TH2F  *histoElectron1    = (TH2F*)fileElectron1->Get("EGamma_SF2D");
@@ -173,6 +173,7 @@ vector <double> * Muon_phi_; TBranch *b_Muon_phi;
 vector <double> * Muon_energy_; TBranch *b_Muon_energy;  
 vector <int> * Muon_charge_; TBranch *b_Muon_charge;
 vector <int> * Muon_tight_; TBranch *b_Muon_tight;
+vector <int> * Muon_medium_; TBranch *b_Muon_medium;
 vector <int> * Muon_loose_; TBranch *b_Muon_loose;
 vector <int> * Muon_soft_; TBranch *b_Muon_soft;
 vector <int> * Muon_isHighPt_; TBranch *b_Muon_isHighPt;
