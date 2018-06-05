@@ -20,14 +20,14 @@ void EventSelection_dineutrino(const char * Input = "", const char * Output ="",
   using namespace std;
   char openTree[500];   sprintf(openTree, "TNT/BOOM"); 
   vector<string> fileName;
-  fileName.push_back("May18V1_METB.root");
+  //fileName.push_back("May18V1_METB.root");
   //fileName.push_back("May18V1_METC.root");
   //fileName.push_back("May18V1_METD.root");
   //fileName.push_back("May18V1_METE.root");
   //fileName.push_back("May18V1_METF.root");
   //fileName.push_back("Tprime_0700.root");
   //fileName.push_back("Tprime_0800.root");
-  //fileName.push_back("Tprime_0900.root");
+  fileName.push_back("Tprime_0900.root");
   //fileName.push_back("Tprime_1000.root");
   //fileName.push_back("Tprime_1100.root");
   //fileName.push_back("Tprime_1200.root");
@@ -504,7 +504,7 @@ void BTagSF(int selection, float JetPt, float JetEta, int flav, float &SF, float
 }
 
 void get_weight_btag(int selection, float &w_Btag, float &w_BtagUp, float &w_BtagDown, float &w_Btag1Up, float &w_Btag1Down, float &w_Btag2Up, float &w_Btag2Down, float &w_BtagLoose, float &w_BtagLooseUp, float &w_BtagLooseDown, string fileName){
-  string FILEprov = "/afs/ihep.ac.cn/users/y/yutz/CMSSW_7_4_14/src/Tprime/SF_dineutrino/BtagEfficiency/"+fileName;
+  string FILEprov = "SF_dineutrino/BtagEfficiency/"+fileName;
   const char *FILE = FILEprov.c_str();
   TFile *fileBTagEfficiency = TFile::Open(FILE);
   float mcTagMedium = 1.;     float mcTagLoose = 1.;
