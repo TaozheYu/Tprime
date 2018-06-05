@@ -1,6 +1,6 @@
 #include "EventSelection_dineutrino.h" 
 
-void EventSelection_dineutrino(){
+void EventSelection_dineutrino(const char * Input = "", const char * Output ="", const char * Sample = ""){
   gStyle->SetCanvasColor(0);
   gStyle->SetFrameBorderMode(0);
   gStyle->SetOptStat("rme");
@@ -18,72 +18,45 @@ void EventSelection_dineutrino(){
   int SysJer = 0;
   
   using namespace std;
-  char openTree[500];   sprintf(openTree, "BOOM"); 
+  char openTree[500];   sprintf(openTree, "TNT/BOOM"); 
   vector<string> fileName;
-  /*fileName.push_back("DoubleEGRunB.root");
-  fileName.push_back("DoubleEGRunC.root");
-  fileName.push_back("DoubleEGRunD.root");
-  fileName.push_back("DoubleEGRunE.root");
-  fileName.push_back("DoubleEGRunF.root");
-  fileName.push_back("SingleMuonRunB.root");
-  fileName.push_back("SingleMuonRunC.root");
-  fileName.push_back("SingleMuonRunD.root");
-  fileName.push_back("SingleMuonRunE.root");
-  fileName.push_back("SingleMuonRunF.root");*/
+  fileName.push_back("May18V1_METB.root");
+  //fileName.push_back("May18V1_METC.root");
+  //fileName.push_back("May18V1_METD.root");
+  //fileName.push_back("May18V1_METE.root");
+  //fileName.push_back("May18V1_METF.root");
   //fileName.push_back("Tprime_0700.root");
   //fileName.push_back("Tprime_0800.root");
   //fileName.push_back("Tprime_0900.root");
-  fileName.push_back("Tprime_1000.root");
+  //fileName.push_back("Tprime_1000.root");
   //fileName.push_back("Tprime_1100.root");
-  fileName.push_back("Tprime_1200.root");
+  //fileName.push_back("Tprime_1200.root");
   /*fileName.push_back("Tprime_1300.root");
   fileName.push_back("Tprime_1400.root");
   fileName.push_back("Tprime_1500.root");
   fileName.push_back("Tprime_1600.root");
-  fileName.push_back("Tprime_1700.root");
-  fileName.push_back("DYJetsToLL_HT100to200_1.root");
-  fileName.push_back("DYJetsToLL_HT100to200_2.root");
-  fileName.push_back("DYJetsToLL_HT200to400_1.root");
-  fileName.push_back("DYJetsToLL_HT200to400_2.root");
-  fileName.push_back("DYJetsToLL_HT400to600_1.root");
-  fileName.push_back("DYJetsToLL_HT400to600_2.root");
-  fileName.push_back("DYJetsToLL_HT600to800_1.root");
-  fileName.push_back("DYJetsToLL_HT600to800_2.root");
-  fileName.push_back("DYJetsToLL_HT800to1200.root");
-  fileName.push_back("DYJetsToLL_HT1200to2500.root");
-  fileName.push_back("DYJetsToLL_HT2500toInf.root");
-  fileName.push_back("ST_tW_antitop.root");
-  fileName.push_back("ST_tW_top.root");
-  fileName.push_back("TTTo2L2Nu.root");
-  fileName.push_back("TTToSemiLeptonic.root");
-  fileName.push_back("ttZ.root");
-  fileName.push_back("ttW.root");
-  fileName.push_back("tZq_1.root");
-  fileName.push_back("tZq_2.root");
-  fileName.push_back("ZZTo4L.root");
-  fileName.push_back("ZZTo2L2Q.root");
-  fileName.push_back("ZZTo2L2Nu.root");
-  fileName.push_back("WWTo2L2Nu.root");
-  fileName.push_back("WWToLNuQQ.root");
-  fileName.push_back("WZTo1L1Nu2Q.root");
-  fileName.push_back("WZTo2L2Q.root");
-  fileName.push_back("WZTo3LNu.root");*/
+  fileName.push_back("Tprime_1700.root");*/
+  //fileName.push_back(Output);
 
   for(unsigned int Nfiles=0; Nfiles<fileName.size(); Nfiles++){
     string NewFileprov;
-    NewFileprov = "/eos/user/t/tayu/2017_dineutrino/"+fileName[Nfiles];
+    NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection/"+fileName[Nfiles];
+	//NewFileprov = fileName[Nfiles];
     //const char *NewFileName = fileName[Nfiles].c_str();
 	const char *NewFileName = NewFileprov.c_str();
     TFile f(NewFileName,"new");
     TTree *NewTree = new TTree("tree","tree");
     TTree *NewTreeSB = new TTree("treeSB","treeSB");
      
-    string FILEprov = "root://eosuser.cern.ch:1094//eos/user/a/aspiezia/TPrime/2017/TRIGGER/"+fileName[Nfiles];
+    string FILEprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/data_and_sample/"+fileName[Nfiles];
     const char *FILE = FILEprov.c_str();
     TFile *file = TFile::Open(FILE);
+    //TFile *file = TFile::Open(Input);
     Tree = (TTree*)file->Get(openTree);
+	string sample = Sample;
     bool data = true;
-    if(!(fileName[Nfiles].find("Single")!=string::npos || fileName[Nfiles].find("Double")!=string::npos)) data = false;
+    if(!(fileName[Nfiles].find("May18V1_MET")!=string::npos)) data = false;
+	//if(sample!="data" ) data = false;
     branch(data, NewTree,NewTreeSB,fileName[Nfiles]);
     Int_t nentries = (Int_t)Tree->GetEntries();
     for(int selection=0; selection<3; selection++){
@@ -95,23 +68,17 @@ void EventSelection_dineutrino(){
 	Long64_t tentry = Tree->LoadTree(i);
 	branchGetEntry(data, tentry,fileName[Nfiles]);
 	initializeVar();
-	//if( electrons) {if(!(HLT_DoubleEle33_CaloIdL_MW_==1))    continue;}
-	//if(muons) {if(!(HLT_Mu50_==1 || HLT_TkMu50_==1)) continue;
+	//if (!(HLT_PFMET120_PFMHT120_IDTight_==1))  continue;
 	if (!(HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_==1))  continue;
+	//if (!(HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight_==1))  continue;
 
-	//if(!(Flag_goodVertices_==1))    continue;
-	////if(!(Flag_CSCTightHalo2015Filter_==1))    continue;
-	//if(!(Flag_HBHENoiseFilter_==1))    continue;
-	//if(!(Flag_HBHENoiseIsoFilter_==1))    continue;
-	//if(!(Flag_EcalDeadCellTriggerPrimitiveFilter_==1))    continue;
-	//if(!data) {if(!(Flag_eeBadScFilter_==1))    continue;}
 	if(!data) GenClassifier(GenZPt);
 
 	//large met
 	bool SelectedMet = false;
 	SelectMet(SelectedMet);
 	
-	//Leptonic Z selection
+	//Leptonic reject
 	vector<TLorentzVector> SelectedElectrons; vector<int> SelectedElectronsIndex;
 	vector<TLorentzVector> SelectedMuons;     vector<int> SelectedMuonsIndex;
 	TLorentzVector ZBoson;    ZBoson.SetPtEtaPhiE(0,0,0,0);
@@ -121,30 +88,10 @@ void EventSelection_dineutrino(){
 	TLorentzVector Muon2;     Muon2.SetPtEtaPhiE(0,0,0,0);     float Muo2Iso_=0;
 	bool SelectedZBosonElectrons = false;
 	bool SelectedZBosonMuons = false;
-	/*TLorentzVector ZBosonM;    ZBosonM.SetPtEtaPhiE(0,0,0,0);
-	TLorentzVector Electron1M; Electron1M.SetPtEtaPhiE(0,0,0,0);
-	TLorentzVector Electron2M; Electron2M.SetPtEtaPhiE(0,0,0,0);
-	TLorentzVector Muon1M;     Muon1M.SetPtEtaPhiE(0,0,0,0);
-	TLorentzVector Muon2M;     Muon2M.SetPtEtaPhiE(0,0,0,0);
-	bool SelectedZBosonElectronsM = false;
-	bool SelectedZBosonMuonsM = false;*/
 	SelectElectrons(SelectedElectrons, SelectedElectronsIndex, data);
 	SelectMuons(SelectedMuons, SelectedMuonsIndex);
 	if (SelectedElectrons.size()>0) continue;
 	if (SelectedMuons.size()>0)     continue;
-	/*SelectZBoson(true,false,SelectedZBosonElectrons, ZBoson, Electron1, Electron2, SelectedElectrons,SelectedElectronsIndex,999,0.,55);
-	SelectZBoson(false,true,SelectedZBosonMuons,     ZBoson, Muon1,     Muon2,     SelectedMuons,    SelectedMuonsIndex,    999,0.,55);
-	if( electrons && selection==0) SelectZBoson(electrons,SelectedZBosonElectronsM,ZBosonM,Electron1M,Electron2M,SelectedElectrons,SelectedElectronsIndex,999,0.,55);
-	if( muons && selection==0)     SelectZBoson(electrons,SelectedZBosonMuonsM,    ZBosonM,Muon1M,    Muon2M,    SelectedMuons,    SelectedMuonsIndex,    999,0.,55);
-	if( electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonElectrons, ZBoson, Electron1, Electron2, SelectedElectrons,SelectedElectronsIndex,0.6,0.,55);
-	if(muons && selection!=0) SelectZBoson(electrons,SelectedZBosonMuons,     ZBoson, Muon1,     Muon2,     SelectedMuons,    SelectedMuonsIndex,    0.6,0.,55);
-	if( electrons && selection!=0) SelectZBoson(electrons,SelectedZBosonElectronsM,ZBosonM,Electron1M,Electron2M,SelectedElectrons,SelectedElectronsIndex,0.8,0.,55);
-	if(muons && selection!=0) SelectZBoson(electrons,SelectedZBosonMuonsM,    ZBosonM,Muon1M,    Muon2M,    SelectedMuons,    SelectedMuonsIndex,    0.8,0.,55);*/
-	/*if(SelectedZBosonElectrons) deltaREle1Ele2 = DeltaR(Electron1.Eta(),Electron2.Eta(),Electron1.Phi(),Electron2.Phi());
-	if(SelectedZBosonMuons)     deltaRMuo1Muo2 = DeltaR(    Muon1.Eta(),    Muon2.Eta(),    Muon1.Phi(),    Muon2.Phi());
-	if(SelectedZBosonElectronsM) deltaREle1Ele2M = DeltaR(Electron1M.Eta(),Electron2M.Eta(),Electron1M.Phi(),Electron2M.Phi());
-	if(SelectedZBosonMuonsM)     deltaRMuo1Muo2M = DeltaR(    Muon1M.Eta(),    Muon2M.Eta(),    Muon1M.Phi(),    Muon2M.Phi());*/
-	//if(SelectedZBosonElectrons || SelectedZBosonMuons) continue;
 
 	//Hadronic Top selection
 	vector<float> SelectedJetsCSV; 
@@ -199,7 +146,7 @@ void EventSelection_dineutrino(){
 	NumSelTopJets     = SelectedTopJets.size();
 	Met_pt            = Met_type1PF_pt_;
 	Met_phi           = Met_type1PF_phi_;
-	NVertices         = nBestVtx_;
+	//NVertices         = nBestVtx_;
 	EVENT_run         = EVENT_run_;
 	EVENT_event       = EVENT_event_;
 	EVENT_lumiBlock   = EVENT_lumiBlock_;
@@ -217,6 +164,7 @@ void EventSelection_dineutrino(){
 	  if(ResolvedEvent   && NumSelBJetsM>0 && SelectedMet)     category0=1;
 	  if(PartiallyMerged && NumSelBJetsM>0 && SelectedMet)     category1=1;
 	  if(FullyMerged     && NumSelBJetsM>0 && SelectedMet)     category2=1;
+
 	  if(category2==1) {category0=0;category1=0;category2=1;}
 	  if(category1==1) {category0=0;category1=1;category2=0;}
 	  if(category0==1) {category1=1;category1=0;category2=0;}
@@ -243,18 +191,12 @@ void EventSelection_dineutrino(){
 
 	//WEIGHT
 	if(!data){
-	  //MuonSF(SelectedZBosonMuons,Muon1.Pt(),Muon1.Eta(),w_Muon1,w_Muon1Up,w_Muon1Down);
-	  //MuonSF(SelectedZBosonMuons,Muon2.Pt(),Muon2.Eta(),w_Muon2,w_Muon2Up,w_Muon2Down);
-	  //ElectronSF(SelectedZBosonElectrons,Electron1.Pt(),Electron1.Eta(),w_Electron1,w_Electron1Up,w_Electron1Down);
-	  //ElectronSF(SelectedZBosonElectrons,Electron2.Pt(),Electron2.Eta(),w_Electron2,w_Electron2Up,w_Electron2Down);
 	  get_weight_btag(selection,w_Btag, w_BtagUp, w_BtagDown,w_Btag1Up, w_Btag1Down,w_Btag2Up, w_Btag2Down,w_BtagLoose, w_BtagLooseUp, w_BtagLooseDown, fileName[Nfiles]);
 	  TopSF(TopQuarkMerged, FullyMerged, w_topJet, w_topJetUp, w_topJetDown);
 	  WSF(Jet1Partial, PartiallyMerged, w_WJet, w_WJetUp, w_WJetDown, CA8Index, SysJes, SysJer);
 	  ForwardJetSF(SelectedForwardJets, w_for, w_forUp, w_forDown);
-	  newPUWeight(PUWeight, PUWeightUP, PUWeightDOWN);
+	  //newPUWeight(PUWeight, PUWeightUP, PUWeightDOWN);
 	  GenWeight(fileName[Nfiles], GenZPt);
-	  //if(TriggeringElePt>0) ElectronTriggerSF(TriggeringElePt, TriggeringEleEta);
-	  //if(TriggeringMuoPt>0) MuonTriggerSF(TriggeringMuoPt, TriggeringMuoEta);
 	}
 	
 	if(selection==0 || selection==1) HistoFill(PUWeight,NewTree);
@@ -276,7 +218,7 @@ void SelectMet(bool &SelectedMet){
 
 void SelectElectrons(vector<TLorentzVector> & SelectedElectrons, vector<int> & SelectedElectronsIndex, bool data){
   for (UInt_t j = 0; j < patElectron_pt_->size(); ++j){
-    if(!(patElectron_pt_->at(j)>40))                 continue;
+    if(!(patElectron_pt_->at(j)>20))                 continue;
     if(!(fabs(patElectron_eta_->at(j))<2.4))	     continue;
     if(!(fabs(patElectron_SCeta_->at(j))<2.5))	     continue;
     if(!(patElectron_inCrack_->at(j)==0))	         continue;
@@ -293,8 +235,8 @@ void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedM
   for (UInt_t j = 0; j < Muon_pt_->size(); ++j){
     if(!(Muon_pt_->at(j)>20))                     continue;
     if(!(fabs(Muon_eta_->at(j))<2.4))             continue;
-    if(!(Muon_loose_->at(j)==1))                  continue;
-    if(!(Muon_relIsoDeltaBetaR04_->at(j)<0.15))   continue;
+    if(!(Muon_medium_->at(j)==1))                  continue;
+    if(!(Muon_relIsoDeltaBetaR04_->at(j)<0.25))   continue;
     TLorentzVector muon; muon.SetPtEtaPhiE(Muon_pt_->at(j),Muon_eta_->at(j),Muon_phi_->at(j),Muon_energy_->at(j));
     SelectedMuons.push_back(muon);
     SelectedMuonsIndex.push_back(j);
@@ -378,15 +320,8 @@ void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float
     if(jetType==11){if(!(Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags_->at(j)>0.5803)) continue;}
     if(jetType==12){if(!(Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags_->at(j)>0.8838)) continue;}
     if(jetType==13){if(!(Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags_->at(j)>0.9693)) continue;}
-    /*bool deltaRLepJet=true;
-    for(unsigned int k=0; k<SelectedElectrons.size(); k++){
-      if(DeltaR(Jet_eta_->at(j),SelectedElectrons[k].Eta(),Jet_phi_->at(j),SelectedElectrons[k].Phi())<0.4) deltaRLepJet=false;
-    }
-    for(unsigned int k=0; k<SelectedMuons.size(); k++){
-      if(DeltaR(Jet_eta_->at(j),SelectedMuons[k].Eta(),Jet_phi_->at(j),SelectedMuons[k].Phi())<0.4) deltaRLepJet=false;
-    }*/
-    if(DeltaPhi(Jet_phi_->at(j),Met_type1PF_phi_)<0.6) deltaPhiJetMet=false;
-    if(!deltaPhiJetMet) break;
+	if(DeltaPhi(Jet_phi_->at(j),Met_type1PF_phi_)<0.6) deltaPhiJetMet=false;
+	if(!deltaPhiJetMet) break;
     if(deltaPhiJetMet){
       float SF = jetpt/Jet_pt_->at(j);
       TLorentzVector jet_prov; jet_prov.SetPtEtaPhiM(Jet_pt_->at(j),Jet_eta_->at(j),Jet_phi_->at(j),Jet_mass_->at(j));
@@ -426,17 +361,12 @@ void SelectCA8Jets(int CA8jetType,vector<TLorentzVector> & SelectedCA8Jets,vecto
       if(!(SF*BoostedJet_softdrop_mass_->at(j)>105 && SF*BoostedJet_softdrop_mass_->at(j)<220))  continue;
       if(!(BoostedJet_tau3_->at(j)/BoostedJet_tau2_->at(j)<0.81))                                continue;
     }
-    /*bool deltaRLepJet=true;
-    for(unsigned int k=0; k<SelectedElectrons.size(); k++){
-      if(DeltaR(BoostedJet_eta_->at(j),SelectedElectrons[k].Eta(),BoostedJet_phi_->at(j),SelectedElectrons[k].Phi())<0.8) deltaRLepJet=false;
-    }
-    for(unsigned int k=0; k<SelectedMuons.size(); k++){
-      if(DeltaR(BoostedJet_eta_->at(j),SelectedMuons[k].Eta(),BoostedJet_phi_->at(j),SelectedMuons[k].Phi())<0.8) deltaRLepJet=false;
-    }*/
-    if(DeltaPhi(Jet_phi_->at(j),Met_type1PF_phi_)<0.6) deltaPhiJetMet=false;
-    if(!deltaPhiJetMet) break;
+
+	if(DeltaPhi(Jet_phi_->at(j),Met_type1PF_phi_)<0.6) deltaPhiJetMet=false;
+	if(!deltaPhiJetMet) break;
     if(deltaPhiJetMet){
-      TLorentzVector jet_prov; jet_prov.SetPtEtaPhiM(BoostedJet_pt_->at(j),BoostedJet_eta_->at(j),BoostedJet_phi_->at(j),BoostedJet_mass_->at(j));
+      //TLorentzVector jet_prov; jet_prov.SetPtEtaPhiM(BoostedJet_pt_->at(j),BoostedJet_eta_->at(j),BoostedJet_phi_->at(j),BoostedJet_mass_->at(j));
+	  TLorentzVector jet_prov; jet_prov.SetPtEtaPhiM(BoostedJet_pt_->at(j),BoostedJet_eta_->at(j),BoostedJet_phi_->at(j),Jet_mass_->at(j));
       TLorentzVector jet; jet.SetPxPyPzE(SF*jet_prov.Px(),SF*jet_prov.Py(),SF*jet_prov.Pz(),SF*jet_prov.E());
       SelectedCA8Jets.push_back(jet);
       CA8Indices.push_back(j);
@@ -574,7 +504,7 @@ void BTagSF(int selection, float JetPt, float JetEta, int flav, float &SF, float
 }
 
 void get_weight_btag(int selection, float &w_Btag, float &w_BtagUp, float &w_BtagDown, float &w_Btag1Up, float &w_Btag1Down, float &w_Btag2Up, float &w_Btag2Down, float &w_BtagLoose, float &w_BtagLooseUp, float &w_BtagLooseDown, string fileName){
-  string FILEprov = "SF_v3/BtagEfficiency/"+fileName;
+  string FILEprov = "/afs/ihep.ac.cn/users/y/yutz/CMSSW_7_4_14/src/Tprime/SF_dineutrino/BtagEfficiency/"+fileName;
   const char *FILE = FILEprov.c_str();
   TFile *fileBTagEfficiency = TFile::Open(FILE);
   float mcTagMedium = 1.;     float mcTagLoose = 1.;
@@ -757,101 +687,6 @@ void WSF(TLorentzVector WJet, bool PartiallyMerged, float &w_WJet_, float &w_WJe
   }
 }
 
-/*void MuonSF(bool SelectedZBosonMuons, float pt, float eta, float &w_Muon_, float &w_MuonUp_, float &w_MuonDown_){
-  if(fabs(eta)<0.9){//ID*ISO
-    if(pt>=20 && pt<25)  {w_Muon_=0.9911*0.9928; w_MuonUp_=(0.9911+0.0035)*(0.9928+0.0036); w_MuonDown_=(0.9911-0.0035)*(0.9928-0.0036);}
-    if(pt>=25 && pt<30)  {w_Muon_=0.9874*0.9973; w_MuonUp_=(0.9874+0.0019)*(0.9973+0.0018); w_MuonDown_=(0.9874-0.0019)*(0.9973-0.0018);}
-    if(pt>=30 && pt<40)  {w_Muon_=0.9908*0.9976; w_MuonUp_=(0.9908+0.0004)*(0.9976+0.0005); w_MuonDown_=(0.9908-0.0004)*(0.9976-0.0005);}
-    if(pt>=40 && pt<50)  {w_Muon_=0.9892*0.9982; w_MuonUp_=(0.9892+0.0003)*(0.9982+0.0003); w_MuonDown_=(0.9892-0.0003)*(0.9982-0.0003);}
-    if(pt>=50 && pt<60)  {w_Muon_=0.9856*0.9984; w_MuonUp_=(0.9856+0.0009)*(0.9984+0.0005); w_MuonDown_=(0.9856-0.0009)*(0.9984-0.0005);}
-    if(pt>=60 && pt<120) {w_Muon_=0.9898*0.9995; w_MuonUp_=(0.9898+0.0016)*(0.9995+0.0006); w_MuonDown_=(0.9898-0.0016)*(0.9995-0.0006);}
-    if(pt>=120)          {w_Muon_=0.9898*0.9995; w_MuonUp_=(0.9898+0.0016)*(0.9995+0.0006); w_MuonDown_=(0.9898-0.0016)*(0.9995-0.0006);}
-  } else if(fabs(eta)<1.2){//ID*ISO
-    if(pt>=20 && pt<25)  {w_Muon_=0.9927*0.9957; w_MuonUp_=(0.9927+0.0047)*(0.9957+0.0064); w_MuonDown_=(0.9927-0.0047)*(0.9957-0.0064);}
-    if(pt>=25 && pt<30)  {w_Muon_=0.9851*0.9890; w_MuonUp_=(0.9851+0.0219)*(0.9890+0.0032); w_MuonDown_=(0.9851-0.0219)*(0.9890-0.0032);}
-    if(pt>=30 && pt<40)  {w_Muon_=0.9865*0.9947; w_MuonUp_=(0.9865+0.0007)*(0.9947+0.0009); w_MuonDown_=(0.9865-0.0007)*(0.9947-0.0009);}
-    if(pt>=40 && pt<50)  {w_Muon_=0.9849*0.9970; w_MuonUp_=(0.9849+0.0201)*(0.9970+0.0004); w_MuonDown_=(0.9849-0.0201)*(0.9970-0.0004);}
-    if(pt>=50 && pt<60)  {w_Muon_=0.9839*0.9993; w_MuonUp_=(0.9839+0.0016)*(0.9993+0.0009); w_MuonDown_=(0.9839-0.0016)*(0.9993-0.0009);}
-    if(pt>=60 && pt<120) {w_Muon_=0.9840*1.0000; w_MuonUp_=(0.9840+0.0121)*(1.0000+0.0012); w_MuonDown_=(0.9840-0.0121)*(1.0000-0.0012);}
-    if(pt>=120)          {w_Muon_=0.9840*1.0000; w_MuonUp_=(0.9840+0.0121)*(1.0000+0.0012); w_MuonDown_=(0.9840-0.0121)*(1.0000-0.0012);}
-  } else if(fabs(eta)<2.1){//ID*ISO
-    if(pt>=20 && pt<25)  {w_Muon_=0.9924*0.9914; w_MuonUp_=(0.9924+0.0078)*(0.9914+0.0027); w_MuonDown_=(0.9924-0.0078)*(0.9914-0.0027);}
-    if(pt>=25 && pt<30)  {w_Muon_=0.9891*0.9941; w_MuonUp_=(0.9891+0.0149)*(0.9941+0.0015); w_MuonDown_=(0.9891-0.0149)*(0.9941-0.0015);}
-    if(pt>=30 && pt<40)  {w_Muon_=0.9946*0.9955; w_MuonUp_=(0.9946+0.0124)*(0.9955+0.0005); w_MuonDown_=(0.9946-0.0124)*(0.9955-0.0005);}
-    if(pt>=40 && pt<50)  {w_Muon_=0.9926*0.9975; w_MuonUp_=(0.9926+0.0099)*(0.9975+0.0002); w_MuonDown_=(0.9926-0.0099)*(0.9975-0.0002);}
-    if(pt>=50 && pt<60)  {w_Muon_=0.9906*0.9986; w_MuonUp_=(0.9906+0.0010)*(0.9986+0.0005); w_MuonDown_=(0.9906-0.0010)*(0.9986-0.0005);}
-    if(pt>=60 && pt<120) {w_Muon_=0.9920*0.9996; w_MuonUp_=(0.9920+0.0021)*(0.9996+0.0007); w_MuonDown_=(0.9920-0.0021)*(0.9996-0.0007);}
-    if(pt>=120)          {w_Muon_=0.9920*0.9996; w_MuonUp_=(0.9920+0.0021)*(0.9996+0.0007); w_MuonDown_=(0.9920-0.0021)*(0.9996-0.0007);}
-  } else {//ID*ISO
-    if(pt>=20 && pt<25)  {w_Muon_=0.9758*0.9888; w_MuonUp_=(0.9758+0.0044)*(0.9888+0.0037); w_MuonDown_=(0.9758-0.0044)*(0.9888-0.0037);}
-    if(pt>=25 && pt<30)  {w_Muon_=0.9745*0.9923; w_MuonUp_=(0.9745+0.0027)*(0.9923+0.0020); w_MuonDown_=(0.9745-0.0027)*(0.9923-0.0020);}
-    if(pt>=30 && pt<40)  {w_Muon_=0.9787*0.9950; w_MuonUp_=(0.9787+0.0010)*(0.9950+0.0007); w_MuonDown_=(0.9787-0.0010)*(0.9950-0.0007);}
-    if(pt>=40 && pt<50)  {w_Muon_=0.9782*0.9979; w_MuonUp_=(0.9782+0.0011)*(0.9979+0.0004); w_MuonDown_=(0.9782-0.0011)*(0.9979-0.0004);}
-    if(pt>=50 && pt<60)  {w_Muon_=0.9674*0.9994; w_MuonUp_=(0.9674+0.0037)*(0.9994+0.0009); w_MuonDown_=(0.9674-0.0037)*(0.9994-0.0009);}
-    if(pt>=60 && pt<120) {w_Muon_=0.9766*0.9983; w_MuonUp_=(0.9766+0.0086)*(0.9983+0.0014); w_MuonDown_=(0.9766-0.0086)*(0.9983-0.0014);}
-    if(pt>=120)          {w_Muon_=0.9766*0.9983; w_MuonUp_=(0.9766+0.0086)*(0.9983+0.0014); w_MuonDown_=(0.9766-0.0086)*(0.9983-0.0014);}
-  }
-}*/
-
-/*void ElectronSF(bool SelectedZBosonElectrons, float pt, float eta, float &w_Electron_, float &w_ElectronUp_, float &w_ElectronDown_){
-  if(!SelectedZBosonElectrons) return;
-  int X1=-99; int Y1=-99; int X2=-99; int Y2=-99;
-  for(int i=1; i<histoElectron1->GetXaxis()->GetNbins()+2; i++){
-    if(eta<histoElectron1->GetXaxis()->GetBinLowEdge(i)){ X1=i-1; break; }
-  }
-  for(int i=1; i<histoElectron1->GetYaxis()->GetNbins()+2; i++){
-    if(pt <histoElectron1->GetYaxis()->GetBinLowEdge(i)){ Y1=i-1; break; }
-  }
-  if(pt<=20) {Y1=1;}
-  if(pt>=histoElectron1->GetYaxis()->GetBinLowEdge(histoElectron1->GetYaxis()->GetNbins()+1)) {Y1=(histoElectron1->GetYaxis()->GetNbins()+1)-1;}
-  for(int i=1; i<histoElectron2->GetXaxis()->GetNbins()+2; i++){
-    if(eta<histoElectron2->GetXaxis()->GetBinLowEdge(i)){ X2=i-1; break; }
-  }
-  for(int i=1; i<histoElectron2->GetYaxis()->GetNbins()+2; i++){
-    if(pt <histoElectron2->GetYaxis()->GetBinLowEdge(i)){ Y2=i-1; break; }
-  }
-  if(pt>=histoElectron2->GetYaxis()->GetBinLowEdge(histoElectron2->GetYaxis()->GetNbins()+1)) {Y2=(histoElectron2->GetYaxis()->GetNbins()+1)-1;}
-  float lepID = histoElectron1->GetBinContent(X1,Y1)*histoElectron2->GetBinContent(X2,Y2);
-  float lepID_err1 = histoElectron1->GetBinError(X1,Y1);
-  float lepID_err2 = histoElectron2->GetBinError(X2,Y2);
-  w_Electron_     = lepID;
-  w_ElectronUp_   = lepID + sqrt(pow(histoElectron2->GetBinContent(X2,Y2)*lepID_err1,2)+pow(histoElectron1->GetBinContent(X1,Y1)*lepID_err2,2));
-  w_ElectronDown_ = lepID - sqrt(pow(histoElectron2->GetBinContent(X2,Y2)*lepID_err1,2)+pow(histoElectron1->GetBinContent(X1,Y1)*lepID_err2,2));
-}*/
-
-/*void MuonTriggerSF(float pt, float eta){
-  bool doubleUncert = false;
-  int X1=-99; int X2=-99; int Y1=-99; int Y2=-99;
-  for(int i=1; i<histoMuonTrig->GetXaxis()->GetNbins()+2; i++){
-    if(fabs(eta)<histoMuonTrig->GetXaxis()->GetBinLowEdge(i)){ X1=i-1; break; }
-  }
-  for(int i=1; i<histoMuonTrig->GetYaxis()->GetNbins()+2; i++){
-    if(pt <histoMuonTrig->GetYaxis()->GetBinLowEdge(i)){ Y1=i-1; break; } 
-  }
-  if(pt>=histoMuonTrig->GetYaxis()->GetBinLowEdge(histoMuonTrig->GetYaxis()->GetNbins()+1)) {Y1=(histoMuonTrig->GetYaxis()->GetNbins()+1)-1; doubleUncert = true;}
-  float lepTrig      = histoMuonTrig->GetBinContent(X1,Y1);
-  float lepTrig_err  = histoMuonTrig->GetBinError(X1,Y1);
-  w_TrigMuon    = lepTrig;
-  w_TrigMuonUp  = lepTrig + lepTrig_err;
-  w_TrigMuonDown= lepTrig - lepTrig_err;
-  //cout<<pt<<" "<<eta<<" "<<histoMuonTrig1->GetBinContent(X1,Y1)<<" "<<histoMuonTrig2->GetBinContent(X1,Y1)<<" "<<w_TrigMuon<<" "<<w_TrigMuonUp<<" "<<w_TrigMuonDown<<endl;
-}*/
-
-/*void ElectronTriggerSF(float pt, float eta){
-  int X1=-99; int Y1=-99;
-  for(int i=1; i<histoElectronTrig->GetXaxis()->GetNbins()+2; i++){
-    if(pt<histoElectronTrig->GetXaxis()->GetBinLowEdge(i)){ X1=i-1; break; }
-  }
-  if(pt>=histoElectronTrig->GetXaxis()->GetBinLowEdge(histoElectronTrig->GetXaxis()->GetNbins()+1)) {X1=(histoElectronTrig->GetXaxis()->GetNbins()+1)-1;}
-  for(int i=1; i<histoElectronTrig->GetYaxis()->GetNbins()+2; i++){
-    if(eta<histoElectronTrig->GetYaxis()->GetBinLowEdge(i)){ Y1=i-1; break; }
-  }
-  w_TrigElec    = 0.991;      //histoElectronTrig->GetBinContent(X1,Y1);
-  w_TrigElecUp  = 0.991+0.001;//histoElectronTrig->GetBinContent(X1,Y1) + histoElectronTrig->GetBinError(X1,Y1);
-  w_TrigElecDown= 0.991-0.001;//histoElectronTrig->GetBinContent(X1,Y1) - histoElectronTrig->GetBinError(X1,Y1);
-  //cout<<pt<<" "<<eta<<" "<<histoElectronTrig->GetBinContent(X1,Y1)<<" "<<histoElectronTrig->GetBinError(X1,Y1)<<" "<<w_TrigElec<<" "<<w_TrigElecUp<<" "<<w_TrigElecDown<<endl;
-}*/
-
 float DeltaR(float eta1, float eta2, float phi1, float phi2){
   float deltaPhi = TMath::Abs(phi1-phi2);
   float deltaEta = eta1-eta2;
@@ -904,7 +739,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   Tree->SetBranchAddress("BoostedJet_JerSFdown",&BoostedJet_JerSFdown_,&b_BoostedJet_JerSFdown);
   Tree->SetBranchAddress("BoostedJet_eta",  &BoostedJet_eta_,  &b_BoostedJet_eta);
   Tree->SetBranchAddress("BoostedJet_phi",  &BoostedJet_phi_,  &b_BoostedJet_phi);
-  Tree->SetBranchAddress("BoostedJet_mass", &BoostedJet_mass_, &b_BoostedJet_mass);
+  //Tree->SetBranchAddress("BoostedJet_mass", &BoostedJet_mass_, &b_BoostedJet_mass);
   Tree->SetBranchAddress("BoostedJet_neutralHadEnergyFraction", &BoostedJet_neutralHadEnergyFraction_, &b_BoostedJet_neutralHadEnergyFraction);
   Tree->SetBranchAddress("BoostedJet_chargedEmEnergyFraction", &BoostedJet_chargedEmEnergyFraction_, &b_BoostedJet_chargedEmEnergyFraction);
   Tree->SetBranchAddress("BoostedJet_neutralEmEmEnergyFraction", &BoostedJet_neutralEmEmEnergyFraction_, &b_BoostedJet_neutralEmEmEnergyFraction);
@@ -915,9 +750,9 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   Tree->SetBranchAddress("BoostedJet_tau2",         &BoostedJet_tau2_,         &b_BoostedJet_tau2);
   Tree->SetBranchAddress("BoostedJet_tau3",         &BoostedJet_tau3_,         &b_BoostedJet_tau3);
   Tree->SetBranchAddress("BoostedJet_pruned_mass",  &BoostedJet_pruned_mass_,  &b_BoostedJet_pruned_mass);
-  Tree->SetBranchAddress("TopTagging_topMass",      &TopTagging_topMass_,      &b_TopTagging_topMass);
-  Tree->SetBranchAddress("TopTagging_minMass",      &TopTagging_minMass_,      &b_TopTagging_minMass);
-  Tree->SetBranchAddress("TopTagging_nSubJets",     &TopTagging_nSubJets_,     &b_TopTagging_nSubJets); 
+  //Tree->SetBranchAddress("TopTagging_topMass",      &TopTagging_topMass_,      &b_TopTagging_topMass);
+  //Tree->SetBranchAddress("TopTagging_minMass",      &TopTagging_minMass_,      &b_TopTagging_minMass);
+  //Tree->SetBranchAddress("TopTagging_nSubJets",     &TopTagging_nSubJets_,     &b_TopTagging_nSubJets); 
   Tree->SetBranchAddress("patElectron_pt",&patElectron_pt_,&b_patElectron_pt);
   Tree->SetBranchAddress("patElectron_eta",&patElectron_eta_,&b_patElectron_eta);
   Tree->SetBranchAddress("patElectron_phi",&patElectron_phi_,&b_patElectron_phi);
@@ -939,6 +774,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   Tree->SetBranchAddress("Muon_energy",&Muon_energy_,&b_Muon_energy);
   Tree->SetBranchAddress("Muon_charge",&Muon_charge_,&b_Muon_charge);
   Tree->SetBranchAddress("Muon_tight",&Muon_tight_,&b_Muon_tight);
+  Tree->SetBranchAddress("Muon_medium",&Muon_medium_,&b_Muon_medium);
   Tree->SetBranchAddress("Muon_loose",&Muon_loose_,&b_Muon_loose);
   Tree->SetBranchAddress("Met_type1PF_pt",          &Met_type1PF_pt_,          &b_Met_type1PF_pt);
   Tree->SetBranchAddress("Met_type1PF_phi",         &Met_type1PF_phi_,         &b_Met_type1PF_phi);
@@ -967,7 +803,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   Tree->SetBranchAddress("HLT_PFJet500", &HLT_PFJet500_,         &b_HLT_PFJet500);
   Tree->SetBranchAddress("HLT_PFHT1050", &HLT_PFHT1050_,         &b_HLT_PFHT1050);
 
-  Tree->SetBranchAddress("nBestVtx",&nBestVtx_,&b_nBestVtx);
+  //Tree->SetBranchAddress("nBestVtx",&nBestVtx_,&b_nBestVtx);
   Tree->SetBranchAddress("PUWeight",&PUWeight_,&b_PUWeight);
   //Tree->SetBranchAddress("PUWeightUP",&PUWeightUP_,&b_PUWeightUP);
   //Tree->SetBranchAddress("PUWeightDOWN",&PUWeightDOWN_,&b_PUWeightDOWN);
@@ -975,11 +811,11 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   Tree->SetBranchAddress("EVENT_run",&EVENT_run_,&b_EVENT_run);
   Tree->SetBranchAddress("EVENT_lumiBlock",&EVENT_lumiBlock_,&b_EVENT_lumiBlock);
   Tree->SetBranchAddress("EVENT_genHT",&EVENT_genHT_,&b_EVENT_genHT);
-  if(!(fileName.find("Single")!=string::npos || fileName.find("Double")!=string::npos)) Tree->SetBranchAddress("Gen_pt",&Gen_pt_,&b_Gen_pt);
-  if(!(fileName.find("Single")!=string::npos || fileName.find("Double")!=string::npos)) Tree->SetBranchAddress("Gen_eta",&Gen_eta_,&b_Gen_eta);
-  if(!(fileName.find("Single")!=string::npos || fileName.find("Double")!=string::npos)) Tree->SetBranchAddress("Gen_phi",&Gen_phi_,&b_Gen_phi);
-  if(!(fileName.find("Single")!=string::npos || fileName.find("Double")!=string::npos)) Tree->SetBranchAddress("Gen_pdg_id",&Gen_pdg_id_,&b_Gen_pdg_id);
-  if(!(fileName.find("Single")!=string::npos || fileName.find("Double")!=string::npos)) Tree->SetBranchAddress("Gen_motherpdg_id",&Gen_motherpdg_id_,&b_Gen_motherpdg_id);
+  if(!data) Tree->SetBranchAddress("Gen_pt",&Gen_pt_,&b_Gen_pt);
+  if(!data) Tree->SetBranchAddress("Gen_eta",&Gen_eta_,&b_Gen_eta);
+  if(!data) Tree->SetBranchAddress("Gen_phi",&Gen_phi_,&b_Gen_phi);
+  if(!data) Tree->SetBranchAddress("Gen_pdg_id",&Gen_pdg_id_,&b_Gen_pdg_id);
+  if(!data) Tree->SetBranchAddress("Gen_motherpdg_id",&Gen_motherpdg_id_,&b_Gen_motherpdg_id);
   Tree->SetBranchAddress("EVENT_genWeight",&genWeight_,&b_genWeight);
 
   NewTree->Branch("category0",         &category0,         "category0/I"         );
@@ -1542,7 +1378,7 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){
   b_BoostedJet_JerSFdown->GetEntry(tentry);
   b_BoostedJet_eta->GetEntry(tentry);
   b_BoostedJet_phi->GetEntry(tentry);
-  b_BoostedJet_mass->GetEntry(tentry);
+  //b_BoostedJet_mass->GetEntry(tentry);
   b_BoostedJet_tau1->GetEntry(tentry);
   b_BoostedJet_tau2->GetEntry(tentry);
   b_BoostedJet_tau3->GetEntry(tentry);
@@ -1553,9 +1389,9 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){
   b_BoostedJet_numberOfConstituents->GetEntry(tentry);
   b_BoostedJet_chargedHadronEnergyFraction->GetEntry(tentry);
   b_BoostedJet_chargedMultiplicity->GetEntry(tentry);
-  b_TopTagging_topMass->GetEntry(tentry);
-  b_TopTagging_minMass->GetEntry(tentry);
-  b_TopTagging_nSubJets->GetEntry(tentry);
+  //b_TopTagging_topMass->GetEntry(tentry);
+  //b_TopTagging_minMass->GetEntry(tentry);
+  //b_TopTagging_nSubJets->GetEntry(tentry);
   b_patElectron_pt->GetEntry(tentry);
   b_patElectron_eta->GetEntry(tentry);
   b_patElectron_phi->GetEntry(tentry);
@@ -1577,6 +1413,7 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){
   b_Muon_energy->GetEntry(tentry);
   b_Muon_charge->GetEntry(tentry);
   b_Muon_tight->GetEntry(tentry);
+  b_Muon_medium->GetEntry(tentry);
   b_Muon_loose->GetEntry(tentry);
   //b_Muon_loose->GetEntry(tentry);       
   b_Muon_relIsoDeltaBetaR04->GetEntry(tentry);
@@ -1603,7 +1440,7 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){
   b_Flag_HBHENoiseIsoFilter->GetEntry(tentry);
   b_Flag_EcalDeadCellTriggerPrimitiveFilter->GetEntry(tentry);
   b_Flag_eeBadScFilter->GetEntry(tentry);
-  b_nBestVtx->GetEntry(tentry);
+  //b_nBestVtx->GetEntry(tentry);
   b_PUWeight->GetEntry(tentry);
   //b_PUWeightUP->GetEntry(tentry);
   //b_PUWeightDOWN->GetEntry(tentry);
@@ -1612,11 +1449,11 @@ void branchGetEntry(bool data, Long64_t tentry, string fileName){
   b_EVENT_lumiBlock->GetEntry(tentry);
   b_EVENT_genHT->GetEntry(tentry);
   b_genWeight->GetEntry(tentry);
-  if(!(fileName.find("Single")!=string::npos || fileName.find("Double")!=string::npos)) b_Gen_pt->GetEntry(tentry);
-  if(!(fileName.find("Single")!=string::npos || fileName.find("Double")!=string::npos)) b_Gen_eta->GetEntry(tentry);
-  if(!(fileName.find("Single")!=string::npos || fileName.find("Double")!=string::npos)) b_Gen_phi->GetEntry(tentry);
-  if(!(fileName.find("Single")!=string::npos || fileName.find("Double")!=string::npos)) b_Gen_pdg_id->GetEntry(tentry);
-  if(!(fileName.find("Single")!=string::npos || fileName.find("Double")!=string::npos)) b_Gen_motherpdg_id->GetEntry(tentry);
+  if(!data) b_Gen_pt->GetEntry(tentry);
+  if(!data) b_Gen_eta->GetEntry(tentry);
+  if(!data) b_Gen_phi->GetEntry(tentry);
+  if(!data) b_Gen_pdg_id->GetEntry(tentry);
+  if(!data) b_Gen_motherpdg_id->GetEntry(tentry);
 }
 
 void HistoFill(float puweight,TTree *NewTree){
@@ -1701,25 +1538,26 @@ void newPUWeight(float &puweight,float &puweightUP,float &puweightDOWN){
   double sNEWUp = 0.;
   double sNEWDo = 0.;
   for(unsigned int npu = 0; npu < nPUMax; ++npu) {
+    //int npu = 1;
     const double npu_estimated = histoOldPU->GetBinContent(histoOldPU->GetXaxis()->FindBin(npu));
-    result[npu] = npu_estimated / npuProbs[npu];
+    if(npuProbs[npu] != 0)  result[npu] = npu_estimated / npuProbs[npu];
     s += npu_estimated;
     const double npu_estimatedNEW   = histoNewPU  ->GetBinContent(histoNewPU  ->GetXaxis()->FindBin(npu));
     const double npu_estimatedNEWUp = histoNewPUUp->GetBinContent(histoNewPUUp->GetXaxis()->FindBin(npu));
     const double npu_estimatedNEWDo = histoNewPUDo->GetBinContent(histoNewPUDo->GetXaxis()->FindBin(npu));
-    resultNEW[npu]   = npu_estimatedNEW   / npuProbsNEW[npu];
-    resultNEWUp[npu] = npu_estimatedNEWUp / npuProbsNEW[npu];
-    resultNEWDo[npu] = npu_estimatedNEWDo / npuProbsNEW[npu];
+    if(npuProbsNEW[npu] != 0) resultNEW[npu]   = npu_estimatedNEW   / npuProbsNEW[npu];
+    if(npuProbsNEW[npu] != 0) resultNEWUp[npu] = npu_estimatedNEWUp / npuProbsNEW[npu];
+    if(npuProbsNEW[npu] != 0) resultNEWDo[npu] = npu_estimatedNEWDo / npuProbsNEW[npu];
     sNEW   += npu_estimatedNEW;
     sNEWUp += npu_estimatedNEWUp;
     sNEWDo += npu_estimatedNEWDo;
   }
-  unsigned int NPU = -1;              
+  unsigned int NPU = -1;  
   for(unsigned int npu = 0; npu < nPUMax; ++npu) {
-    result[npu] /= s;
-    resultNEW[npu]   /= sNEW;
-    resultNEWUp[npu] /= sNEWUp;
-    resultNEWDo[npu] /= sNEWDo;
+    if(result[npu]!=0) result[npu] /= s;
+    if(resultNEW[npu]!=0) resultNEW[npu]   /= sNEW;
+    if(resultNEWUp[npu]!=0) resultNEWUp[npu] /= sNEWUp;
+    if(resultNEWDo[npu]!=0) resultNEWDo[npu] /= sNEWDo;
     if(result[npu]==PUWeight_) NPU = npu;
   }
   //cout<<NPU<<" "<<PUWeight_<<" "<<resultNEW[NPU]<<" "<<resultNEWUp[NPU]<<endl;
