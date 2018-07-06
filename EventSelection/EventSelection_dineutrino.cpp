@@ -20,18 +20,18 @@ void EventSelection_dineutrino(){
   using namespace std;
   char openTree[500];   sprintf(openTree, "TNT/BOOM"); 
   vector<string> fileName;
-  //fileName.push_back("May18V1_METB.root");
-  /*fileName.push_back("May18V1_METC.root");
+  /*fileName.push_back("May18V1_METB.root");
+  fileName.push_back("May18V1_METC.root");
   fileName.push_back("May18V1_METD.root");
   fileName.push_back("May18V1_METE.root");
-  fileName.push_back("May18V1_METF.root");*/
-  //fileName.push_back("Tprime_0700.root");
-  //fileName.push_back("Tprime_0800.root");
-  //fileName.push_back("Tprime_0900.root");
-  //fileName.push_back("Tprime_1000.root");
-  //fileName.push_back("Tprime_1100.root");
-  //fileName.push_back("Tprime_1200.root");
-  /*fileName.push_back("Tprime_1300.root");
+  fileName.push_back("May18V1_METF.root");
+  fileName.push_back("Tprime_0700.root");
+  fileName.push_back("Tprime_0800.root");
+  fileName.push_back("Tprime_0900.root");
+  fileName.push_back("Tprime_1000.root");
+  fileName.push_back("Tprime_1100.root");
+  fileName.push_back("Tprime_1200.root");
+  fileName.push_back("Tprime_1300.root");
   fileName.push_back("Tprime_1400.root");
   fileName.push_back("Tprime_1500.root");
   fileName.push_back("Tprime_1600.root");
@@ -43,27 +43,39 @@ void EventSelection_dineutrino(){
   fileName.push_back("ZToNuNu_HT600to800.root");
   fileName.push_back("ZToNuNu_HT800to1200.root");
   fileName.push_back("ZToNuNu_HT1200to2500.root");
-  fileName.push_back("ZToNuNu_HT2500toInf.root");*/
-  /*fileName.push_back("QCD_HT200to300.root");
+  fileName.push_back("ZToNuNu_HT2500toInf.root");
+  fileName.push_back("QCD_HT200to300.root");
   fileName.push_back("QCD_HT300to500.root");
   fileName.push_back("QCD_HT500to700.root");
   fileName.push_back("QCD_HT700to1000.root");
   fileName.push_back("QCD_HT1000to1500.root");
   fileName.push_back("QCD_HT1500to2000.root");
-  fileName.push_back("QCD_HT2000toInf.root");
-  fileName.push_back("WToLNu_HT400to600.root");
-  fileName.push_back("TTJets.root");
+  fileName.push_back("QCD_HT2000toInf.root");*/
+  fileName.push_back("WToLNu_HT100to200.root");
+  //fileName.push_back("WToLNu_HT200to400.root");
+  //fileName.push_back("WToLNu_HT400to600.root");
+  //fileName.push_back("WToLNu_HT600to800.root");
+  //fileName.push_back("WToLNu_HT800to1200.root");
+  //fileName.push_back("WToLNu_HT1200to2500.root");
+  fileName.push_back("WToLNu_HT2500toInf.root");
+  /*fileName.push_back("TTTo2L2Nu.root");
+  fileName.push_back("TTToSemiLeptonic.root");
   fileName.push_back("ST_t-channel_antitop.root");
   fileName.push_back("ST_t-channel_top.root");
   fileName.push_back("ST_tW_antitop.root");
   fileName.push_back("ST_tW_top.root");
-  fileName.push_back("ZZ.root");
-  fileName.push_back("WZ.root");
-  fileName.push_back("WW.root");*/
+  fileName.push_back("ZZTo4L.root");
+  fileName.push_back("ZZTo2L2Q.root");
+  fileName.push_back("ZZTo2L2Nu.root");
+  fileName.push_back("WWTo2L2Nu.root");
+  fileName.push_back("WWToLNuQQ.root");
+  fileName.push_back("WZTo1L1Nu2Q.root");
+  fileName.push_back("WZTo2L2Q.root");
+  fileName.push_back("WZTo3LNu.root");*/
 
   for(unsigned int Nfiles=0; Nfiles<fileName.size(); Nfiles++){
     string NewFileprov;
-    NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection/"+fileName[Nfiles];
+    NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v2/"+fileName[Nfiles];
 	//NewFileprov = fileName[Nfiles];
     //const char *NewFileName = fileName[Nfiles].c_str();
 	const char *NewFileName = NewFileprov.c_str();
@@ -343,6 +355,7 @@ void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float
     if(jetType==13){if(!(Jet_pfDeepCSVBJetTags_->at(j)>0.8001)) continue;}
 	if(DeltaPhi(Jet_phi_->at(j),Met_type1PF_phi_)<0.6) deltaPhiJetMet=false;
 	if(!deltaPhiJetMet) break;
+	if(DeltaPhi(Jet_phi_->at(j),Met_type1PF_phi_)<MinDeltaPhiJetMet) MinDeltaPhiJetMet = DeltaPhi(Jet_phi_->at(j),Met_type1PF_phi_);
     if(deltaPhiJetMet){
       float SF = jetpt/Jet_pt_->at(j);
       TLorentzVector jet_prov; jet_prov.SetPtEtaPhiM(Jet_pt_->at(j),Jet_eta_->at(j),Jet_phi_->at(j),Jet_mass_->at(j));
@@ -384,6 +397,7 @@ void SelectCA8Jets(int CA8jetType,vector<TLorentzVector> & SelectedCA8Jets,vecto
     }
 	if(DeltaPhi(Jet_phi_->at(j),Met_type1PF_phi_)<0.6) deltaPhiJetMet=false;
 	if(!deltaPhiJetMet) break;
+	if(DeltaPhi(Jet_phi_->at(j),Met_type1PF_phi_)<MinDeltaPhiJetMet) MinDeltaPhiJetMet = DeltaPhi(Jet_phi_->at(j),Met_type1PF_phi_);
     if(deltaPhiJetMet){
       TLorentzVector jet_prov; jet_prov.SetPtEtaPhiM(BoostedJet_pt_->at(j),BoostedJet_eta_->at(j),BoostedJet_phi_->at(j),BoostedJet_mass_->at(j));
       TLorentzVector jet; jet.SetPxPyPzE(SF*jet_prov.Px(),SF*jet_prov.Py(),SF*jet_prov.Pz(),SF*jet_prov.E());
@@ -523,7 +537,7 @@ void BTagSF(int selection, float JetPt, float JetEta, int flav, float &SF, float
 }
 
 void get_weight_btag(int selection, float &w_Btag, float &w_BtagUp, float &w_BtagDown, float &w_Btag1Up, float &w_Btag1Down, float &w_Btag2Up, float &w_Btag2Down, float &w_BtagLoose, float &w_BtagLooseUp, float &w_BtagLooseDown, string fileName){
-  string FILEprov = "SF_dineutrino/BtagEfficiency/"+fileName;
+  string FILEprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/BtagEfficiency/"+fileName;
   const char *FILE = FILEprov.c_str();
   TFile *fileBTagEfficiency = TFile::Open(FILE);
   float mcTagMedium = 1.;     float mcTagLoose = 1.;
@@ -930,6 +944,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   NewTree->Branch("deltaREle1Ele2",    &deltaREle1Ele2,    "deltaREle1Ele2/F"    );
   NewTree->Branch("deltaRMuo1Muo2",    &deltaRMuo1Muo2,    "deltaRMuo1Muo2/F"    );
   NewTree->Branch("Massb1b2",          &Massb1b2,          "Massb1b2/F"          );
+  NewTree->Branch("MinDeltaPhiJetMet", &MinDeltaPhiJetMet, "MinDeltaPhiJetMet/F" );
   NewTree->Branch("deltaRb1b2",        &deltaRb1b2,        "deltaRb1b2/F"        );
   NewTree->Branch("deltaRb1Lep1",      &deltaRb1Lep1,      "deltaRb1Lep1/F"      );
   NewTree->Branch("deltaRb1Lep2",      &deltaRb1Lep2,      "deltaRb1Lep2/F"      );
@@ -1103,6 +1118,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   NewTreeSB->Branch("deltaREle1Ele2",    &deltaREle1Ele2,    "deltaREle1Ele2/F"    );
   NewTreeSB->Branch("deltaRMuo1Muo2",    &deltaRMuo1Muo2,    "deltaRMuo1Muo2/F"    );
   NewTreeSB->Branch("Massb1b2",          &Massb1b2,          "Massb1b2/F"          );
+  NewTreeSB->Branch("MinDeltaPhiJetMet", &MinDeltaPhiJetMet, "MinDeltaPhiJetMet/F" );
   NewTreeSB->Branch("deltaRb1b2",        &deltaRb1b2,        "deltaRb1b2/F"        );
   NewTreeSB->Branch("deltaRb1Lep1",      &deltaRb1Lep1,      "deltaRb1Lep1/F"      );
   NewTreeSB->Branch("deltaRb1Lep2",      &deltaRb1Lep2,      "deltaRb1Lep2/F"      );
@@ -1268,6 +1284,7 @@ void initializeVar(){
   deltaRMuo1Muo2=-99;
   deltaPhiMetTop=-99.;
   Massb1b2=-99;
+  MinDeltaPhiJetMet=99.;
   deltaRb1b2=-99;
   deltaRb1Lep1=-99;
   deltaRb1Lep2=-99;
