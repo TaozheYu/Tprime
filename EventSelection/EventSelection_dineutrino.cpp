@@ -37,30 +37,30 @@ void EventSelection_dineutrino(){
   fileName.push_back("Tprime_1600.root");
   fileName.push_back("Tprime_1700.root");
   fileName.push_back("Tprime_1800.root");
-  fileName.push_back("ZToNuNu_HT100to200.root");
+  fileName.push_back("ZToNuNu_HT100to200.root");*/
   fileName.push_back("ZToNuNu_HT200to400.root");
   fileName.push_back("ZToNuNu_HT400to600.root");
   fileName.push_back("ZToNuNu_HT600to800.root");
   fileName.push_back("ZToNuNu_HT800to1200.root");
   fileName.push_back("ZToNuNu_HT1200to2500.root");
   fileName.push_back("ZToNuNu_HT2500toInf.root");
-  fileName.push_back("QCD_HT200to300.root");
+  /*fileName.push_back("QCD_HT200to300.root");
   fileName.push_back("QCD_HT300to500.root");
   fileName.push_back("QCD_HT500to700.root");
   fileName.push_back("QCD_HT700to1000.root");
   fileName.push_back("QCD_HT1000to1500.root");
   fileName.push_back("QCD_HT1500to2000.root");
   fileName.push_back("QCD_HT2000toInf.root");*/
-  fileName.push_back("WToLNu_HT100to200.root");
-  //fileName.push_back("WToLNu_HT200to400.root");
-  //fileName.push_back("WToLNu_HT400to600.root");
-  //fileName.push_back("WToLNu_HT600to800.root");
-  //fileName.push_back("WToLNu_HT800to1200.root");
-  //fileName.push_back("WToLNu_HT1200to2500.root");
+  /*fileName.push_back("WToLNu_HT100to200.root");
+  fileName.push_back("WToLNu_HT200to400.root");
+  fileName.push_back("WToLNu_HT400to600.root");
+  fileName.push_back("WToLNu_HT600to800.root");
+  fileName.push_back("WToLNu_HT800to1200.root");
+  fileName.push_back("WToLNu_HT1200to2500.root");
   fileName.push_back("WToLNu_HT2500toInf.root");
-  /*fileName.push_back("TTTo2L2Nu.root");
-  fileName.push_back("TTToSemiLeptonic.root");
-  fileName.push_back("ST_t-channel_antitop.root");
+  fileName.push_back("TTTo2L2Nu.root");
+  fileName.push_back("TTToSemiLeptonic.root");*/
+  /*fileName.push_back("ST_t-channel_antitop.root");
   fileName.push_back("ST_t-channel_top.root");
   fileName.push_back("ST_tW_antitop.root");
   fileName.push_back("ST_tW_top.root");
@@ -71,11 +71,12 @@ void EventSelection_dineutrino(){
   fileName.push_back("WWToLNuQQ.root");
   fileName.push_back("WZTo1L1Nu2Q.root");
   fileName.push_back("WZTo2L2Q.root");
-  fileName.push_back("WZTo3LNu.root");*/
+  fileName.push_back("WZTo3LNu.root");
+  fileName.push_back("WToLNu.root");*/
 
   for(unsigned int Nfiles=0; Nfiles<fileName.size(); Nfiles++){
     string NewFileprov;
-    NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v2/"+fileName[Nfiles];
+    NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v4/"+fileName[Nfiles];
 	//NewFileprov = fileName[Nfiles];
     //const char *NewFileName = fileName[Nfiles].c_str();
 	const char *NewFileName = NewFileprov.c_str();
@@ -100,10 +101,16 @@ void EventSelection_dineutrino(){
 	Long64_t tentry = Tree->LoadTree(i);
 	branchGetEntry(data, tentry,fileName[Nfiles]);
 	initializeVar();
+	if (!(Flag_goodVertices_==1))  continue;
+	if (!(Flag_HBHENoiseFilter_==1))  continue;
+	if (!(Flag_HBHENoiseIsoFilter_==1))  continue;
+	if (!(Flag_EcalDeadCellTriggerPrimitiveFilter_==1))  continue;
+	if (data) {if (!(Flag_eeBadScFilter_==1))  continue;}
 	//if (!(HLT_PFMET120_PFMHT120_IDTight_==1))  continue;
 	if (!(HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_==1))  continue;
 	//if (!(HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight_==1))  continue;
-	//if(!data) GenClassifier(GenZPt);
+	if(!data) GenClassifier(GenZPt,23);
+	if(!data) GenClassifier(GenWPt,24);
 
 	//large met
 	bool SelectedMet = false;
@@ -230,7 +237,8 @@ void EventSelection_dineutrino(){
 	  WSF(Jet1Partial, PartiallyMerged, w_WJet, w_WJetUp, w_WJetDown, CA8Index, SysJes, SysJer);
 	  ForwardJetSF(SelectedForwardJets, w_for, w_forUp, w_forDown);
 	  newPUWeight(PUWeight, PUWeightUP, PUWeightDOWN);
-	  GenWeight(fileName[Nfiles], GenZPt);
+	  GenWeight(fileName[Nfiles], GenZPt, 23);
+	  GenWeight(fileName[Nfiles], GenWPt, 24);
 	}
 	
 	if(selection==0 || selection==1) HistoFill(PUWeight,NewTree);
@@ -268,8 +276,8 @@ void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedM
   for (UInt_t j = 0; j < Muon_pt_->size(); ++j){
     if(!(Muon_pt_->at(j)>20))                     continue;
     if(!(fabs(Muon_eta_->at(j))<2.4))             continue;
-    if(!(Muon_medium_->at(j)==1))                  continue;
-    if(!(Muon_relIsoDeltaBetaR04_->at(j)<0.25))   continue;
+    if(!(Muon_loose_->at(j)==1))                  continue;
+    if(!(Muon_relIsoDeltaBetaR04_->at(j)<0.25))   continue;  //loose iso
     TLorentzVector muon; muon.SetPtEtaPhiE(Muon_pt_->at(j),Muon_eta_->at(j),Muon_phi_->at(j),Muon_energy_->at(j));
     SelectedMuons.push_back(muon);
     SelectedMuonsIndex.push_back(j);
@@ -537,7 +545,7 @@ void BTagSF(int selection, float JetPt, float JetEta, int flav, float &SF, float
 }
 
 void get_weight_btag(int selection, float &w_Btag, float &w_BtagUp, float &w_BtagDown, float &w_Btag1Up, float &w_Btag1Down, float &w_Btag2Up, float &w_Btag2Down, float &w_BtagLoose, float &w_BtagLooseUp, float &w_BtagLooseDown, string fileName){
-  string FILEprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/BtagEfficiency/"+fileName;
+  string FILEprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/BtagEfficiency_v3/"+fileName;
   const char *FILE = FILEprov.c_str();
   TFile *fileBTagEfficiency = TFile::Open(FILE);
   float mcTagMedium = 1.;     float mcTagLoose = 1.;
@@ -1371,6 +1379,7 @@ void initializeVar(){
   w_BtagLooseDown=1;
   genWeight=1;
   GenZPt=-99.;
+  GenWPt=-99.;
   dQuark=0;
   uQuark=0;
   sQuark=0;
@@ -1504,7 +1513,7 @@ void writeFile(TTree *NewTree,TTree *NewTreeSB){
 void fillgenWeights(){
 }
 
-void GenClassifier(float &pt){
+void GenClassifier(float &pt,int id){
   for (UInt_t j = 0; j < Gen_pt_->size(); ++j) {
     //cout<<j<<" "<<Gen_pdg_id_->at(j)<<" "<<Gen_motherpdg_id_->at(j)<<" "<<Gen_pt_->at(j)<<endl;
     if(abs(Gen_pdg_id_->at(j))==1 && (abs(Gen_motherpdg_id_->at(j))==2212 || abs(Gen_motherpdg_id_->at(j))==21)) dQuark = dQuark + 1;
@@ -1513,9 +1522,11 @@ void GenClassifier(float &pt){
     if(abs(Gen_pdg_id_->at(j))==4 && (abs(Gen_motherpdg_id_->at(j))==2212 || abs(Gen_motherpdg_id_->at(j))==21)) cQuark = cQuark + 1;
     if(abs(Gen_pdg_id_->at(j))==5 && (abs(Gen_motherpdg_id_->at(j))==2212 || abs(Gen_motherpdg_id_->at(j))==21)) bQuark = bQuark + 1;
     if(abs(Gen_pdg_id_->at(j))==6 && (abs(Gen_motherpdg_id_->at(j))==2212 || abs(Gen_motherpdg_id_->at(j))==21)) tQuark = tQuark + 1;
-    if(abs(Gen_pdg_id_->at(j))==23) pt = Gen_pt_->at(j);
+	if(id==23) {if(abs(Gen_pdg_id_->at(j))==23) pt = Gen_pt_->at(j);}
+	if(id==24) {if(abs(Gen_pdg_id_->at(j))==24) pt = Gen_pt_->at(j);}
   }
 }
+
 
 void GenWBoson(bool &matched, TLorentzVector Wjet){
   double dr1=99;  double dr2=99;  double dr3=99;  double dr4=99;  double dr5=99;  double dr6=99; 
@@ -1548,12 +1559,20 @@ void GenWBoson(bool &matched, TLorentzVector Wjet){
   //if((dr10<0.8 && dr16<0.8) || (dr11<0.8 && dr17<0.8) || (dr12<0.8 && dr18<0.8)) matched=true; //Z -> cc/bb/tt
 }
 
-void GenWeight(string fileName, float pt){
+void GenWeight(string fileName, float pt, int id){
   if(fileName.find("ZZTo4L")!=string::npos || fileName.find("ZZTo2L2Q")!=string::npos || fileName.find("WZTo1L1Nu2Q")!=string::npos || fileName.find("WZTo2L2Q")!=string::npos || fileName.find("ttZ")!=string::npos || fileName.find("WZTo3LNu")!=string::npos || fileName.find("tZq")!=string::npos || fileName.find("ttW")!=string::npos)  genWeight=(genWeight_)/abs(genWeight_);
   else  genWeight=1;
-  if(fileName.find("DY")!=string::npos) {
+  if(id==23){
+    if(fileName.find("DY")!=string::npos || fileName.find("ZToNuNu")!=string::npos) {
     if(pt>0) genWeight = functZPt->Eval(pt);
     else genWeight = 1;
+    }
+  } 
+  if(id==24){
+	if(fileName.find("WToLNu")!=string::npos) {
+    if(pt>0) genWeight = functWPt->Eval(pt);
+    else genWeight = 1;
+    }
   }
 }
 
