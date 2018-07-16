@@ -41,9 +41,9 @@ void HistoFill(float pileupReweight,TTree *NewTree);
 void writeFile(TTree *NewTree,TTree *NewTreeSB);
 void initializeVar();
 void fillgenWeights();
-void GenClassifier(float &pt, int id);
+void GenClassifier(float &GenZPt_,float &GenWPt_);
 void GenWBoson(bool &matched, TLorentzVector Wjet);
-void GenWeight(string fileName, float pt, int id);
+void GenWeight(string fileName, float &GenZPt_,float &GenWPt_)
 void newPUWeight(float &puweight,float &puweightUP,float &puweightDOWN);
 void FillBranches(bool ResolvedEvent,bool PartiallyMerged,bool FullyMerged,TLorentzVector TopQuark,bool SelectedZBosonElectrons,bool SelectedZBosonMuons,bool SelectedMet,TLorentzVector ZBoson,TLorentzVector Tprime,TLorentzVector TopQuarkResolved,TLorentzVector Jet1Resolved,TLorentzVector Jet2Resolved,TLorentzVector Jet3Resolved,TLorentzVector TprimeResolved,TLorentzVector TopQuarkPartial,TLorentzVector Jet1Partial,TLorentzVector Jet2Partial,TLorentzVector TprimePartial,float WMass_,float WSubjet_,TLorentzVector TopQuarkMerged,TLorentzVector TprimeMerged,float TopSoftMass_,float TopSubjet_,TLorentzVector Electron1,TLorentzVector Electron2,TLorentzVector Muon1,TLorentzVector Muon2,vector<TLorentzVector> SelectedForwardJets,vector<TLorentzVector> SelectedBJets);
 
