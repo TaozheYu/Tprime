@@ -41,9 +41,9 @@ void HistoFill(float pileupReweight,TTree *NewTree);
 void writeFile(TTree *NewTree,TTree *NewTreeSB);
 void initializeVar();
 void fillgenWeights();
-void GenClassifier(float &pt);
+void GenClassifier(float &pt, int id);
 void GenWBoson(bool &matched, TLorentzVector Wjet);
-void GenWeight(string fileName, float pt);
+void GenWeight(string fileName, float pt, int id);
 void newPUWeight(float &puweight,float &puweightUP,float &puweightDOWN);
 void FillBranches(bool ResolvedEvent,bool PartiallyMerged,bool FullyMerged,TLorentzVector TopQuark,bool SelectedZBosonElectrons,bool SelectedZBosonMuons,bool SelectedMet,TLorentzVector ZBoson,TLorentzVector Tprime,TLorentzVector TopQuarkResolved,TLorentzVector Jet1Resolved,TLorentzVector Jet2Resolved,TLorentzVector Jet3Resolved,TLorentzVector TprimeResolved,TLorentzVector TopQuarkPartial,TLorentzVector Jet1Partial,TLorentzVector Jet2Partial,TLorentzVector TprimePartial,float WMass_,float WSubjet_,TLorentzVector TopQuarkMerged,TLorentzVector TprimeMerged,float TopSoftMass_,float TopSubjet_,TLorentzVector Electron1,TLorentzVector Electron2,TLorentzVector Muon1,TLorentzVector Muon2,vector<TLorentzVector> SelectedForwardJets,vector<TLorentzVector> SelectedBJets);
 
@@ -89,6 +89,7 @@ TH1F  *histoNewPU        = (TH1F*)fileNewPU  ->Get("pileup");
 TH1F  *histoNewPUUp      = (TH1F*)fileNewPUUp->Get("pileup");
 TH1F  *histoNewPUDo      = (TH1F*)fileNewPUDo->Get("pileup");
 TF1   *functZPt          = (TF1*) fileZPt->Get("z_ewkcorr/z_ewkcorr_func");
+TF1   *functWPt          = (TF1*) fileZPt->Get("w_ewkcorr/w_ewkcorr_func");
 
 TTree *Tree;
 
@@ -339,6 +340,7 @@ float deltaRb1Lep2=-99;
 float deltaRb2Lep1=-99;
 float deltaRb2Lep2=-99;
 float deltaPhiMetTop=-99.;
+float MinDeltaPhiJetMet=99.;
 int   NumSelLeps=-99;
 int   NumSelJets=-99;
 int   NumSelForwardJets=-99;
@@ -401,6 +403,7 @@ float w_BtagLoose=1;
 float w_BtagLooseUp=1;
 float w_BtagLooseDown=1;
 float GenZPt=-99.;
+float GenWPt=-99.;
 float genWeight=1;
 int dQuark=0;
 int uQuark=0;
