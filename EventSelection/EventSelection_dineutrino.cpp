@@ -109,8 +109,7 @@ void EventSelection_dineutrino(){
 	//if (!(HLT_PFMET120_PFMHT120_IDTight_==1))  continue;
 	if (!(HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_==1))  continue;
 	//if (!(HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight_==1))  continue;
-	if(!data) GenClassifier(GenZPt,23);
-	if(!data) GenClassifier(GenWPt,24);
+	if(!data) GenClassifier(GenZPt,GenWPt);
 
 	//large met
 	bool SelectedMet = false;
@@ -237,8 +236,7 @@ void EventSelection_dineutrino(){
 	  WSF(Jet1Partial, PartiallyMerged, w_WJet, w_WJetUp, w_WJetDown, CA8Index, SysJes, SysJer);
 	  ForwardJetSF(SelectedForwardJets, w_for, w_forUp, w_forDown);
 	  newPUWeight(PUWeight, PUWeightUP, PUWeightDOWN);
-	  GenWeight(fileName[Nfiles], GenZPt, 23);
-	  GenWeight(fileName[Nfiles], GenWPt, 24);
+	  GenWeight(fileName[Nfiles], GenZPt, GenWPt);
 	}
 	
 	if(selection==0 || selection==1) HistoFill(PUWeight,NewTree);
@@ -1513,7 +1511,7 @@ void writeFile(TTree *NewTree,TTree *NewTreeSB){
 void fillgenWeights(){
 }
 
-void GenClassifier(float &pt,int id){
+void GenClassifier(float &GenZPt_,float &GenWPt_){
   for (UInt_t j = 0; j < Gen_pt_->size(); ++j) {
     //cout<<j<<" "<<Gen_pdg_id_->at(j)<<" "<<Gen_motherpdg_id_->at(j)<<" "<<Gen_pt_->at(j)<<endl;
     if(abs(Gen_pdg_id_->at(j))==1 && (abs(Gen_motherpdg_id_->at(j))==2212 || abs(Gen_motherpdg_id_->at(j))==21)) dQuark = dQuark + 1;
@@ -1522,8 +1520,8 @@ void GenClassifier(float &pt,int id){
     if(abs(Gen_pdg_id_->at(j))==4 && (abs(Gen_motherpdg_id_->at(j))==2212 || abs(Gen_motherpdg_id_->at(j))==21)) cQuark = cQuark + 1;
     if(abs(Gen_pdg_id_->at(j))==5 && (abs(Gen_motherpdg_id_->at(j))==2212 || abs(Gen_motherpdg_id_->at(j))==21)) bQuark = bQuark + 1;
     if(abs(Gen_pdg_id_->at(j))==6 && (abs(Gen_motherpdg_id_->at(j))==2212 || abs(Gen_motherpdg_id_->at(j))==21)) tQuark = tQuark + 1;
-	if(id==23) {if(abs(Gen_pdg_id_->at(j))==23) pt = Gen_pt_->at(j);}
-	if(id==24) {if(abs(Gen_pdg_id_->at(j))==24) pt = Gen_pt_->at(j);}
+	if(abs(Gen_pdg_id_->at(j))==23) GenZPt_ = Gen_pt_->at(j);
+	if(abs(Gen_pdg_id_->at(j))==24) GenWPt_ = Gen_pt_->at(j);
   }
 }
 
@@ -1559,21 +1557,18 @@ void GenWBoson(bool &matched, TLorentzVector Wjet){
   //if((dr10<0.8 && dr16<0.8) || (dr11<0.8 && dr17<0.8) || (dr12<0.8 && dr18<0.8)) matched=true; //Z -> cc/bb/tt
 }
 
-void GenWeight(string fileName, float pt, int id){
+void GenWeight(string fileName, float &GenZPt_,float &GenWPt_){
   if(fileName.find("ZZTo4L")!=string::npos || fileName.find("ZZTo2L2Q")!=string::npos || fileName.find("WZTo1L1Nu2Q")!=string::npos || fileName.find("WZTo2L2Q")!=string::npos || fileName.find("ttZ")!=string::npos || fileName.find("WZTo3LNu")!=string::npos || fileName.find("tZq")!=string::npos || fileName.find("ttW")!=string::npos)  genWeight=(genWeight_)/abs(genWeight_);
   else  genWeight=1;
-  if(id==23){
-    if(fileName.find("DY")!=string::npos || fileName.find("ZToNuNu")!=string::npos) {
-    if(pt>0) genWeight = functZPt->Eval(pt);
+  if(fileName.find("DY")!=string::npos || fileName.find("ZToNuNu")!=string::npos) {
+    if(pt>0) genWeight = functZPt->Eval(GenZPt_);
     else genWeight = 1;
     }
-  } 
-  if(id==24){
-	if(fileName.find("WToLNu")!=string::npos) {
-    if(pt>0) genWeight = functWPt->Eval(pt);
+  if(fileName.find("WToLNu")!=string::npos) {
+    if(pt>0) genWeight = functWPt->Eval(GenWPt_);
     else genWeight = 1;
     }
-  }
+
 }
 
 void newPUWeight(float &puweight,float &puweightUP,float &puweightDOWN){
