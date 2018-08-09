@@ -1,6 +1,6 @@
 void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int JETSyst,
 		TH1F* &data_func,TH1F* &background_func,TH1F* &ZToNuNu_1_func,TH1F* &ZToNuNu_2_func,TH1F* &ZToNuNu_3_func,TH1F* &ZToNuNu_4_func,TH1F* &ZToNuNu_5_func,TH1F* &ZToNuNu_6_func,TH1F* &ZToNuNu_7_func,
-		//TH1F* &QCD_1_func,TH1F* &QCD_2_func,TH1F* &QCD_3_func,TH1F* &QCD_4_func,TH1F* &QCD_5_func,TH1F* &QCD_6_func,TH1F* &QCD_7_func,
+		TH1F* &QCD_1_func,TH1F* &QCD_2_func,TH1F* &QCD_3_func,TH1F* &QCD_4_func,TH1F* &QCD_5_func,TH1F* &QCD_6_func,TH1F* &QCD_7_func,
 		TH1F* &QCD_func,
 		TH1F* &WToLNu_1_func,TH1F* &WToLNu_2_func,TH1F* &WToLNu_3_func,TH1F* &WToLNu_4_func,TH1F* &WToLNu_5_func,TH1F* &WToLNu_6_func,TH1F* &WToLNu_7_func,
 		TH1F* &TT_1_func,TH1F* &TT_2_func,TH1F* &ST_1_func,TH1F* &ST_2_func,TH1F* &ST_3_func,TH1F* &ST_4_func,
@@ -90,13 +90,13 @@ TFile *file17 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Pres
 TFile *file18 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v6/ZToNuNu_HT800to1200.root");
 TFile *file19 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v6/ZToNuNu_HT1200to2500.root");
 TFile *file20 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v6/ZToNuNu_HT2500toInf.root");
-/*TFile *file21 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v6/QCD_HT200to300.root");
+TFile *file21 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v6/QCD_HT200to300.root");
 TFile *file22 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v6/QCD_HT300to500.root");
 TFile *file23 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v6/QCD_HT500to700.root");
 TFile *file24 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v6/QCD_HT700to1000.root");
 TFile *file25 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v6/QCD_HT1000to1500.root");
 TFile *file26 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v6/QCD_HT1500to2000.root");
-TFile *file27 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v6/QCD_HT2000toInf.root");*/
+TFile *file27 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v6/QCD_HT2000toInf.root");
 TFile *file28 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v6/WToLNu_HT100to200.root");
 TFile *file29 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v6/WToLNu_HT200to400.root");
 TFile *file30 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v6/WToLNu_HT400to600.root");
@@ -139,13 +139,13 @@ TTree *Tree17 = (TTree*)file17->Get(openTree);     TTree *Tree17_B = (TTree*)fil
 TTree *Tree18 = (TTree*)file18->Get(openTree);     TTree *Tree18_B = (TTree*)file18->Get(openTreeB);   TTree *Tree18_C = (TTree*)file18->Get(openTreeC);   TTree *Tree18_D = (TTree*)file18->Get(openTreeD);
 TTree *Tree19 = (TTree*)file19->Get(openTree);     TTree *Tree19_B = (TTree*)file19->Get(openTreeB);   TTree *Tree19_C = (TTree*)file19->Get(openTreeC);   TTree *Tree19_D = (TTree*)file19->Get(openTreeD);
 TTree *Tree20 = (TTree*)file20->Get(openTree);     TTree *Tree20_B = (TTree*)file20->Get(openTreeB);   TTree *Tree20_C = (TTree*)file20->Get(openTreeC);   TTree *Tree20_D = (TTree*)file20->Get(openTreeD);
-//TTree *Tree21 = (TTree*)file21->Get(openTree);     TTree *Tree21_B = (TTree*)file21->Get(openTreeB);   TTree *Tree21_C = (TTree*)file21->Get(openTreeC);   TTree *Tree21_D = (TTree*)file21->Get(openTreeD);
-//TTree *Tree22 = (TTree*)file22->Get(openTree);     TTree *Tree22_B = (TTree*)file22->Get(openTreeB);   TTree *Tree22_C = (TTree*)file22->Get(openTreeC);   TTree *Tree22_D = (TTree*)file22->Get(openTreeD);
-//TTree *Tree23 = (TTree*)file23->Get(openTree);     TTree *Tree23_B = (TTree*)file23->Get(openTreeB);   TTree *Tree23_C = (TTree*)file23->Get(openTreeC);   TTree *Tree23_D = (TTree*)file23->Get(openTreeD);
-//TTree *Tree24 = (TTree*)file24->Get(openTree);     TTree *Tree24_B = (TTree*)file24->Get(openTreeB);   TTree *Tree24_C = (TTree*)file24->Get(openTreeC);   TTree *Tree24_D = (TTree*)file24->Get(openTreeD);
-//TTree *Tree25 = (TTree*)file25->Get(openTree);     TTree *Tree25_B = (TTree*)file25->Get(openTreeB);   TTree *Tree25_C = (TTree*)file25->Get(openTreeC);   TTree *Tree25_D = (TTree*)file25->Get(openTreeD);
-//TTree *Tree26 = (TTree*)file26->Get(openTree);     TTree *Tree26_B = (TTree*)file26->Get(openTreeB);   TTree *Tree26_C = (TTree*)file26->Get(openTreeC);   TTree *Tree26_D = (TTree*)file26->Get(openTreeD);
-//TTree *Tree27 = (TTree*)file27->Get(openTree);     TTree *Tree27_B = (TTree*)file27->Get(openTreeB);   TTree *Tree27_C = (TTree*)file27->Get(openTreeC);   TTree *Tree27_D = (TTree*)file27->Get(openTreeD);
+TTree *Tree21 = (TTree*)file21->Get(openTree);     TTree *Tree21_B = (TTree*)file21->Get(openTreeB);   TTree *Tree21_C = (TTree*)file21->Get(openTreeC);   TTree *Tree21_D = (TTree*)file21->Get(openTreeD);
+TTree *Tree22 = (TTree*)file22->Get(openTree);     TTree *Tree22_B = (TTree*)file22->Get(openTreeB);   TTree *Tree22_C = (TTree*)file22->Get(openTreeC);   TTree *Tree22_D = (TTree*)file22->Get(openTreeD);
+TTree *Tree23 = (TTree*)file23->Get(openTree);     TTree *Tree23_B = (TTree*)file23->Get(openTreeB);   TTree *Tree23_C = (TTree*)file23->Get(openTreeC);   TTree *Tree23_D = (TTree*)file23->Get(openTreeD);
+TTree *Tree24 = (TTree*)file24->Get(openTree);     TTree *Tree24_B = (TTree*)file24->Get(openTreeB);   TTree *Tree24_C = (TTree*)file24->Get(openTreeC);   TTree *Tree24_D = (TTree*)file24->Get(openTreeD);
+TTree *Tree25 = (TTree*)file25->Get(openTree);     TTree *Tree25_B = (TTree*)file25->Get(openTreeB);   TTree *Tree25_C = (TTree*)file25->Get(openTreeC);   TTree *Tree25_D = (TTree*)file25->Get(openTreeD);
+TTree *Tree26 = (TTree*)file26->Get(openTree);     TTree *Tree26_B = (TTree*)file26->Get(openTreeB);   TTree *Tree26_C = (TTree*)file26->Get(openTreeC);   TTree *Tree26_D = (TTree*)file26->Get(openTreeD);
+TTree *Tree27 = (TTree*)file27->Get(openTree);     TTree *Tree27_B = (TTree*)file27->Get(openTreeB);   TTree *Tree27_C = (TTree*)file27->Get(openTreeC);   TTree *Tree27_D = (TTree*)file27->Get(openTreeD);
 TTree *Tree28 = (TTree*)file28->Get(openTree);     TTree *Tree28_B = (TTree*)file28->Get(openTreeB);   TTree *Tree28_C = (TTree*)file28->Get(openTreeC);   TTree *Tree28_D = (TTree*)file28->Get(openTreeD);
 TTree *Tree29 = (TTree*)file29->Get(openTree);     TTree *Tree29_B = (TTree*)file29->Get(openTreeB);   TTree *Tree29_C = (TTree*)file29->Get(openTreeC);   TTree *Tree29_D = (TTree*)file29->Get(openTreeD);
 TTree *Tree30 = (TTree*)file30->Get(openTree);     TTree *Tree30_B = (TTree*)file30->Get(openTreeB);   TTree *Tree30_C = (TTree*)file30->Get(openTreeC);   TTree *Tree30_D = (TTree*)file30->Get(openTreeD);
@@ -172,7 +172,7 @@ TTree *Tree48 = (TTree*)file48->Get(openTree);     TTree *Tree48_B = (TTree*)fil
 
 TH1F *data_SR; TH1F *tptzm0700lh_SR; TH1F *tptzm0900lh_SR; TH1F *tptzm1400lh_SR; TH1F *tptzm1700lh_SR; 
 TH1F *ZToNuNu_1_SR; TH1F *ZToNuNu_2_SR; TH1F *ZToNuNu_3_SR; TH1F *ZToNuNu_4_SR; TH1F *ZToNuNu_5_SR; TH1F *ZToNuNu_6_SR; TH1F *ZToNuNu_7_SR; 
-//TH1F *QCD_1_SR; TH1F *QCD_2_SR; TH1F *QCD_3_SR; TH1F *QCD_4_SR; TH1F *QCD_5_SR; TH1F *QCD_6_SR; TH1F *QCD_7_SR; 
+TH1F *QCD_1_SR; TH1F *QCD_2_SR; TH1F *QCD_3_SR; TH1F *QCD_4_SR; TH1F *QCD_5_SR; TH1F *QCD_6_SR; TH1F *QCD_7_SR; 
 TH1F *QCD_SR;
 TH1F *WToLNu_1_SR; TH1F *WToLNu_2_SR; TH1F *WToLNu_3_SR; TH1F *WToLNu_4_SR; TH1F *WToLNu_5_SR; TH1F *WToLNu_6_SR; TH1F *WToLNu_7_SR; 
 TH1F *TT_1_SR; TH1F *TT_2_SR; TH1F *ST_1_SR; TH1F *ST_2_SR; TH1F *ST_3_SR; TH1F *ST_4_SR; 
