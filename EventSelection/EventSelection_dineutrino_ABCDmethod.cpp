@@ -1,7 +1,7 @@
-#include "EventSelection_dineutrino_ABCDmethod.h" 
+#include "EventSelection_dineutrino_ABCDmethod_v2.h" 
 #include "math.h"
 
-void EventSelection_dineutrino_ABCDmethod(){
+void EventSelection_dineutrino_ABCDmethod_v2(const char * Input = ""){
   gStyle->SetCanvasColor(0);
   gStyle->SetFrameBorderMode(0);
   gStyle->SetOptStat("rme");
@@ -21,51 +21,51 @@ void EventSelection_dineutrino_ABCDmethod(){
   using namespace std;
   char openTree[500];   sprintf(openTree, "TNT/BOOM"); 
   vector<string> fileName;
-  /*fileName.push_back("May18V1_METB.root");
-  fileName.push_back("May18V1_METC.root");
-  fileName.push_back("May18V1_METD.root");
-  fileName.push_back("May18V1_METE.root");
-  fileName.push_back("May18V1_METF.root");*/
-  /*fileName.push_back("Tprime_0700.root");
-  fileName.push_back("Tprime_0800.root");
-  fileName.push_back("Tprime_0900.root");
-  fileName.push_back("Tprime_1000.root");
-  fileName.push_back("Tprime_1100.root");
-  fileName.push_back("Tprime_1200.root");
-  fileName.push_back("Tprime_1300.root");
-  fileName.push_back("Tprime_1400.root");
-  fileName.push_back("Tprime_1500.root");
-  fileName.push_back("Tprime_1600.root");
-  fileName.push_back("Tprime_1700.root");
-  fileName.push_back("Tprime_1800.root");*/
-  /*fileName.push_back("ZToNuNu_HT100to200.root");
-  fileName.push_back("ZToNuNu_HT200to400.root");
-  fileName.push_back("ZToNuNu_HT400to600.root");
-  fileName.push_back("ZToNuNu_HT600to800.root");
-  fileName.push_back("ZToNuNu_HT800to1200.root");
-  fileName.push_back("ZToNuNu_HT1200to2500.root");
-  fileName.push_back("ZToNuNu_HT2500toInf.root");*/
-  fileName.push_back("QCD_HT200to300.root");
-  fileName.push_back("QCD_HT300to500.root");
-  fileName.push_back("QCD_HT500to700.root");
-  fileName.push_back("QCD_HT700to1000.root");
-  fileName.push_back("QCD_HT1000to1500.root");
-  fileName.push_back("QCD_HT1500to2000.root");
-  fileName.push_back("QCD_HT2000toInf.root");
-  /*fileName.push_back("WToLNu_HT100to200.root");
-  fileName.push_back("WToLNu_HT200to400.root");
-  fileName.push_back("WToLNu_HT400to600.root");
-  fileName.push_back("WToLNu_HT600to800.root");
-  fileName.push_back("WToLNu_HT800to1200.root");
-  fileName.push_back("WToLNu_HT1200to2500.root");
-  fileName.push_back("WToLNu_HT2500toInf.root");*/
-  /*fileName.push_back("TTTo2L2Nu.root");
-  fileName.push_back("TTToSemiLeptonic.root");*/
-  /*fileName.push_back("ST_t-channel_antitop.root");
-  fileName.push_back("ST_t-channel_top.root");
-  fileName.push_back("ST_tW_antitop.root");
-  fileName.push_back("ST_tW_top.root");
-  fileName.push_back("ZZTo4L.root");
+  /*fileName.push_back("May18V1_METB.root");1
+  fileName.push_back("May18V1_METC.root");2
+  fileName.push_back("May18V1_METD.root");3
+  fileName.push_back("May18V1_METE.root");4
+  fileName.push_back("May18V1_METF.root");5*/
+  //fileName.push_back("Tprime_0700.root");6
+  /*fileName.push_back("Tprime_0800.root");7
+  fileName.push_back("Tprime_0900.root");8
+  fileName.push_back("Tprime_1000.root");9
+  fileName.push_back("Tprime_1100.root");10
+  fileName.push_back("Tprime_1200.root");11
+  fileName.push_back("Tprime_1300.root");12
+  fileName.push_back("Tprime_1400.root");13
+  fileName.push_back("Tprime_1500.root");14
+  fileName.push_back("Tprime_1600.root");15
+  fileName.push_back("Tprime_1700.root");16
+  fileName.push_back("Tprime_1800.root");17*/
+  /*fileName.push_back("ZToNuNu_HT100to200.root");18
+  fileName.push_back("ZToNuNu_HT200to400.root");19
+  fileName.push_back("ZToNuNu_HT400to600.root");20
+  fileName.push_back("ZToNuNu_HT600to800.root");21
+  fileName.push_back("ZToNuNu_HT800to1200.root");22
+  fileName.push_back("ZToNuNu_HT1200to2500.root");23
+  fileName.push_back("ZToNuNu_HT2500toInf.root");24*/
+  /*fileName.push_back("QCD_HT200to300.root");25
+  fileName.push_back("QCD_HT300to500.root");26
+  fileName.push_back("QCD_HT500to700.root");27
+  fileName.push_back("QCD_HT700to1000.root");28
+  fileName.push_back("QCD_HT1000to1500.root");29
+  fileName.push_back("QCD_HT1500to2000.root");30
+  fileName.push_back("QCD_HT2000toInf.root");31*/
+  /*fileName.push_back("WToLNu_HT100to200.root");32
+  fileName.push_back("WToLNu_HT200to400.root");33
+  fileName.push_back("WToLNu_HT400to600.root");34
+  fileName.push_back("WToLNu_HT600to800.root");35
+  fileName.push_back("WToLNu_HT800to1200.root");36
+  fileName.push_back("WToLNu_HT1200to2500.root");37
+  fileName.push_back("WToLNu_HT2500toInf.root");38*/
+  /*fileName.push_back("TTTo2L2Nu.root");39
+  fileName.push_back("TTToSemiLeptonic.root");40*/
+  /*fileName.push_back("ST_t-channel_antitop.root");41
+  fileName.push_back("ST_t-channel_top.root");42
+  fileName.push_back("ST_tW_antitop.root");43
+  fileName.push_back("ST_tW_top.root");44
+  fileName.push_back("ZZTo4L.root");45
   fileName.push_back("ZZTo2L2Q.root");
   fileName.push_back("ZZTo2L2Nu.root");
   fileName.push_back("WWTo2L2Nu.root");
@@ -74,11 +74,12 @@ void EventSelection_dineutrino_ABCDmethod(){
   fileName.push_back("WZTo2L2Q.root");
   fileName.push_back("WZTo3LNu.root");*/
   //fileName.push_back("WToLNu.root");
+  fileName.push_back(Input);
   
 
   for(unsigned int Nfiles=0; Nfiles<fileName.size(); Nfiles++){
     string NewFileprov;
-    NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v6/"+fileName[Nfiles];
+    NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v10/"+fileName[Nfiles];
 	//NewFileprov = fileName[Nfiles];
     //const char *NewFileName = fileName[Nfiles].c_str();
 	const char *NewFileName = NewFileprov.c_str();
@@ -102,11 +103,11 @@ void EventSelection_dineutrino_ABCDmethod(){
       //selection = 1 -> signal selection
       //selection = 2 -> sideband
       if(!((preselection  && selection==0) || (!preselection && sideband && (selection==1 || selection==2)) || (!preselection && !sideband && selection==1))) continue;
-	  for(int region=0; region<4; region++){
-        //region=0→region A = min(deltaPhi)>0.6 and top pt > 300 GeV
-        //region=1→region B = min(deltaPhi)<0.6 and top pt > 300 GeV
-        //region=2→region C = min(deltaPhi)>0.6 and top pt < 300 GeV
-        //region=3→region D = min(deltaPhi)<0.6 and top pt < 300 GeV
+	  for(int region=0; region<1; region++){
+        //region=0→region A = min(deltaPhi)>0.6 and at least one reconstructed resolved top
+        //region=1→region B = min(deltaPhi)<0.6 and at least one reconstructed resolved top
+        //region=2→region C = min(deltaPhi)>0.6 and top zero reconstructed resolved top
+        //region=3→region D = min(deltaPhi)<0.6 and top zero reconstructed resolved top
         for (Int_t i=0; i<nentries; i++) {
 	Long64_t tentry = Tree->LoadTree(i);
 	branchGetEntry(data, tentry,fileName[Nfiles]);
@@ -124,7 +125,8 @@ void EventSelection_dineutrino_ABCDmethod(){
 	//large met
 	bool SelectedMet = false;
 	SelectMet(SelectedMet);
-	
+
+	//if(!SelectedMet) continue;
 	//Leptonic reject
 	vector<TLorentzVector> SelectedElectrons; vector<int> SelectedElectronsIndex;
 	vector<TLorentzVector> SelectedMuons;     vector<int> SelectedMuonsIndex;
@@ -147,13 +149,13 @@ void EventSelection_dineutrino_ABCDmethod(){
 	vector<int>   CA8Indices;
 	int CA8Index = -1;
 	bool deltaPhiJetMet=true;
-	vector<TLorentzVector> SelectedWJets;       SelectCA8Jets(region,0,SelectedWJets,  SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data, deltaPhiJetMet);   if(!deltaPhiJetMet)  continue;
-	vector<TLorentzVector> SelectedTopJets;     SelectCA8Jets(region,1,SelectedTopJets,SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data, deltaPhiJetMet);   if(!deltaPhiJetMet)  continue;
-	vector<TLorentzVector> SelectedJets;        SelectJets(region,0,SelectedJets       ,SelectedJetsCSV       ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  if(!deltaPhiJetMet)  continue;
-	vector<TLorentzVector> SelectedBJetsL;      SelectJets(region,11,SelectedBJetsL    ,SelectedBJetsLCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  if(!deltaPhiJetMet)  continue;
-	vector<TLorentzVector> SelectedBJetsM;      SelectJets(region,12,SelectedBJetsM    ,SelectedBJetsMCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  if(!deltaPhiJetMet)  continue;
-	vector<TLorentzVector> SelectedBJetsT;      SelectJets(region,13,SelectedBJetsT    ,SelectedBJetsTCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  if(!deltaPhiJetMet)  continue;
-	vector<TLorentzVector> SelectedForwardJets; SelectJets(region,2,SelectedForwardJets,SelectedForwardJetsCSV,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  if(!deltaPhiJetMet)  continue;
+	vector<TLorentzVector> SelectedWJets;       SelectCA8Jets(region,0,SelectedWJets,  SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data, deltaPhiJetMet);   //if(!deltaPhiJetMet)  continue;
+	vector<TLorentzVector> SelectedTopJets;     SelectCA8Jets(region,1,SelectedTopJets,SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data, deltaPhiJetMet);   //if(!deltaPhiJetMet)  continue;
+	vector<TLorentzVector> SelectedJets;        SelectJets(region,0,SelectedJets       ,SelectedJetsCSV       ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
+	vector<TLorentzVector> SelectedBJetsL;      SelectJets(region,11,SelectedBJetsL    ,SelectedBJetsLCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
+	vector<TLorentzVector> SelectedBJetsM;      SelectJets(region,12,SelectedBJetsM    ,SelectedBJetsMCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
+	vector<TLorentzVector> SelectedBJetsT;      SelectJets(region,13,SelectedBJetsT    ,SelectedBJetsTCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
+	vector<TLorentzVector> SelectedForwardJets; SelectJets(region,2,SelectedForwardJets,SelectedForwardJetsCSV,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
 	TLorentzVector Jet1Resolved;     Jet1Resolved.SetPtEtaPhiE(0, 0, 0, 0);
 	TLorentzVector Jet2Resolved;     Jet2Resolved.SetPtEtaPhiE(0, 0, 0, 0);
 	TLorentzVector Jet3Resolved;     Jet3Resolved.SetPtEtaPhiE(0, 0, 0, 0);
@@ -168,6 +170,10 @@ void EventSelection_dineutrino_ABCDmethod(){
 	bool FullyMerged     = false;
 	bool TprimeEvent     = false;
 	float WMass_, WSubjet_, TopSoftMass_, TopSubjet_;
+
+	
+    if (SelectedWJets.size()>0) continue;
+    if (SelectedTopJets.size()>0) continue;
 	
 	if(selection==0) ResolvedRegionSelection(region, ResolvedEvent, SelectedJets, SelectedJetsCSV, TopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, false, false);
 	if(selection==1) ResolvedRegionSelection(region, ResolvedEvent, SelectedJets, SelectedJetsCSV, TopQuarkResolved, Jet1Resolved, Jet2Resolved, Jet3Resolved, false, true );
@@ -184,7 +190,7 @@ void EventSelection_dineutrino_ABCDmethod(){
 	if(FullyMerged)     TopQuark = TopQuarkMerged;
 	if(PartiallyMerged) TopQuark = TopQuarkPartial;
 	if(ResolvedEvent)   TopQuark = TopQuarkResolved;
-	if(!(ResolvedEvent || PartiallyMerged || FullyMerged)) continue;
+	//if(!(ResolvedEvent || PartiallyMerged || FullyMerged)) continue;
 	NumSelLeps        = SelectedElectrons.size()+SelectedMuons.size();
 	NumSelJets        = SelectedJets.size();
 	NumSelForwardJets = SelectedForwardJets.size();
@@ -224,7 +230,18 @@ void EventSelection_dineutrino_ABCDmethod(){
 	  if(FullyMerged     && NumSelBJetsL==0 )     category2=1; 
 	}
 
-	if(!(category0==1 || category1==1 || category2==1)) continue;
+	if(category0==0){
+		if(NumSelJets==1){
+			if(SelectedJets[0].Pt()>200) {TopQuark=SelectedJets[0];Jet1Resolved=SelectedJets[0];}
+			
+		}
+		if(NumSelJets==2){
+			if((SelectedJets[0]+SelectedJets[1]).Pt()>200) {TopQuark=SelectedJets[0]+SelectedJets[1];Jet1Resolved=SelectedJets[0];Jet2Resolved=SelectedJets[1];}
+
+		}
+	}
+
+	//if(!(category0==1 || category1==1 || category2==1)) continue;
 
 	//Tprime
 	TLorentzVector Tprime;        Tprime.SetPtEtaPhiE((ZBoson+TopQuark).Pt(),(ZBoson+TopQuark).Eta(),(ZBoson+TopQuark).Phi(),(ZBoson+TopQuark).E());
@@ -249,10 +266,11 @@ void EventSelection_dineutrino_ABCDmethod(){
 	  GenWeight(fileName[Nfiles], GenZPt, GenWPt);
 	}
 	
+	/*if((selection==0 || selection==1)&&(region==0)&&(category0==1)) HistoFill(PUWeight,NewTree);
+	if((selection==0 || selection==1)&&(region==1)&&(category0==1)) HistoFill(PUWeight,NewTreeB);
+	if((selection==0 || selection==1)&&(region==2)&&(category0==0)) HistoFill(PUWeight,NewTreeC);
+	if((selection==0 || selection==1)&&(region==3)&&(category0==0)) HistoFill(PUWeight,NewTreeD);*/
 	if((selection==0 || selection==1)&&(region==0)) HistoFill(PUWeight,NewTree);
-	if((selection==0 || selection==1)&&(region==1)) HistoFill(PUWeight,NewTreeB);
-	if((selection==0 || selection==1)&&(region==2)) HistoFill(PUWeight,NewTreeC);
-	if((selection==0 || selection==1)&&(region==3)) HistoFill(PUWeight,NewTreeD);
 	else if(selection==2)            HistoFill(PUWeight,NewTreeSB);
 		}
       }
@@ -338,6 +356,7 @@ void SelectJets(int region, int jetType, vector<TLorentzVector> & SelectedJets, 
   //jetType=12 -> b-jets M
   //jetType=13 -> b-jets T
   //jetType=2  -> forward jets
+  //MinDeltaPhiJetMet = 99.0;
   for (UInt_t j = 0; j < Jet_pt_->size(); ++j){
     float MaxMostForwardJetEta = 0;
 	if (fabs(Jet_eta_->at(j))>MaxMostForwardJetEta) {MostForwardJetEta = Jet_eta_->at(j); MostForwardJetPt = Jet_pt_->at(j);}
@@ -384,8 +403,8 @@ void SelectJets(int region, int jetType, vector<TLorentzVector> & SelectedJets, 
     SelectedJets.push_back(jet);
     SelectedJetsCSV.push_back(Jet_pfDeepCSVBJetTags_->at(j));
   }
-  if(region==0||region==2) {if(!(MinDeltaPhiJetMet>0.6)) deltaPhiJetMet=false;}
-  if(region==1||region==3) {if(!(MinDeltaPhiJetMet<0.6)) deltaPhiJetMet=false;}
+  //if(region==0||region==2) {if(!(MinDeltaPhiJetMet>0.6)) deltaPhiJetMet=false;}
+  //if(region==1||region==3) {if(!(MinDeltaPhiJetMet<0.6)) deltaPhiJetMet=false;}
 }
 
 void SelectCA8Jets(int region, int CA8jetType,vector<TLorentzVector> & SelectedCA8Jets,vector<TLorentzVector> SelectedElectrons,vector<TLorentzVector> SelectedMuons, vector<int> & CA8Indices, 
@@ -418,26 +437,24 @@ void SelectCA8Jets(int region, int CA8jetType,vector<TLorentzVector> & SelectedC
       if(!(BoostedJet_tau3_->at(j)/BoostedJet_tau2_->at(j)<0.81))                                continue;
     }
 
-	if(DeltaPhi(BoostedJet_phi_->at(j),Met_type1PF_phi_)<MinDeltaPhiBoostedJetMet) MinDeltaPhiBoostedJetMet = DeltaPhi(BoostedJet_phi_->at(j),Met_type1PF_phi_);
-
+	//if(DeltaPhi(BoostedJet_phi_->at(j),Met_type1PF_phi_)<MinDeltaPhiBoostedJetMet) MinDeltaPhiBoostedJetMet = DeltaPhi(BoostedJet_phi_->at(j),Met_type1PF_phi_);
     TLorentzVector jet_prov; jet_prov.SetPtEtaPhiM(BoostedJet_pt_->at(j),BoostedJet_eta_->at(j),BoostedJet_phi_->at(j),BoostedJet_mass_->at(j));
     TLorentzVector jet; jet.SetPxPyPzE(SF*jet_prov.Px(),SF*jet_prov.Py(),SF*jet_prov.Pz(),SF*jet_prov.E());
     SelectedCA8Jets.push_back(jet);
     CA8Indices.push_back(j);
   }
-  if(region==0||region==2) {if(!(MinDeltaPhiBoostedJetMet>0.6)) deltaPhiJetMet=false;}
-  if(region==1||region==3) {if(!(MinDeltaPhiBoostedJetMet<0.6)) deltaPhiJetMet=false;}
+  //if(region==0||region==2) {if(!(MinDeltaPhiBoostedJetMet>0.6)) deltaPhiJetMet=false;}
+  //if(region==1||region==3) {if(!(MinDeltaPhiBoostedJetMet<0.6)) deltaPhiJetMet=false;}
 }
 
 void ResolvedRegionSelection(int region, bool &ResolvedEvent,vector<TLorentzVector> SelectedJets,vector<float> SelectedJetsCSV,TLorentzVector &TopQuark,
 			     TLorentzVector &Jet1,TLorentzVector &Jet2,TLorentzVector &Jet3,bool TopMassCut,bool btag){
-  float TopPtMin=300;
+  float TopPtMin=0;
   float TopMassInitial=99999;
   for(unsigned int i=0; i<SelectedJets.size(); i++){
     for(unsigned int j=i+1; j<SelectedJets.size(); j++){
       for(unsigned int k=j+1; k<SelectedJets.size(); k++){
-		  if(region==0||region==1)  {if(!((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).Pt()>TopPtMin))   continue;}
-		  if(region==2||region==3)  {if(!((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).Pt()<TopPtMin))   continue;}
+		  if(!((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).Pt()>TopPtMin))   continue;
 	//if(!(fabs((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).M()-173.1)<TopMassInitial))                                                    continue;
 	if(TopMassCut){if(!((SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).M()>100 && (SelectedJets[i]+SelectedJets[j]+SelectedJets[k]).M()<300)) continue;}
 	if(btag){if(!(SelectedJetsCSV[i]>0.4941 || SelectedJetsCSV[j]>0.4941 || SelectedJetsCSV[k]>0.4941))                                          continue;}
@@ -2171,12 +2188,12 @@ void newPUWeight(float &puweight,float &puweightUP,float &puweightDOWN){
 
 void FillBranches(bool ResolvedEvent,bool PartiallyMerged,bool FullyMerged,TLorentzVector TopQuark,bool SelectedZBosonElectrons,bool SelectedZBosonMuons,bool SelectedMet,TLorentzVector ZBoson,TLorentzVector Tprime,TLorentzVector TopQuarkResolved,TLorentzVector Jet1Resolved,TLorentzVector Jet2Resolved,TLorentzVector Jet3Resolved,TLorentzVector TprimeResolved,TLorentzVector TopQuarkPartial,TLorentzVector Jet1Partial,TLorentzVector Jet2Partial,TLorentzVector TprimePartial,float WMass_,float WSubjet_,TLorentzVector TopQuarkMerged,TLorentzVector TprimeMerged,float TopSoftMass_,float TopSubjet_,TLorentzVector Electron1,TLorentzVector Electron2,TLorentzVector Muon1,TLorentzVector Muon2,vector<TLorentzVector> SelectedForwardJets,vector<TLorentzVector> SelectedBJets){
   int NumSelBJets = SelectedBJets.size();
-  if(ResolvedEvent || PartiallyMerged || FullyMerged){
+  //if(ResolvedEvent || PartiallyMerged || FullyMerged){
     TopMass=TopQuark.M();
     TopPt  =TopQuark.Pt();
     TopEta =TopQuark.Eta();
     TopPhi =TopQuark.Phi();
-  }
+  //}
   if(SelectedZBosonElectrons || SelectedZBosonMuons){
     ZMass=ZBoson.M();
     ZPt  =ZBoson.Pt();
@@ -2191,7 +2208,7 @@ void FillBranches(bool ResolvedEvent,bool PartiallyMerged,bool FullyMerged,TLore
     deltaPhiZTop = DeltaPhi(TopQuark.Phi(),ZBoson.Phi());
     deltaRZTop   = DeltaR(TopQuark.Eta(),ZBoson.Eta(),TopQuark.Phi(),ZBoson.Phi());
   }
-  if(ResolvedEvent){
+  //if(ResolvedEvent){
     TopMassResolved=TopQuarkResolved.M();
     TopPtResolved=TopQuarkResolved.Pt();
     TopEtaResolved=TopQuarkResolved.Eta();
@@ -2211,7 +2228,7 @@ void FillBranches(bool ResolvedEvent,bool PartiallyMerged,bool FullyMerged,TLore
     WMassResolved1 = (Jet1Resolved+Jet2Resolved).M();
     WMassResolved2 = (Jet1Resolved+Jet3Resolved).M();
     WMassResolved3 = (Jet2Resolved+Jet3Resolved).M();
-  }
+  //}
   if(PartiallyMerged){
     TopMassPartial=TopQuarkPartial.M();
     TopPtPartial=TopQuarkPartial.Pt();
