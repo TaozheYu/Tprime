@@ -1,125 +1,126 @@
-void MakeHistos(char CUTSR[1000],char CUTCS1[1000],char CUTCS2[1000],char CUTCS3[1000],const char *plot,int BIN,float MIN,float MAX,int JETSyst,
-		TH1F* &data_func,TH1F* &background_func,TH1F* &background_PRE_func,
-		TH1F* &ZToNuNu_func,TH1F* &ZToNuNu_1_func,TH1F* &ZToNuNu_2_func,TH1F* &ZToNuNu_3_func,TH1F* &ZToNuNu_4_func,TH1F* &ZToNuNu_5_func,TH1F* &ZToNuNu_6_func,TH1F* &ZToNuNu_7_func,
-		TH1F* &QCD_func,TH1F* &QCD_1_func,TH1F* &QCD_2_func,TH1F* &QCD_3_func,TH1F* &QCD_4_func,TH1F* &QCD_5_func,TH1F* &QCD_6_func,TH1F* &QCD_7_func,
-		TH1F* &WToLNu_func,TH1F* &WToLNu_1_func,TH1F* &WToLNu_2_func,TH1F* &WToLNu_3_func,TH1F* &WToLNu_4_func,TH1F* &WToLNu_5_func,TH1F* &WToLNu_6_func,TH1F* &WToLNu_7_func,
-		TH1F* &TT_func,TH1F* &TT_1_func,TH1F* &TT_2_func,
-		TH1F* &ST_func,TH1F* &ST_1_func,TH1F* &ST_2_func,TH1F* &ST_3_func,TH1F* &ST_4_func,
-		TH1F* &VV_func,TH1F* &ZZ1_func,TH1F* &ZZ2_func,TH1F* &ZZ3_func,TH1F* &WW1_func,TH1F* &WW2_func,TH1F* &WZ1_func,TH1F* &WZ2_func,TH1F* &WZ3_func,
-		TH1F* &tptzm0700lh_func,TH1F* &tptzm0900lh_func,TH1F* &tptzm1400lh_func,TH1F* &tptzm1700lh_func);
+void MakeHistos(char CUTPre[1000],const char *plot, int BIN,double MIN,double MAX,int JETSyst,
+		TH1F* &data_func,TH1F* &background_func,
+		TH1F* &ZToNuNu_func,TH1F* &QCD_func,TH1F* &WToLNu_func,TH1F* &TT_func,TH1F* &ST_func,TH1F* &VV_func,
+		TH1F* &tptzm0700lh_func,TH1F* &tptzm0800lh_func,TH1F* &tptzm0900lh_func,TH1F* &tptzm1000lh_func,TH1F* &tptzm1100lh_func,TH1F* &tptzm1200lh_func,TH1F* &tptzm1300lh_func,TH1F* &tptzm1400lh_func,TH1F* &tptzm1500lh_func,TH1F* &tptzm1600lh_func,TH1F* &tptzm1700lh_func,TH1F* &tptzm1800lh_func);
+
 
 int SigSF = 1;
-float LUMI  = 41100.0; 
-float w0700 = SigSF*(0.5*0.5*5.820 *0.25*LUMI/388056); //SIG1
-float w0800 = SigSF*(0.5*0.5*3.860 *0.25*LUMI/400000.0); //SIG2
-float w0900 = SigSF*(0.5*0.5*2.720 *0.25*LUMI/400000.0); //SIG3
-float w1000 = SigSF*(0.5*0.5*1.952 *0.25*LUMI/396804); //SIG4
-float w1100 = SigSF*(0.5*0.5*1.352 *0.25*LUMI/400000.0); //SIG5
-float w1200 = SigSF*(0.5*0.5*0.984 *0.25*LUMI/400000.0); //SIG6
-float w1300 = SigSF*(0.5*0.5*0.716 *0.25*LUMI/400000.0); //SIG7
-float w1400 = SigSF*(0.5*0.5*0.540 *0.25*LUMI/400000.0); //SIG8
-float w1500 = SigSF*(0.5*0.5*0.408 *0.25*LUMI/364210.); //SIG9
-float w1600 = SigSF*(0.5*0.5*0.304 *0.25*LUMI/386506.0); //SIG10
-float w1700 = SigSF*(0.5*0.5*0.232 *0.25*LUMI/400000.0); //SIG11
-float w1800 = SigSF*(0.5*0.5*0.174 *0.25*LUMI/122350.0); //SIG12
-float w01 = (384.1*LUMI/(22719867-17399));    //ZToNuNu_HT100to200    
-float w02 = (118.1*LUMI/(21641038-28710));     //ZToNuNu_HT200to400    
-float w03 = (14.7*LUMI/(9763364-20994));  //ZToNuNu_HT400to600  
-float w04 = (3.35*LUMI/(5681118-16476));     //ZToNuNu_HT600to800        
-//float w05 = (1.68*LUMI/(1956431-7779));     //ZToNuNu_HT800to1200 
-float w05 = (1.41*LUMI/(1956431-7779));     //ZToNuNu_HT800to1200
-float w06 = (0.316*LUMI/(361396-2478));      //ZToNuNu_HT1200to2500      
-float w07 = (0.00722*LUMI/(6590-144));      //ZToNuNu_HT2500toInf       
-float w08 = (1559000*LUMI/(58563078-33131));       //QCD_HT200to300            
-float w09 = (315900*LUMI/(5472388-4307));       //QCD_HT300to500           
-float w10 = (29070*LUMI/(53716622-79830));     //QCD_HT500to700            
-float w11 = (5962*LUMI/(47621862-102938));    //QCD_HT700to1000           
-float w12 = (1005*LUMI/(16427124-54782));   //QCD_HT1000to1500      
-float w13 = (101.8*LUMI/(10983547-59784));   //QCD_HT1500to2000      
-float w14 = (20.54*LUMI/(5368775-52758));  //QCD_HT2000toInf 
-float w15 = (1695.*LUMI/(34362020-28016));    //WToLNu_HT100to200
-float w16 = (532.4*LUMI/(21112938-28991));    //WToLNu_HT200to400
-float w17 = (61.6*LUMI/(14112725-31248));    //WToLNu_HT400to600
-float w18 = (12.4*LUMI/(21484173-62923));    //WToLNu_HT600to800
-float w19 = (5.77*LUMI/(20135179-78933));    //WToLNu_HT800to1200
-float w20 = (1.023*LUMI/(20087191-133115));    //WToLNu_HT1200to2500
-float w21 = (0.0248*LUMI/(20811788-427668));    //WToLNu_HT2500toInf
-float w22 = (88.290*LUMI/(66320355-269431));     //TTbar1 2L2Nu
-float w23 = (365.34*LUMI/(110386711-448329));    //TTbar2 semileptonic               
-float w24 = (80.95*LUMI/3939990);   //ST_t-channel_antitop  
-float w25 = (136.02*LUMI/5724387);   //ST_t-channel_top      
-float w26 = (38.06*LUMI/(7492417-28713));  //ST_tW_antitop.root     
-float w27 = (38.06*LUMI/(7552459-29165));     //ST_tW_top     
-float w28 = (1.204*LUMI/(6838439-34646)); //ZZTo4L
-float w29 = (3.222*LUMI/(22476050-4964013)); //ZZTo2L2Q
-float w30 = (0.5644*LUMI/(8244645-5269)); //ZZTo2L2Nu
-float w31 = (10.48*LUMI/(1734206-3229)); //WWTo2L2Nu
-float w32 = (43.53*LUMI/(8664079-16346)); //WWToLNuQQ
-float w33 = (10.73*LUMI/(14998726-3814091)); //WZTo1L1Nu2Q
-float w34 = (5.606*LUMI/(21970347-5421061)); //WZTo2L2Q
-float w35 = (4.43*LUMI/(8639924-1982578)); //WZTo3LNu   
-float w36 = (61526.7*LUMI/(43440196-19344)); //WJetToLNu 
+double LUMI  = 41100.0; 
+double w0700 = SigSF*(0.5*0.5*5.820 *0.25*LUMI/388056); //SIG1
+double w0800 = SigSF*(0.5*0.5*3.860 *0.25*LUMI/400000.0); //SIG2
+double w0900 = SigSF*(0.5*0.5*2.720 *0.25*LUMI/400000.0); //SIG3
+double w1000 = SigSF*(0.5*0.5*1.952 *0.25*LUMI/396804); //SIG4
+double w1100 = SigSF*(0.5*0.5*1.352 *0.25*LUMI/400000.0); //SIG5
+double w1200 = SigSF*(0.5*0.5*0.984 *0.25*LUMI/400000.0); //SIG6
+double w1300 = SigSF*(0.5*0.5*0.716 *0.25*LUMI/400000.0); //SIG7
+double w1400 = SigSF*(0.5*0.5*0.540 *0.25*LUMI/400000.0); //SIG8
+double w1500 = SigSF*(0.5*0.5*0.408 *0.25*LUMI/364210.); //SIG9
+double w1600 = SigSF*(0.5*0.5*0.304 *0.25*LUMI/386506.0); //SIG10
+double w1700 = SigSF*(0.5*0.5*0.232 *0.25*LUMI/400000.0); //SIG11
+double w1800 = SigSF*(0.5*0.5*0.174 *0.25*LUMI/122350.0); //SIG12
+/*double w0700 = SigSF*(1*LUMI/388056); //SIG1
+double w0800 = SigSF*(1*LUMI/400000.0); //SIG2
+double w0900 = SigSF*(1*LUMI/400000.0); //SIG3
+double w1000 = SigSF*(1*LUMI/396804); //SIG4
+double w1100 = SigSF*(1*LUMI/400000.0); //SIG5
+double w1200 = SigSF*(1*LUMI/400000.0); //SIG6
+double w1300 = SigSF*(1*LUMI/400000.0); //SIG7
+double w1400 = SigSF*(1*LUMI/400000.0); //SIG8
+double w1500 = SigSF*(1*LUMI/364210.); //SIG9
+double w1600 = SigSF*(1*LUMI/386506.0); //SIG10
+double w1700 = SigSF*(1*LUMI/400000.0); //SIG11
+double w1800 = SigSF*(1*LUMI/122350.0); //SIG12*/
+double w01 = (384.1*LUMI/(22719867-17399));    //ZToNuNu_HT100to200    
+double w02 = (118.1*LUMI/(21641038-28710));     //ZToNuNu_HT200to400    
+double w03 = (14.7*LUMI/(9763364-20994));  //ZToNuNu_HT400to600  
+double w04 = (3.35*LUMI/(5681118-16476));     //ZToNuNu_HT600to800        
+//double w05 = (1.68*LUMI/(1956431-7779));     //ZToNuNu_HT800to1200 
+double w05 = (1.41*LUMI/(1956431-7779));     //ZToNuNu_HT800to1200
+double w06 = (0.316*LUMI/(361396-2478));      //ZToNuNu_HT1200to2500      
+double w07 = (0.00722*LUMI/(6590-144));      //ZToNuNu_HT2500toInf       
+double w08 = (1559000*LUMI/(58563078-33131));       //QCD_HT200to300            
+double w09 = (315900*LUMI/(5472388-4307));       //QCD_HT300to500           
+double w10 = (29070*LUMI/(53716622-79830));     //QCD_HT500to700            
+double w11 = (5962*LUMI/(47621862-102938));    //QCD_HT700to1000           
+double w12 = (1005*LUMI/(16427124-54782));   //QCD_HT1000to1500      
+double w13 = (101.8*LUMI/(10983547-59784));   //QCD_HT1500to2000      
+double w14 = (20.54*LUMI/(5368775-52758));  //QCD_HT2000toInf 
+double w15 = (1695.*LUMI/(34362020-28016));    //WToLNu_HT100to200
+double w16 = (532.4*LUMI/(21112938-28991));    //WToLNu_HT200to400
+double w17 = (61.6*LUMI/(14112725-31248));    //WToLNu_HT400to600
+double w18 = (12.4*LUMI/(21484173-62923));    //WToLNu_HT600to800
+double w19 = (5.77*LUMI/(20135179-78933));    //WToLNu_HT800to1200
+double w20 = (1.023*LUMI/(20087191-133115));    //WToLNu_HT1200to2500
+double w21 = (0.0248*LUMI/(20811788-427668));    //WToLNu_HT2500toInf
+double w22 = (88.290*LUMI/(66320355-269431));     //TTbar1 2L2Nu
+double w23 = (365.34*LUMI/(110386711-448329));    //TTbar2 semileptonic               
+double w24 = (80.95*LUMI/3939990);   //ST_t-channel_antitop  
+double w25 = (136.02*LUMI/5724387);   //ST_t-channel_top      
+double w26 = (38.06*LUMI/(7492417-28713));  //ST_tW_antitop.root     
+double w27 = (38.06*LUMI/(7552459-29165));     //ST_tW_top     
+double w28 = (1.204*LUMI/(6838439-34646)); //ZZTo4L
+double w29 = (3.222*LUMI/(22476050-4964013)); //ZZTo2L2Q
+double w30 = (0.5644*LUMI/(8244645-5269)); //ZZTo2L2Nu
+double w31 = (10.48*LUMI/(1734206-3229)); //WWTo2L2Nu
+double w32 = (43.53*LUMI/(8664079-16346)); //WWToLNuQQ
+double w33 = (10.73*LUMI/(14998726-3814091)); //WZTo1L1Nu2Q
+double w34 = (5.606*LUMI/(21970347-5421061)); //WZTo2L2Q
+double w35 = (4.43*LUMI/(8639924-1982578)); //WZTo3LNu   
+double w36 = (61526.7*LUMI/(43440196-19344)); //WJetToLNu 
 
-/*float w01 = (280.35*LUMI/(22719867-17399));    //ZToNuNu_HT100to200    
-float w02 = (77.67*LUMI/(21641038-28710));     //ZToNuNu_HT200to400    
-float w03 = (10.73*LUMI/(9763364-20994));  //ZToNuNu_HT400to600  
-float w04 = (0.853*LUMI/(5681118-16476));     //ZToNuNu_HT600to800        
-float w05 = (0.3942*LUMI/(1956431-7779));     //ZToNuNu_HT800to1200      
-float w06 = (0.0974*LUMI/(361396-2478));      //ZToNuNu_HT1200to2500      
-float w07 = (0.002308*LUMI/(6590-144));*/      //ZToNuNu_HT2500toInf    
 const char openTree[5]= "tree";
 const char openTreeB[6]= "treeB";
 const char openTreeC[6]= "treeC";
 const char openTreeD[6]= "treeD";
-TFile *file01 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/data.root");
-TFile *file02 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/Tprime_0700.root");
-TFile *file03 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/Tprime_0800.root");
-TFile *file04 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/Tprime_0900.root");
-TFile *file05 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/Tprime_1000.root");
-TFile *file06 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/Tprime_1100.root");
-TFile *file07 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/Tprime_1200.root");
-TFile *file08 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/Tprime_1300.root");
-TFile *file09 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/Tprime_1400.root");
-TFile *file10 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/Tprime_1500.root");
-TFile *file11 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/Tprime_1600.root");
-TFile *file12 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/Tprime_1700.root");
-TFile *file13 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/Tprime_1800.root");
-TFile *file14 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/ZToNuNu_HT100to200.root");
-TFile *file15 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/ZToNuNu_HT200to400.root");
-TFile *file16 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/ZToNuNu_HT400to600.root");
-TFile *file17 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/ZToNuNu_HT600to800.root");
-TFile *file18 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/ZToNuNu_HT800to1200.root");
-TFile *file19 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/ZToNuNu_HT1200to2500.root");
-TFile *file20 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/ZToNuNu_HT2500toInf.root");
-TFile *file21 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/QCD_HT200to300.root");
-TFile *file22 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/QCD_HT300to500.root");
-TFile *file23 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/QCD_HT500to700.root");
-TFile *file24 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/QCD_HT700to1000.root");
-TFile *file25 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/QCD_HT1000to1500.root");
-TFile *file26 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/QCD_HT1500to2000.root");
-TFile *file27 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/QCD_HT2000toInf.root");
-TFile *file28 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/WToLNu_HT100to200.root");
-TFile *file29 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/WToLNu_HT200to400.root");
-TFile *file30 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/WToLNu_HT400to600.root");
-TFile *file31 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/WToLNu_HT600to800.root");
-TFile *file32 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/WToLNu_HT800to1200.root");
-TFile *file33 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/WToLNu_HT1200to2500.root");
-TFile *file34 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/WToLNu_HT2500toInf.root");
-TFile *file35 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/TTTo2L2Nu.root  ");
-TFile *file36 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/TTToSemiLeptonic.root");
-TFile *file37 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/ST_t-channel_antitop.root");
-TFile *file38 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/ST_t-channel_top.root");
-TFile *file39 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/ST_tW_antitop.root");
-TFile *file40 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/ST_tW_top.root");
-TFile *file41 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/ZZTo4L.root");
-TFile *file42 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/ZZTo2L2Q.root");
-TFile *file43 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/ZZTo2L2Nu.root");
-TFile *file44 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/WWTo2L2Nu.root");
-TFile *file45 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/WWToLNuQQ.root");
-TFile *file46 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/WZTo1L1Nu2Q.root ");
-TFile *file47 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/WZTo2L2Q.root");
-TFile *file48 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v11/WZTo3LNu.root");
-//TFile *file49 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v7/WToLNu.root");
+TFile *file01 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/data.root");
+TFile *file02 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/Tprime_0700.root");
+TFile *file03 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/Tprime_0800.root");
+TFile *file04 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/Tprime_0900.root");
+TFile *file05 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/Tprime_1000.root");
+TFile *file06 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/Tprime_1100.root");
+TFile *file07 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/Tprime_1200.root");
+TFile *file08 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/Tprime_1300.root");
+TFile *file09 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/Tprime_1400.root");
+TFile *file10 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/Tprime_1500.root");
+TFile *file11 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/Tprime_1600.root");
+TFile *file12 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/Tprime_1700.root");
+TFile *file13 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/Tprime_1800.root");
+TFile *file14 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/ZToNuNu_HT100to200.root");
+TFile *file15 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/ZToNuNu_HT200to400.root");
+TFile *file16 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/ZToNuNu_HT400to600.root");
+TFile *file17 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/ZToNuNu_HT600to800.root");
+TFile *file18 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/ZToNuNu_HT800to1200.root");
+TFile *file19 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/ZToNuNu_HT1200to2500.root");
+TFile *file20 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/ZToNuNu_HT2500toInf.root");
+TFile *file21 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/QCD_HT200to300.root");
+TFile *file22 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/QCD_HT300to500.root");
+TFile *file23 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/QCD_HT500to700.root");
+TFile *file24 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/QCD_HT700to1000.root");
+TFile *file25 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/QCD_HT1000to1500.root");
+TFile *file26 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/QCD_HT1500to2000.root");
+TFile *file27 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/QCD_HT2000toInf.root");
+TFile *file28 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/WToLNu_HT100to200.root");
+TFile *file29 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/WToLNu_HT200to400.root");
+TFile *file30 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/WToLNu_HT400to600.root");
+TFile *file31 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/WToLNu_HT600to800.root");
+TFile *file32 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/WToLNu_HT800to1200.root");
+TFile *file33 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/WToLNu_HT1200to2500.root");
+TFile *file34 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/WToLNu_HT2500toInf.root");
+TFile *file35 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/TTTo2L2Nu.root  ");
+TFile *file36 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/TTToSemiLeptonic.root");
+TFile *file37 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/ST_t-channel_antitop.root");
+TFile *file38 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/ST_t-channel_top.root");
+TFile *file39 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/ST_tW_antitop.root");
+TFile *file40 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/ST_tW_top.root");
+TFile *file41 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/ZZTo4L.root");
+TFile *file42 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/ZZTo2L2Q.root");
+TFile *file43 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/ZZTo2L2Nu.root");
+TFile *file44 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/WWTo2L2Nu.root");
+TFile *file45 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/WWToLNuQQ.root");
+TFile *file46 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/WZTo1L1Nu2Q.root ");
+TFile *file47 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/WZTo2L2Q.root");
+TFile *file48 = TFile::Open("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v12/WZTo3LNu.root");
+
 TTree *Tree01 = (TTree*)file01->Get(openTree);     TTree *Tree01_B = (TTree*)file01->Get(openTreeB);   TTree *Tree01_C = (TTree*)file01->Get(openTreeC);   TTree *Tree01_D = (TTree*)file01->Get(openTreeD);
 TTree *Tree02 = (TTree*)file02->Get(openTree);     TTree *Tree02_B = (TTree*)file02->Get(openTreeB);   TTree *Tree02_C = (TTree*)file02->Get(openTreeC);   TTree *Tree02_D = (TTree*)file02->Get(openTreeD);
 TTree *Tree03 = (TTree*)file03->Get(openTree);     TTree *Tree03_B = (TTree*)file03->Get(openTreeB);   TTree *Tree03_C = (TTree*)file03->Get(openTreeC);   TTree *Tree03_D = (TTree*)file03->Get(openTreeD);
@@ -168,18 +169,241 @@ TTree *Tree45 = (TTree*)file45->Get(openTree);     TTree *Tree45_B = (TTree*)fil
 TTree *Tree46 = (TTree*)file46->Get(openTree);     TTree *Tree46_B = (TTree*)file46->Get(openTreeB);   TTree *Tree46_C = (TTree*)file46->Get(openTreeC);   TTree *Tree46_D = (TTree*)file46->Get(openTreeD);
 TTree *Tree47 = (TTree*)file47->Get(openTree);     TTree *Tree47_B = (TTree*)file47->Get(openTreeB);   TTree *Tree47_C = (TTree*)file47->Get(openTreeC);   TTree *Tree47_D = (TTree*)file47->Get(openTreeD);
 TTree *Tree48 = (TTree*)file48->Get(openTree);     TTree *Tree48_B = (TTree*)file48->Get(openTreeB);   TTree *Tree48_C = (TTree*)file48->Get(openTreeC);   TTree *Tree48_D = (TTree*)file48->Get(openTreeD);
-   
 
-TH1F *data_SR; TH1F *background_SR; TH1F *background_PRE; TH1F *tptzm0700lh_SR; TH1F *tptzm0900lh_SR; TH1F *tptzm1400lh_SR; TH1F *tptzm1700lh_SR; 
-TH1F *ZToNuNu_PRE; TH1F *ZToNuNu_1_SR; TH1F *ZToNuNu_2_SR; TH1F *ZToNuNu_3_SR; TH1F *ZToNuNu_4_SR; TH1F *ZToNuNu_5_SR; TH1F *ZToNuNu_6_SR; TH1F *ZToNuNu_7_SR; 
-TH1F *QCD_SR; TH1F *QCD_1_SR; TH1F *QCD_2_SR; TH1F *QCD_3_SR; TH1F *QCD_4_SR; TH1F *QCD_5_SR; TH1F *QCD_6_SR; TH1F *QCD_7_SR; 
-TH1F *WToLNu_PRE; TH1F *WToLNu_1_SR; TH1F *WToLNu_2_SR; TH1F *WToLNu_3_SR; TH1F *WToLNu_4_SR; TH1F *WToLNu_5_SR; TH1F *WToLNu_6_SR; TH1F *WToLNu_7_SR; 
-TH1F *TT_PRE; TH1F *TT_1_SR; TH1F *TT_2_SR; 
-TH1F *ST_SR; TH1F *ST_1_SR; TH1F *ST_2_SR; TH1F *ST_3_SR; TH1F *ST_4_SR; 
-TH1F *VV_SR; TH1F *ZZ1_SR; TH1F *ZZ2_SR; TH1F *ZZ3_SR; TH1F *WW1_SR; TH1F *WW2_SR; TH1F *WZ1_SR; TH1F *WZ2_SR; TH1F *WZ3_SR;
+int BIN = 15;
+int MIN = 500;
+int MAX = 2000;
 
-float SF_den_err;
-float SF1_num_err;
-float SF2_num_err;
-float SF3_num_err;
+TH1F *data = new TH1F("", "", BIN,MIN,MAX);
+TH1F *background = new TH1F("", "", BIN,MIN,MAX);
+TH1F *ZToNuNu = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *QCD     = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *WToLNu  = new TH1F("", "", BIN,MIN,MAX); 
+TH1F *TT      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *ST      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *VV      = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0700lh = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0800lh = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0900lh = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1000lh = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1100lh = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1200lh = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1300lh = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1400lh = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1500lh = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1600lh = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1700lh = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1800lh = new TH1F("", "", BIN,MIN,MAX);
+
+TH1F *data_pup1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *background_pup1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *ZToNuNu_pup1 = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *QCD_pup1     = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *WToLNu_pup1  = new TH1F("", "", BIN,MIN,MAX); 
+TH1F *TT_pup1      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *ST_pup1      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *VV_pup1      = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0700lh_pup1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0800lh_pup1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0900lh_pup1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1000lh_pup1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1100lh_pup1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1200lh_pup1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1300lh_pup1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1400lh_pup1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1500lh_pup1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1600lh_pup1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1700lh_pup1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1800lh_pup1 = new TH1F("", "", BIN,MIN,MAX);
+
+TH1F *data_pup2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *background_pup2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *ZToNuNu_pup2 = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *QCD_pup2     = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *WToLNu_pup2  = new TH1F("", "", BIN,MIN,MAX); 
+TH1F *TT_pup2      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *ST_pup2      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *VV_pup2      = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0700lh_pup2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0800lh_pup2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0900lh_pup2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1000lh_pup2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1100lh_pup2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1200lh_pup2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1300lh_pup2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1400lh_pup2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1500lh_pup2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1600lh_pup2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1700lh_pup2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1800lh_pup2 = new TH1F("", "", BIN,MIN,MAX);
+
+TH1F *data_bta1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *background_bta1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *ZToNuNu_bta1 = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *QCD_bta1     = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *WToLNu_bta1  = new TH1F("", "", BIN,MIN,MAX); 
+TH1F *TT_bta1      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *ST_bta1      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *VV_bta1      = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0700lh_bta1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0800lh_bta1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0900lh_bta1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1000lh_bta1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1100lh_bta1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1200lh_bta1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1300lh_bta1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1400lh_bta1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1500lh_bta1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1600lh_bta1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1700lh_bta1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1800lh_bta1 = new TH1F("", "", BIN,MIN,MAX);
+
+TH1F *data_bta2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *background_bta2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *ZToNuNu_bta2 = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *QCD_bta2     = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *WToLNu_bta2  = new TH1F("", "", BIN,MIN,MAX); 
+TH1F *TT_bta2      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *ST_bta2      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *VV_bta2      = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0700lh_bta2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0800lh_bta2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0900lh_bta2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1000lh_bta2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1100lh_bta2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1200lh_bta2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1300lh_bta2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1400lh_bta2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1500lh_bta2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1600lh_bta2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1700lh_bta2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1800lh_bta2 = new TH1F("", "", BIN,MIN,MAX);
+
+TH1F *data_zje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *background_zje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *ZToNuNu_zje1 = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *QCD_zje1     = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *WToLNu_zje1  = new TH1F("", "", BIN,MIN,MAX); 
+TH1F *TT_zje1      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *ST_zje1      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *VV_zje1      = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0700lh_zje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0800lh_zje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0900lh_zje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1000lh_zje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1100lh_zje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1200lh_zje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1300lh_zje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1400lh_zje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1500lh_zje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1600lh_zje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1700lh_zje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1800lh_zje1 = new TH1F("", "", BIN,MIN,MAX);
+
+TH1F *data_zje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *background_zje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *ZToNuNu_zje2 = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *QCD_zje2     = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *WToLNu_zje2  = new TH1F("", "", BIN,MIN,MAX); 
+TH1F *TT_zje2      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *ST_zje2      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *VV_zje2      = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0700lh_zje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0800lh_zje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0900lh_zje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1000lh_zje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1100lh_zje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1200lh_zje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1300lh_zje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1400lh_zje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1500lh_zje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1600lh_zje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1700lh_zje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1800lh_zje2 = new TH1F("", "", BIN,MIN,MAX);
+
+TH1F *data_wje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *background_wje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *ZToNuNu_wje1 = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *QCD_wje1     = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *WToLNu_wje1  = new TH1F("", "", BIN,MIN,MAX); 
+TH1F *TT_wje1      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *ST_wje1      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *VV_wje1      = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0700lh_wje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0800lh_wje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0900lh_wje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1000lh_wje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1100lh_wje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1200lh_wje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1300lh_wje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1400lh_wje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1500lh_wje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1600lh_wje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1700lh_wje1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1800lh_wje1 = new TH1F("", "", BIN,MIN,MAX);
+
+TH1F *data_wje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *background_wje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *ZToNuNu_wje2 = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *QCD_wje2     = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *WToLNu_wje2  = new TH1F("", "", BIN,MIN,MAX); 
+TH1F *TT_wje2      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *ST_wje2      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *VV_wje2      = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0700lh_wje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0800lh_wje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0900lh_wje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1000lh_wje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1100lh_wje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1200lh_wje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1300lh_wje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1400lh_wje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1500lh_wje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1600lh_wje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1700lh_wje2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1800lh_wje2 = new TH1F("", "", BIN,MIN,MAX);
+
+TH1F *data_ttb1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *background_ttb1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *ZToNuNu_ttb1 = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *QCD_ttb1     = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *WToLNu_ttb1  = new TH1F("", "", BIN,MIN,MAX); 
+TH1F *TT_ttb1      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *ST_ttb1      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *VV_ttb1      = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0700lh_ttb1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0800lh_ttb1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0900lh_ttb1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1000lh_ttb1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1100lh_ttb1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1200lh_ttb1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1300lh_ttb1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1400lh_ttb1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1500lh_ttb1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1600lh_ttb1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1700lh_ttb1 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1800lh_ttb1 = new TH1F("", "", BIN,MIN,MAX);
+
+TH1F *data_ttb2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *background_ttb2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *ZToNuNu_ttb2 = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *QCD_ttb2     = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *WToLNu_ttb2  = new TH1F("", "", BIN,MIN,MAX); 
+TH1F *TT_ttb2      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *ST_ttb2      = new TH1F("", "", BIN,MIN,MAX);  
+TH1F *VV_ttb2      = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0700lh_ttb2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0800lh_ttb2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm0900lh_ttb2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1000lh_ttb2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1100lh_ttb2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1200lh_ttb2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1300lh_ttb2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1400lh_ttb2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1500lh_ttb2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1600lh_ttb2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1700lh_ttb2 = new TH1F("", "", BIN,MIN,MAX);
+TH1F *tptzm1800lh_ttb2 = new TH1F("", "", BIN,MIN,MAX);
+
+
 
