@@ -4,7 +4,7 @@ void SaveRootFileForLimit_dineutrino_v2(bool save){
   char NewFileName[500]; sprintf(NewFileName, "shape_dineutrino.root");
   TFile f(NewFileName,"new");
 
-  cout<<"this step is ok 1"<<endl;
+  
 
   //TH1F *background=(TH1F*)histo_PRE->Clone();
   //background->SetName("background");
@@ -15,7 +15,7 @@ void SaveRootFileForLimit_dineutrino_v2(bool save){
   TT     ->SetName("TT"); 
   ST     ->SetName("ST");  
   VV     ->SetName("VV");  
-  cout<<"this step is ok 2"<<endl;
+
   tptzm0700lh->SetName("tptzm0700lh");
   tptzm0800lh->SetName("tptzm0800lh");
   tptzm0900lh->SetName("tptzm0900lh");
@@ -28,7 +28,7 @@ void SaveRootFileForLimit_dineutrino_v2(bool save){
   tptzm1600lh->SetName("tptzm1600lh");
   tptzm1700lh->SetName("tptzm1700lh");
   tptzm1800lh->SetName("tptzm1800lh");
-  cout<<"this step is ok 3"<<endl;
+
   ZToNuNu->Write();
   QCD    ->Write();
   WToLNu ->Write();
@@ -46,7 +46,7 @@ void SaveRootFileForLimit_dineutrino_v2(bool save){
   tptzm1500lh->Write();
   tptzm1600lh->Write();
   tptzm1700lh->Write();
-  cout<<"this step is ok 4"<<endl;
+
   TH1F *data_obs=(TH1F*)data->Clone();
   data_obs->SetName("data_obs");
   data_obs->Write();
@@ -77,7 +77,7 @@ void SaveRootFileForLimit_dineutrino_v2(bool save){
   }
   VV_MCUp->Write();
   VV_MCDown->Write();*/
-  cout<<"this step is ok 5"<<endl;
+
   TH1F *QCD_bin1MCUp=(TH1F*)QCD->Clone();
   TH1F *QCD_bin2MCUp=(TH1F*)QCD->Clone();
   TH1F *QCD_bin3MCUp=(TH1F*)QCD->Clone();
