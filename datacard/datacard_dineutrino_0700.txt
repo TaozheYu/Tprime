@@ -1,0 +1,65 @@
+jmax *
+kmax *
+-------------
+shapes * cat_0  shape_dineutrino_0.root $PROCESS $PROCESS_$SYSTEMATIC
+shapes * cat_1  shape_dineutrino_1.root $PROCESS $PROCESS_$SYSTEMATIC
+-------------
+bin cat_0    cat_1
+observation -1    -1
+----------------------------------------
+bin       cat_0             cat_0        cat_0        cat_0      cat_0      cat_0      cat_0   cat_1           cat_1        cat_1         cat_1        cat_1         cat_1         cat_1  
+process   tptzm0700lh       ZToNuNu      WToLNu       TT         QCD        ST         VV      tptzm0700lh     ZToNuNu      WToLNu        TT           QCD           ST            VV
+process   0                 1            2            3          4          5          6       0               1            2             3            4             5              6
+rate     -1                -1           -1           -1         -1         -1         -1      -1              -1           -1            -1           -1            -1             -1
+----------------------------------------
+luminosity  lnN    1.026 - - - 1.026 1.026 1.026 1.026 - - - 1.026 1.026 1.026
+bin1MC     shape - - - - 1 - - - - - - 1 - -
+bin2MC     shape - - - - 1 - - - - - - 1 - -
+bin3MC     shape - - - - 1 - - - - - - 1 - -
+bin4MC     shape - - - - 1 - - - - - - 1 - -
+bin5MC     shape - - - - 1 - - - - - - 1 - -
+bin6MC     shape - - - - 1 - - - - - - 1 - -
+bin7MC     shape - - - - 1 - - - - - - 1 - -
+bin8MC     shape - - - - 1 - - - - - - 1 - -
+bin9MC     shape - - - - 1 - - - - - - 1 - -
+bin10MC   shape - - - - 1 - - - - - - 1 - -
+bin11MC   shape - - - - 1 - - - - - - 1 - -
+bin12MC   shape - - - - 1 - - - - - - 1 - -
+bin13MC   shape - - - - 1 - - - - - - 1 - -
+bin14MC   shape - - - - 1 - - - - - - 1 - -
+bin15MC   shape - - - - 1 - - - - - - 1 - -
+bin1MC     shape - - - - - 1 - - - - - - 1 -
+bin2MC     shape - - - - - 1 - - - - - - 1 -
+bin3MC     shape - - - - - 1 - - - - - - 1 -
+bin4MC     shape - - - - - 1 - - - - - - 1 -
+bin5MC     shape - - - - - 1 - - - - - - 1 -
+bin6MC     shape - - - - - 1 - - - - - - 1 -
+bin7MC     shape - - - - - 1 - - - - - - 1 -
+bin8MC     shape - - - - - 1 - - - - - - 1 -
+bin9MC     shape - - - - - 1 - - - - - - 1 -
+bin10MC   shape - - - - - 1 - - - - - - 1 -
+bin11MC   shape - - - - - 1 - - - - - - 1 -
+bin12MC   shape - - - - - 1 - - - - - - 1 -
+bin13MC   shape - - - - - 1 - - - - - - 1 -
+bin14MC   shape - - - - - 1 - - - - - - 1 -
+bin15MC   shape - - - - - 1 - - - - - - 1 -
+bin1MC     shape - - - - - - 1 - - - - - - 1
+bin2MC     shape - - - - - - 1 - - - - - - 1
+bin3MC     shape - - - - - - 1 - - - - - - 1
+bin4MC     shape - - - - - - 1 - - - - - - 1
+bin5MC     shape - - - - - - 1 - - - - - - 1
+bin6MC     shape - - - - - - 1 - - - - - - 1
+bin7MC     shape - - - - - - 1 - - - - - - 1
+bin8MC     shape - - - - - - 1 - - - - - - 1
+bin9MC     shape - - - - - - 1 - - - - - - 1
+bin10MC   shape - - - - - - 1 - - - - - - 1
+bin11MC   shape - - - - - - 1 - - - - - - 1
+bin12MC   shape - - - - - - 1 - - - - - - 1
+bin13MC   shape - - - - - - 1 - - - - - - 1
+bin14MC   shape - - - - - - 1 - - - - - - 1
+bin15MC   shape - - - - - - 1 - - - - - - 1
+zje             shape - 1 - - - - - - 1 - - - - -
+wje            shape - - 1 - - - - - - 1 - - - -
+ttb             shape - - - 1 - - - - - - 1 - - -
+BTAG        shape 1 - - - - - - 1 - - - - - -
+PUw          shape 1 - - - - - - 1 - - - - - -
