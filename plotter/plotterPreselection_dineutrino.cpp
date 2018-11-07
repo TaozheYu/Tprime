@@ -37,24 +37,24 @@ void plotterPreselection_dineutrino(){
   name.push_back("HT"); bin.push_back(36);     Min.push_back(200);    Max.push_back(2000);    axis.push_back("HT pt[GeV]");*/
 
   name.push_back("MostForwardJetPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("Most Forward Jet pt [GeV]");
-  name.push_back("MostForwardJetEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("Most Forward Jet #eta");
+  name.push_back("MostForwardJetEta"); bin.push_back(40);     Min.push_back(-5);    Max.push_back(5);    axis.push_back("Most Forward Jet #eta");
 
   for(int i=0; i<name.size(); i++){
     const char *plot = name[i];
     char CUT[1000]; char CUTpup1[1000]; char CUTpup2[1000]; char CUTbta1[1000]; char CUTbta2[1000];  char CUTfor1[1000]; char CUTfor2[1000]; char CUTwje1[1000]; char CUTwje2[1000]; char CUTzje1[1000];  char CUTzje2[1000];  char CUTttb1[1000];  char CUTttb2[1000];
-	sprintf(CUT,    "PUWeight    *w_for    *w_Btag    *genWeight  *w_ZToNuNu    *w_WToLNu    *w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetPt>30))");
-	sprintf(CUTpup1,"PUWeightUP  *w_for    *w_Btag    *genWeight  *w_ZToNuNu    *w_WToLNu    *w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetPt>30))");
-	sprintf(CUTpup2,"PUWeightDOWN*w_for    *w_Btag    *genWeight  *w_ZToNuNu    *w_WToLNu    *w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetPt>30))");
-	sprintf(CUTfor1,"PUWeight    *w_forUp  *w_Btag    *genWeight  *w_ZToNuNu    *w_WToLNu    *w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetPt>30))");
-	sprintf(CUTfor2,"PUWeight    *w_forDown*w_Btag    *genWeight  *w_ZToNuNu    *w_WToLNu    *w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetPt>30))");
-	sprintf(CUTbta1,"PUWeight    *w_for    *w_BtagUp  *genWeight  *w_ZToNuNu    *w_WToLNu    *w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetPt>30))");
-	sprintf(CUTbta2,"PUWeight    *w_for    *w_BtagDown*genWeight  *w_ZToNuNu    *w_WToLNu    *w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetPt>30))");
-	sprintf(CUTzje1,"PUWeight    *w_for    *w_Btag    *genWeight  *w_ZToNuNuUp  *w_WToLNu    *w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetPt>30))");
-	sprintf(CUTzje2,"PUWeight    *w_for    *w_Btag    *genWeight  *w_ZToNuNuDown*w_WToLNu    *w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetPt>30))");
-	sprintf(CUTwje1,"PUWeight    *w_for    *w_Btag    *genWeight  *w_ZToNuNu    *w_WToLNuUp  *w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetPt>30))");
-	sprintf(CUTwje2,"PUWeight    *w_for    *w_Btag    *genWeight  *w_ZToNuNu    *w_WToLNuDown*w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetPt>30))");
-	sprintf(CUTttb1,"PUWeight    *w_for    *w_Btag    *genWeight  *w_ZToNuNu    *w_WToLNu    *w_ttbarUp  *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetPt>30))");
-	sprintf(CUTttb2,"PUWeight    *w_for    *w_Btag    *genWeight  *w_ZToNuNu    *w_WToLNu    *w_ttbarDown*((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250)&&(MostForwardJetPt>30))");
+	sprintf(CUT,    "PUWeight    *w_Btag    *genWeight  *w_ZToNuNu    *w_WToLNu    *w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250))");
+	sprintf(CUTpup1,"PUWeightUP  *w_Btag    *genWeight  *w_ZToNuNu    *w_WToLNu    *w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250))");
+	sprintf(CUTpup2,"PUWeightDOWN*w_Btag    *genWeight  *w_ZToNuNu    *w_WToLNu    *w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250))");
+	sprintf(CUTfor1,"PUWeight    *w_Btag    *genWeight  *w_ZToNuNu    *w_WToLNu    *w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250))");
+	sprintf(CUTfor2,"PUWeight    *w_Btag    *genWeight  *w_ZToNuNu    *w_WToLNu    *w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250))");
+	sprintf(CUTbta1,"PUWeight    *w_BtagUp  *genWeight  *w_ZToNuNu    *w_WToLNu    *w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250))");
+	sprintf(CUTbta2,"PUWeight    *w_BtagDown*genWeight  *w_ZToNuNu    *w_WToLNu    *w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250))");
+	sprintf(CUTzje1,"PUWeight    *w_Btag    *genWeight  *w_ZToNuNuUp  *w_WToLNu    *w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250))");
+	sprintf(CUTzje2,"PUWeight    *w_Btag    *genWeight  *w_ZToNuNuDown*w_WToLNu    *w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250))");
+	sprintf(CUTwje1,"PUWeight    *w_Btag    *genWeight  *w_ZToNuNu    *w_WToLNuUp  *w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250))");
+	sprintf(CUTwje2,"PUWeight    *w_Btag    *genWeight  *w_ZToNuNu    *w_WToLNuDown*w_ttbar    *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250))");
+	sprintf(CUTttb1,"PUWeight    *w_Btag    *genWeight  *w_ZToNuNu    *w_WToLNu    *w_ttbarUp  *((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250))");
+	sprintf(CUTttb2,"PUWeight    *w_Btag    *genWeight  *w_ZToNuNu    *w_WToLNu    *w_ttbarDown*((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(TopPt>250))");
 	
     //cout<<"this step is ok 1"<<endl;
 	MakeHistos(CUT,plot,bin[i],Min[i],Max[i],0,data_SR,background_SR,ZToNuNu_1_SR,ZToNuNu_2_SR,ZToNuNu_3_SR,ZToNuNu_4_SR,ZToNuNu_5_SR,ZToNuNu_6_SR,ZToNuNu_7_SR,
@@ -94,7 +94,7 @@ void plotterPreselection_dineutrino(){
 	MakeHistos(CUTzje2,plot,bin[i],Min[i],Max[i],0,data_Z2,background_Z2,ZToNuNu_1_Z2,ZToNuNu_2_Z2,ZToNuNu_3_Z2,ZToNuNu_4_Z2,ZToNuNu_5_Z2,ZToNuNu_6_Z2,ZToNuNu_7_Z2,
 		       QCD_1_Z2,QCD_2_Z2,QCD_3_Z2,QCD_4_Z2,QCD_5_Z2,QCD_6_Z2,QCD_7_Z2,WToLNu_1_Z2,WToLNu_2_Z2,WToLNu_3_Z2,WToLNu_4_Z2,WToLNu_5_Z2,WToLNu_6_Z2,WToLNu_7_Z2,
 			   TT_1_Z2,TT_2_Z2,ST_1_Z2,ST_2_Z2,ST_3_Z2,ST_4_Z2,ZZ1_Z2,ZZ2_Z2,ZZ3_Z2,WW1_Z2,WW2_Z2,WZ1_Z2,WZ2_Z2,WZ3_Z2,tptzm0700lh_Z2,tptzm0900lh_Z2,tptzm1400lh_Z2,tptzm1700lh_Z2);
-
+	cout<<"this step is ok 2"<<endl;
 	MakeHistos(CUTwje1,plot,bin[i],Min[i],Max[i],0,data_W1,background_W1,ZToNuNu_1_W1,ZToNuNu_2_W1,ZToNuNu_3_W1,ZToNuNu_4_W1,ZToNuNu_5_W1,ZToNuNu_6_W1,ZToNuNu_7_W1,
 		       QCD_1_W1,QCD_2_W1,QCD_3_W1,QCD_4_W1,QCD_5_W1,QCD_6_W1,QCD_7_W1,WToLNu_1_W1,WToLNu_2_W1,WToLNu_3_W1,WToLNu_4_W1,WToLNu_5_W1,WToLNu_6_W1,WToLNu_7_W1,
 			   TT_1_W1,TT_2_W1,ST_1_W1,ST_2_W1,ST_3_W1,ST_4_W1,ZZ1_W1,ZZ2_W1,ZZ3_W1,WW1_W1,WW2_W1,WZ1_W1,WZ2_W1,WZ3_W1,tptzm0700lh_W1,tptzm0900lh_W1,tptzm1400lh_W1,tptzm1700lh_W1);
@@ -129,6 +129,7 @@ void plotterPreselection_dineutrino(){
 	}else {
       CloneHistos();
     }
+	//cout<<
 	//cout<<"this step is ok 3"<<endl;
 	for(int m=1; m<background_SR->GetNbinsX()+1; m++){ 
     MakeHistoErrors(m, ZToNuNu_1_SR, ZToNuNu_1_P1, ZToNuNu_1_P2, ZToNuNu_1_F1, ZToNuNu_1_F2, ZToNuNu_1_B1, ZToNuNu_1_B2, ZToNuNu_1_Z1, ZToNuNu_1_Z2, ZToNuNu_1_W1, ZToNuNu_1_W2, ZToNuNu_1_T1, ZToNuNu_1_T2, ZToNuNu_1_J1, ZToNuNu_1_J2, ZToNuNu_1_J3, ZToNuNu_1_J4);
@@ -536,8 +537,8 @@ void plotterPreselection_dineutrino(){
     
     TString NAME = name[i];
     cout<<"Finished "<<NAME<<endl;
-    c1->SaveAs(NAME+".png");
-	//c1->SaveAs("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/"+NAME+".png");
+    //c1->SaveAs(NAME+".png");
+	c1->SaveAs("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/"+NAME+".png");
     c1->Draw(); 
 
   }
@@ -607,7 +608,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
     GetHisto(CUT, Tree46, WZ1    ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree47, WZ2    ,plot,BIN,MIN,MAX);
 	GetHisto(CUT, Tree48, WZ3    ,plot,BIN,MIN,MAX);
-  } /* else if(JETSyst==1){
+  }  else if(JETSyst==1){
     GetHisto(CUT, Tree01_J1, data        ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree02_J1, tptzm0700lh ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree04_J1, tptzm0900lh ,plot,BIN,MIN,MAX);
@@ -771,7 +772,7 @@ void MakeHistos(char CUT[1000],const char *plot,int BIN,float MIN,float MAX,int 
     GetHisto(CUT, Tree46_J4, WZ1    ,plot,BIN,MIN,MAX);
     GetHisto(CUT, Tree47_J4, WZ2    ,plot,BIN,MIN,MAX);
 	GetHisto(CUT, Tree48_J4, WZ3    ,plot,BIN,MIN,MAX);
-  }*/
+  }
   TH1F *background = new TH1F("","",data->GetNbinsX(),data->GetXaxis()->GetXmin(),data->GetXaxis()->GetXmax());
   for(int j=1; j<data->GetNbinsX()+1; j++){
     if(tptzm0700lh->GetBinContent(j)>0){tptzm0700lh->SetBinError(j,sqrt(w0700*w0700*tptzm0700lh->GetBinContent(j)));}else{tptzm0700lh->SetBinError(j,0);}
