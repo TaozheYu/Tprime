@@ -1,0 +1,6 @@
+运行李秉桓分析框架的Note：
+1.https://github.com/BinghuanLi/BSMFramework/blob/CMSSW_9_4_6_patch1/README
+按此步骤安装分析框架
+2.https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookStartingGrid#BasicGrid
+按此步骤申请证书，成为CMS vo
+3.在python路径下cmsRun python文件
