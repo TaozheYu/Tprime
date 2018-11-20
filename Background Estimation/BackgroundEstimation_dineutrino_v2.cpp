@@ -49,7 +49,7 @@ void BackgroundEstimation_dineutrino_v2(){
 
   for (int i=0; i<name.size(); i++){
     const char *plot = name[i];
-    for(int category=0; category<1; category++){
+    for(int category=0; category<2; category++){
 
     char CUT[1000]; char CUTpup1[1000]; char CUTpup2[1000]; char CUTbta1[1000]; char CUTbta2[1000];  char CUTfor1[1000]; char CUTfor2[1000]; char CUTwje1[1000]; char CUTwje2[1000];
 	char CUTSR[1000]; char CUTzje1[1000];  char CUTzje2[1000];  char CUTttb1[1000];  char CUTttb2[1000];
@@ -72,12 +72,12 @@ void BackgroundEstimation_dineutrino_v2(){
 	sprintf(CUTttb2, "PUWeight    *w_Btag   *genWeight  *w_ZToNuNu  *w_WToLNu  *w_ttbarDown*%s",CUT);
 
 	
-	 MakeHistos(CUTSR,   plot,bin[i],Min[i],Max[i],0,
+	MakeHistos(CUTSR,   plot,bin[i],Min[i],Max[i],0,
 		       data,background, 
 			   ZToNuNu,QCD,WToLNu,TT,ST,VV,
 			   tptzm0700lh,tptzm0800lh,tptzm0900lh,tptzm1000lh,tptzm1100lh,tptzm1200lh,tptzm1300lh,tptzm1400lh,tptzm1500lh,tptzm1600lh,tptzm1700lh,tptzm1800lh);
 
-	MakeHistos(CUTpup1, plot,bin[i],Min[i],Max[i],0,
+	/*MakeHistos(CUTpup1, plot,bin[i],Min[i],Max[i],0,
 		       data_pup1,background_pup1, 
 			   ZToNuNu_pup1,QCD_pup1,WToLNu_pup1,TT_pup1,ST_pup1,VV_pup1,
 			   tptzm0700lh_pup1,tptzm0800lh_pup1,tptzm0900lh_pup1,tptzm1000lh_pup1,tptzm1100lh_pup1,tptzm1200lh_pup1,tptzm1300lh_pup1,tptzm1400lh_pup1,tptzm1500lh_pup1,tptzm1600lh_pup1,tptzm1700lh_pup1,tptzm1800lh_pup1);
@@ -86,8 +86,8 @@ void BackgroundEstimation_dineutrino_v2(){
 		       data_pup2,background_pup2, 
 			   ZToNuNu_pup2,QCD_pup2,WToLNu_pup2,TT_pup2,ST_pup2,VV_pup2,
 			   tptzm0700lh_pup2,tptzm0800lh_pup2,tptzm0900lh_pup2,tptzm1000lh_pup2,tptzm1100lh_pup2,tptzm1200lh_pup2,tptzm1300lh_pup2,tptzm1400lh_pup2,tptzm1500lh_pup2,tptzm1600lh_pup2,tptzm1700lh_pup2,tptzm1800lh_pup2);
-
-	MakeHistos(CUTfor1, plot,bin[i],Min[i],Max[i],0,
+    */
+	/*MakeHistos(CUTfor1, plot,bin[i],Min[i],Max[i],0,
 		       data_for1,background_for1, 
 			   ZToNuNu_for1,QCD_for1,WToLNu_for1,TT_for1,ST_for1,VV_for1,
 			   tptzm0700lh_for1,tptzm0800lh_for1,tptzm0900lh_for1,tptzm1000lh_for1,tptzm1100lh_for1,tptzm1200lh_for1,tptzm1300lh_for1,tptzm1400lh_for1,tptzm1500lh_for1,tptzm1600lh_for1,tptzm1700lh_for1,tptzm1800lh_for1);
@@ -96,8 +96,8 @@ void BackgroundEstimation_dineutrino_v2(){
 		       data_for2,background_for2, 
 			   ZToNuNu_for2,QCD_for2,WToLNu_for2,TT_for2,ST_for2,VV_for2,
 			   tptzm0700lh_for2,tptzm0800lh_for2,tptzm0900lh_for2,tptzm1000lh_for2,tptzm1100lh_for2,tptzm1200lh_for2,tptzm1300lh_for2,tptzm1400lh_for2,tptzm1500lh_for2,tptzm1600lh_for2,tptzm1700lh_for2,tptzm1800lh_for2);
-
-	MakeHistos(CUTbta1, plot,bin[i],Min[i],Max[i],0,
+    */
+	/*MakeHistos(CUTbta1, plot,bin[i],Min[i],Max[i],0,
 		       data_bta1,background_bta1, 
 			   ZToNuNu_bta1,QCD_bta1,WToLNu_bta1,TT_bta1,ST_bta1,VV_bta1,
 			   tptzm0700lh_bta1,tptzm0800lh_bta1,tptzm0900lh_bta1,tptzm1000lh_bta1,tptzm1100lh_bta1,tptzm1200lh_bta1,tptzm1300lh_bta1,tptzm1400lh_bta1,tptzm1500lh_bta1,tptzm1600lh_bta1,tptzm1700lh_bta1,tptzm1800lh_bta1);
@@ -156,19 +156,20 @@ void BackgroundEstimation_dineutrino_v2(){
 		       data_jer2,background_jer2, 
 			   ZToNuNu_jer2,QCD_jer2,WToLNu_jer2,TT_jer2,ST_jer2,VV_jer2,
 			   tptzm0700lh_jer2,tptzm0800lh_jer2,tptzm0900lh_jer2,tptzm1000lh_jer2,tptzm1100lh_jer2,tptzm1200lh_jer2,tptzm1300lh_jer2,tptzm1400lh_jer2,tptzm1500lh_jer2,tptzm1600lh_jer2,tptzm1700lh_jer2,tptzm1800lh_jer2);
+	*/
 	
 	MakeHistosPdfQcd(CUT,plot,bin[i],Min[i],Max[i],0,8, 
 			   ZToNuNu_qcd1,QCD_qcd1,WToLNu_qcd1,TT_qcd1,ST_qcd1,VV_qcd1,
 			   tptzm0700lh_qcd1,tptzm0800lh_qcd1,tptzm0900lh_qcd1,tptzm1000lh_qcd1,tptzm1100lh_qcd1,tptzm1200lh_qcd1,tptzm1300lh_qcd1,tptzm1400lh_qcd1,tptzm1500lh_qcd1,tptzm1600lh_qcd1,tptzm1700lh_qcd1,tptzm1800lh_qcd1,
 			   ZToNuNu_qcd2,QCD_qcd2,WToLNu_qcd2,TT_qcd2,ST_qcd2,VV_qcd2,
 			   tptzm0700lh_qcd2,tptzm0800lh_qcd2,tptzm0900lh_qcd2,tptzm1000lh_qcd2,tptzm1100lh_qcd2,tptzm1200lh_qcd2,tptzm1300lh_qcd2,tptzm1400lh_qcd2,tptzm1500lh_qcd2,tptzm1600lh_qcd2,tptzm1700lh_qcd2,tptzm1800lh_qcd2);
-
+	
 	MakeHistosPdfQcd(CUT,plot,bin[i],Min[i],Max[i],111,213, 
 			   ZToNuNu_pdf1,QCD_pdf1,WToLNu_pdf1,TT_pdf1,ST_pdf1,VV_pdf1,
 			   tptzm0700lh_pdf1,tptzm0800lh_pdf1,tptzm0900lh_pdf1,tptzm1000lh_pdf1,tptzm1100lh_pdf1,tptzm1200lh_pdf1,tptzm1300lh_pdf1,tptzm1400lh_pdf1,tptzm1500lh_pdf1,tptzm1600lh_pdf1,tptzm1700lh_pdf1,tptzm1800lh_pdf1,
 			   ZToNuNu_pdf2,QCD_pdf2,WToLNu_pdf2,TT_pdf2,ST_pdf2,VV_pdf2,
 			   tptzm0700lh_pdf2,tptzm0800lh_pdf2,tptzm0900lh_pdf2,tptzm1000lh_pdf2,tptzm1100lh_pdf2,tptzm1200lh_pdf2,tptzm1300lh_pdf2,tptzm1400lh_pdf2,tptzm1500lh_pdf2,tptzm1600lh_pdf2,tptzm1700lh_pdf2,tptzm1800lh_pdf2);
-
+	
 
 	SaveRootFileForLimit_dineutrino_v2(save,category,dPMet,BTag,TopPt,dPTop,ht,Met);
 
@@ -495,8 +496,8 @@ void BackgroundEstimation_dineutrino_v2(){
     pl2->Draw();
     
     TString NAME = name[i];
-    //cout<<"Finished "<<NAME<<endl;
-    c1->SaveAs("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/"+NAME+".png");
+    cout<<"Finished "<<NAME<<endl;
+    //c1->SaveAs("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/"+NAME+".png");
 	c1->SaveAs(NAME+".png");
     c1->Draw(); 
 	}
@@ -993,7 +994,7 @@ void MakeHistoErrorsMC(TH1F* &histo_SR,  TH1F* histo_P1, TH1F* histo_P2, TH1F* h
   }
 }
 
-void MakeHistosPdfQcd(char CUTinit[1000],const char *plot,int BIN ,float MIN,float MAX,int imin,int imax,
+/*void MakeHistosPdfQcd(char CUTinit[1000],const char *plot,int BIN ,float MIN,float MAX,int imin,int imax,
 	          TH1F* &ZToNuNu_func1,TH1F* &QCD_func1,TH1F* &WToLNu_func1,TH1F* &TT_func1,TH1F* &ST_func1,TH1F* &VV_func1,
 	          TH1F* &tptzm0700lh_func1,TH1F* &tptzm0800lh_func1,TH1F* &tptzm0900lh_func1,TH1F* &tptzm1000lh_func1,TH1F* &tptzm1100lh_func1,TH1F* &tptzm1200lh_func1,TH1F* &tptzm1300lh_func1,TH1F* &tptzm1400lh_func1,TH1F* &tptzm1500lh_func1,TH1F* &tptzm1600lh_func1,TH1F* &tptzm1700lh_func1,TH1F* &tptzm1800lh_func1,
 			  TH1F* &ZToNuNu_func2,TH1F* &QCD_func2,TH1F* &WToLNu_func2,TH1F* &TT_func2,TH1F* &ST_func2,TH1F* &VV_func2,
@@ -1184,4 +1185,302 @@ void MakeHistosPdfQcd(char CUTinit[1000],const char *plot,int BIN ,float MIN,flo
   delete RMSTT_1_pre; delete RMSTT_2_pre; 
   delete RMSST_1_pre; delete RMSST_2_pre; delete RMSST_3_pre; delete RMSST_4_pre;
   delete RMSZZ1_pre; delete RMSZZ2_pre; delete RMSZZ3_pre; delete RMSWZ1_pre; delete RMSWZ2_pre; delete RMSWZ3_pre; delete RMSWW1_pre; delete RMSWW2_pre; 
+}
+
+*/
+void MakeHistosPdfQcd(char CUTinit[1000],const char *plot,int BIN ,float MIN,float MAX,int imin,int imax,
+	          TH1F* &ZToNuNu_func1,TH1F* &QCD_func1,TH1F* &WToLNu_func1,TH1F* &TT_func1,TH1F* &ST_func1,TH1F* &VV_func1,
+	          TH1F* &tptzm0700lh_func1,TH1F* &tptzm0800lh_func1,TH1F* &tptzm0900lh_func1,TH1F* &tptzm1000lh_func1,TH1F* &tptzm1100lh_func1,TH1F* &tptzm1200lh_func1,TH1F* &tptzm1300lh_func1,TH1F* &tptzm1400lh_func1,TH1F* &tptzm1500lh_func1,TH1F* &tptzm1600lh_func1,TH1F* &tptzm1700lh_func1,TH1F* &tptzm1800lh_func1,
+			  TH1F* &ZToNuNu_func2,TH1F* &QCD_func2,TH1F* &WToLNu_func2,TH1F* &TT_func2,TH1F* &ST_func2,TH1F* &VV_func2,
+			  TH1F* &tptzm0700lh_func2,TH1F* &tptzm0800lh_func2,TH1F* &tptzm0900lh_func2,TH1F* &tptzm1000lh_func2,TH1F* &tptzm1100lh_func2,TH1F* &tptzm1200lh_func2,TH1F* &tptzm1300lh_func2,TH1F* &tptzm1400lh_func2,TH1F* &tptzm1500lh_func2,TH1F* &tptzm1600lh_func2,TH1F* &tptzm1700lh_func2,TH1F* &tptzm1800lh_func2){
+  //BIN1 = BIN1 + 1;
+  TH1F *RMS0700_pre; TH1F *RMS0800_pre; TH1F *RMS0900_pre; TH1F *RMS1000_pre; TH1F *RMS1100_pre; TH1F *RMS1200_pre; TH1F *RMS1300_pre; TH1F *RMS1400_pre; TH1F *RMS1500_pre; TH1F *RMS1600_pre; TH1F *RMS1700_pre; TH1F *RMS1800_pre; 
+  TH1F *RMSZToNuNu_1_pre; TH1F *RMSZToNuNu_2_pre; TH1F *RMSZToNuNu_3_pre; TH1F *RMSZToNuNu_4_pre; TH1F *RMSZToNuNu_5_pre; TH1F *RMSZToNuNu_6_pre; TH1F *RMSZToNuNu_7_pre;
+  TH1F *RMSQCD_1_pre; TH1F *RMSQCD_2_pre; TH1F *RMSQCD_3_pre; TH1F *RMSQCD_4_pre; TH1F *RMSQCD_5_pre; TH1F *RMSQCD_6_pre; TH1F *RMSQCD_7_pre;
+  TH1F *RMSWToLNu_1_pre; TH1F *RMSWToLNu_2_pre; TH1F *RMSWToLNu_3_pre; TH1F *RMSWToLNu_4_pre; TH1F *RMSWToLNu_5_pre; TH1F *RMSWToLNu_6_pre; TH1F *RMSWToLNu_7_pre;
+  TH1F *RMSTT_1_pre; TH1F *RMSTT_2_pre; 
+  TH1F *RMSST_1_pre; TH1F *RMSST_2_pre; TH1F *RMSST_3_pre; TH1F *RMSST_4_pre;
+  TH1F *RMSZZ1_pre; TH1F *RMSZZ2_pre; TH1F *RMSZZ3_pre; TH1F *RMSWZ1_pre; TH1F *RMSWZ2_pre; TH1F *RMSWZ3_pre; TH1F *RMSWW1_pre; TH1F *RMSWW2_pre; 
+  
+  TH1F *RMS0700 = new TH1F("RMS0700", "RMS0700", 100,-0.5,0.5); TH1F *RMS0800 = new TH1F("RMS0800", "RMS0800", 100,-0.5,0.5);
+  TH1F *RMS0900 = new TH1F("RMS0900", "RMS0900", 100,-0.5,0.5); TH1F *RMS1000 = new TH1F("RMS1000", "RMS1000", 100,-0.5,0.5);
+  TH1F *RMS1100 = new TH1F("RMS1100", "RMS1100", 100,-0.5,0.5); TH1F *RMS1200 = new TH1F("RMS1200", "RMS1200", 100,-0.5,0.5);
+  TH1F *RMS1300 = new TH1F("RMS1300", "RMS1300", 100,-0.5,0.5); TH1F *RMS1400 = new TH1F("RMS1400", "RMS1400", 100,-0.5,0.5);
+  TH1F *RMS1500 = new TH1F("RMS1500", "RMS1500", 100,-0.5,0.5); TH1F *RMS1600 = new TH1F("RMS1600", "RMS1600", 100,-0.5,0.5);
+  TH1F *RMS1700 = new TH1F("RMS1700", "RMS1700", 100,-0.5,0.5); TH1F *RMS1800 = new TH1F("RMS1800", "RMS1800", 100,-0.5,0.5);
+
+  TH1F *RMSZToNuNu_1 = new TH1F("RMSZToNuNu_1", "RMSZToNuNu_1", 100,-0.5,0.5); TH1F *RMSZToNuNu_2 = new TH1F("RMSZToNuNu_2", "RMSZToNuNu_2", 100,-0.5,0.5);
+  TH1F *RMSZToNuNu_3 = new TH1F("RMSZToNuNu_3", "RMSZToNuNu_3", 100,-0.5,0.5); TH1F *RMSZToNuNu_4 = new TH1F("RMSZToNuNu_4", "RMSZToNuNu_4", 100,-0.5,0.5);
+  TH1F *RMSZToNuNu_5 = new TH1F("RMSZToNuNu_5", "RMSZToNuNu_5", 100,-0.5,0.5); TH1F *RMSZToNuNu_6 = new TH1F("RMSZToNuNu_6", "RMSZToNuNu_6", 100,-0.5,0.5);
+  TH1F *RMSZToNuNu_7 = new TH1F("RMSZToNuNu_7", "RMSZToNuNu_7", 100,-0.5,0.5); TH1F *RMSZToNuNu = new TH1F("RMSZToNuNu", "RMSZToNuNu", 100,-0.5,0.5);
+
+  TH1F *RMSQCD_1 = new TH1F("RMSQCD_1", "RMSQCD_1", 100,-0.5,0.5); TH1F *RMSQCD_2 = new TH1F("RMSQCD_2", "RMSQCD_2", 100,-0.5,0.5);
+  TH1F *RMSQCD_3 = new TH1F("RMSQCD_3", "RMSQCD_3", 100,-0.5,0.5); TH1F *RMSQCD_4 = new TH1F("RMSQCD_4", "RMSQCD_4", 100,-0.5,0.5);
+  TH1F *RMSQCD_5 = new TH1F("RMSQCD_5", "RMSQCD_5", 100,-0.5,0.5); TH1F *RMSQCD_6 = new TH1F("RMSQCD_6", "RMSQCD_6", 100,-0.5,0.5);
+  TH1F *RMSQCD_7 = new TH1F("RMSQCD_7", "RMSQCD_7", 100,-0.5,0.5); TH1F *RMSQCD   = new TH1F("RMSQCD", "RMSQCD", 100,-0.5,0.5);
+
+  TH1F *RMSWToLNu_1 = new TH1F("RMSWToLNu_1", "RMSWToLNu_1", 100,-0.5,0.5); TH1F *RMSWToLNu_2 = new TH1F("RMSWToLNu_2", "RMSWToLNu_2", 100,-0.5,0.5);
+  TH1F *RMSWToLNu_3 = new TH1F("RMSWToLNu_3", "RMSWToLNu_3", 100,-0.5,0.5); TH1F *RMSWToLNu_4 = new TH1F("RMSWToLNu_4", "RMSWToLNu_4", 100,-0.5,0.5);
+  TH1F *RMSWToLNu_5 = new TH1F("RMSWToLNu_5", "RMSWToLNu_5", 100,-0.5,0.5); TH1F *RMSWToLNu_6 = new TH1F("RMSWToLNu_6", "RMSWToLNu_6", 100,-0.5,0.5);
+  TH1F *RMSWToLNu_7 = new TH1F("RMSWToLNu_7", "RMSWToLNu_7", 100,-0.5,0.5); TH1F *RMSWToLNu   = new TH1F("RMSWToLNu", "RMSWToLNu", 100,-0.5,0.5); 
+
+  TH1F *RMSTT_1 = new TH1F("RMSTT_1", "RMSTT_1", 100,-0.5,0.5); TH1F *RMSTT_2 = new TH1F("RMSTT_2", "RMSTT_2", 100,-0.5,0.5);
+  TH1F *RMSTT   = new TH1F("RMSTT", "RMSTT", 100,-0.5,0.5);
+
+  TH1F *RMSST_1 = new TH1F("RMSST_1", "RMSST_1", 100,-0.5,0.5); TH1F *RMSST_2 = new TH1F("RMSST_2", "RMSST_2", 100,-0.5,0.5);
+  TH1F *RMSST_3 = new TH1F("RMSST_3", "RMSST_3", 100,-0.5,0.5); TH1F *RMSST_4 = new TH1F("RMSST_4", "RMSST_4", 100,-0.5,0.5);
+  TH1F *RMSST   = new TH1F("RMSST", "RMSST", 100,-0.5,0.5);
+
+  TH1F *RMSZZ1 = new TH1F("RMSZZ1", "RMSZZ1", 100,-0.5,0.5); TH1F *RMSZZ2 = new TH1F("RMSZZ2", "RMSZZ2", 100,-0.5,0.5);
+  TH1F *RMSZZ3 = new TH1F("RMSZZ3", "RMSZZ3", 100,-0.5,0.5); TH1F *RMSWZ1 = new TH1F("RMSWZ1", "RMSWZ1", 100,-0.5,0.5);
+  TH1F *RMSWZ2 = new TH1F("RMSWZ2", "RMSWZ2", 100,-0.5,0.5); TH1F *RMSWZ3 = new TH1F("RMSWZ3", "RMSWZ3", 100,-0.5,0.5);
+  TH1F *RMSWW1 = new TH1F("RMSWW1", "RMSWW1", 100,-0.5,0.5); TH1F *RMSWW2 = new TH1F("RMSWW2", "RMSWW2", 100,-0.5,0.5);
+  TH1F *RMSVV  = new TH1F("RMSVV", "RMSVV", 100,-0.5,0.5);
+  
+  float INIT1=1;  float INIT2=1;  float INIT3=1;  float INIT4=1;  float INIT5=1;  float INIT6=1;  float INIT7=1;  float INIT8=1;  float INIT9=1;  float INIT10=1; float INIT11=1;
+  float INIT12=1; float INIT13=1; float INIT14=1; float INIT15=1; float INIT16=1; float INIT17=1; float INIT18=1; float INIT19=1; float INIT20=1; float INIT21=1; float INIT22=1;
+  float INIT23=1; float INIT24=1; float INIT25=1; float INIT26=1; float INIT27=1; float INIT28=1; float INIT29=1; float INIT30=1; float INIT31=1; float INIT32=1; float INIT33=1;
+  float INIT34=1; float INIT35=1; float INIT36=1; float INIT37=1; float INIT38=1; float INIT39=1; float INIT40=1; float INIT41=1; float INIT42=1; float INIT43=1; float INIT44=1;
+  float INIT45=1; float INIT46=1; float INIT47=1; 
+
+ 
+  for(int j=1; j<BIN+1; j++){
+    float min = MIN + (j-1)*(MAX-MIN)/BIN;
+    float max = MIN + j*(MAX-MIN)/BIN;
+	
+    for(int i=imin; i<imax; i++){
+       if(i==5) continue;
+       if(i==7) continue;
+       int I = 0;
+       if(i==111) I=0;
+       else       I=i;
+    char CUT[1000]; 
+    sprintf(CUT,"(genWeights%i/genWeights0)*%s",I,CUTinit);
+    GetHisto(CUT, Tree02,  RMS0700_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree03,  RMS0800_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree04,  RMS0900_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree05,  RMS1000_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree06,  RMS1100_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree07,  RMS1200_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree08,  RMS1300_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree09,  RMS1400_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree10,  RMS1500_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree11,  RMS1600_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree12,  RMS1700_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree13,  RMS1800_pre  ,plot,1,min,max);
+
+    GetHisto(CUT, Tree14,  RMSZToNuNu_1_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree15,  RMSZToNuNu_2_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree16,  RMSZToNuNu_3_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree17,  RMSZToNuNu_4_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree18,  RMSZToNuNu_5_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree19,  RMSZToNuNu_6_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree20,  RMSZToNuNu_7_pre  ,plot,1,min,max);
+
+    GetHisto(CUT, Tree21,  RMSQCD_1_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree22,  RMSQCD_2_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree23,  RMSQCD_3_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree24,  RMSQCD_4_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree25,  RMSQCD_5_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree26,  RMSQCD_6_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree27,  RMSQCD_7_pre  ,plot,1,min,max);
+
+    GetHisto(CUT, Tree28,  RMSWToLNu_1_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree29,  RMSWToLNu_2_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree30,  RMSWToLNu_3_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree31,  RMSWToLNu_4_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree32,  RMSWToLNu_5_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree33,  RMSWToLNu_6_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree34,  RMSWToLNu_7_pre  ,plot,1,min,max);
+
+    GetHisto(CUT, Tree35,  RMSTT_1_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree36,  RMSTT_2_pre  ,plot,1,min,max);
+
+    GetHisto(CUT, Tree37,  RMSST_1_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree38,  RMSST_2_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree39,  RMSST_3_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree40,  RMSST_4_pre  ,plot,1,min,max);
+
+    GetHisto(CUT, Tree41,  RMSZZ1_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree42,  RMSZZ2_pre  ,plot,1,min,max);
+    GetHisto(CUT, Tree43,  RMSZZ3_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree44,  RMSWW1_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree45,  RMSWW2_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree46,  RMSWZ1_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree47,  RMSWZ2_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree48,  RMSWZ3_pre  ,plot,1,min,max);
+
+	if(I==0){ 
+      INIT1  = RMS0700_pre ->Integral();
+      INIT2  = RMS0800_pre ->Integral();
+      INIT3  = RMS0900_pre ->Integral();
+      INIT4  = RMS1000_pre ->Integral();
+      INIT5  = RMS1100_pre ->Integral();
+      INIT6  = RMS1200_pre ->Integral();
+      INIT7  = RMS1300_pre ->Integral();
+      INIT8  = RMS1400_pre ->Integral();
+      INIT9  = RMS1500_pre ->Integral();
+      INIT10 = RMS1600_pre ->Integral();
+      INIT11 = RMS1700_pre ->Integral();
+	  INIT12 = RMS1800_pre ->Integral();
+
+	  INIT13 = RMSZToNuNu_1_pre->Integral();
+	  INIT14 = RMSZToNuNu_2_pre->Integral();
+	  INIT15 = RMSZToNuNu_3_pre->Integral();
+	  INIT16 = RMSZToNuNu_4_pre->Integral();
+	  INIT17 = RMSZToNuNu_5_pre->Integral();
+	  INIT18 = RMSZToNuNu_6_pre->Integral();
+	  INIT19 = RMSZToNuNu_7_pre->Integral();
+
+	  INIT20 = RMSQCD_1_pre->Integral();
+	  INIT21 = RMSQCD_2_pre->Integral();
+	  INIT22 = RMSQCD_3_pre->Integral();
+	  INIT23 = RMSQCD_4_pre->Integral();
+	  INIT24 = RMSQCD_5_pre->Integral();
+	  INIT25 = RMSQCD_6_pre->Integral();
+	  INIT26 = RMSQCD_7_pre->Integral();
+
+	  INIT27 = RMSWToLNu_1_pre->Integral();
+	  INIT28 = RMSWToLNu_2_pre->Integral();
+	  INIT29 = RMSWToLNu_3_pre->Integral();
+	  INIT30 = RMSWToLNu_4_pre->Integral();
+	  INIT31 = RMSWToLNu_5_pre->Integral();
+	  INIT32 = RMSWToLNu_6_pre->Integral();
+	  INIT33 = RMSWToLNu_7_pre->Integral();
+
+	  INIT34 = RMSTT_1_pre->Integral();
+	  INIT35 = RMSTT_2_pre->Integral();
+
+	  INIT36 = RMSST_1_pre->Integral();
+	  INIT37 = RMSST_2_pre->Integral();
+	  INIT38 = RMSST_3_pre->Integral();
+	  INIT39 = RMSST_4_pre->Integral();
+
+	  INIT40 = RMSZZ1_pre->Integral();
+	  INIT41 = RMSZZ2_pre->Integral();
+	  INIT42 = RMSZZ3_pre->Integral();
+	  INIT43 = RMSWW1_pre->Integral();
+      INIT44 = RMSWW2_pre->Integral();
+      INIT45 = RMSWZ1_pre->Integral();
+	  INIT46 = RMSWZ2_pre->Integral();
+	  INIT47 = RMSWZ3_pre->Integral();
+	  
+    } else {
+      RMS0700->Fill((INIT1 -RMS0700_pre->Integral())/INIT1 );
+      RMS0800->Fill((INIT2 -RMS0800_pre->Integral())/INIT2 );
+      RMS0900->Fill((INIT3 -RMS0900_pre->Integral())/INIT3 );
+      RMS1000->Fill((INIT4 -RMS1000_pre->Integral())/INIT4 );
+      RMS1100->Fill((INIT5 -RMS1100_pre->Integral())/INIT5 );
+      RMS1200->Fill((INIT6 -RMS1200_pre->Integral())/INIT6 );
+      RMS1300->Fill((INIT7 -RMS1300_pre->Integral())/INIT7 );
+      RMS1400->Fill((INIT8 -RMS1400_pre->Integral())/INIT8 );
+      RMS1500->Fill((INIT9 -RMS1500_pre->Integral())/INIT9 );
+      RMS1600->Fill((INIT10-RMS1600_pre->Integral())/INIT10);
+      RMS1700->Fill((INIT11-RMS1700_pre->Integral())/INIT11); 
+	  RMS1800->Fill((INIT12-RMS1800_pre->Integral())/INIT12); 
+
+	  RMSZToNuNu->Fill((INIT13-RMSZToNuNu_1_pre->Integral())/INIT13);
+	  RMSZToNuNu->Fill((INIT14-RMSZToNuNu_2_pre->Integral())/INIT14);
+	  RMSZToNuNu->Fill((INIT15-RMSZToNuNu_3_pre->Integral())/INIT15);
+	  RMSZToNuNu->Fill((INIT16-RMSZToNuNu_4_pre->Integral())/INIT16);
+	  RMSZToNuNu->Fill((INIT17-RMSZToNuNu_5_pre->Integral())/INIT17);
+	  RMSZToNuNu->Fill((INIT18-RMSZToNuNu_6_pre->Integral())/INIT18);
+	  RMSZToNuNu->Fill((INIT19-RMSZToNuNu_7_pre->Integral())/INIT19);
+
+	  RMSQCD->Fill((INIT20-RMSQCD_1_pre->Integral())/INIT20);
+	  RMSQCD->Fill((INIT21-RMSQCD_2_pre->Integral())/INIT21);
+	  RMSQCD->Fill((INIT22-RMSQCD_3_pre->Integral())/INIT22);
+	  RMSQCD->Fill((INIT23-RMSQCD_4_pre->Integral())/INIT23);
+	  RMSQCD->Fill((INIT24-RMSQCD_5_pre->Integral())/INIT24);
+	  RMSQCD->Fill((INIT25-RMSQCD_6_pre->Integral())/INIT25);
+	  RMSQCD->Fill((INIT26-RMSQCD_7_pre->Integral())/INIT26);
+
+	  RMSWToLNu->Fill((INIT27-RMSWToLNu_1_pre->Integral())/INIT27);
+	  RMSWToLNu->Fill((INIT28-RMSWToLNu_2_pre->Integral())/INIT28);
+	  RMSWToLNu->Fill((INIT29-RMSWToLNu_3_pre->Integral())/INIT29);
+	  RMSWToLNu->Fill((INIT30-RMSWToLNu_4_pre->Integral())/INIT30);
+	  RMSWToLNu->Fill((INIT31-RMSWToLNu_5_pre->Integral())/INIT31);
+	  RMSWToLNu->Fill((INIT32-RMSWToLNu_6_pre->Integral())/INIT32);
+	  RMSWToLNu->Fill((INIT33-RMSWToLNu_7_pre->Integral())/INIT33);
+
+	  RMSTT->Fill((INIT34-RMSTT_1_pre->Integral())/INIT34);
+	  RMSTT->Fill((INIT35-RMSTT_2_pre->Integral())/INIT35);
+
+	  RMSST->Fill((INIT36-RMSST_1_pre->Integral())/INIT36);
+	  RMSST->Fill((INIT37-RMSST_2_pre->Integral())/INIT37);
+	  RMSST->Fill((INIT38-RMSST_3_pre->Integral())/INIT38);
+	  RMSST->Fill((INIT39-RMSST_4_pre->Integral())/INIT39);
+
+	  RMSVV->Fill((INIT40 - RMSZZ1_pre->Integral())/INIT40);
+	  RMSVV->Fill((INIT41 - RMSZZ2_pre->Integral())/INIT41);
+	  RMSVV->Fill((INIT42 - RMSZZ3_pre->Integral())/INIT42);
+	  RMSVV->Fill((INIT43 - RMSWW1_pre->Integral())/INIT43);
+          RMSVV->Fill((INIT44 - RMSWW2_pre->Integral())/INIT44);
+          RMSVV->Fill((INIT45 - RMSWZ1_pre->Integral())/INIT45);
+	  RMSVV->Fill((INIT46 - RMSWZ2_pre->Integral())/INIT46);
+	  RMSVV->Fill((INIT47 - RMSWZ3_pre->Integral())/INIT47);
+
+    }
+
+  }
+  
+  tptzm0700lh_func1->SetBinContent(j,tptzm0700lh->GetBinContent(j) + RMS0700->GetRMS());
+  tptzm0800lh_func1->SetBinContent(j,tptzm0800lh->GetBinContent(j) + RMS0800->GetRMS());
+  tptzm0900lh_func1->SetBinContent(j,tptzm0900lh->GetBinContent(j) + RMS0900->GetRMS());
+  tptzm1000lh_func1->SetBinContent(j,tptzm1000lh->GetBinContent(j) + RMS1000->GetRMS());
+  tptzm1100lh_func1->SetBinContent(j,tptzm1100lh->GetBinContent(j) + RMS1100->GetRMS());
+  tptzm1200lh_func1->SetBinContent(j,tptzm1200lh->GetBinContent(j) + RMS1200->GetRMS());
+  tptzm1300lh_func1->SetBinContent(j,tptzm1300lh->GetBinContent(j) + RMS1300->GetRMS());
+  tptzm1400lh_func1->SetBinContent(j,tptzm1400lh->GetBinContent(j) + RMS1400->GetRMS());
+  tptzm1500lh_func1->SetBinContent(j,tptzm1500lh->GetBinContent(j) + RMS1500->GetRMS());
+  tptzm1600lh_func1->SetBinContent(j,tptzm1600lh->GetBinContent(j) + RMS1600->GetRMS());
+  tptzm1700lh_func1->SetBinContent(j,tptzm1700lh->GetBinContent(j) + RMS1700->GetRMS());
+  ZToNuNu_func1->SetBinContent(j,ZToNuNu->GetBinContent(j) + RMSZToNuNu->GetRMS());
+  QCD_func1->SetBinContent(j,QCD->GetBinContent(j) + RMSQCD->GetRMS());
+  WToLNu_func1->SetBinContent(j,WToLNu->GetBinContent(j) + RMSWToLNu->GetRMS());
+  TT_func1->SetBinContent(j,TT->GetBinContent(j) + RMSTT->GetRMS());
+  ST_func1->SetBinContent(j,ST->GetBinContent(j) + RMSST->GetRMS());
+  VV_func1->SetBinContent(j,VV->GetBinContent(j) + RMSVV->GetRMS());
+
+  tptzm0700lh_func2->SetBinContent(j,TMath::Max(0., tptzm0700lh->GetBinContent(j) - RMS0700->GetRMS()));
+  tptzm0800lh_func2->SetBinContent(j,TMath::Max(0., tptzm0800lh->GetBinContent(j) - RMS0800->GetRMS()));
+  tptzm0900lh_func2->SetBinContent(j,TMath::Max(0., tptzm0900lh->GetBinContent(j) - RMS0900->GetRMS()));
+  tptzm1000lh_func2->SetBinContent(j,TMath::Max(0., tptzm1000lh->GetBinContent(j) - RMS1000->GetRMS()));
+  tptzm1100lh_func2->SetBinContent(j,TMath::Max(0., tptzm1100lh->GetBinContent(j) - RMS1100->GetRMS()));
+  tptzm1200lh_func2->SetBinContent(j,TMath::Max(0., tptzm1200lh->GetBinContent(j) - RMS1200->GetRMS()));
+  tptzm1300lh_func2->SetBinContent(j,TMath::Max(0., tptzm1300lh->GetBinContent(j) - RMS1300->GetRMS()));
+  tptzm1400lh_func2->SetBinContent(j,TMath::Max(0., tptzm1400lh->GetBinContent(j) - RMS1400->GetRMS()));
+  tptzm1500lh_func2->SetBinContent(j,TMath::Max(0., tptzm1500lh->GetBinContent(j) - RMS1500->GetRMS()));
+  tptzm1600lh_func2->SetBinContent(j,TMath::Max(0., tptzm1600lh->GetBinContent(j) - RMS1600->GetRMS()));
+  tptzm1700lh_func2->SetBinContent(j,TMath::Max(0., tptzm1700lh->GetBinContent(j) - RMS1700->GetRMS()));
+
+  ZToNuNu_func2->SetBinContent(j,TMath::Max(0.,ZToNuNu->GetBinContent(j) - RMSZToNuNu->GetRMS()));
+  QCD_func2->SetBinContent(j,TMath::Max(0.,QCD->GetBinContent(j) - RMSQCD->GetRMS()));
+  WToLNu_func2->SetBinContent(j,TMath::Max(0.,WToLNu->GetBinContent(j) - RMSWToLNu->GetRMS()));
+  TT_func2->SetBinContent(j,TMath::Max(0.,TT->GetBinContent(j) - RMSTT->GetRMS()));
+  ST_func2->SetBinContent(j,TMath::Max(0.,ST->GetBinContent(j) - RMSST->GetRMS()));
+  VV_func2->SetBinContent(j,TMath::Max(0.,VV->GetBinContent(j) - RMSVV->GetRMS()));
+
+  }
+
+  TCanvas* c2 = new TCanvas("c1","c1",0,0,600,600);
+  RMSTT->Draw();
+  c2->SaveAs("RMSTT.png");
+ 
+  delete RMS0700; delete RMS0800; delete RMS0900; delete RMS1000; delete RMS1100; delete RMS1200; delete RMS1300; delete RMS1400; delete RMS1500; delete RMS1600; delete RMS1700;  delete RMS1800;
+  delete RMSZToNuNu_1; delete RMSZToNuNu_2; delete RMSZToNuNu_3; delete RMSZToNuNu_4; delete RMSZToNuNu_5; delete RMSZToNuNu_6; delete RMSZToNuNu_7; delete RMSZToNuNu;
+  delete RMSQCD_1; delete RMSQCD_2; delete RMSQCD_3; delete RMSQCD_4; delete RMSQCD_5; delete RMSQCD_6; delete RMSQCD_7; delete RMSQCD;
+  delete RMSWToLNu_1; delete RMSWToLNu_2; delete RMSWToLNu_3; delete RMSWToLNu_4; delete RMSWToLNu_5; delete RMSWToLNu_6; delete RMSWToLNu_7; delete RMSWToLNu;
+  delete RMSTT_1; delete RMSTT_2; delete RMSTT; 
+  delete RMSST_1; delete RMSST_2; delete RMSST_3; delete RMSST_4; delete RMSST; 
+  delete RMSZZ1; delete RMSZZ2; delete RMSZZ3; delete RMSWZ1; delete RMSWZ2; delete RMSWZ3; delete RMSWW1; delete RMSWW2;  delete RMSVV; 
+
+  delete RMS0700_pre; delete RMS0800_pre; delete RMS0900_pre; delete RMS1000_pre; delete RMS1100_pre; delete RMS1200_pre; delete RMS1300_pre; delete RMS1400_pre; delete RMS1500_pre; delete RMS1600_pre; delete RMS1700_pre; delete RMS1800_pre;
+  delete RMSZToNuNu_1_pre; delete RMSZToNuNu_2_pre; delete RMSZToNuNu_3_pre; delete RMSZToNuNu_4_pre; delete RMSZToNuNu_5_pre; delete RMSZToNuNu_6_pre; delete RMSZToNuNu_7_pre;
+  delete RMSQCD_1_pre; delete RMSQCD_2_pre; delete RMSQCD_3_pre; delete RMSQCD_4_pre; delete RMSQCD_5_pre; delete RMSQCD_6_pre; delete RMSQCD_7_pre;
+  delete RMSWToLNu_1_pre; delete RMSWToLNu_2_pre; delete RMSWToLNu_3_pre; delete RMSWToLNu_4_pre; delete RMSWToLNu_5_pre; delete RMSWToLNu_6_pre; delete RMSWToLNu_7_pre;
+  delete RMSTT_1_pre; delete RMSTT_2_pre; 
+  delete RMSST_1_pre; delete RMSST_2_pre; delete RMSST_3_pre; delete RMSST_4_pre;
+  delete RMSZZ1_pre; delete RMSZZ2_pre; delete RMSZZ3_pre; delete RMSWZ1_pre; delete RMSWZ2_pre; delete RMSWZ3_pre; delete RMSWW1_pre; delete RMSWW2_pre; 
+ 
 }
