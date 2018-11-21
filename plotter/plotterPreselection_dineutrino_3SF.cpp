@@ -1,6 +1,6 @@
-#include "BackgroundEstimation_dineutrino_v2.h"
+#include "plotterPreselection_dineutrino_3SF.h"
 
-void BackgroundEstimation_dineutrino_v2(){ 
+void plotterPreselection_dineutrino_3SF(){ 
   gROOT->Reset();
   gStyle->SetCanvasColor(0);
   gStyle->SetFrameBorderMode(0);
@@ -17,46 +17,36 @@ void BackgroundEstimation_dineutrino_v2(){
   vector<TString> name_CR;             vector<int> bin_CR;   vector<float> Min_CR;   vector<float> Max_CR;  vector<TString> axis_CR;
   vector<TString> name;                vector<int> bin;      vector<float> Min;      vector<float> Max;     vector<TString> axis;
 
-  name_CR.push_back("HT"); bin_CR.push_back(4);     Min_CR.push_back(200);    Max_CR.push_back(2000);    axis_CR.push_back("HT pt[GeV]");
+  name_CR.push_back("HT");// bin_CR.push_back(4);     Min_CR.push_back(200);    Max_CR.push_back(2000);    axis_CR.push_back("HT pt[GeV]");
 
- // name.push_back("Jet1ResolvedPt"); bin.push_back(18);     Min.push_back(0);    Max.push_back(900);    axis.push_back("jet1(resolved) pt [GeV]");
-  //name.push_back("Jet2ResolvedPt"); bin.push_back(18);     Min.push_back(0);    Max.push_back(900);    axis.push_back("jet2(resolved) pt [GeV]");
-  //name.push_back("Jet3ResolvedPt"); bin.push_back(18);     Min.push_back(0);    Max.push_back(900);    axis.push_back("jet3(resolved) pt [GeV]");
+ /* name.push_back("Jet1ResolvedPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("jet1(resolved) pt [GeV]");
+  name.push_back("Jet2ResolvedPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("jet2(resolved) pt [GeV]");
+  name.push_back("Jet3ResolvedPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(900);    axis.push_back("jet3(resolved) pt [GeV]");
 
-  //name.push_back("Jet1ResolvedEta"); bin.push_back(10);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet1(resolved) #eta");
-  //name.push_back("Jet2ResolvedEta"); bin.push_back(10);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet2(resolved) #eta");
-  //name.push_back("Jet3ResolvedEta"); bin.push_back(10);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet3(resolved) #eta");
- 
-  //name.push_back("Jet1PartialPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(500);    axis.push_back("W-jet(partial) pt[GeV]");
-  //name.push_back("Jet2PartialPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(500);    axis.push_back("jet(partial) pt[GeV]");
+  name.push_back("Jet1ResolvedEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet1(resolved) #eta");
+  name.push_back("Jet2ResolvedEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet2(resolved) #eta");
+  name.push_back("Jet3ResolvedEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet3(resolved) #eta");
+
+  name.push_back("TopMass"); bin.push_back(20);     Min.push_back(0);    Max.push_back(500);    axis.push_back("Top Mass[GeV]");
+  name.push_back("TopPt");   bin.push_back(40);     Min.push_back(200);    Max.push_back(1000);   axis.push_back("Top pt[GeV] ");
+  name.push_back("TopEta");  bin.push_back(40);     Min.push_back(-3);   Max.push_back(3);      axis.push_back("Top #eta");*/
   
-  
-  //name.push_back("Jet1PartialEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("W-jet(resolved) #eta");
-  //name.push_back("Jet2PartialEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("jet(resolved) #eta");
+  /*name.push_back("Met_pt");  bin.push_back(40);     Min.push_back(200);    Max.push_back(1000);   axis.push_back("Met pt[GeV] ");
+  name.push_back("Met_phi"); bin.push_back(40);     Min.push_back(-3);   Max.push_back(3);      axis.push_back("Met #phi");
+  name.push_back("MinDeltaPhiJetMet"); bin.push_back(30);     Min.push_back(0);    Max.push_back(3);    axis.push_back("Min#Delta#phi(Met,Jet)");
 
-  //name.push_back("Jet1MergedPt"); bin.push_back(40);     Min.push_back(0);    Max.push_back(1000);    axis.push_back("top-jet(partial) pt[GeV]");
-  //name.push_back("Jet1MergedEta"); bin.push_back(40);     Min.push_back(-2.5);    Max.push_back(2.5);    axis.push_back("top-jet(resolved) #eta");
-
-  //name.push_back("TopMass"); bin.push_back(10);     Min.push_back(0);    Max.push_back(500);    axis.push_back("Top Mass[GeV]");
-  //name.push_back("TopPt");   bin.push_back(16);     Min.push_back(200);    Max.push_back(1000);   axis.push_back("Top pt[GeV] ");
-  //name.push_back("TopEta");  bin.push_back(12);     Min.push_back(-3);   Max.push_back(3);      axis.push_back("Top #eta");
-  
-  //name.push_back("Met_pt");  bin.push_back(16);     Min.push_back(200);    Max.push_back(1000);   axis.push_back("Met pt[GeV] ");
-  //name.push_back("Met_phi"); bin.push_back(12);     Min.push_back(-3);   Max.push_back(3);      axis.push_back("Met #phi");
-  name.push_back("HT"); bin.push_back(18);     Min.push_back(200);    Max.push_back(2000);    axis.push_back("HT pt[GeV]");
-
-  //name.push_back("deltaPhiMetTop"); bin.push_back(15);     Min.push_back(0);    Max.push_back(3);    axis.push_back("#Delta#phi(Met,top)");
-  //name.push_back("MinDeltaPhiJetMet"); bin.push_back(9);     Min.push_back(0);    Max.push_back(3);    axis.push_back("Min#Delta#phi(Met,Jet)");
+  name.push_back("deltaPhiMetTop"); bin.push_back(30);     Min.push_back(0);    Max.push_back(3);    axis.push_back("#Delta#phi(Met,top)");
+  name.push_back("HT"); bin.push_back(36);     Min.push_back(200);    Max.push_back(2000);    axis.push_back("HT pt[GeV]");*/
+  name.push_back("TransverseMassMetTop"); bin.push_back(30);     Min.push_back(500);    Max.push_back(2000);    axis.push_back("TransverseMassMetTop");
 
   //name.push_back("NVertices"); bin.push_back(80);     Min.push_back(0);    Max.push_back(80);    axis.push_back("Number of vertices");
-
   //name.push_back("NumSelBJetsM"); bin.push_back(6);     Min.push_back(0);    Max.push_back(6);    axis.push_back("Number of medium B jets");
   //name.push_back("NumSelBJetsL"); bin.push_back(8);     Min.push_back(0);    Max.push_back(8);    axis.push_back("Number of loose B jets");
 
   //name.push_back("TopPhiResolved"); bin.push_back(40);     Min.push_back(-4);    Max.push_back(4);    axis.push_back("top #phi");
   //name.push_back("TopPhiResolved-Met_phi"); bin.push_back(40);     Min.push_back(-8);    Max.push_back(8);    axis.push_back("#Delta#phi(Met,top)");
 
-  //name.push_back("TransverseMassMetTop"); bin.push_back(15);     Min.push_back(500);    Max.push_back(2000);    axis.push_back("TransverseMassMetTop");
+  
 
   
   for(int i=0; i<name.size(); i++){
@@ -85,15 +75,16 @@ void BackgroundEstimation_dineutrino_v2(){
 	char CUTCS3[1000];   char CS3[1000];
 	char CUTPre[1000];   char Pre[1000];
 	 
-	sprintf(CUT,    "((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TopPt>200)&&(TransverseMassMetTop>500)");
+	sprintf(CUT,    "((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TopPt>250)&&(HT>200)&&(TransverseMassMetTop>500)");
 
-	sprintf(CS1,  "(NumSelBJetsM==0)&&(NumSelLeps==0)&&(TopPt>340))");    //Z->nunu: signal selection but NumSelBJetsM==0 instead of NumSelBJetsM>1
-	sprintf(CS2,  "(NumSelBJetsM==0)&&(NumSelLeps==1)&&(TopPt>340))");   //Wjets:     signal selection but NumSelBJetsM==0 and NumSelLeps==1
-	sprintf(CS3,  "(NumSelBJetsM>0)&&(NumSelLeps==0)&&(TopPt<340))");   //ttbar:       signal selection with NumSelBJetsM>1 but TopPt<340
+	sprintf(CS1,  "(NumSelBJetsM==0)&&(NumSelLeps==0)&&(MinDeltaPhiJetMet>0.9))");    //Z->nunu: signal selection but NumSelBJetsM==0 instead of NumSelBJetsM>1
+	sprintf(CS2,  "(NumSelBJetsM==0)&&(NumSelLeps==1)&&(MinDeltaPhiJetMet>0.9))");   //Wjets:     signal selection but NumSelBJetsM==0 and NumSelLeps==1
+	sprintf(CS3,  "(NumSelBJetsM>0)&&(NumSelLeps>0)&&(MinDeltaPhiJetMet>0.9))");   //ttbar:       signal selection with NumSelBJetsM>1 but TopPt<340
+	//sprintf(CS3,    "(NumSelBJetsM>0)&&(((NumSelLeps==1)&&(TopPt>200)) || ((NumSelLeps==0)&&(TopPt<340))))");  
 
-	sprintf(CUTCS1,  "PUWeight   *w_for  *w_Btag  *w_topJet  *w_WJet  *genWeight*%s&&%s",CUT,CS1);
-	sprintf(CUTCS2,  "PUWeight   *w_for  *w_Btag  *w_topJet  *w_WJet  *genWeight*%s&&%s",CUT,CS2);
-	sprintf(CUTCS3,  "PUWeight   *w_for  *w_Btag  *w_topJet  *w_WJet  *genWeight*%s&&%s",CUT,CS3);
+	sprintf(CUTCS1,  "PUWeight   *w_Btag  *genWeight*%s&&%s",CUT,CS1);
+	sprintf(CUTCS2,  "PUWeight   *w_Btag  *genWeight*%s&&%s",CUT,CS2);
+	sprintf(CUTCS3,  "PUWeight   *w_Btag  *genWeight*%s&&%s",CUT,CS3);
 
    //for(int j=0; j<bin_CR[0]; j++){
    for(int j=0; j<N-1; j++){
@@ -101,8 +92,8 @@ void BackgroundEstimation_dineutrino_v2(){
 	float min = xbins[j];
     float max = xbins[j+1];
 
-	sprintf(Pre,    "(NumSelLeps==0)&&(HT>%f&&HT<%f))",min,max); 
-	sprintf(CUTPre, "PUWeight   *w_for  *w_Btag  *w_topJet  *w_WJet  *genWeight*%s&&%s",CUT,Pre );
+	sprintf(Pre,    "(NumSelLeps==0)&&(TopPt>250)&&(HT>%f&&HT<%f))",min,max); 
+	sprintf(CUTPre, "PUWeight  *w_Btag  *genWeight*%s&&%s",CUT,Pre );
 	
 	CalculateSF(CUTCS1,CUTCS2,CUTCS3, plot_CR,1,min,max,SF1,SF2,SF3,SF1_err,SF2_err,SF3_err,SF_den);
 
@@ -112,7 +103,7 @@ void BackgroundEstimation_dineutrino_v2(){
 	//MakeSFHistos(BIN,SF1,SF2,SF3,SF1_h,SF2_h,SF3_h)
 	if (SF1<0) SF1=1;
 	if (SF2<0) SF2=1;
-	if (SF3<0) SF3=1;
+	if (SF3<0.5) SF3=1;
 
 	if(SF1>0) SF1_h->SetBinContent(j+1,SF1);
 	if(SF2>0) SF2_h->SetBinContent(j+1,SF2);
@@ -147,7 +138,7 @@ void BackgroundEstimation_dineutrino_v2(){
     SF1_h->GetXaxis()->SetTitle("HT [GeV]"); 
 	SF1_h->Draw("E");
 	canvasSF1->Draw();
-	canvasSF1->SaveAs("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/SF1.png");
+	canvasSF1->SaveAs("SF1.png");
 
 	TCanvas* canvasSF2 = new TCanvas("canvasSF2","canvasSF2",0,0,900,600); 
 	SF2_h->SetLineWidth(2); 
@@ -166,7 +157,7 @@ void BackgroundEstimation_dineutrino_v2(){
     SF2_h->GetXaxis()->SetTitle("HT [GeV]"); 
 	SF2_h->Draw("E");
 	canvasSF2->Draw();
-	canvasSF2->SaveAs("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/SF2.png");
+	canvasSF2->SaveAs("SF2.png");
 	
 	TCanvas* canvasSF3 = new TCanvas("canvasSF3","canvasSF3",0,0,900,600); 
 	SF3_h->SetLineWidth(2); 
@@ -185,7 +176,13 @@ void BackgroundEstimation_dineutrino_v2(){
     SF3_h->GetXaxis()->SetTitle("HT [GeV]"); 
 	SF3_h->Draw("E");
 	canvasSF3->Draw();
-	canvasSF3->SaveAs("/publicfs/cms/user/yutz/Tprime/2017_dineutrino/SF3.png");
+	canvasSF3->SaveAs("SF3.png");
+
+	char NewFileName[500]; sprintf(NewFileName, "HT_SF_v3.root");
+    TFile f(NewFileName,"new");
+    SF1_h->Write();
+	SF2_h->Write();
+	SF3_h->Write();
     
     CloneHistos(data,background, 
 			   ZToNuNu,QCD,WToLNu,TT,ST,VV,
@@ -592,7 +589,7 @@ void MakeHistos(char CUTPre[1000],const char *plot, int BIN,double MIN,double MA
   TH1F *ZToNuNu_1; TH1F *ZToNuNu_2; TH1F *ZToNuNu_3; TH1F *ZToNuNu_4; TH1F *ZToNuNu_5; TH1F *ZToNuNu_6; TH1F *ZToNuNu_7; 
   TH1F *QCD_1; TH1F *QCD_2; TH1F *QCD_3; TH1F *QCD_4; TH1F *QCD_5; TH1F *QCD_6; TH1F *QCD_7; 
   TH1F *WToLNu_1; TH1F *WToLNu_2; TH1F *WToLNu_3; TH1F *WToLNu_4; TH1F *WToLNu_5; TH1F *WToLNu_6; TH1F *WToLNu_7;
-  TH1F *TT_1; TH1F *TT_2; 
+  TH1F *TT_1; TH1F *TT_2; //TH1F *TT_3;
   TH1F *ST_1; TH1F *ST_2; TH1F *ST_3; TH1F *ST_4; 
   TH1F *ZZ1; TH1F *ZZ2; TH1F *ZZ3; TH1F *WZ1; TH1F *WZ2; TH1F *WZ3; TH1F *WW1; TH1F *WW2; 
     
@@ -636,6 +633,7 @@ void MakeHistos(char CUTPre[1000],const char *plot, int BIN,double MIN,double MA
     GetHisto(CUTPre, Tree46, WZ1    ,plot,BIN,MIN,MAX);
     GetHisto(CUTPre, Tree47, WZ2    ,plot,BIN,MIN,MAX);
 	GetHisto(CUTPre, Tree48, WZ3    ,plot,BIN,MIN,MAX);
+	//GetHisto(CUTPre, Tree49, TT_3    ,plot,BIN,MIN,MAX);
 	
 	for(int j=1; j<data->GetNbinsX()+1; j++){
     if(tptzm0700lh->GetBinContent(j)>0){tptzm0700lh->SetBinError(j,sqrt(w0700*w0700*tptzm0700lh->GetBinContent(j)));}else{tptzm0700lh->SetBinError(j,0);}
@@ -665,6 +663,7 @@ void MakeHistos(char CUTPre[1000],const char *plot, int BIN,double MIN,double MA
 	if(WToLNu_7->GetBinContent(j)>0){WToLNu_7->SetBinError(j,sqrt(w21*w21*WToLNu_7->GetBinContent(j)));}else{WToLNu_7->SetBinError(j,0);}//w21);}
 	if(TT_1->GetBinContent(j)>0){TT_1->SetBinError(j,sqrt(w22*w22*TT_1->GetBinContent(j)));}else{TT_1->SetBinError(j,0);}//w22);}
 	if(TT_2->GetBinContent(j)>0){TT_2->SetBinError(j,sqrt(w23*w23*TT_2->GetBinContent(j)));}else{TT_2->SetBinError(j,0);}//w23);}
+	//if(TT_3->GetBinContent(j)>0){TT_3->SetBinError(j,sqrt(w36*w36*TT_3->GetBinContent(j)));}else{TT_3->SetBinError(j,0);}//w23);}
     if(ST_1->GetBinContent(j)>0){ST_1->SetBinError(j,sqrt(w24*w24*ST_1->GetBinContent(j)));}else{ST_1->SetBinError(j,0);}//w24);}
     if(ST_2->GetBinContent(j)>0){ST_2->SetBinError(j,sqrt(w25*w25*ST_2->GetBinContent(j)));}else{ST_2->SetBinError(j,0);}//w25);}
     if(ST_3->GetBinContent(j)>0){ST_3->SetBinError(j,sqrt(w26*w26*ST_3->GetBinContent(j)));}else{ST_3->SetBinError(j,0);}//w26);}
@@ -686,7 +685,7 @@ void MakeHistos(char CUTPre[1000],const char *plot, int BIN,double MIN,double MA
     double N_ZToNuNu_err = ZToNuNu_1->GetBinError(j)*ZToNuNu_1->GetBinError(j) + ZToNuNu_2->GetBinError(j)*ZToNuNu_2->GetBinError(j) + ZToNuNu_3->GetBinError(j)*ZToNuNu_3->GetBinError(j) + ZToNuNu_4->GetBinError(j)*ZToNuNu_4->GetBinError(j) + ZToNuNu_5->GetBinError(j)*ZToNuNu_5->GetBinError(j) + ZToNuNu_6->GetBinError(j)*ZToNuNu_6->GetBinError(j) + ZToNuNu_7->GetBinError(j)*ZToNuNu_7->GetBinError(j);
     double N_QCD_err     = QCD_1->GetBinError(j)*QCD_1->GetBinError(j) + QCD_2->GetBinError(j)*QCD_2->GetBinError(j) + QCD_3->GetBinError(j)*QCD_3->GetBinError(j) + QCD_4->GetBinError(j)*QCD_4->GetBinError(j) + QCD_5->GetBinError(j)*QCD_5->GetBinError(j) + QCD_6->GetBinError(j)*QCD_6->GetBinError(j) + QCD_7->GetBinError(j)*QCD_7->GetBinError(j);
     double N_WToLNu_err  = WToLNu_1->GetBinError(j)*WToLNu_1->GetBinError(j)+WToLNu_2->GetBinError(j)*WToLNu_2->GetBinError(j)+WToLNu_3->GetBinError(j)*WToLNu_3->GetBinError(j)+WToLNu_4->GetBinError(j)*WToLNu_4->GetBinError(j)+WToLNu_5->GetBinError(j)*WToLNu_5->GetBinError(j)+WToLNu_6->GetBinError(j)*WToLNu_6->GetBinError(j)+WToLNu_7->GetBinError(j)*WToLNu_7->GetBinError(j);
-	double N_TT_err      = TT_1->GetBinError(j)*TT_1->GetBinError(j)+TT_2->GetBinError(j)*TT_2->GetBinError(j);
+	double N_TT_err      = TT_1->GetBinError(j)*TT_1->GetBinError(j)+TT_2->GetBinError(j)*TT_2->GetBinError(j);//+TT_3->GetBinError(j)*TT_3->GetBinError(j);
 	double N_ST_err      = ST_1->GetBinError(j)*ST_1->GetBinError(j) + ST_2->GetBinError(j)*ST_2->GetBinError(j)+ ST_3->GetBinError(j)*ST_3->GetBinError(j)+ ST_4->GetBinError(j)*ST_4->GetBinError(j);
     double N_VV_err      = ZZ1->GetBinError(j)*ZZ1->GetBinError(j) + ZZ2->GetBinError(j)*ZZ2->GetBinError(j) + ZZ3->GetBinError(j)*ZZ3->GetBinError(j) + WW1->GetBinError(j)*WW1->GetBinError(j) + WW2->GetBinError(j)*WW2->GetBinError(j) + WZ1->GetBinError(j)*WZ1->GetBinError(j) + WZ2->GetBinError(j)*WZ2->GetBinError(j) + WZ3->GetBinError(j)*WZ3->GetBinError(j); 
 	
@@ -717,6 +716,7 @@ void MakeHistos(char CUTPre[1000],const char *plot, int BIN,double MIN,double MA
 	WToLNu_7->SetBinContent(j,w21*WToLNu_7->GetBinContent(j));
     TT_1->SetBinContent(j,w22*TT_1->GetBinContent(j));
 	TT_2->SetBinContent(j,w23*TT_2->GetBinContent(j));
+	//TT_3->SetBinContent(j,w36*TT_3->GetBinContent(j));
     ST_1->SetBinContent(j,w24*ST_1->GetBinContent(j));
     ST_2->SetBinContent(j,w25*ST_2->GetBinContent(j));
     ST_3->SetBinContent(j,w26*ST_3->GetBinContent(j));
@@ -738,7 +738,7 @@ void MakeHistos(char CUTPre[1000],const char *plot, int BIN,double MIN,double MA
     double N_ZToNuNu = ZToNuNu_1->GetBinContent(j) + ZToNuNu_2->GetBinContent(j) + ZToNuNu_3->GetBinContent(j) + ZToNuNu_4->GetBinContent(j) + ZToNuNu_5->GetBinContent(j) + ZToNuNu_6->GetBinContent(j) + ZToNuNu_7->GetBinContent(j);
     double N_QCD     = QCD_1->GetBinContent(j) + QCD_2->GetBinContent(j) + QCD_3->GetBinContent(j) + QCD_4->GetBinContent(j) + QCD_5->GetBinContent(j) + QCD_6->GetBinContent(j) + QCD_7->GetBinContent(j);
     double N_WToLNu  = WToLNu_1->GetBinContent(j) + WToLNu_2->GetBinContent(j) + WToLNu_3->GetBinContent(j) + WToLNu_4->GetBinContent(j) + WToLNu_5->GetBinContent(j) + WToLNu_6->GetBinContent(j)+ WToLNu_7->GetBinContent(j);
-	double N_TT      = TT_1->GetBinContent(j) + TT_2->GetBinContent(j);
+	double N_TT      = TT_1->GetBinContent(j) + TT_2->GetBinContent(j);//+ TT_3->GetBinContent(j);
     double N_ST      = ST_1 ->GetBinContent(j) + ST_2 ->GetBinContent(j) + ST_3 ->GetBinContent(j) + ST_4 ->GetBinContent(j);
 	double N_VV      = ZZ1->GetBinContent(j)+ZZ2->GetBinContent(j)+ZZ3->GetBinContent(j)+WW1->GetBinContent(j)+WW2->GetBinContent(j)+WZ1->GetBinContent(j)+WZ2->GetBinContent(j)+WZ3->GetBinContent(j);
 
@@ -805,7 +805,7 @@ void MakeHistos(char CUTPre[1000],const char *plot, int BIN,double MIN,double MA
   delete ZToNuNu_1; delete ZToNuNu_2; delete ZToNuNu_3; delete ZToNuNu_4;  delete ZToNuNu_5;  delete ZToNuNu_6;  delete ZToNuNu_7;
   delete QCD_1; delete QCD_2; delete QCD_3; delete QCD_4; delete QCD_5; delete QCD_6; delete QCD_7; 
   delete WToLNu_1; delete WToLNu_2; delete WToLNu_3; delete WToLNu_4; delete WToLNu_5; delete WToLNu_6; delete WToLNu_7; 
-  delete TT_1; delete TT_2; 
+  delete TT_1; delete TT_2; //delete TT_3;
   delete ST_1; delete ST_2;  delete ST_3; delete ST_4;  
   delete WW1; delete WW2; delete WZ1; delete WZ2; delete WZ3; delete ZZ1; delete ZZ2;  delete ZZ3;
   
@@ -835,7 +835,7 @@ void CalculateSF(char CUTCS1[1000],char CUTCS2[1000],char CUTCS3[1000],const cha
   TH1F *ZToNuNu_1_CS1; TH1F *ZToNuNu_2_CS1; TH1F *ZToNuNu_3_CS1; TH1F *ZToNuNu_4_CS1; TH1F *ZToNuNu_5_CS1; TH1F *ZToNuNu_6_CS1; TH1F *ZToNuNu_7_CS1; 
   TH1F *QCD_1_CS1; TH1F *QCD_2_CS1; TH1F *QCD_3_CS1; TH1F *QCD_4_CS1; TH1F *QCD_5_CS1; TH1F *QCD_6_CS1; TH1F *QCD_7_CS1; 
   TH1F *WToLNu_1_CS1; TH1F *WToLNu_2_CS1; TH1F *WToLNu_3_CS1; TH1F *WToLNu_4_CS1; TH1F *WToLNu_5_CS1; TH1F *WToLNu_6_CS1; TH1F *WToLNu_7_CS1;
-  TH1F *TT_1_CS1; TH1F *TT_2_CS1; 
+  TH1F *TT_1_CS1; TH1F *TT_2_CS1; //TH1F *TT_3_CS1;
   TH1F *ST_1_CS1; TH1F *ST_2_CS1; TH1F *ST_3_CS1; TH1F *ST_4_CS1; 
   TH1F *ZZ1_CS1; TH1F *ZZ2_CS1; TH1F *ZZ3_CS1; TH1F *WZ1_CS1; TH1F *WZ2_CS1; TH1F *WZ3_CS1; TH1F *WW1_CS1; TH1F *WW2_CS1; 
 
@@ -843,7 +843,7 @@ void CalculateSF(char CUTCS1[1000],char CUTCS2[1000],char CUTCS3[1000],const cha
   TH1F *ZToNuNu_1_CS2; TH1F *ZToNuNu_2_CS2; TH1F *ZToNuNu_3_CS2; TH1F *ZToNuNu_4_CS2; TH1F *ZToNuNu_5_CS2; TH1F *ZToNuNu_6_CS2; TH1F *ZToNuNu_7_CS2; 
   TH1F *QCD_1_CS2; TH1F *QCD_2_CS2; TH1F *QCD_3_CS2; TH1F *QCD_4_CS2; TH1F *QCD_5_CS2; TH1F *QCD_6_CS2; TH1F *QCD_7_CS2;  
   TH1F *WToLNu_1_CS2; TH1F *WToLNu_2_CS2; TH1F *WToLNu_3_CS2; TH1F *WToLNu_4_CS2; TH1F *WToLNu_5_CS2; TH1F *WToLNu_6_CS2; TH1F *WToLNu_7_CS2;
-  TH1F *TT_1_CS2; TH1F *TT_2_CS2; 
+  TH1F *TT_1_CS2; TH1F *TT_2_CS2; //TH1F *TT_3_CS2;
   TH1F *ST_1_CS2; TH1F *ST_2_CS2; TH1F *ST_3_CS2; TH1F *ST_4_CS2; 
   TH1F *ZZ1_CS2; TH1F *ZZ2_CS2; TH1F *ZZ3_CS2; TH1F *WZ1_CS2; TH1F *WZ2_CS2; TH1F *WZ3_CS2; TH1F *WW1_CS2; TH1F *WW2_CS2; 
 
@@ -851,7 +851,7 @@ void CalculateSF(char CUTCS1[1000],char CUTCS2[1000],char CUTCS3[1000],const cha
   TH1F *ZToNuNu_1_CS3; TH1F *ZToNuNu_2_CS3; TH1F *ZToNuNu_3_CS3; TH1F *ZToNuNu_4_CS3; TH1F *ZToNuNu_5_CS3; TH1F *ZToNuNu_6_CS3; TH1F *ZToNuNu_7_CS3; 
   TH1F *QCD_1_CS3; TH1F *QCD_2_CS3; TH1F *QCD_3_CS3; TH1F *QCD_4_CS3; TH1F *QCD_5_CS3; TH1F *QCD_6_CS3; TH1F *QCD_7_CS3; 
   TH1F *WToLNu_1_CS3; TH1F *WToLNu_2_CS3; TH1F *WToLNu_3_CS3; TH1F *WToLNu_4_CS3; TH1F *WToLNu_5_CS3; TH1F *WToLNu_6_CS3; TH1F *WToLNu_7_CS3;
-  TH1F *TT_1_CS3; TH1F *TT_2_CS3; 
+  TH1F *TT_1_CS3; TH1F *TT_2_CS3; //TH1F *TT_3_CS3;
   TH1F *ST_1_CS3; TH1F *ST_2_CS3; TH1F *ST_3_CS3; TH1F *ST_4_CS3; 
   TH1F *ZZ1_CS3; TH1F *ZZ2_CS3; TH1F *ZZ3_CS3; TH1F *WZ1_CS3; TH1F *WZ2_CS3; TH1F *WZ3_CS3; TH1F *WW1_CS3; TH1F *WW2_CS3; 
 
@@ -891,6 +891,7 @@ void CalculateSF(char CUTCS1[1000],char CUTCS2[1000],char CUTCS3[1000],const cha
     GetHisto(CUTCS1, Tree46, WZ1_CS1    ,plot_CR,BIN_CR,MIN_CR,MAX_CR);
     GetHisto(CUTCS1, Tree47, WZ2_CS1    ,plot_CR,BIN_CR,MIN_CR,MAX_CR);
 	GetHisto(CUTCS1, Tree48, WZ3_CS1    ,plot_CR,BIN_CR,MIN_CR,MAX_CR);
+	//GetHisto(CUTCS1, Tree49, TT_3_CS1    ,plot_CR,BIN_CR,MIN_CR,MAX_CR);
 
 	GetHisto(CUTCS2, Tree01, data_CS2        ,plot_CR,BIN_CR,MIN_CR,MAX_CR);
     GetHisto(CUTCS2, Tree14, ZToNuNu_1_CS2   ,plot_CR,BIN_CR,MIN_CR,MAX_CR);
@@ -928,6 +929,7 @@ void CalculateSF(char CUTCS1[1000],char CUTCS2[1000],char CUTCS3[1000],const cha
     GetHisto(CUTCS2, Tree46, WZ1_CS2    ,plot_CR,BIN_CR,MIN_CR,MAX_CR);
     GetHisto(CUTCS2, Tree47, WZ2_CS2    ,plot_CR,BIN_CR,MIN_CR,MAX_CR);
 	GetHisto(CUTCS2, Tree48, WZ3_CS2    ,plot_CR,BIN_CR,MIN_CR,MAX_CR);
+	//GetHisto(CUTCS2, Tree49, TT_3_CS2    ,plot_CR,BIN_CR,MIN_CR,MAX_CR);
 
 	GetHisto(CUTCS3, Tree01, data_CS3        ,plot_CR,BIN_CR,MIN_CR,MAX_CR);
     GetHisto(CUTCS3, Tree14, ZToNuNu_1_CS3   ,plot_CR,BIN_CR,MIN_CR,MAX_CR);
@@ -964,7 +966,8 @@ void CalculateSF(char CUTCS1[1000],char CUTCS2[1000],char CUTCS3[1000],const cha
 	GetHisto(CUTCS3, Tree45, WW2_CS3    ,plot_CR,BIN_CR,MIN_CR,MAX_CR);
     GetHisto(CUTCS3, Tree46, WZ1_CS3    ,plot_CR,BIN_CR,MIN_CR,MAX_CR);
     GetHisto(CUTCS3, Tree47, WZ2_CS3    ,plot_CR,BIN_CR,MIN_CR,MAX_CR);
-	GetHisto(CUTCS3, Tree48, WZ3_CS3    ,plot_CR,BIN_CR,MIN_CR,MAX_CR);  
+	GetHisto(CUTCS3, Tree48, WZ3_CS3    ,plot_CR,BIN_CR,MIN_CR,MAX_CR); 
+	//GetHisto(CUTCS3, Tree49, TT_3_CS3    ,plot_CR,BIN_CR,MIN_CR,MAX_CR);
  
 
   double N_ZToNuNu_1_CS1_err = 0; if(ZToNuNu_1_CS1->Integral()>0){N_ZToNuNu_1_CS1_err=sqrt(w01*w01*ZToNuNu_1_CS1->Integral());}
@@ -990,6 +993,7 @@ void CalculateSF(char CUTCS1[1000],char CUTCS2[1000],char CUTCS3[1000],const cha
   double N_WToLNu_7_CS1_err = 0; if(WToLNu_7_CS1->Integral()>0){N_WToLNu_7_CS1_err=sqrt(w21*w21*WToLNu_7_CS1->Integral());}
   double N_TT_1_CS1_err = 0; if(TT_1_CS1->Integral()>0){N_TT_1_CS1_err=sqrt(w22*w22*TT_1_CS1->Integral());}
   double N_TT_2_CS1_err = 0; if(TT_2_CS1->Integral()>0){N_TT_2_CS1_err=sqrt(w23*w23*TT_2_CS1->Integral());}
+  //double N_TT_3_CS1_err = 0; if(TT_3_CS1->Integral()>0){N_TT_3_CS1_err=sqrt(w36*w36*TT_3_CS1->Integral());}
   double N_ST_1_CS1_err = 0; if(ST_1_CS1->Integral()>0){N_ST_1_CS1_err=sqrt(w24*w24*ST_1_CS1->Integral());}
   double N_ST_2_CS1_err = 0; if(ST_2_CS1->Integral()>0){N_ST_2_CS1_err=sqrt(w25*w25*ST_2_CS1->Integral());}
   double N_ST_3_CS1_err = 0; if(ST_3_CS1->Integral()>0){N_ST_3_CS1_err=sqrt(w26*w26*ST_3_CS1->Integral());}
@@ -1026,6 +1030,7 @@ void CalculateSF(char CUTCS1[1000],char CUTCS2[1000],char CUTCS3[1000],const cha
   double N_WToLNu_7_CS2_err = 0; if(WToLNu_7_CS2->Integral()>0){N_WToLNu_7_CS2_err=sqrt(w21*w21*WToLNu_7_CS2->Integral());}
   double N_TT_1_CS2_err = 0; if(TT_1_CS2->Integral()>0){N_TT_1_CS2_err=sqrt(w22*w22*TT_1_CS2->Integral());}
   double N_TT_2_CS2_err = 0; if(TT_2_CS2->Integral()>0){N_TT_2_CS2_err=sqrt(w23*w23*TT_2_CS2->Integral());}
+  //double N_TT_3_CS2_err = 0; if(TT_3_CS2->Integral()>0){N_TT_3_CS2_err=sqrt(w36*w36*TT_3_CS2->Integral());}
   double N_ST_1_CS2_err = 0; if(ST_1_CS2->Integral()>0){N_ST_1_CS2_err=sqrt(w24*w24*ST_1_CS2->Integral());}
   double N_ST_2_CS2_err = 0; if(ST_2_CS2->Integral()>0){N_ST_2_CS2_err=sqrt(w25*w25*ST_2_CS2->Integral());}
   double N_ST_3_CS2_err = 0; if(ST_3_CS2->Integral()>0){N_ST_3_CS2_err=sqrt(w26*w26*ST_3_CS2->Integral());}
@@ -1062,6 +1067,7 @@ void CalculateSF(char CUTCS1[1000],char CUTCS2[1000],char CUTCS3[1000],const cha
   double N_WToLNu_7_CS3_err = 0; if(WToLNu_7_CS3->Integral()>0){N_WToLNu_7_CS3_err=sqrt(w21*w21*WToLNu_7_CS3->Integral());}
   double N_TT_1_CS3_err = 0; if(TT_1_CS3->Integral()>0){N_TT_1_CS3_err=sqrt(w22*w22*TT_1_CS3->Integral());}
   double N_TT_2_CS3_err = 0; if(TT_2_CS3->Integral()>0){N_TT_2_CS3_err=sqrt(w23*w23*TT_2_CS3->Integral());}
+  //double N_TT_3_CS3_err = 0; if(TT_3_CS3->Integral()>0){N_TT_3_CS3_err=sqrt(w36*w36*TT_3_CS3->Integral());}
   double N_ST_1_CS3_err = 0; if(ST_1_CS3->Integral()>0){N_ST_1_CS3_err=sqrt(w24*w24*ST_1_CS3->Integral());}
   double N_ST_2_CS3_err = 0; if(ST_2_CS3->Integral()>0){N_ST_2_CS3_err=sqrt(w25*w25*ST_2_CS3->Integral());}
   double N_ST_3_CS3_err = 0; if(ST_3_CS3->Integral()>0){N_ST_3_CS3_err=sqrt(w26*w26*ST_3_CS3->Integral());}
@@ -1079,21 +1085,21 @@ void CalculateSF(char CUTCS1[1000],char CUTCS2[1000],char CUTCS3[1000],const cha
   double N_QCD_CS1_err      = N_QCD_1_CS1_err*N_QCD_1_CS1_err+N_QCD_2_CS1_err*N_QCD_2_CS1_err+N_QCD_3_CS1_err*N_QCD_3_CS1_err+N_QCD_4_CS1_err*N_QCD_4_CS1_err+N_QCD_5_CS1_err*N_QCD_5_CS1_err+N_QCD_6_CS1_err*N_QCD_6_CS1_err+N_QCD_7_CS1_err*N_QCD_7_CS1_err;
   double N_WToLNu_CS1_err   = N_WToLNu_1_CS1_err*N_WToLNu_1_CS1_err+N_WToLNu_2_CS1_err*N_WToLNu_2_CS1_err+N_WToLNu_3_CS1_err*N_WToLNu_3_CS1_err+N_WToLNu_4_CS1_err*N_WToLNu_4_CS1_err+N_WToLNu_5_CS1_err*N_WToLNu_5_CS1_err+N_WToLNu_6_CS1_err*N_WToLNu_6_CS1_err+N_WToLNu_7_CS1_err*N_WToLNu_7_CS1_err;
   double N_ST_CS1_err       = N_ST_1_CS1_err*N_ST_1_CS1_err+N_ST_2_CS1_err*N_ST_2_CS1_err+N_ST_3_CS1_err*N_ST_3_CS1_err+N_ST_4_CS1_err*N_ST_4_CS1_err; 
-  double N_TT_CS1_err       = N_TT_1_CS1_err*N_TT_1_CS1_err+N_TT_2_CS1_err*N_TT_2_CS1_err;
+  double N_TT_CS1_err       = N_TT_1_CS1_err*N_TT_1_CS1_err+N_TT_2_CS1_err*N_TT_2_CS1_err;//+N_TT_3_CS1_err*N_TT_3_CS1_err;
   double N_VV_CS1_err       = N_VV1_CS1_err*N_VV1_CS1_err+N_VV2_CS1_err*N_VV2_CS1_err+N_VV3_CS1_err*N_VV3_CS1_err+N_VV4_CS1_err*N_VV4_CS1_err+N_VV5_CS1_err*N_VV5_CS1_err+N_VV6_CS1_err*N_VV6_CS1_err+N_VV7_CS1_err*N_VV7_CS1_err+N_VV8_CS1_err*N_VV8_CS1_err; 
   
   double N_ZToNuNu_CS2_err  = N_ZToNuNu_1_CS2_err*N_ZToNuNu_1_CS2_err+N_ZToNuNu_2_CS2_err*N_ZToNuNu_2_CS2_err+N_ZToNuNu_3_CS2_err*N_ZToNuNu_3_CS2_err+N_ZToNuNu_4_CS2_err*N_ZToNuNu_4_CS2_err+N_ZToNuNu_5_CS2_err*N_ZToNuNu_5_CS2_err+N_ZToNuNu_6_CS2_err*N_ZToNuNu_6_CS2_err+N_ZToNuNu_7_CS2_err*N_ZToNuNu_7_CS2_err;
   double N_QCD_CS2_err      = N_QCD_1_CS2_err*N_QCD_1_CS2_err+N_QCD_2_CS2_err*N_QCD_2_CS2_err+N_QCD_3_CS2_err*N_QCD_3_CS2_err+N_QCD_4_CS2_err*N_QCD_4_CS2_err+N_QCD_5_CS2_err*N_QCD_5_CS2_err+N_QCD_6_CS2_err*N_QCD_6_CS2_err+N_QCD_7_CS2_err*N_QCD_7_CS2_err;
   double N_WToLNu_CS2_err   = N_WToLNu_1_CS2_err*N_WToLNu_1_CS2_err+N_WToLNu_2_CS2_err*N_WToLNu_2_CS2_err+N_WToLNu_3_CS2_err*N_WToLNu_3_CS2_err+N_WToLNu_4_CS2_err*N_WToLNu_4_CS2_err+N_WToLNu_5_CS2_err*N_WToLNu_5_CS2_err+N_WToLNu_6_CS2_err*N_WToLNu_6_CS2_err+N_WToLNu_7_CS2_err*N_WToLNu_7_CS2_err;
   double N_ST_CS2_err       = N_ST_1_CS2_err*N_ST_1_CS2_err+N_ST_2_CS2_err*N_ST_2_CS2_err+N_ST_3_CS2_err*N_ST_3_CS2_err+N_ST_4_CS2_err*N_ST_4_CS2_err; 
-  double N_TT_CS2_err       = N_TT_1_CS2_err*N_TT_1_CS2_err+N_TT_2_CS2_err*N_TT_2_CS2_err;
+  double N_TT_CS2_err       = N_TT_1_CS2_err*N_TT_1_CS2_err+N_TT_2_CS2_err*N_TT_2_CS2_err;//+N_TT_3_CS2_err*N_TT_3_CS2_err;
   double N_VV_CS2_err       = N_VV1_CS2_err*N_VV1_CS2_err+N_VV2_CS2_err*N_VV2_CS2_err+N_VV3_CS2_err*N_VV3_CS2_err+N_VV4_CS2_err*N_VV4_CS2_err+N_VV5_CS2_err*N_VV5_CS2_err+N_VV6_CS2_err*N_VV6_CS2_err+N_VV7_CS2_err*N_VV7_CS2_err+N_VV8_CS2_err*N_VV8_CS2_err; 
   
   double N_ZToNuNu_CS3_err  = N_ZToNuNu_1_CS3_err*N_ZToNuNu_1_CS3_err+N_ZToNuNu_2_CS3_err*N_ZToNuNu_2_CS3_err+N_ZToNuNu_3_CS3_err*N_ZToNuNu_3_CS3_err+N_ZToNuNu_4_CS3_err*N_ZToNuNu_4_CS3_err+N_ZToNuNu_5_CS3_err*N_ZToNuNu_5_CS3_err+N_ZToNuNu_6_CS3_err*N_ZToNuNu_6_CS3_err+N_ZToNuNu_7_CS3_err*N_ZToNuNu_7_CS3_err;
   double N_QCD_CS3_err      = N_QCD_1_CS3_err*N_QCD_1_CS3_err+N_QCD_2_CS3_err*N_QCD_2_CS3_err+N_QCD_3_CS3_err*N_QCD_3_CS3_err+N_QCD_4_CS3_err*N_QCD_4_CS3_err+N_QCD_5_CS3_err*N_QCD_5_CS3_err+N_QCD_6_CS3_err*N_QCD_6_CS3_err+N_QCD_7_CS3_err*N_QCD_7_CS3_err;
   double N_WToLNu_CS3_err   = N_WToLNu_1_CS3_err*N_WToLNu_1_CS3_err+N_WToLNu_2_CS3_err*N_WToLNu_2_CS3_err+N_WToLNu_3_CS3_err*N_WToLNu_3_CS3_err+N_WToLNu_4_CS3_err*N_WToLNu_4_CS3_err+N_WToLNu_5_CS3_err*N_WToLNu_5_CS3_err+N_WToLNu_6_CS3_err*N_WToLNu_6_CS3_err+N_WToLNu_7_CS3_err*N_WToLNu_7_CS3_err;
   double N_ST_CS3_err       = N_ST_1_CS3_err*N_ST_1_CS3_err+N_ST_2_CS3_err*N_ST_2_CS3_err+N_ST_3_CS3_err*N_ST_3_CS3_err+N_ST_4_CS3_err*N_ST_4_CS3_err; 
-  double N_TT_CS3_err       = N_TT_1_CS3_err*N_TT_1_CS3_err+N_TT_2_CS3_err*N_TT_2_CS3_err;
+  double N_TT_CS3_err       = N_TT_1_CS3_err*N_TT_1_CS3_err+N_TT_2_CS3_err*N_TT_2_CS3_err;//+N_TT_3_CS3_err*N_TT_3_CS3_err;
   double N_VV_CS3_err       = N_VV1_CS3_err*N_VV1_CS3_err+N_VV2_CS3_err*N_VV2_CS3_err+N_VV3_CS3_err*N_VV3_CS3_err+N_VV4_CS3_err*N_VV4_CS3_err+N_VV5_CS3_err*N_VV5_CS3_err+N_VV6_CS3_err*N_VV6_CS3_err+N_VV7_CS3_err*N_VV7_CS3_err+N_VV8_CS3_err*N_VV8_CS3_err; 
 
     double N_data_CS1 = 0;      if(data_CS1->Integral()>0){N_data_CS1 = data_CS1->Integral();}
@@ -1120,6 +1126,7 @@ void CalculateSF(char CUTCS1[1000],char CUTCS2[1000],char CUTCS3[1000],const cha
     double N_WToLNu_7_CS1  = 0; if(WToLNu_7_CS1->Integral()>0){N_WToLNu_7_CS1 =w21*WToLNu_7_CS1->Integral();}
     double N_TT_1_CS1     = 0; if(TT_1_CS1->Integral()>0){N_TT_1_CS1 =w22*TT_1_CS1->Integral();}
     double N_TT_2_CS1     = 0; if(TT_2_CS1->Integral()>0){N_TT_2_CS1 =w23*TT_2_CS1->Integral();}
+	//double N_TT_3_CS1     = 0; if(TT_3_CS1->Integral()>0){N_TT_3_CS1 =w36*TT_3_CS1->Integral();}
     double N_ST_1_CS1     = 0; if(ST_1_CS1->Integral()>0){N_ST_1_CS1 =w24*ST_1_CS1->Integral();}
     double N_ST_2_CS1     = 0; if(ST_2_CS1->Integral()>0){N_ST_2_CS1 =w25*ST_2_CS1->Integral();}
     double N_ST_3_CS1     = 0; if(ST_3_CS1->Integral()>0){N_ST_3_CS1 =w26*ST_3_CS1->Integral();}
@@ -1157,6 +1164,7 @@ void CalculateSF(char CUTCS1[1000],char CUTCS2[1000],char CUTCS3[1000],const cha
     double N_WToLNu_7_CS2  = 0; if(WToLNu_7_CS2->Integral()>0){N_WToLNu_7_CS2 =w21*WToLNu_7_CS2->Integral();}
     double N_TT_1_CS2     = 0; if(TT_1_CS2->Integral()>0){N_TT_1_CS2 =w22*TT_1_CS2->Integral();}
     double N_TT_2_CS2     = 0; if(TT_2_CS2->Integral()>0){N_TT_2_CS2 =w23*TT_2_CS2->Integral();}
+	//double N_TT_3_CS2     = 0; if(TT_3_CS2->Integral()>0){N_TT_3_CS2 =w36*TT_3_CS2->Integral();}
     double N_ST_1_CS2     = 0; if(ST_1_CS2->Integral()>0){N_ST_1_CS2 =w24*ST_1_CS2->Integral();}
     double N_ST_2_CS2     = 0; if(ST_2_CS2->Integral()>0){N_ST_2_CS2 =w25*ST_2_CS2->Integral();}
     double N_ST_3_CS2     = 0; if(ST_3_CS2->Integral()>0){N_ST_3_CS2 =w26*ST_3_CS2->Integral();}
@@ -1194,6 +1202,7 @@ void CalculateSF(char CUTCS1[1000],char CUTCS2[1000],char CUTCS3[1000],const cha
     double N_WToLNu_7_CS3  = 0; if(WToLNu_7_CS3->Integral()>0){N_WToLNu_7_CS3 =w21*WToLNu_7_CS3->Integral();}
     double N_TT_1_CS3     = 0; if(TT_1_CS3->Integral()>0){N_TT_1_CS3 =w22*TT_1_CS3->Integral();}
     double N_TT_2_CS3     = 0; if(TT_2_CS3->Integral()>0){N_TT_2_CS3 =w23*TT_2_CS3->Integral();}
+	//double N_TT_3_CS3     = 0; if(TT_3_CS3->Integral()>0){N_TT_3_CS3 =w36*TT_3_CS3->Integral();}
     double N_ST_1_CS3     = 0; if(ST_1_CS3->Integral()>0){N_ST_1_CS3 =w24*ST_1_CS3->Integral();}
     double N_ST_2_CS3     = 0; if(ST_2_CS3->Integral()>0){N_ST_2_CS3 =w25*ST_2_CS3->Integral();}
     double N_ST_3_CS3     = 0; if(ST_3_CS3->Integral()>0){N_ST_3_CS3 =w26*ST_3_CS3->Integral();}
@@ -1211,21 +1220,21 @@ void CalculateSF(char CUTCS1[1000],char CUTCS2[1000],char CUTCS3[1000],const cha
   double N_QCD_CS1     = N_QCD_1_CS1+N_QCD_2_CS1+N_QCD_3_CS1+N_QCD_4_CS1+N_QCD_5_CS1+N_QCD_6_CS1+N_QCD_7_CS1;
   double N_WToLNu_CS1  = N_WToLNu_1_CS1+N_WToLNu_2_CS1+N_WToLNu_3_CS1+N_WToLNu_4_CS1+N_WToLNu_5_CS1+N_WToLNu_6_CS1+N_WToLNu_7_CS1;
   double N_ST_CS1      = N_ST_1_CS1+N_ST_2_CS1+N_ST_3_CS1+N_ST_4_CS1;
-  double N_TT_CS1      = N_TT_1_CS1+N_TT_2_CS1;
+  double N_TT_CS1      = N_TT_1_CS1+N_TT_2_CS1;//+N_TT_3_CS1;
   double N_VV_CS1      = N_VV1_CS1+N_VV2_CS1+N_VV3_CS1+N_VV4_CS1+N_VV5_CS1+N_VV6_CS1+N_VV7_CS1+N_VV8_CS1;
 	
   double N_ZToNuNu_CS2 = N_ZToNuNu_1_CS2+N_ZToNuNu_2_CS2+N_ZToNuNu_3_CS2+N_ZToNuNu_4_CS2+N_ZToNuNu_5_CS2+N_ZToNuNu_6_CS2+N_ZToNuNu_7_CS2;
   double N_QCD_CS2     = N_QCD_1_CS2+N_QCD_2_CS2+N_QCD_3_CS2+N_QCD_4_CS2+N_QCD_5_CS2+N_QCD_6_CS2+N_QCD_7_CS2;
   double N_WToLNu_CS2  = N_WToLNu_1_CS2+N_WToLNu_2_CS2+N_WToLNu_3_CS2+N_WToLNu_4_CS2+N_WToLNu_5_CS2+N_WToLNu_6_CS2+N_WToLNu_7_CS2;
   double N_ST_CS2      = N_ST_1_CS2+N_ST_2_CS2+N_ST_3_CS2+N_ST_4_CS2;
-  double N_TT_CS2      = N_TT_1_CS2+N_TT_2_CS2;
+  double N_TT_CS2      = N_TT_1_CS2+N_TT_2_CS2;//+N_TT_3_CS2;
   double N_VV_CS2      = N_VV1_CS2+N_VV2_CS2+N_VV3_CS2+N_VV4_CS2+N_VV5_CS2+N_VV6_CS2+N_VV7_CS2+N_VV8_CS2;
 
   double N_ZToNuNu_CS3 = N_ZToNuNu_1_CS3+N_ZToNuNu_2_CS3+N_ZToNuNu_3_CS3+N_ZToNuNu_4_CS3+N_ZToNuNu_5_CS3+N_ZToNuNu_6_CS3+N_ZToNuNu_7_CS3;
   double N_QCD_CS3     = N_QCD_1_CS3+N_QCD_2_CS3+N_QCD_3_CS3+N_QCD_4_CS3+N_QCD_5_CS3+N_QCD_6_CS3+N_QCD_7_CS3;
   double N_WToLNu_CS3  = N_WToLNu_1_CS3+N_WToLNu_2_CS3+N_WToLNu_3_CS3+N_WToLNu_4_CS3+N_WToLNu_5_CS3+N_WToLNu_6_CS3+N_WToLNu_7_CS3;
   double N_ST_CS3      = N_ST_1_CS3+N_ST_2_CS3+N_ST_3_CS3+N_ST_4_CS3;
-  double N_TT_CS3      = N_TT_1_CS3+N_TT_2_CS3;
+  double N_TT_CS3      = N_TT_1_CS3+N_TT_2_CS3;//+N_TT_3_CS3;
   double N_VV_CS3      = N_VV1_CS3+N_VV2_CS3+N_VV3_CS3+N_VV4_CS3+N_VV5_CS3+N_VV6_CS3+N_VV7_CS3+N_VV8_CS3;
     //background->SetBinError(j,sqrt(N_ZToNuNu_SR_err+N_QCD_SR_err+N_WToLNu_SR_err+N_TT_SR_err+N_ST_SR_err+N_VV_SR_err));
 	//background->SetBinContent(j,N_ZToNuNu_SR+N_QCD_SR+N_WToLNu_SR+N_TT_SR+N_ST_SR+N_VV_SR);
@@ -1244,9 +1253,9 @@ void CalculateSF(char CUTCS1[1000],char CUTCS2[1000],char CUTCS3[1000],const cha
 	double a2_err = N_ZToNuNu_CS2_err;  double b2_err = N_WToLNu_CS2_err;  double c2_err = N_TT_CS2_err;  double d2_err = N_QCD_CS2_err + N_ST_CS2_err + N_VV_CS2_err ;
 	double a3_err = N_ZToNuNu_CS3_err;  double b3_err = N_WToLNu_CS3_err;  double c3_err = N_TT_CS3_err;  double d3_err = N_QCD_CS3_err + N_ST_CS3_err + N_VV_CS3_err ;
 
-	cout<<"d1_err = "<<d1_err<<endl;
-	cout<<"d2_err = "<<d2_err<<endl;
-	cout<<"d3_err = "<<d3_err<<endl;
+	//cout<<"d1_err = "<<d1_err<<endl;
+	//cout<<"d2_err = "<<d2_err<<endl;
+	//cout<<"d3_err = "<<d3_err<<endl;
 
     SF_den  = a3*b2*c1 - a2*b3*c1 - a3*b1*c2 + a1*b3*c2 + a2*b1*c3 - a1*b2*c3;
 	double SF1_num = b3*c2*d1 - b2*c3*d1 - b3*c1*d2 + b1*c3*d2 + b2*c1*d3 - b1*c2*d3;
@@ -1299,10 +1308,10 @@ void CalculateSF(char CUTCS1[1000],char CUTCS2[1000],char CUTCS3[1000],const cha
 				 (a2_err*b1*d3*b1*d3 + b1_err*a2*d3*a2*d3 + d3_err*a2*b1*a2*b1) +
 				 (a1_err*b2*d3*b2*d3 + b2_err*a1*d3*a1*d3 + d3_err*a1*b2*a1*b2) ;
 
-	cout<<"SF1_num_err = "<<SF1_num_err<<endl;
-	cout<<"SF2_num_err = "<<SF2_num_err<<endl;
-	cout<<"SF3_num_err = "<<SF3_num_err<<endl;
-	cout<<"SF_den_err = "<<SF_den_err<<endl;
+	//cout<<"SF1_num_err = "<<SF1_num_err<<endl;
+	//cout<<"SF2_num_err = "<<SF2_num_err<<endl;
+	//cout<<"SF3_num_err = "<<SF3_num_err<<endl;
+	//cout<<"SF_den_err = "<<SF_den_err<<endl;
 
     SF1_err = (SF1_num_err*SF_den*SF_den + SF_den_err*SF1_num*SF1_num)/(SF_den*SF_den*SF_den*SF_den);
 
@@ -1579,7 +1588,7 @@ void CalculateSF(char CUTCS1[1000],char CUTCS2[1000],char CUTCS3[1000],const cha
   delete ZToNuNu_1_CS1; delete ZToNuNu_2_CS1; delete ZToNuNu_3_CS1; delete ZToNuNu_4_CS1;  delete ZToNuNu_5_CS1;  delete ZToNuNu_6_CS1;  delete ZToNuNu_7_CS1;
   delete QCD_1_CS1; delete QCD_2_CS1; delete QCD_3_CS1; delete QCD_4_CS1; delete QCD_5_CS1; delete QCD_6_CS1; delete QCD_7_CS1; 
   delete WToLNu_1_CS1; delete WToLNu_2_CS1; delete WToLNu_3_CS1; delete WToLNu_4_CS1; delete WToLNu_5_CS1; delete WToLNu_6_CS1; delete WToLNu_7_CS1; 
-  delete TT_1_CS1; delete TT_2_CS1; 
+  delete TT_1_CS1; delete TT_2_CS1; //delete TT_3_CS1;
   delete ST_1_CS1; delete ST_2_CS1;  delete ST_3_CS1; delete ST_4_CS1;  
   delete WW1_CS1; delete WW2_CS1; delete WZ1_CS1; delete WZ2_CS1; delete WZ3_CS1; delete ZZ1_CS1; delete ZZ2_CS1;  delete ZZ3_CS1; 
 
@@ -1587,7 +1596,7 @@ void CalculateSF(char CUTCS1[1000],char CUTCS2[1000],char CUTCS3[1000],const cha
   delete ZToNuNu_1_CS2; delete ZToNuNu_2_CS2; delete ZToNuNu_3_CS2; delete ZToNuNu_4_CS2;  delete ZToNuNu_5_CS2;  delete ZToNuNu_6_CS2;  delete ZToNuNu_7_CS2;
   delete QCD_1_CS2; delete QCD_2_CS2; delete QCD_3_CS2; delete QCD_4_CS2; delete QCD_5_CS2; delete QCD_6_CS2; delete QCD_7_CS2;
   delete WToLNu_1_CS2; delete WToLNu_2_CS2; delete WToLNu_3_CS2; delete WToLNu_4_CS2; delete WToLNu_5_CS2; delete WToLNu_6_CS2; delete WToLNu_7_CS2; 
-  delete TT_1_CS2; delete TT_2_CS2; 
+  delete TT_1_CS2; delete TT_2_CS2; //delete TT_3_CS2; 
   delete ST_1_CS2; delete ST_2_CS2;  delete ST_3_CS2; delete ST_4_CS2;  
   delete WW1_CS2; delete WW2_CS2; delete WZ1_CS2; delete WZ2_CS2; delete WZ3_CS2; delete ZZ1_CS2; delete ZZ2_CS2;  delete ZZ3_CS2; 
 
@@ -1595,7 +1604,7 @@ void CalculateSF(char CUTCS1[1000],char CUTCS2[1000],char CUTCS3[1000],const cha
   delete ZToNuNu_1_CS3; delete ZToNuNu_2_CS3; delete ZToNuNu_3_CS3; delete ZToNuNu_4_CS3;  delete ZToNuNu_5_CS3;  delete ZToNuNu_6_CS3;  delete ZToNuNu_7_CS3;
   delete QCD_1_CS3; delete QCD_2_CS3; delete QCD_3_CS3; delete QCD_4_CS3; delete QCD_5_CS3; delete QCD_6_CS3; delete QCD_7_CS3;
   delete WToLNu_1_CS3; delete WToLNu_2_CS3; delete WToLNu_3_CS3; delete WToLNu_4_CS3; delete WToLNu_5_CS3; delete WToLNu_6_CS3; delete WToLNu_7_CS3; 
-  delete TT_1_CS3; delete TT_2_CS3; 
+  delete TT_1_CS3; delete TT_2_CS3; //delete TT_3_CS3;
   delete ST_1_CS3; delete ST_2_CS3;  delete ST_3_CS3; delete ST_4_CS3;  
   delete WW1_CS3; delete WW2_CS3; delete WZ1_CS3; delete WZ2_CS3; delete WZ3_CS3; delete ZZ1_CS3; delete ZZ2_CS3;  delete ZZ3_CS3; 
 
