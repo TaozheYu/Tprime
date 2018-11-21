@@ -49,9 +49,9 @@ void BackgroundEstimation_dineutrino_v2(){
 
   for (int i=0; i<name.size(); i++){
     const char *plot = name[i];
-    for(int category=0; category<2; category++){
+    for(int category=0; category<1; category++){
 
-        char CUT[1000]; char CUTpup1[1000]; char CUTpup2[1000]; char CUTbta1[1000]; char CUTbta2[1000];  char CUTfor1[1000]; char CUTfor2[1000]; char CUTwje1[1000]; char CUTwje2[1000];
+    char CUT[1000]; char CUTpup1[1000]; char CUTpup2[1000]; char CUTbta1[1000]; char CUTbta2[1000];  char CUTfor1[1000]; char CUTfor2[1000]; char CUTwje1[1000]; char CUTwje2[1000];
 	char CUTSR[1000]; char CUTzje1[1000];  char CUTzje2[1000];  char CUTttb1[1000];  char CUTttb2[1000];
 	//sprintf(CUT,    "((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>0.6)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(NumSelBJetsM>0)&&(TopPt>340))");
 	if(category==0) sprintf(CUT,    "((category0==1)&&(Jet1ResolvedPt>0)&&(Jet2ResolvedPt>0)&&(Jet3ResolvedPt>0)&&(MinDeltaPhiJetMet>%f)&&(TransverseMassMetTop>500)&&(NumSelLeps==0)&&(NumSelBJetsM>=%i)&&(TopPt>%f)&&(deltaPhiMetTop>%f)&&(NumSelForwardJets==0)&&(HT>%f)&&(Met_pt>%f))",dPMet, BTag, TopPt,dPTop, ht,Met);
@@ -66,7 +66,7 @@ void BackgroundEstimation_dineutrino_v2(){
 	sprintf(CUTbta2, "PUWeight    *w_BtagDown  *genWeight  *w_ZToNuNu  *w_WToLNu  *w_ttbar*%s",CUT );
 	sprintf(CUTzje1, "PUWeight    *w_Btag   *genWeight  *w_ZToNuNuUp   *w_WToLNu  *w_ttbar*%s",CUT );
 	sprintf(CUTzje2, "PUWeight    *w_Btag   *genWeight  *w_ZToNuNuDown *w_WToLNu  *w_ttbar*%s",CUT );
-        sprintf(CUTwje1, "PUWeight    *w_Btag   *genWeight  *w_ZToNuNu  *w_WToLNuUp   *w_ttbar*%s",CUT );
+    sprintf(CUTwje1, "PUWeight    *w_Btag   *genWeight  *w_ZToNuNu  *w_WToLNuUp   *w_ttbar*%s",CUT );
 	sprintf(CUTwje2, "PUWeight    *w_Btag   *genWeight  *w_ZToNuNu  *w_WToLNuDown *w_ttbar*%s",CUT );
 	sprintf(CUTttb1, "PUWeight    *w_Btag   *genWeight  *w_ZToNuNu  *w_WToLNu  *w_ttbarUp*%s" ,CUT );
 	sprintf(CUTttb2, "PUWeight    *w_Btag   *genWeight  *w_ZToNuNu  *w_WToLNu  *w_ttbarDown*%s",CUT);
@@ -175,14 +175,14 @@ void BackgroundEstimation_dineutrino_v2(){
 
 	double ZToNuNuYield_errStat= 0.; double ZToNuNuYield     = ZToNuNu    ->IntegralAndError(1,bin[i],ZToNuNuYield_errStat); 
 	double QCDYield_errStat    = 0.; double QCDYield         = QCD        ->IntegralAndError(1,bin[i],QCDYield_errStat);
-        double WToLNuYield_errStat = 0.; double WToLNuYield      = WToLNu     ->IntegralAndError(1,bin[i],WToLNuYield_errStat); 
-        double TTYield_errStat     = 0.; double TTYield          = TT         ->IntegralAndError(1,bin[i],TTYield_errStat); 
-        double STYield_errStat     = 0.; double STYield          = ST         ->IntegralAndError(1,bin[i],STYield_errStat); 
-        double VVYield_errStat     = 0.; double VVYield          = VV         ->IntegralAndError(1,bin[i],VVYield_errStat); 
-        double tptzm0700lh_errStat = 0.; double tptzm0700lhYield = tptzm0700lh->IntegralAndError(1,bin[i],tptzm0700lh_errStat); 
-        double tptzm0900lh_errStat = 0.; double tptzm0900lhYield = tptzm0900lh->IntegralAndError(1,bin[i],tptzm0900lh_errStat); 
+    double WToLNuYield_errStat = 0.; double WToLNuYield      = WToLNu     ->IntegralAndError(1,bin[i],WToLNuYield_errStat); 
+    double TTYield_errStat     = 0.; double TTYield          = TT         ->IntegralAndError(1,bin[i],TTYield_errStat); 
+    double STYield_errStat     = 0.; double STYield          = ST         ->IntegralAndError(1,bin[i],STYield_errStat); 
+    double VVYield_errStat     = 0.; double VVYield          = VV         ->IntegralAndError(1,bin[i],VVYield_errStat); 
+    double tptzm0700lh_errStat = 0.; double tptzm0700lhYield = tptzm0700lh->IntegralAndError(1,bin[i],tptzm0700lh_errStat); 
+    double tptzm0900lh_errStat = 0.; double tptzm0900lhYield = tptzm0900lh->IntegralAndError(1,bin[i],tptzm0900lh_errStat); 
 	double tptzm1400lh_errStat = 0.; double tptzm1400lhYield = tptzm1400lh->IntegralAndError(1,bin[i],tptzm1400lh_errStat); 
-        double tptzm1700lh_errStat = 0.; double tptzm1700lhYield = tptzm1700lh->IntegralAndError(1,bin[i],tptzm1700lh_errStat);
+    double tptzm1700lh_errStat = 0.; double tptzm1700lhYield = tptzm1700lh->IntegralAndError(1,bin[i],tptzm1700lh_errStat);
 
 	MakeHistoErrors(ZToNuNu, ZToNuNu_zje1, ZToNuNu_zje2, ZToNuNu_wje1, ZToNuNu_wje2, ZToNuNu_ttb1, ZToNuNu_ttb2);
 	MakeHistoErrors(WToLNu, WToLNu_zje1, WToLNu_zje2, WToLNu_wje1, WToLNu_wje2, WToLNu_ttb1, WToLNu_ttb2);
@@ -197,25 +197,25 @@ void BackgroundEstimation_dineutrino_v2(){
 
 	double ZToNuNuYield_errSyst= 0.; ZToNuNuYield     = ZToNuNu    ->IntegralAndError(1,bin[i],ZToNuNuYield_errSyst); 
 	double QCDYield_errSyst    = 0.; QCDYield         = QCD        ->IntegralAndError(1,bin[i],QCDYield_errSyst);
-        double WToLNuYield_errSyst = 0.; WToLNuYield      = WToLNu     ->IntegralAndError(1,bin[i],WToLNuYield_errSyst); 
-        double TTYield_errSyst     = 0.; TTYield          = TT         ->IntegralAndError(1,bin[i],TTYield_errSyst); 
-        double STYield_errSyst     = 0.; STYield          = ST         ->IntegralAndError(1,bin[i],STYield_errSyst); 
-        double VVYield_errSyst     = 0.; VVYield          = VV         ->IntegralAndError(1,bin[i],VVYield_errSyst); 
-        double tptzm0700lh_errSyst = 0.; tptzm0700lhYield = tptzm0700lh->IntegralAndError(1,bin[i],tptzm0700lh_errSyst); 
-        double tptzm0900lh_errSyst = 0.; tptzm0900lhYield = tptzm0900lh->IntegralAndError(1,bin[i],tptzm0900lh_errSyst); 
+    double WToLNuYield_errSyst = 0.; WToLNuYield      = WToLNu     ->IntegralAndError(1,bin[i],WToLNuYield_errSyst); 
+    double TTYield_errSyst     = 0.; TTYield          = TT         ->IntegralAndError(1,bin[i],TTYield_errSyst); 
+    double STYield_errSyst     = 0.; STYield          = ST         ->IntegralAndError(1,bin[i],STYield_errSyst); 
+    double VVYield_errSyst     = 0.; VVYield          = VV         ->IntegralAndError(1,bin[i],VVYield_errSyst); 
+    double tptzm0700lh_errSyst = 0.; tptzm0700lhYield = tptzm0700lh->IntegralAndError(1,bin[i],tptzm0700lh_errSyst); 
+    double tptzm0900lh_errSyst = 0.; tptzm0900lhYield = tptzm0900lh->IntegralAndError(1,bin[i],tptzm0900lh_errSyst); 
 	double tptzm1400lh_errSyst = 0.; tptzm1400lhYield = tptzm1400lh->IntegralAndError(1,bin[i],tptzm1400lh_errSyst); 
-        double tptzm1700lh_errSyst = 0.; tptzm1700lhYield = tptzm1700lh->IntegralAndError(1,bin[i],tptzm1700lh_errSyst);
+    double tptzm1700lh_errSyst = 0.; tptzm1700lhYield = tptzm1700lh->IntegralAndError(1,bin[i],tptzm1700lh_errSyst);
 
-        ZToNuNuYield_errSyst = sqrt(pow(ZToNuNuYield_errSyst,2) - pow(ZToNuNuYield_errStat,2));
+    ZToNuNuYield_errSyst = sqrt(pow(ZToNuNuYield_errSyst,2) - pow(ZToNuNuYield_errStat,2));
 	QCDYield_errSyst     = sqrt(pow(QCDYield_errSyst    ,2) - pow(QCDYield_errStat    ,2));
 	WToLNuYield_errSyst  = sqrt(pow(WToLNuYield_errSyst ,2) - pow(WToLNuYield_errStat ,2));
 	TTYield_errSyst      = sqrt(pow(TTYield_errSyst     ,2) - pow(TTYield_errStat     ,2));
-        STYield_errSyst      = sqrt(pow(STYield_errSyst     ,2) - pow(STYield_errStat     ,2));
-        VVYield_errSyst      = sqrt(pow(VVYield_errSyst     ,2) - pow(VVYield_errStat     ,2));
-        tptzm0700lh_errSyst = sqrt(pow(tptzm0700lh_errSyst,2) - pow(tptzm0700lh_errStat,2));
-        tptzm0900lh_errSyst = sqrt(pow(tptzm0900lh_errSyst,2) - pow(tptzm0900lh_errStat,2));
+    STYield_errSyst      = sqrt(pow(STYield_errSyst     ,2) - pow(STYield_errStat     ,2));
+    VVYield_errSyst      = sqrt(pow(VVYield_errSyst     ,2) - pow(VVYield_errStat     ,2));
+    tptzm0700lh_errSyst = sqrt(pow(tptzm0700lh_errSyst,2) - pow(tptzm0700lh_errStat,2));
+    tptzm0900lh_errSyst = sqrt(pow(tptzm0900lh_errSyst,2) - pow(tptzm0900lh_errStat,2));
 	tptzm1400lh_errSyst = sqrt(pow(tptzm1400lh_errSyst,2) - pow(tptzm1400lh_errStat,2));
-        tptzm1700lh_errSyst = sqrt(pow(tptzm1700lh_errSyst,2) - pow(tptzm1700lh_errStat,2));
+    tptzm1700lh_errSyst = sqrt(pow(tptzm1700lh_errSyst,2) - pow(tptzm1700lh_errStat,2));
 
     /*Double_t dataErr     = 0; Float_t dataYield     = data   ->IntegralAndError(1,tptzm0700lh->GetNbinsX()-1,dataErr,"");
 	Double_t ZToNuNu_Err = 0; Float_t ZToNuNu_Yield = ZToNuNu->IntegralAndError(1,tptzm0700lh->GetNbinsX(),ZToNuNu_Err,"");
@@ -249,24 +249,24 @@ void BackgroundEstimation_dineutrino_v2(){
 	  cout<<"Number of ZToNuNu  events    = "<<ZToNuNuYield<<"+/-"<<ZToNuNuYield_errStat<<"(stat)+/-"<<ZToNuNuYield_errSyst<<"(syst)"<<endl;
 	  cout<<"Number of QCD  events from MC   = "<<QCDYield<<"+/-"<<QCDYield_errStat<<"(stat)+/-"<<QCDYield_errSyst<<"(syst)"<<endl;
 	  cout<<"Number of WToLNu  events   = "<<WToLNuYield<<"+/-"<<WToLNuYield_errStat<<"(stat)+/-"<<WToLNuYield_errSyst<<"(syst)"<<endl;
-          cout<<"Number of ST  events from MC   = "<<STYield<<"+/-"<<STYield_errStat<<"(stat)+/-"<<STYield_errSyst<<"(syst)"<<endl;
-          cout<<"Number of TT  events    = "<<TTYield<<"+/-"<<TTYield_errStat<<"(stat)+/-"<<TTYield_errSyst<<"(syst)"<<endl;
-          cout<<"Number of VV  events from MC   = "<<VVYield<<"+/-"<<VVYield_errStat<<"(stat)+/-"<<VVYield_errSyst<<"(syst)"<<endl;
-          cout<<"Number of signal events 0.7TeV = "<<tptzm0700lh->Integral()<<"+/-"<<tptzm0700lh_errStat<<"(stat)+/-"<<tptzm0700lh_errSyst<<"(syst)"<<endl;
+      cout<<"Number of ST  events from MC   = "<<STYield<<"+/-"<<STYield_errStat<<"(stat)+/-"<<STYield_errSyst<<"(syst)"<<endl;
+      cout<<"Number of TT  events    = "<<TTYield<<"+/-"<<TTYield_errStat<<"(stat)+/-"<<TTYield_errSyst<<"(syst)"<<endl;
+      cout<<"Number of VV  events from MC   = "<<VVYield<<"+/-"<<VVYield_errStat<<"(stat)+/-"<<VVYield_errSyst<<"(syst)"<<endl;
+      cout<<"Number of signal events 0.7TeV = "<<tptzm0700lh->Integral()<<"+/-"<<tptzm0700lh_errStat<<"(stat)+/-"<<tptzm0700lh_errSyst<<"(syst)"<<endl;
 	  cout<<"Number of signal events 0.9TeV = "<<tptzm0900lh->Integral()<<"+/-"<<tptzm0900lh_errStat<<"(stat)+/-"<<tptzm0900lh_errSyst<<"(syst)"<<endl;
-          cout<<"Number of signal events 1.4TeV = "<<tptzm1400lh->Integral()<<"+/-"<<tptzm1400lh_errStat<<"(stat)+/-"<<tptzm1400lh_errSyst<<"(syst)"<<endl;
+      cout<<"Number of signal events 1.4TeV = "<<tptzm1400lh->Integral()<<"+/-"<<tptzm1400lh_errStat<<"(stat)+/-"<<tptzm1400lh_errSyst<<"(syst)"<<endl;
 	  cout<<"Number of signal events 1.7TeV = "<<tptzm1700lh->Integral()<<"+/-"<<tptzm1700lh_errStat<<"(stat)+/-"<<tptzm1700lh_errSyst<<"(syst)"<<endl;
 	
 	}
 
-        tptzm0700lh->SetLineWidth(2); tptzm0900lh->SetLineWidth(2); tptzm1400lh->SetLineWidth(2); tptzm1700lh->SetLineWidth(2); 
+    tptzm0700lh->SetLineWidth(2); tptzm0900lh->SetLineWidth(2); tptzm1400lh->SetLineWidth(2); tptzm1700lh->SetLineWidth(2); 
 	tptzm1700lh->SetLineStyle(2); tptzm0700lh->SetLineColor(2); tptzm0900lh->SetLineColor(2); tptzm1400lh->SetLineColor(2); tptzm1700lh->SetLineColor(2); 
 	ZToNuNu->SetLineWidth(2);  QCD->SetLineWidth(2); WToLNu->SetLineWidth(2); TT->SetLineWidth(2); ST->SetLineWidth(2); VV->SetLineWidth(2); 
 	ZToNuNu->SetLineColor(kOrange); QCD->SetLineColor(kGreen-3); WToLNu->SetLineColor(kCyan-4); TT->SetLineColor(kGreen+3); ST->SetLineColor(kGreen+3); VV->SetLineColor(kCyan+2);
 	ZToNuNu->SetFillColor(kOrange); QCD->SetFillColor(kGreen-3); WToLNu->SetFillColor(kCyan-4); TT->SetFillColor(kGreen+3); ST->SetFillColor(kGreen+3); VV->SetFillColor(kCyan+2); 
 	data->SetLineWidth(2); data->SetLineColor(1); data->SetMarkerColor(1); data->SetMarkerStyle(20); data->SetMarkerSize(1.3);
 
-        TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
+    TCanvas* c1 = new TCanvas("c1","c1",0,0,600,600);
 
 	//////
 	//画下面data/MC的比率计算图
@@ -1254,8 +1254,9 @@ void MakeHistosPdfQcd(char CUTinit[1000],const char *plot,int BIN ,float MIN,flo
        int I = 0;
        if(i==111) I=0;
        else       I=i;
-    char CUT[1000]; 
-    sprintf(CUT,"(genWeights%i/genWeights0)*%s",I,CUTinit);
+    char CUT[1000]; char CUTTrans[1000];
+	sprintf(CUTTrans,"((TransverseMassMetTop>%f)&&(TransverseMassMetTop<%f))",min,max);
+    sprintf(CUT,"(genWeights%i/genWeights0)*%s*%s",I,CUTinit,CUTTrans);
     GetHisto(CUT, Tree02,  RMS0700_pre  ,plot,1,min,max);
     GetHisto(CUT, Tree03,  RMS0800_pre  ,plot,1,min,max);
     GetHisto(CUT, Tree04,  RMS0900_pre  ,plot,1,min,max);
@@ -1267,50 +1268,50 @@ void MakeHistosPdfQcd(char CUTinit[1000],const char *plot,int BIN ,float MIN,flo
     GetHisto(CUT, Tree10,  RMS1500_pre  ,plot,1,min,max);
     GetHisto(CUT, Tree11,  RMS1600_pre  ,plot,1,min,max);
     GetHisto(CUT, Tree12,  RMS1700_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree13,  RMS1800_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree13,  RMS1800_pre  ,plot,1,min,max);
 
-    GetHisto(CUT, Tree14,  RMSZToNuNu_1_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree15,  RMSZToNuNu_2_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree16,  RMSZToNuNu_3_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree17,  RMSZToNuNu_4_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree18,  RMSZToNuNu_5_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree19,  RMSZToNuNu_6_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree20,  RMSZToNuNu_7_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree14,  RMSZToNuNu_1_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree15,  RMSZToNuNu_2_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree16,  RMSZToNuNu_3_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree17,  RMSZToNuNu_4_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree18,  RMSZToNuNu_5_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree19,  RMSZToNuNu_6_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree20,  RMSZToNuNu_7_pre  ,plot,1,min,max);
 
-    GetHisto(CUT, Tree21,  RMSQCD_1_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree22,  RMSQCD_2_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree23,  RMSQCD_3_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree24,  RMSQCD_4_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree25,  RMSQCD_5_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree26,  RMSQCD_6_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree27,  RMSQCD_7_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree21,  RMSQCD_1_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree22,  RMSQCD_2_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree23,  RMSQCD_3_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree24,  RMSQCD_4_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree25,  RMSQCD_5_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree26,  RMSQCD_6_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree27,  RMSQCD_7_pre  ,plot,1,min,max);
 
-    GetHisto(CUT, Tree28,  RMSWToLNu_1_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree29,  RMSWToLNu_2_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree30,  RMSWToLNu_3_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree31,  RMSWToLNu_4_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree32,  RMSWToLNu_5_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree33,  RMSWToLNu_6_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree34,  RMSWToLNu_7_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree28,  RMSWToLNu_1_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree29,  RMSWToLNu_2_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree30,  RMSWToLNu_3_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree31,  RMSWToLNu_4_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree32,  RMSWToLNu_5_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree33,  RMSWToLNu_6_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree34,  RMSWToLNu_7_pre  ,plot,1,min,max);
 
-    GetHisto(CUT, Tree35,  RMSTT_1_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree36,  RMSTT_2_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree35,  RMSTT_1_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree36,  RMSTT_2_pre  ,plot,1,min,max);
 
-    GetHisto(CUT, Tree37,  RMSST_1_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree38,  RMSST_2_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree39,  RMSST_3_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree40,  RMSST_4_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree37,  RMSST_1_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree38,  RMSST_2_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree39,  RMSST_3_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree40,  RMSST_4_pre  ,plot,1,min,max);
 
-    GetHisto(CUT, Tree41,  RMSZZ1_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree42,  RMSZZ2_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree43,  RMSZZ3_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree44,  RMSWW1_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree45,  RMSWW2_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree46,  RMSWZ1_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree47,  RMSWZ2_pre  ,plot,1,min,max);
-    GetHisto(CUT, Tree48,  RMSWZ3_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree41,  RMSZZ1_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree42,  RMSZZ2_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree43,  RMSZZ3_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree44,  RMSWW1_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree45,  RMSWW2_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree46,  RMSWZ1_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree47,  RMSWZ2_pre  ,plot,1,min,max);
+	GetHisto(CUT, Tree48,  RMSWZ3_pre  ,plot,1,min,max);
 
-    if(I==0){ 
+	if(I==0){ 
       INIT1  = RMS0700_pre ->Integral();
       INIT2  = RMS0800_pre ->Integral();
       INIT3  = RMS0900_pre ->Integral();
@@ -1322,44 +1323,44 @@ void MakeHistosPdfQcd(char CUTinit[1000],const char *plot,int BIN ,float MIN,flo
       INIT9  = RMS1500_pre ->Integral();
       INIT10 = RMS1600_pre ->Integral();
       INIT11 = RMS1700_pre ->Integral();
-      INIT12 = RMS1800_pre ->Integral();
+	  INIT12 = RMS1800_pre ->Integral();
 
-      INIT13 = RMSZToNuNu_1_pre->Integral();
-      INIT14 = RMSZToNuNu_2_pre->Integral();
-      INIT15 = RMSZToNuNu_3_pre->Integral();
-      INIT16 = RMSZToNuNu_4_pre->Integral();
-      INIT17 = RMSZToNuNu_5_pre->Integral();
-      INIT18 = RMSZToNuNu_6_pre->Integral();
-      INIT19 = RMSZToNuNu_7_pre->Integral();
+	  INIT13 = RMSZToNuNu_1_pre->Integral();
+	  INIT14 = RMSZToNuNu_2_pre->Integral();
+	  INIT15 = RMSZToNuNu_3_pre->Integral();
+	  INIT16 = RMSZToNuNu_4_pre->Integral();
+	  INIT17 = RMSZToNuNu_5_pre->Integral();
+	  INIT18 = RMSZToNuNu_6_pre->Integral();
+	  INIT19 = RMSZToNuNu_7_pre->Integral();
 
-      INIT20 = RMSQCD_1_pre->Integral();
-      INIT21 = RMSQCD_2_pre->Integral();
-      INIT22 = RMSQCD_3_pre->Integral();
-      INIT23 = RMSQCD_4_pre->Integral();
-      INIT24 = RMSQCD_5_pre->Integral();
-      INIT25 = RMSQCD_6_pre->Integral();
-      INIT26 = RMSQCD_7_pre->Integral();
+	  INIT20 = RMSQCD_1_pre->Integral();
+	  INIT21 = RMSQCD_2_pre->Integral();
+	  INIT22 = RMSQCD_3_pre->Integral();
+	  INIT23 = RMSQCD_4_pre->Integral();
+	  INIT24 = RMSQCD_5_pre->Integral();
+	  INIT25 = RMSQCD_6_pre->Integral();
+	  INIT26 = RMSQCD_7_pre->Integral();
 
-      INIT27 = RMSWToLNu_1_pre->Integral();
-      INIT28 = RMSWToLNu_2_pre->Integral();
-      INIT29 = RMSWToLNu_3_pre->Integral();
-      INIT30 = RMSWToLNu_4_pre->Integral();
-      INIT31 = RMSWToLNu_5_pre->Integral();
-      INIT32 = RMSWToLNu_6_pre->Integral();
-      INIT33 = RMSWToLNu_7_pre->Integral();
+	  INIT27 = RMSWToLNu_1_pre->Integral();
+	  INIT28 = RMSWToLNu_2_pre->Integral();
+	  INIT29 = RMSWToLNu_3_pre->Integral();
+	  INIT30 = RMSWToLNu_4_pre->Integral();
+	  INIT31 = RMSWToLNu_5_pre->Integral();
+	  INIT32 = RMSWToLNu_6_pre->Integral();
+	  INIT33 = RMSWToLNu_7_pre->Integral();
 
-      INIT34 = RMSTT_1_pre->Integral();
-      INIT35 = RMSTT_2_pre->Integral();
+	  INIT34 = RMSTT_1_pre->Integral();
+	  INIT35 = RMSTT_2_pre->Integral();
 
-      INIT36 = RMSST_1_pre->Integral();
-      INIT37 = RMSST_2_pre->Integral();
-      INIT38 = RMSST_3_pre->Integral();
-      INIT39 = RMSST_4_pre->Integral();
+	  INIT36 = RMSST_1_pre->Integral();
+	  INIT37 = RMSST_2_pre->Integral();
+	  INIT38 = RMSST_3_pre->Integral();
+	  INIT39 = RMSST_4_pre->Integral();
 
-      INIT40 = RMSZZ1_pre->Integral();
-      INIT41 = RMSZZ2_pre->Integral();
-      INIT42 = RMSZZ3_pre->Integral();
-      INIT43 = RMSWW1_pre->Integral();
+	  INIT40 = RMSZZ1_pre->Integral();
+	  INIT41 = RMSZZ2_pre->Integral();
+	  INIT42 = RMSZZ3_pre->Integral();
+	  INIT43 = RMSWW1_pre->Integral();
       INIT44 = RMSWW2_pre->Integral();
       INIT45 = RMSWZ1_pre->Integral();
 	  INIT46 = RMSWZ2_pre->Integral();
@@ -1377,96 +1378,96 @@ void MakeHistosPdfQcd(char CUTinit[1000],const char *plot,int BIN ,float MIN,flo
       RMS1500->Fill((INIT9 -RMS1500_pre->Integral())/INIT9 );
       RMS1600->Fill((INIT10-RMS1600_pre->Integral())/INIT10);
       RMS1700->Fill((INIT11-RMS1700_pre->Integral())/INIT11); 
-      RMS1800->Fill((INIT12-RMS1800_pre->Integral())/INIT12); 
+	  RMS1800->Fill((INIT12-RMS1800_pre->Integral())/INIT12); 
 
-      RMSZToNuNu->Fill((INIT13-RMSZToNuNu_1_pre->Integral())/INIT13);
-      RMSZToNuNu->Fill((INIT14-RMSZToNuNu_2_pre->Integral())/INIT14);
-      RMSZToNuNu->Fill((INIT15-RMSZToNuNu_3_pre->Integral())/INIT15);
-      RMSZToNuNu->Fill((INIT16-RMSZToNuNu_4_pre->Integral())/INIT16);
-      RMSZToNuNu->Fill((INIT17-RMSZToNuNu_5_pre->Integral())/INIT17);
-      RMSZToNuNu->Fill((INIT18-RMSZToNuNu_6_pre->Integral())/INIT18);
-      RMSZToNuNu->Fill((INIT19-RMSZToNuNu_7_pre->Integral())/INIT19);
+	  RMSZToNuNu->Fill((INIT13-RMSZToNuNu_1_pre->Integral())/INIT13);
+	  RMSZToNuNu->Fill((INIT14-RMSZToNuNu_2_pre->Integral())/INIT14);
+	  RMSZToNuNu->Fill((INIT15-RMSZToNuNu_3_pre->Integral())/INIT15);
+	  RMSZToNuNu->Fill((INIT16-RMSZToNuNu_4_pre->Integral())/INIT16);
+	  RMSZToNuNu->Fill((INIT17-RMSZToNuNu_5_pre->Integral())/INIT17);
+	  RMSZToNuNu->Fill((INIT18-RMSZToNuNu_6_pre->Integral())/INIT18);
+	  RMSZToNuNu->Fill((INIT19-RMSZToNuNu_7_pre->Integral())/INIT19);
 
-      RMSQCD->Fill((INIT20-RMSQCD_1_pre->Integral())/INIT20);
-      RMSQCD->Fill((INIT21-RMSQCD_2_pre->Integral())/INIT21);
-      RMSQCD->Fill((INIT22-RMSQCD_3_pre->Integral())/INIT22);
-      RMSQCD->Fill((INIT23-RMSQCD_4_pre->Integral())/INIT23);
-      RMSQCD->Fill((INIT24-RMSQCD_5_pre->Integral())/INIT24);
-      RMSQCD->Fill((INIT25-RMSQCD_6_pre->Integral())/INIT25);
-      RMSQCD->Fill((INIT26-RMSQCD_7_pre->Integral())/INIT26);
+	  RMSQCD->Fill((INIT20-RMSQCD_1_pre->Integral())/INIT20);
+	  RMSQCD->Fill((INIT21-RMSQCD_2_pre->Integral())/INIT21);
+	  RMSQCD->Fill((INIT22-RMSQCD_3_pre->Integral())/INIT22);
+	  RMSQCD->Fill((INIT23-RMSQCD_4_pre->Integral())/INIT23);
+	  RMSQCD->Fill((INIT24-RMSQCD_5_pre->Integral())/INIT24);
+	  RMSQCD->Fill((INIT25-RMSQCD_6_pre->Integral())/INIT25);
+	  RMSQCD->Fill((INIT26-RMSQCD_7_pre->Integral())/INIT26);
 
-      RMSWToLNu->Fill((INIT27-RMSWToLNu_1_pre->Integral())/INIT27);
-      RMSWToLNu->Fill((INIT28-RMSWToLNu_2_pre->Integral())/INIT28);
-      RMSWToLNu->Fill((INIT29-RMSWToLNu_3_pre->Integral())/INIT29);
-      RMSWToLNu->Fill((INIT30-RMSWToLNu_4_pre->Integral())/INIT30);
-      RMSWToLNu->Fill((INIT31-RMSWToLNu_5_pre->Integral())/INIT31);
-      RMSWToLNu->Fill((INIT32-RMSWToLNu_6_pre->Integral())/INIT32);
-      RMSWToLNu->Fill((INIT33-RMSWToLNu_7_pre->Integral())/INIT33);
+	  RMSWToLNu->Fill((INIT27-RMSWToLNu_1_pre->Integral())/INIT27);
+	  RMSWToLNu->Fill((INIT28-RMSWToLNu_2_pre->Integral())/INIT28);
+	  RMSWToLNu->Fill((INIT29-RMSWToLNu_3_pre->Integral())/INIT29);
+	  RMSWToLNu->Fill((INIT30-RMSWToLNu_4_pre->Integral())/INIT30);
+	  RMSWToLNu->Fill((INIT31-RMSWToLNu_5_pre->Integral())/INIT31);
+	  RMSWToLNu->Fill((INIT32-RMSWToLNu_6_pre->Integral())/INIT32);
+	  RMSWToLNu->Fill((INIT33-RMSWToLNu_7_pre->Integral())/INIT33);
 
-      RMSTT->Fill((INIT34-RMSTT_1_pre->Integral())/INIT34);
-      RMSTT->Fill((INIT35-RMSTT_2_pre->Integral())/INIT35);
+	  RMSTT->Fill((INIT34-RMSTT_1_pre->Integral())/INIT34);
+	  RMSTT->Fill((INIT35-RMSTT_2_pre->Integral())/INIT35);
 
-      RMSST->Fill((INIT36-RMSST_1_pre->Integral())/INIT36);
-      RMSST->Fill((INIT37-RMSST_2_pre->Integral())/INIT37);
-      RMSST->Fill((INIT38-RMSST_3_pre->Integral())/INIT38);
-      RMSST->Fill((INIT39-RMSST_4_pre->Integral())/INIT39);
+	  RMSST->Fill((INIT36-RMSST_1_pre->Integral())/INIT36);
+	  RMSST->Fill((INIT37-RMSST_2_pre->Integral())/INIT37);
+	  RMSST->Fill((INIT38-RMSST_3_pre->Integral())/INIT38);
+	  RMSST->Fill((INIT39-RMSST_4_pre->Integral())/INIT39);
 
-      RMSVV->Fill((INIT40 - RMSZZ1_pre->Integral())/INIT40);
-      RMSVV->Fill((INIT41 - RMSZZ2_pre->Integral())/INIT41);
-      RMSVV->Fill((INIT42 - RMSZZ3_pre->Integral())/INIT42);
-      RMSVV->Fill((INIT43 - RMSWW1_pre->Integral())/INIT43);
+	  RMSVV->Fill((INIT40 - RMSZZ1_pre->Integral())/INIT40);
+	  RMSVV->Fill((INIT41 - RMSZZ2_pre->Integral())/INIT41);
+	  RMSVV->Fill((INIT42 - RMSZZ3_pre->Integral())/INIT42);
+	  RMSVV->Fill((INIT43 - RMSWW1_pre->Integral())/INIT43);
       RMSVV->Fill((INIT44 - RMSWW2_pre->Integral())/INIT44);
       RMSVV->Fill((INIT45 - RMSWZ1_pre->Integral())/INIT45);
-      RMSVV->Fill((INIT46 - RMSWZ2_pre->Integral())/INIT46);
-      RMSVV->Fill((INIT47 - RMSWZ3_pre->Integral())/INIT47);
+	  RMSVV->Fill((INIT46 - RMSWZ2_pre->Integral())/INIT46);
+	  RMSVV->Fill((INIT47 - RMSWZ3_pre->Integral())/INIT47);
 
     }
 
   }
   
-  tptzm0700lh_func1->SetBinContent(j,tptzm0700lh->GetBinContent(j) + RMS0700->GetRMS());
-  tptzm0800lh_func1->SetBinContent(j,tptzm0800lh->GetBinContent(j) + RMS0800->GetRMS());
-  tptzm0900lh_func1->SetBinContent(j,tptzm0900lh->GetBinContent(j) + RMS0900->GetRMS());
-  tptzm1000lh_func1->SetBinContent(j,tptzm1000lh->GetBinContent(j) + RMS1000->GetRMS());
-  tptzm1100lh_func1->SetBinContent(j,tptzm1100lh->GetBinContent(j) + RMS1100->GetRMS());
-  tptzm1200lh_func1->SetBinContent(j,tptzm1200lh->GetBinContent(j) + RMS1200->GetRMS());
-  tptzm1300lh_func1->SetBinContent(j,tptzm1300lh->GetBinContent(j) + RMS1300->GetRMS());
-  tptzm1400lh_func1->SetBinContent(j,tptzm1400lh->GetBinContent(j) + RMS1400->GetRMS());
-  tptzm1500lh_func1->SetBinContent(j,tptzm1500lh->GetBinContent(j) + RMS1500->GetRMS());
-  tptzm1600lh_func1->SetBinContent(j,tptzm1600lh->GetBinContent(j) + RMS1600->GetRMS());
-  tptzm1700lh_func1->SetBinContent(j,tptzm1700lh->GetBinContent(j) + RMS1700->GetRMS());
-  ZToNuNu_func1->SetBinContent(j,ZToNuNu->GetBinContent(j) + RMSZToNuNu->GetRMS());
-  QCD_func1->SetBinContent(j,QCD->GetBinContent(j) + RMSQCD->GetRMS());
-  WToLNu_func1->SetBinContent(j,WToLNu->GetBinContent(j) + RMSWToLNu->GetRMS());
-  TT_func1->SetBinContent(j,TT->GetBinContent(j) + RMSTT->GetRMS());
-  ST_func1->SetBinContent(j,ST->GetBinContent(j) + RMSST->GetRMS());
-  VV_func1->SetBinContent(j,VV->GetBinContent(j) + RMSVV->GetRMS());
+  tptzm0700lh_func1->SetBinContent(j,tptzm0700lh->GetBinContent(j)*(1 + RMS0700->GetRMS()));
+  tptzm0800lh_func1->SetBinContent(j,tptzm0800lh->GetBinContent(j)*(1 + RMS0800->GetRMS()));
+  tptzm0900lh_func1->SetBinContent(j,tptzm0900lh->GetBinContent(j)*(1 + RMS0900->GetRMS()));
+  tptzm1000lh_func1->SetBinContent(j,tptzm1000lh->GetBinContent(j)*(1 + RMS1000->GetRMS()));
+  tptzm1100lh_func1->SetBinContent(j,tptzm1100lh->GetBinContent(j)*(1 + RMS1100->GetRMS()));
+  tptzm1200lh_func1->SetBinContent(j,tptzm1200lh->GetBinContent(j)*(1 + RMS1200->GetRMS()));
+  tptzm1300lh_func1->SetBinContent(j,tptzm1300lh->GetBinContent(j)*(1 + RMS1300->GetRMS()));
+  tptzm1400lh_func1->SetBinContent(j,tptzm1400lh->GetBinContent(j)*(1 + RMS1400->GetRMS()));
+  tptzm1500lh_func1->SetBinContent(j,tptzm1500lh->GetBinContent(j)*(1 + RMS1500->GetRMS()));
+  tptzm1600lh_func1->SetBinContent(j,tptzm1600lh->GetBinContent(j)*(1 + RMS1600->GetRMS()));
+  tptzm1700lh_func1->SetBinContent(j,tptzm1700lh->GetBinContent(j)*(1 + RMS1700->GetRMS()));
+  ZToNuNu_func1->SetBinContent(j,ZToNuNu->GetBinContent(j)*(1+ RMSZToNuNu->GetRMS()));
+  QCD_func1->SetBinContent(j,QCD->GetBinContent(j)*(1 + RMSQCD->GetRMS()));
+  WToLNu_func1->SetBinContent(j,WToLNu->GetBinContent(j)*(1 + RMSWToLNu->GetRMS()));
+  TT_func1->SetBinContent(j,TT->GetBinContent(j)*(1 + RMSTT->GetRMS()));
+  ST_func1->SetBinContent(j,ST->GetBinContent(j)*(1 + RMSST->GetRMS()));
+  VV_func1->SetBinContent(j,VV->GetBinContent(j)*(1 + RMSVV->GetRMS()));
 
-  tptzm0700lh_func2->SetBinContent(j,TMath::Max(0., tptzm0700lh->GetBinContent(j) - RMS0700->GetRMS()));
-  tptzm0800lh_func2->SetBinContent(j,TMath::Max(0., tptzm0800lh->GetBinContent(j) - RMS0800->GetRMS()));
-  tptzm0900lh_func2->SetBinContent(j,TMath::Max(0., tptzm0900lh->GetBinContent(j) - RMS0900->GetRMS()));
-  tptzm1000lh_func2->SetBinContent(j,TMath::Max(0., tptzm1000lh->GetBinContent(j) - RMS1000->GetRMS()));
-  tptzm1100lh_func2->SetBinContent(j,TMath::Max(0., tptzm1100lh->GetBinContent(j) - RMS1100->GetRMS()));
-  tptzm1200lh_func2->SetBinContent(j,TMath::Max(0., tptzm1200lh->GetBinContent(j) - RMS1200->GetRMS()));
-  tptzm1300lh_func2->SetBinContent(j,TMath::Max(0., tptzm1300lh->GetBinContent(j) - RMS1300->GetRMS()));
-  tptzm1400lh_func2->SetBinContent(j,TMath::Max(0., tptzm1400lh->GetBinContent(j) - RMS1400->GetRMS()));
-  tptzm1500lh_func2->SetBinContent(j,TMath::Max(0., tptzm1500lh->GetBinContent(j) - RMS1500->GetRMS()));
-  tptzm1600lh_func2->SetBinContent(j,TMath::Max(0., tptzm1600lh->GetBinContent(j) - RMS1600->GetRMS()));
-  tptzm1700lh_func2->SetBinContent(j,TMath::Max(0., tptzm1700lh->GetBinContent(j) - RMS1700->GetRMS()));
+  tptzm0700lh_func2->SetBinContent(j,TMath::Max(0., tptzm0700lh->GetBinContent(j)*(1 - RMS0700->GetRMS())));
+  tptzm0800lh_func2->SetBinContent(j,TMath::Max(0., tptzm0800lh->GetBinContent(j)*(1 - RMS0800->GetRMS())));
+  tptzm0900lh_func2->SetBinContent(j,TMath::Max(0., tptzm0900lh->GetBinContent(j)*(1 - RMS0900->GetRMS())));
+  tptzm1000lh_func2->SetBinContent(j,TMath::Max(0., tptzm1000lh->GetBinContent(j)*(1 - RMS1000->GetRMS())));
+  tptzm1100lh_func2->SetBinContent(j,TMath::Max(0., tptzm1100lh->GetBinContent(j)*(1 - RMS1100->GetRMS())));
+  tptzm1200lh_func2->SetBinContent(j,TMath::Max(0., tptzm1200lh->GetBinContent(j)*(1 - RMS1200->GetRMS())));
+  tptzm1300lh_func2->SetBinContent(j,TMath::Max(0., tptzm1300lh->GetBinContent(j)*(1 - RMS1300->GetRMS())));
+  tptzm1400lh_func2->SetBinContent(j,TMath::Max(0., tptzm1400lh->GetBinContent(j)*(1 - RMS1400->GetRMS())));
+  tptzm1500lh_func2->SetBinContent(j,TMath::Max(0., tptzm1500lh->GetBinContent(j)*(1 - RMS1500->GetRMS())));
+  tptzm1600lh_func2->SetBinContent(j,TMath::Max(0., tptzm1600lh->GetBinContent(j)*(1 - RMS1600->GetRMS())));
+  tptzm1700lh_func2->SetBinContent(j,TMath::Max(0., tptzm1700lh->GetBinContent(j)*(1 - RMS1700->GetRMS())));
 
-  ZToNuNu_func2->SetBinContent(j,TMath::Max(0.,ZToNuNu->GetBinContent(j) - RMSZToNuNu->GetRMS()));
-  QCD_func2->SetBinContent(j,TMath::Max(0.,QCD->GetBinContent(j) - RMSQCD->GetRMS()));
-  WToLNu_func2->SetBinContent(j,TMath::Max(0.,WToLNu->GetBinContent(j) - RMSWToLNu->GetRMS()));
-  TT_func2->SetBinContent(j,TMath::Max(0.,TT->GetBinContent(j) - RMSTT->GetRMS()));
-  ST_func2->SetBinContent(j,TMath::Max(0.,ST->GetBinContent(j) - RMSST->GetRMS()));
-  VV_func2->SetBinContent(j,TMath::Max(0.,VV->GetBinContent(j) - RMSVV->GetRMS()));
+  ZToNuNu_func2->SetBinContent(j,TMath::Max(0.,ZToNuNu->GetBinContent(j)*(1 - RMSZToNuNu->GetRMS())));
+  QCD_func2->SetBinContent(j,TMath::Max(0.,QCD->GetBinContent(j)*(1 - RMSQCD->GetRMS())));
+  WToLNu_func2->SetBinContent(j,TMath::Max(0.,WToLNu->GetBinContent(j)*(1 - RMSWToLNu->GetRMS())));
+  TT_func2->SetBinContent(j,TMath::Max(0.,TT->GetBinContent(j)*(1 - RMSTT->GetRMS())));
+  ST_func2->SetBinContent(j,TMath::Max(0.,ST->GetBinContent(j)*(1 - RMSST->GetRMS())));
+  VV_func2->SetBinContent(j,TMath::Max(0.,VV->GetBinContent(j)*(1 - RMSVV->GetRMS())));
 
   }
 
   TCanvas* c2 = new TCanvas("c1","c1",0,0,600,600);
   RMSTT->Draw();
   c2->SaveAs("RMSTT.png");
- 
+  cout<<"this step is ok"<<endl;
   delete RMS0700; delete RMS0800; delete RMS0900; delete RMS1000; delete RMS1100; delete RMS1200; delete RMS1300; delete RMS1400; delete RMS1500; delete RMS1600; delete RMS1700;  delete RMS1800;
   delete RMSZToNuNu_1; delete RMSZToNuNu_2; delete RMSZToNuNu_3; delete RMSZToNuNu_4; delete RMSZToNuNu_5; delete RMSZToNuNu_6; delete RMSZToNuNu_7; delete RMSZToNuNu;
   delete RMSQCD_1; delete RMSQCD_2; delete RMSQCD_3; delete RMSQCD_4; delete RMSQCD_5; delete RMSQCD_6; delete RMSQCD_7; delete RMSQCD;
