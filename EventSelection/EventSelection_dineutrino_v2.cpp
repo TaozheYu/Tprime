@@ -77,11 +77,11 @@ void EventSelection_dineutrino_Resolved(const char * Input = ""){
   
   for(unsigned int Nfiles=0; Nfiles<fileName.size(); Nfiles++){
     string NewFileprov;
-    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_test/"+fileName[Nfiles];
-	if ((SysJes==1)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v18/JESup/"+fileName[Nfiles];
-	if ((SysJes==2)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v18/JESdo/"+fileName[Nfiles];
-	if ((SysJes==0)&&(SysJer==1)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v18/JERup/"+fileName[Nfiles];
-	if ((SysJes==0)&&(SysJer==2)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v18/JERdo/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v17/"+fileName[Nfiles];
+	if ((SysJes==1)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v17/JESup/"+fileName[Nfiles];
+	if ((SysJes==2)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v17/JESdo/"+fileName[Nfiles];
+	if ((SysJes==0)&&(SysJer==1)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v17/JERup/"+fileName[Nfiles];
+	if ((SysJes==0)&&(SysJer==2)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_v17/JERdo/"+fileName[Nfiles];
 	//NewFileprov = fileName[Nfiles];
     //const char *NewFileName = fileName[Nfiles].c_str();
 	const char *NewFileName = NewFileprov.c_str();
