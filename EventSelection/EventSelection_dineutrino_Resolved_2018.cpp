@@ -82,11 +82,11 @@ void EventSelection_dineutrino_Resolved_2018(const char * Input = ""){
   
   for(unsigned int Nfiles=0; Nfiles<fileName.size(); Nfiles++){
     string NewFileprov;
-    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2018_dineutrino/Preselection_v2/"+fileName[Nfiles];
-    if ((SysJes==1)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2018_dineutrino/Preselection_v2/JESup/"+fileName[Nfiles];
-    if ((SysJes==2)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2018_dineutrino/Preselection_v2/JESdo/"+fileName[Nfiles];
-    if ((SysJes==0)&&(SysJer==1)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2018_dineutrino/Preselection_v2/JERup/"+fileName[Nfiles];
-    if ((SysJes==0)&&(SysJer==2)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2018_dineutrino/Preselection_v2/JERdo/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2018_dineutrino/Preselection_v5/"+fileName[Nfiles];
+    if ((SysJes==1)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2018_dineutrino/Preselection_v5/JESup/"+fileName[Nfiles];
+    if ((SysJes==2)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2018_dineutrino/Preselection_v5/JESdo/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==1)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2018_dineutrino/Preselection_v5/JERup/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==2)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2018_dineutrino/Preselection_v5/JERdo/"+fileName[Nfiles];
     //NewFileprov = fileName[Nfiles];
     //const char *NewFileName = fileName[Nfiles].c_str();
     const char *NewFileName = NewFileprov.c_str();
@@ -147,11 +147,11 @@ void EventSelection_dineutrino_Resolved_2018(const char * Input = ""){
         //vector<TLorentzVector> SelectedTopJets;     SelectCA8Jets(1,SelectedTopJets,SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data, deltaPhiJetMet);   //if(!deltaPhiJetMet)  continue;
         //if (SelectedWJets.size()>0) continue;
         //if (SelectedTopJets.size()>0) continue;
-	vector<TLorentzVector> SelectedJets;        SelectJets(0,SelectedJets       ,SelectedJetsCSV       ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet, HEMveto);  
-	vector<TLorentzVector> SelectedBJetsL;      SelectJets(11,SelectedBJetsL    ,SelectedBJetsLCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet, HEMveto);  
-	vector<TLorentzVector> SelectedBJetsM;      SelectJets(12,SelectedBJetsM    ,SelectedBJetsMCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet, HEMveto);  
-	vector<TLorentzVector> SelectedBJetsT;      SelectJets(13,SelectedBJetsT    ,SelectedBJetsTCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet, HEMveto);  
-	vector<TLorentzVector> SelectedForwardJets; SelectJets(2,SelectedForwardJets,SelectedForwardJetsCSV,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet, HEMveto);  
+	vector<TLorentzVector> SelectedJets;        SelectJets(0,SelectedJets       ,SelectedJetsCSV       ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet, HEMveto, w_HEM);  
+	vector<TLorentzVector> SelectedBJetsL;      SelectJets(11,SelectedBJetsL    ,SelectedBJetsLCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet, HEMveto, w_HEM);  
+	vector<TLorentzVector> SelectedBJetsM;      SelectJets(12,SelectedBJetsM    ,SelectedBJetsMCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet, HEMveto, w_HEM);  
+	vector<TLorentzVector> SelectedBJetsT;      SelectJets(13,SelectedBJetsT    ,SelectedBJetsTCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet, HEMveto, w_HEM);  
+	vector<TLorentzVector> SelectedForwardJets; SelectJets(2,SelectedForwardJets,SelectedForwardJetsCSV,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet, HEMveto, w_HEM);  
         if (HEMveto) continue;
 	TLorentzVector Jet1Resolved;     Jet1Resolved.SetPtEtaPhiE(0, 0, 0, 0);
 	TLorentzVector Jet2Resolved;     Jet2Resolved.SetPtEtaPhiE(0, 0, 0, 0);
@@ -297,7 +297,7 @@ void SelectMuons(vector<TLorentzVector> & SelectedMuons, vector<int> & SelectedM
 }
 
 
-void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float> & SelectedJetsCSV, vector<TLorentzVector> SelectedElectrons, vector<TLorentzVector> SelectedMuons, int SysJes, int SysJer, bool data, bool &deltaPhiJetMet, bool &HEMveto){
+void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float> & SelectedJetsCSV, vector<TLorentzVector> SelectedElectrons, vector<TLorentzVector> SelectedMuons, int SysJes, int SysJer, bool data, bool &deltaPhiJetMet, bool &HEMveto, float &w_HEM){
   //jetType=0  -> usual jets
   //jetType=11 -> b-jets L
   //jetType=12 -> b-jets M
@@ -312,9 +312,12 @@ void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float
     if(SysJes==2 && SysJer==0){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSFdown_->at(j)*Jet_JerSF_->at(j)    ;}
     if(SysJes==0 && SysJer==1){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSFup_->at(j)  ;}
     if(SysJes==0 && SysJer==2){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSFdown_->at(j);}
+    if(data && EVENT_run_>319077 && jetpt>0&&(Jet_eta_->at(j)>-3.2&&Jet_eta_->at(j)<-1.2)&&(Jet_phi_->at(j)>-1.77&&Jet_phi_->at(j)<-0.67)) w_HEM = 0;
+    if((!data) && jetpt>0&&(Jet_eta_->at(j)>-3.2&&Jet_eta_->at(j)<-1.2)&&(Jet_phi_->at(j)>-1.77&&Jet_phi_->at(j)<-0.67)) w_HEM = 0.35; 
+    //if(jetpt>30&&(Jet_eta_->at(j)>-3.0&&Jet_eta_->at(j)<-1.4)&&(Jet_phi_->at(j)>-1.57&&Jet_phi_->at(j)<-0.87))  HEMveto = true;
+    //if(jetpt>25&&(Jet_eta_->at(j)>-3.2&&Jet_eta_->at(j)<-1.2)&&(Jet_phi_->at(j)>-1.77&&Jet_phi_->at(j)<-0.67))  HEMveto = true;
+    //if(HEMveto) break;
     if(!(jetpt>30))                                        continue;
-    if(jetpt>30&&(Jet_eta_->at(j)>-3.0&&Jet_eta_->at(j)<-1.4)&&(Jet_phi_->at(j)>-1.57&&Jet_phi_->at(j)<-0.87))  HEMveto = true;
-    if(HEMveto) break;
     if(!(fabs(Jet_eta_->at(j))<5.0))                                        continue;
     if(fabs(Jet_eta_->at(j))<2.6){
       if(!(Jet_neutralHadEnergyFraction_->at(j)<0.90))                      continue;
@@ -1134,6 +1137,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   NewTree->Branch("w_Trig",            &w_Trig,            "w_Trig/F"            );
   NewTree->Branch("w_TrigUp",          &w_TrigUp,          "w_TrigUp/F"          );
   NewTree->Branch("w_TrigDown",        &w_TrigDown,        "w_TrigDown/F"        );
+  NewTree->Branch("w_HEM",             &w_HEM,             "w_HEM/F"             );
   NewTree->Branch("WMass",             &WMass,             "WMass/F"             );
   NewTree->Branch("WSubjet",           &WSubjet,           "WSubjet/F"           );
   NewTree->Branch("TopSoftMass",       &TopSoftMass,       "TopSoftMass/F"       );
@@ -1546,6 +1550,7 @@ void branch(bool data, TTree *NewTree,TTree *NewTreeSB, string fileName){
   NewTreeSB->Branch("w_Trig",            &w_Trig,            "w_Trig/F"            );
   NewTreeSB->Branch("w_TrigUp",          &w_TrigUp,          "w_TrigUp/F"          );
   NewTreeSB->Branch("w_TrigDown",        &w_TrigDown,        "w_TrigDown/F"        );
+  NewTreeSB->Branch("w_HEM",             &w_HEM,             "w_HEM/F"             );
   NewTreeSB->Branch("WMass",             &WMass,             "WMass/F"             );
   NewTreeSB->Branch("WSubjet",           &WSubjet,           "WSubjet/F"           );
   NewTreeSB->Branch("TopSoftMass",       &TopSoftMass,       "TopSoftMass/F"       );
@@ -1976,6 +1981,7 @@ void initializeVar(){
   w_Trig  = 1;
   w_TrigUp  = 1;
   w_TrigDown  = 1;
+  w_HEM = 1;
   WMass = -99;
   WSubjet = -99;
   TopSoftMass = -99;
