@@ -304,7 +304,7 @@ void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float
   //jetType=13 -> b-jets T
   //jetType=2  -> forward jets
   //MinDeltaPhiJetMet = 99.0;
-  float MaxMostForwardJetEta = 0;
+  float MaxMostForwardJetEta = -99;
   for (UInt_t j = 0; j < Jet_pt_->size(); ++j){
     float jetpt = 0.;
     if(SysJes==0 && SysJer==0){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSF_->at(j)    ;}
@@ -312,7 +312,7 @@ void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float
     if(SysJes==2 && SysJer==0){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSFdown_->at(j)*Jet_JerSF_->at(j)    ;}
     if(SysJes==0 && SysJer==1){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSFup_->at(j)  ;}
     if(SysJes==0 && SysJer==2){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSFdown_->at(j);}
-    if(!(jetpt>20))                                        continue;
+    if(!(jetpt>30))                                        continue;
     if(jetpt>30&&(Jet_eta_->at(j)>-3.0&&Jet_eta_->at(j)<-1.4)&&(Jet_phi_->at(j)>-1.57&&Jet_phi_->at(j)<-0.87))  HEMveto = true;
     if(HEMveto) break;
     if(!(fabs(Jet_eta_->at(j))<5.0))                                        continue;
@@ -340,10 +340,10 @@ void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float
     if(jetType==12){if(!(Jet_pfDeepCSVBJetTags_->at(j)>0.4184)) continue;}
     if(jetType==13){if(!(Jet_pfDeepCSVBJetTags_->at(j)>0.7527)) continue;}
     if(jetType==0){
-      if (fabs(Jet_eta_->at(j))>MaxMostForwardJetEta) {MaxMostForwardJetEta = fabs(Jet_eta_->at(j)); MostForwardJetEta = Jet_eta_->at(j); MostForwardJetPt = jetpt;}
+      if (fabs(Jet_eta_->at(j))>MaxMostForwardJetEta&&jetpt>50) {MaxMostForwardJetEta = fabs(Jet_eta_->at(j)); MostForwardJetEta = Jet_eta_->at(j); MostForwardJetPt = jetpt;}
     }
-    if(jetType==2) {if(!(fabs(Jet_eta_->at(j))>=2.6))                       continue;if(!(jetpt>20)) continue;}
-    else {if(!(fabs(Jet_eta_->at(j))<2.6))		                            continue;}
+    if(jetType==2) {if(!(fabs(Jet_eta_->at(j))>=2.4))                       continue;if(!(jetpt>30)) continue;}
+    else {if(!(fabs(Jet_eta_->at(j))<2.4))		                            continue;}
     if(DeltaPhi(Jet_phi_->at(j),Met_type1PF_phi_)<MinDeltaPhiJetMet) MinDeltaPhiJetMet = DeltaPhi(Jet_phi_->at(j),Met_type1PF_phi_);
     float SF = jetpt/Jet_pt_->at(j);
     TLorentzVector jet_prov; jet_prov.SetPtEtaPhiM(Jet_pt_->at(j),Jet_eta_->at(j),Jet_phi_->at(j),Jet_mass_->at(j));
