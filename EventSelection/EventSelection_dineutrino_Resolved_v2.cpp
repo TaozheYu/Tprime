@@ -10,13 +10,13 @@ void EventSelection_dineutrino_Resolved_v2(const char * Input = ""){
   gStyle->SetTitleY(0.96);
   gStyle->SetPaintTextFormat(".2f");
 
-  bool preselection = true;
+  bool preselection = false;
   bool sideband     = false;
-  bool signal       = false;
+  bool signal       = true;
 
   //SYSTEMATICS: 0 is standard, 1 is UP, 2 is down
   int SysJes = 0;
-  int SysJer = 0;
+  int SysJer = 2;
   
   using namespace std;
   char openTree[500];   sprintf(openTree, "TNT/BOOM"); 
@@ -82,11 +82,11 @@ void EventSelection_dineutrino_Resolved_v2(const char * Input = ""){
   
   for(unsigned int Nfiles=0; Nfiles<fileName.size(); Nfiles++){
     string NewFileprov;
-    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_new_v10/"+fileName[Nfiles];
-    if ((SysJes==1)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_new_v10/JESup/"+fileName[Nfiles];
-    if ((SysJes==2)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_new_v10/JESdo/"+fileName[Nfiles];
-    if ((SysJes==0)&&(SysJer==1)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_new_v10/JERup/"+fileName[Nfiles];
-    if ((SysJes==0)&&(SysJer==2)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Preselection_new_v10/JERdo/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Selection_new_v7/"+fileName[Nfiles];
+    if ((SysJes==1)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Selection_new_v7/JESup/"+fileName[Nfiles];
+    if ((SysJes==2)&&(SysJer==0)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Selection_new_v7/JESdo/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==1)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Selection_new_v7/JERup/"+fileName[Nfiles];
+    if ((SysJes==0)&&(SysJer==2)) NewFileprov = "/publicfs/cms/user/yutz/Tprime/2017_dineutrino/Selection_new_v7/JERdo/"+fileName[Nfiles];
     //NewFileprov = fileName[Nfiles];
     //const char *NewFileName = fileName[Nfiles].c_str();
     const char *NewFileName = NewFileprov.c_str();
@@ -143,10 +143,10 @@ void EventSelection_dineutrino_Resolved_v2(const char * Input = ""){
 	vector<int>   CA8Indices;
 	int CA8Index = -1;
 	bool deltaPhiJetMet=true;
-        vector<TLorentzVector> SelectedWJets;       SelectCA8Jets(0,SelectedWJets,  SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data, deltaPhiJetMet);   //if(!deltaPhiJetMet)  continue;
-        vector<TLorentzVector> SelectedTopJets;     SelectCA8Jets(1,SelectedTopJets,SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data, deltaPhiJetMet);   //if(!deltaPhiJetMet)  continue;
-        if (SelectedWJets.size()>0) continue;
-        if (SelectedTopJets.size()>0) continue;
+        //vector<TLorentzVector> SelectedWJets;       SelectCA8Jets(0,SelectedWJets,  SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data, deltaPhiJetMet);   //if(!deltaPhiJetMet)  continue;
+        //vector<TLorentzVector> SelectedTopJets;     SelectCA8Jets(1,SelectedTopJets,SelectedElectrons,SelectedMuons,CA8Indices, SysJes, SysJer, data, deltaPhiJetMet);   //if(!deltaPhiJetMet)  continue;
+        //if (SelectedWJets.size()>0) continue;
+        //if (SelectedTopJets.size()>0) continue;
 	vector<TLorentzVector> SelectedJets;        SelectJets(0,SelectedJets       ,SelectedJetsCSV       ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
 	vector<TLorentzVector> SelectedBJetsL;      SelectJets(11,SelectedBJetsL    ,SelectedBJetsLCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
 	vector<TLorentzVector> SelectedBJetsM;      SelectJets(12,SelectedBJetsM    ,SelectedBJetsMCSV     ,SelectedElectrons,SelectedMuons, SysJes, SysJer, data, deltaPhiJetMet);  //if(!deltaPhiJetMet)  continue;
@@ -302,7 +302,7 @@ void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float
   //jetType=13 -> b-jets T
   //jetType=2  -> forward jets
   //MinDeltaPhiJetMet = 99.0;
-  float MaxMostForwardJetEta = 0;
+  float MaxMostForwardJetEta = -99;
   for (UInt_t j = 0; j < Jet_pt_->size(); ++j){
     float jetpt = 0.;
     if(SysJes==0 && SysJer==0){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSF_->at(j)    ;}
@@ -310,10 +310,9 @@ void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float
     if(SysJes==2 && SysJer==0){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSFdown_->at(j)*Jet_JerSF_->at(j)    ;}
     if(SysJes==0 && SysJer==1){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSFup_->at(j)  ;}
     if(SysJes==0 && SysJer==2){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSFdown_->at(j);}
+    if(fabs(Jet_eta_->at(j))>2.65&&fabs(Jet_eta_->at(j))<3.139&&jetpt>50)    continue;
     if(!(jetpt>30))                                        continue;
     if(!(fabs(Jet_eta_->at(j))<5.0))                                        continue;
-    //if(jetType==2) {if(!(fabs(Jet_eta_->at(j))>=2.4))                       continue;if(!(jetpt>30)) continue;}
-    //else {if(!(fabs(Jet_eta_->at(j))<2.4))		                            continue;}
     if(fabs(Jet_eta_->at(j))<2.4){
       if(!(Jet_neutralHadEnergyFraction_->at(j)<0.90))                      continue;
       if(!(Jet_neutralEmEnergyFraction_->at(j)<0.90))                       continue;
@@ -338,7 +337,7 @@ void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float
     if(jetType==12){if(!(Jet_pfDeepCSVBJetTags_->at(j)>0.4941)) continue;}
     if(jetType==13){if(!(Jet_pfDeepCSVBJetTags_->at(j)>0.8001)) continue;}
     if(jetType==0){
-      if (fabs(Jet_eta_->at(j))>MaxMostForwardJetEta) {MaxMostForwardJetEta = Jet_eta_->at(j); MostForwardJetEta = Jet_eta_->at(j); MostForwardJetPt = jetpt;}
+      if (fabs(Jet_eta_->at(j))>MaxMostForwardJetEta) {MaxMostForwardJetEta = fabs(Jet_eta_->at(j)); MostForwardJetEta = Jet_eta_->at(j); MostForwardJetPt = jetpt;}
     }
     if(jetType==2) {if(!(fabs(Jet_eta_->at(j))>=2.4))                       continue;if(!(jetpt>30)) continue;}
     else {if(!(fabs(Jet_eta_->at(j))<2.4))		                            continue;}
@@ -740,7 +739,6 @@ void HTSF(string fileName, float HT, float Met_pt, float &w_SF1, float &w_SF1Up,
         if (Met_pt>200 && Met_pt<400) metBin = 1; 
         if (Met_pt>400 && Met_pt<700) metBin = 2; 
         if (Met_pt>700 && Met_pt<1600) metBin = 3; 
-        //if (Met_pt>800 && Met_pt<1400) metBin = 4;
         if (htBin==0 || metBin==0){ 
            w_SF1=1; w_SF1Up=1; w_SF1Down=1;
         }  else {  
@@ -759,7 +757,6 @@ void HTSF(string fileName, float HT, float Met_pt, float &w_SF1, float &w_SF1Up,
         if (Met_pt>200 && Met_pt<400) metBin = 1; 
         if (Met_pt>400 && Met_pt<700) metBin = 2; 
         if (Met_pt>700 && Met_pt<1600) metBin = 3; 
-        //if (Met_pt>800 && Met_pt<1400) metBin = 4;
         if (htBin==0 || metBin==0){ 
            w_SF2=1; w_SF2Up=1; w_SF2Down=1;
         }  else {  
