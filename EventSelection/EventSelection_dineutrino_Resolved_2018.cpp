@@ -312,8 +312,8 @@ void SelectJets(int jetType, vector<TLorentzVector> & SelectedJets, vector<float
     if(SysJes==2 && SysJer==0){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSFdown_->at(j)*Jet_JerSF_->at(j)    ;}
     if(SysJes==0 && SysJer==1){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSFup_->at(j)  ;}
     if(SysJes==0 && SysJer==2){jetpt = Jet_Uncorr_pt_->at(j)*Jet_JesSF_->at(j)    *Jet_JerSFdown_->at(j);}
-    if(data && EVENT_run_>319077 && jetpt>0 &&(Jet_eta_->at(j)>-3.2&&Jet_eta_->at(j)<-1.2)&&(Jet_phi_->at(j)>-1.77&&Jet_phi_->at(j)<-0.67)) w_HEM = 0;
-    if((!data) && jetpt>30 &&(Jet_eta_->at(j)>-3.2&&Jet_eta_->at(j)<-1.2)&&(Jet_phi_->at(j)>-1.77&&Jet_phi_->at(j)<-0.67)) w_HEM = 0.35; 
+    if(data && EVENT_run_>319077 && jetpt>25 &&(Jet_eta_->at(j)>-3.2&&Jet_eta_->at(j)<-1.2)&&(Jet_phi_->at(j)>-1.77&&Jet_phi_->at(j)<-0.67)) w_HEM = 0;
+    if((!data) && jetpt>25 &&(Jet_eta_->at(j)>-3.2&&Jet_eta_->at(j)<-1.2)&&(Jet_phi_->at(j)>-1.77&&Jet_phi_->at(j)<-0.67)) w_HEM = 0.35; 
     //if(jetpt>30&&(Jet_eta_->at(j)>-3.0&&Jet_eta_->at(j)<-1.4)&&(Jet_phi_->at(j)>-1.57&&Jet_phi_->at(j)<-0.87))  HEMveto = true;
     //if(jetpt>25&&(Jet_eta_->at(j)>-3.2&&Jet_eta_->at(j)<-1.2)&&(Jet_phi_->at(j)>-1.77&&Jet_phi_->at(j)<-0.67))  HEMveto = true;
     //if(HEMveto) break;
