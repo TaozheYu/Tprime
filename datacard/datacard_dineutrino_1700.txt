@@ -1,0 +1,49 @@
+imax 6
+jmax *
+kmax *
+-------------
+shapes * cat_0  shape_dineutrino_2016_0.root $PROCESS $PROCESS_$SYSTEMATIC
+shapes * cat_1  shape_dineutrino_2016_1.root $PROCESS $PROCESS_$SYSTEMATIC
+shapes * cat_2  shape_dineutrino_2017_0.root $PROCESS $PROCESS_$SYSTEMATIC
+shapes * cat_3  shape_dineutrino_2017_1.root $PROCESS $PROCESS_$SYSTEMATIC
+shapes * cat_4  shape_dineutrino_2018_0.root $PROCESS $PROCESS_$SYSTEMATIC
+shapes * cat_5  shape_dineutrino_2018_1.root $PROCESS $PROCESS_$SYSTEMATIC
+-------------
+bin          cat_0    cat_1    cat_2    cat_3    cat_4    cat_5
+observation  -1       -1         -1       -1      -1       -1
+----------------------------------------
+bin      cat_0         cat_0    cat_0   cat_0     cat_0    cat_1         cat_1     cat_1    cat_1      cat_1       cat_2         cat_2     cat_2    cat_2      cat_2      cat_3         cat_3     cat_3    cat_3      cat_3     cat_4         cat_4    cat_4   cat_4     cat_4    cat_5         cat_5     cat_5    cat_5      cat_5 
+process  tptzm1700lh   ZToNuNu  WToLNu  Top       Others   tptzm1700lh   ZToNuNu   WToLNu   Top        Others        tptzm1700lh   ZToNuNu   WToLNu   Top        Others      tptzm1700lh   ZToNuNu   WToLNu   Top        Others   tptzm1700lh   ZToNuNu   WToLNu   Top        Others        tptzm1700lh   ZToNuNu   WToLNu   Top        Others  
+process  0             1        2       3         4        0             1         2        3          4             0             1         2        3          4           0             1         2        3          4        0             1         2        3          4             0             1         2        3          4
+rate     -1            -1       -1      -1        -1       -1            -1        -1       -1         -1            -1            -1        -1       -1         -1          -1            -1        -1       -1         -1       -1            -1        -1       -1         -1            -1            -1        -1       -1         -1
+----------------------------------------
+luminosity  lnN    1.025 - - - 1.025 1.025 - - - 1.025     1.023 - - - 1.023 1.023 - - - 1.023    1.025 - - - 1.025 1.025 - - - 1.025
+pu          lnN    1.005 1.003 1.007 1.005 1.001 1.002 1.022 1.025 1.002 1.007    1.008 1.003 1.013 1.006 1.019 1.009 1.013 1.029 1.004 1.024    1.005 1.005 1.008 1.002 1.003 1.008 1.030 1.035 1.003 1.005  
+btag        lnN    1.044 1.059 1.068 1.042 1.066 1.042 1.060 1.066 1.042 1.066    1.045 1.078 1.099 1.061 1.082 1.046 1.078 1.099 1.062 1.079    1.050 1.069 1.085 1.053 1.064 1.049 1.069 1.087 1.053 1.065
+prefiring   lnN    1.003 1.002 1.002 1.002 1.002 1.008 1.008 1.010 1.003 1.004    1.005 1.004 1.004 1.003 1.004 1.015 1.012 1.014 1.005 1.007    -     -     -     -     -     -     -     -     -     -
+trigger     lnN    1.006 1.006 1.007 1.009 1.008 1.006 1.008 1.009 1.009 1.008    1.017 1.015 1.017 1.020 1.023 1.017 1.016 1.019 1.020 1.024    1.004 1.008 1.009 1.013 1.012 1.005 1.008 1.011 1.014 1.012
+pdf_total   lnN    1.000 1.080 1.070 1.029 1.038 1.000 1.093 1.081 1.030 1.039    1.000 1.009 1.009 1.004 1.017 1.000 1.011 1.011 1.004 1.017    1.000 1.009 1.009 1.004 1.015 1.000 1.011 1.011 1.004 1.015
+jes         shape  1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1   
+jer         shape  1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1
+q2Tprime    shape  1 - - - - 1 - - - -   1 - - - - 1 - - - -   1 - - - - 1 - - - -
+q2ZJets     shape  - 1 - - - - 1 - - -   - 1 - - - - 1 - - -   - 1 - - - - 1 - - -
+q2WJets     shape  - - 1 - - - - 1 - -   - - 1 - - - - 1 - -   - - 1 - - - - 1 - -
+q2TT        shape  - - - 1 - - - - 1 -   - - - 1 - - - - 1 -   - - - 1 - - - - 1 -
+q2Others    shape  - - - - 1 - - - - 1   - - - - 1 - - - - 1   - - - - 1 - - - - 1
+zjet        shape  - 1 - - - - 1 - - -   - 1 - - - - 1 - - -   - 1 - - - - 1 - - -
+wjet        shape  - - 1 - - - - 1 - -   - - 1 - - - - 1 - -   - - 1 - - - - 1 - -
+ttbar       shape  - - - 1 - - - - 1 -   - - - 1 - - - - 1 -   - - - 1 - - - - 1 -
+zjet_Btag   shape  - 1 - - - - 1 - - -   - 1 - - - - 1 - - -   - 1 - - - - 1 - - -
+wjet_Btag   shape  - - 1 - - - - 1 - -   - - 1 - - - - 1 - -   - - 1 - - - - 1 - -
+ttbar_Btag  shape  - - - 1 - - - - 1 -   - - - 1 - - - - 1 -   - - - 1 - - - - 1 -
+
+cat_0  autoMCStats 0 0 1
+cat_1  autoMCStats 0 0 1
+cat_2  autoMCStats 0 0 1
+cat_3  autoMCStats 0 0 1
+cat_4  autoMCStats 0 0 1
+cat_5  autoMCStats 0 0 1
+
+
+
+
