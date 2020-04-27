@@ -1,2 +1,0 @@
-combine -M GenerateOnly datacard_dineutrino_${h}.txt --toysFrequentist --bypassFrequentistFit -t 500 --saveToys -s 123 --expectSignal ${j} -n r10_100 --rMin -5 --rMax 5
-combine -M FitDiagnostics datacard_dineutrino_${h}.txt --skipBOnlyFit -t 500 --toysFile higgsCombiner10_100.GenerateOnly.mH120.123.root -n r10_100 --rMin -5 --rMax 5
